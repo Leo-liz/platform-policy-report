@@ -1,0 +1,822 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>平台 API/开发者变更监控报告</title>
+  <style>
+    :root {
+      --blue-900: #103a74;
+      --blue-800: #174a91;
+      --blue-700: #1d5fbf;
+      --blue-050: #eef6ff;
+      --bg: #f4f7fb;
+      --panel: #ffffff;
+      --text: #1f2937;
+      --muted: #667085;
+      --line: #d7deea;
+      --head: #e8f0fb;
+      --danger: #b42318;
+      --warn: #b54708;
+      --ok: #047857;
+      --info: #0b63ce;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 13px/1.45 "Segoe UI", "Microsoft YaHei", Arial, sans-serif;
+    }
+    a { color: var(--blue-700); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .page { max-width: 1760px; margin: 0 auto; padding: 16px 20px 28px; }
+    .top-strip {
+      background: var(--blue-900);
+      border-bottom: 3px solid var(--blue-700);
+      color: #fff;
+    }
+    .top-strip-inner {
+      max-width: 1760px;
+      margin: 0 auto;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+    }
+    .top-strip strong { font-size: 15px; }
+    .top-strip span { color: #c9dcff; }
+    .report-nav {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 12px 0;
+    }
+    .report-nav a {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-left: 3px solid var(--blue-700);
+      color: var(--blue-900);
+      padding: 6px 10px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+    .top-panel, .table-box {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .table-box { overflow-x: auto; }
+    .title-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 16px;
+      background: linear-gradient(90deg, var(--blue-900), var(--blue-800));
+      color: #fff;
+    }
+    .eyebrow { margin: 0 0 2px; color: #c9dcff; font-weight: 700; }
+    h1, h2, h3 { margin: 0; letter-spacing: 0; }
+    h1 { font-size: 22px; }
+    h2 { font-size: 18px; color: var(--blue-900); }
+    h3 { font-size: 16px; color: var(--blue-900); }
+    .run-time { text-align: right; }
+    .run-time span { display: block; color: #c9dcff; font-size: 12px; }
+    .run-time strong { font-size: 14px; }
+    .summary-line {
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--line);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--blue-900);
+      background: var(--blue-050);
+    }
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(8, minmax(92px, 1fr));
+      border-bottom: 1px solid var(--line);
+    }
+    .metric {
+      padding: 10px 12px;
+      border-right: 1px solid var(--line);
+      min-height: 56px;
+    }
+    .metric:last-child { border-right: 0; }
+    .metric span { display: block; color: var(--muted); }
+    .metric strong { display: block; margin-top: 2px; font-size: 22px; line-height: 1; color: var(--blue-900); }
+    .scope-line { padding: 9px 16px; color: var(--muted); }
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 16px;
+      margin: 18px 0 8px;
+    }
+    .section-head p { margin: 0; color: var(--muted); }
+    .monitor-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+    .monitor-table th {
+      background: var(--head);
+      color: var(--blue-900);
+      border-bottom: 1px solid var(--line);
+      border-right: 1px solid var(--line);
+      padding: 8px 9px;
+      text-align: left;
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .monitor-table td {
+      border-bottom: 1px solid var(--line);
+      border-right: 1px solid var(--line);
+      padding: 8px 9px;
+      vertical-align: top;
+      overflow-wrap: anywhere;
+      background: #fff;
+    }
+    .monitor-table tr:nth-child(even) td { background: #f9fbfe; }
+    .monitor-table th:last-child, .monitor-table td:last-child { border-right: 0; }
+    .priority-table { min-width: 1540px; }
+    .priority-table th:nth-child(1), .priority-table td:nth-child(1) { width: 62px; }
+    .priority-table th:nth-child(2), .priority-table td:nth-child(2) { width: 122px; }
+    .priority-table th:nth-child(3), .priority-table td:nth-child(3) { width: 94px; }
+    .priority-table th:nth-child(4), .priority-table td:nth-child(4) { width: 180px; }
+    .priority-table th:nth-child(5), .priority-table td:nth-child(5) { width: 160px; }
+    .priority-table th:nth-child(6), .priority-table td:nth-child(6) { width: 128px; }
+    .priority-table th:nth-child(7), .priority-table td:nth-child(7) { width: 240px; }
+    .priority-table th:nth-child(10), .priority-table td:nth-child(10) { width: 130px; }
+    .priority-table th:nth-child(11), .priority-table td:nth-child(11) { width: 118px; }
+    .platform-table th:nth-child(1), .platform-table td:nth-child(1) { width: 94px; }
+    .platform-table th:nth-child(2), .platform-table td:nth-child(2) { width: 86px; }
+    .platform-table th:nth-child(3), .platform-table td:nth-child(3) { width: 92px; }
+    .platform-table th:nth-child(6), .platform-table td:nth-child(6) { width: 210px; }
+    .platform-table th:nth-child(8), .platform-table td:nth-child(8) { width: 120px; }
+    .platform-table th:nth-child(9), .platform-table td:nth-child(9) { width: 105px; }
+    .platform-table th:nth-child(10), .platform-table td:nth-child(10) { width: 190px; }
+    .platform-table th:nth-child(11), .platform-table td:nth-child(11) { width: 190px; }
+    .badge {
+      display: inline-block;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.35;
+      white-space: nowrap;
+      margin: 0 3px 3px 0;
+    }
+    .priority-table td:nth-child(2) .badge {
+      max-width: 100%;
+      white-space: normal;
+      overflow-wrap: anywhere;
+    }
+    .impact-high, .status-changed { background: #fee4e2; color: var(--danger); }
+    .impact-medium, .status-new { background: #dbeafe; color: var(--info); }
+    .impact-low, .status-unchanged, .notice-sent, .notice-not-required { background: #dcfce7; color: var(--ok); }
+    .impact-pending, .status-failed, .status-needs-decision, .notice-pending-config, .notice-failed, .notice-pending { background: #fef0c7; color: var(--warn); }
+    .notice-unsent { background: #e0e7ff; color: #3730a3; }
+    .mode-direct { background: #e8f5ee; color: var(--ok); }
+    .mode-detail, .source-reliability { background: #e8f1ff; color: var(--info); }
+    .ai-degraded { background: #fff7ed; color: var(--warn); }
+    .source-jump strong, .source-jump span { display: block; }
+    .mode-inline { margin-top: 4px; }
+    .tag-cell { min-width: 150px; }
+    .muted { color: var(--muted); }
+    .error-text { color: var(--danger); font-weight: 700; }
+    .solution { color: var(--blue-900); }
+    .link-row { margin-top: 3px; color: var(--muted); }
+    .history-toolbar {
+      display: flex;
+      gap: 12px;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 10px;
+      margin-bottom: 8px;
+    }
+    .history-date-filter {
+      position: relative;
+      display: grid;
+      grid-template-columns: auto minmax(210px, 280px);
+      gap: 8px;
+      align-items: center;
+    }
+    .history-date-filter label {
+      font-weight: 700;
+      color: var(--blue-900);
+      white-space: nowrap;
+    }
+    .history-date-trigger {
+      min-height: 36px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 7px 10px;
+      color: var(--text);
+      background: #fff;
+      font: inherit;
+      text-align: left;
+      cursor: pointer;
+    }
+    .history-date-trigger:hover, .history-date-trigger:focus-visible {
+      border-color: var(--blue-700);
+      outline: 2px solid rgba(29, 95, 191, .14);
+      outline-offset: 1px;
+    }
+    .history-date-trigger:disabled { cursor: not-allowed; color: var(--muted); background: #f8fafc; }
+    .history-calendar {
+      position: absolute;
+      z-index: 20;
+      left: 76px;
+      top: calc(100% + 6px);
+      width: min(330px, calc(100vw - 48px));
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fff;
+      box-shadow: 0 12px 28px rgba(16, 58, 116, .18);
+    }
+    .history-calendar[hidden] { display: none; }
+    .history-calendar-head {
+      display: grid;
+      grid-template-columns: 34px 1fr 34px;
+      align-items: center;
+      margin-bottom: 7px;
+    }
+    .history-calendar-head strong { text-align: center; color: var(--blue-900); font-size: 14px; }
+    .history-calendar-head button {
+      width: 32px;
+      height: 30px;
+      border: 0;
+      border-radius: 4px;
+      background: transparent;
+      color: var(--blue-900);
+      font-size: 22px;
+      line-height: 1;
+      cursor: pointer;
+    }
+    .history-calendar-head button:hover:not(:disabled) { background: var(--blue-050); }
+    .history-calendar-head button:disabled { color: #b8c0cc; cursor: not-allowed; }
+    .history-calendar-week, .history-calendar-days {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 3px;
+    }
+    .history-calendar-week span {
+      padding: 4px 0;
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .history-calendar-day {
+      min-width: 0;
+      height: 32px;
+      border: 0;
+      border-radius: 4px;
+      background: var(--blue-050);
+      color: var(--blue-800);
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .history-calendar-day:hover:not(:disabled) { background: #d7e8ff; }
+    .history-calendar-day.selected { background: var(--blue-700); color: #fff; }
+    .history-calendar-day.outside-month { opacity: .55; }
+    .history-calendar-day:disabled { background: transparent; color: #b8c0cc; cursor: default; font-weight: 400; }
+    .history-calendar-foot { margin: 8px 2px 0; color: var(--muted); font-size: 12px; }
+    .history-range-note { margin: 0; color: var(--muted); }
+    .history-date-row { display: flex; gap: 6px; flex-wrap: wrap; width: 100%; }
+    .history-date-row a {
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 5px 8px;
+      background: #fff;
+    }
+    .history-warning {
+      margin: 0 0 8px;
+      color: var(--warn);
+      font-weight: 700;
+    }
+    .platform-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 16px 0 6px;
+      padding: 8px 10px;
+      background: var(--blue-050);
+      border-left: 4px solid var(--blue-700);
+      border-radius: 4px;
+    }
+    .platform-title span {
+      color: var(--muted);
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 4px;
+      padding: 2px 6px;
+    }
+    .empty { text-align: center; color: var(--muted); padding: 18px; }
+    .trial-banner {
+      margin: 10px 0;
+      padding: 9px 12px;
+      border: 1px solid #f2c94c;
+      border-radius: 4px;
+      background: #fff8db;
+      color: #6b4f00;
+    }
+    .ai-metadata {
+      margin: 10px 0;
+      padding: 7px 10px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: var(--panel);
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .tag-primary {
+      display: inline-block;
+      padding: 3px 7px;
+      border-radius: 4px;
+      background: var(--blue-800);
+      color: #fff;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .tag-list { margin-top: 4px; display: flex; gap: 4px; flex-wrap: wrap; align-items: flex-start; }
+    .tag-secondary {
+      display: inline-block;
+      padding: 2px 5px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: #fff;
+      color: var(--muted);
+      max-width: 100%;
+      white-space: normal;
+      overflow-wrap: anywhere;
+    }
+    .footer { color: var(--muted); margin: 18px 0 0; font-size: 12px; }
+    @media (max-width: 1100px) {
+      .page { padding: 12px; }
+      .metric-grid { grid-template-columns: repeat(4, minmax(90px, 1fr)); }
+      .monitor-table { min-width: 1180px; }
+      .section-head, .title-bar { align-items: flex-start; flex-direction: column; }
+      .run-time { text-align: left; }
+      .history-date-filter { grid-template-columns: 1fr; width: 100%; }
+      .history-calendar { left: 0; }
+    }
+    @media print {
+      body { background: #fff; }
+      .top-strip, .report-nav { display: none; }
+      .page { max-width: none; padding: 0; }
+      .table-box, .top-panel { border-color: #aaa; }
+      .monitor-table th, .monitor-table td { padding: 5px; font-size: 11px; }
+      a { color: #000; text-decoration: underline; }
+    }
+  </style>
+</head>
+<body>
+  <header class="top-strip">
+    <div class="top-strip-inner">
+      <strong>平台政策抓取 · 监控报告</strong>
+      <span>生成时间: 2026-07-24T01:28:59+08:00</span>
+    </div>
+  </header>
+  <main class="page">
+
+    <div class="ai-metadata" data-ai-provider="codex_builtin_postprocess" data-ai-model="current_codex_thread" data-ai-schema="11">摘要模型：codex_builtin_postprocess / current_codex_thread · Schema 11</div>
+    <nav class="report-nav" aria-label="报告导航">
+      <a href="#overview">运行概览</a>
+      <a href="#history">历史报告</a>
+      <a href="#priority">需要处理</a>
+      <a href="#failures">失败与待修复</a>
+    </nav>
+
+<section class="top-panel" id="overview">
+  <div class="title-bar">
+    <div>
+      <p class="eyebrow">内部监控报告</p>
+      <h1>平台 API/开发者变更监控</h1>
+    </div>
+  </div>
+  <div class="summary-line">发现 3 个今天/昨天需处理事件，0 个日期未解析的内容变化事件，0 个延迟发现需处理事件，0 个历史补录/追溯事件，3 个抓取失败，0 个待决策事件。</div>
+  <div class="metric-grid"><div class="metric"><span>监控平台</span><strong>12</strong></div>
+<div class="metric"><span>监控源</span><strong>12</strong></div>
+<div class="metric"><span>变更</span><strong>0</strong></div>
+<div class="metric"><span>失败</span><strong>3</strong></div>
+<div class="metric"><span>待决策</span><strong>0</strong></div>
+<div class="metric"><span>高影响</span><strong>6</strong></div>
+<div class="metric"><span>AI 降级</span><strong>3</strong></div>
+<div class="metric"><span>负责人待确认</span><strong>10</strong></div></div>
+  <div class="scope-line"><strong>平台范围:</strong> eBay / Amazon SP-API / AliExpress / Shopee / Lazada / Mercado Libre / Temu / Ozon（Telegram 官方频道） / Wildberries（Telegram 官方频道） / TikTok Shop / Shopify / Walmart</div>
+</section>
+
+
+<section id="history" class="history-panel">
+  <div class="section-head">
+    <h2>历史报告入口</h2>
+    <p>默认查看最近 30 天；全部历史记录永久保留，可切换月份筛选。</p>
+  </div>
+  <div class="history-toolbar">
+    <div class="history-date-filter" data-history-calendar>
+      <label for="history-date-trigger">报告日期</label>
+      <button
+        id="history-date-trigger"
+        class="history-date-trigger"
+        type="button"
+        aria-haspopup="dialog"
+        aria-expanded="false"
+        aria-controls="history-calendar-panel"
+        data-selected-date="2026-07-24"
+
+      >2026-07-24<span aria-hidden="true">▦</span></button>
+      <div id="history-calendar-panel" class="history-calendar" role="dialog" aria-label="历史报告日期筛选" hidden>
+        <div class="history-calendar-head">
+          <button type="button" data-calendar-prev aria-label="上一个月">‹</button>
+          <strong data-calendar-title></strong>
+          <button type="button" data-calendar-next aria-label="下一个月">›</button>
+        </div>
+        <div class="history-calendar-week" aria-hidden="true"><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span></div>
+        <div class="history-calendar-days" data-calendar-days></div>
+        <p class="history-calendar-foot">蓝色日期有报告；点击后打开当天最新成功报告。</p>
+      </div>
+    </div>
+    <p class="history-range-note">默认范围：2026-07-19 至 2026-08-17 · 可筛选 49 个历史日期</p>
+    <noscript><div class="history-date-row" aria-label="最近 30 天"><a href="html_report_20260817-010116.html" data-history-file="html_report_20260817-010116.html">2026-08-17</a>
+<a href="html_report_20260816-010145.html" data-history-file="html_report_20260816-010145.html">2026-08-16</a>
+<a href="html_report_20260815-010153.html" data-history-file="html_report_20260815-010153.html">2026-08-15</a>
+<a href="html_report_20260814-010220.html" data-history-file="html_report_20260814-010220.html">2026-08-14</a>
+<a href="html_report_20260813-010246.html" data-history-file="html_report_20260813-010246.html">2026-08-13</a>
+<a href="html_report_20260812-010104.html" data-history-file="html_report_20260812-010104.html">2026-08-12</a>
+<a href="html_report_20260811-010222.html" data-history-file="html_report_20260811-010222.html">2026-08-11</a>
+<a href="html_report_20260810-092553.html" data-history-file="html_report_20260810-092553.html">2026-08-10</a>
+<a href="html_report_20260810-091525.html" data-history-file="html_report_20260810-091525.html">2026-08-09</a>
+<a href="html_report_20260810-090255.html" data-history-file="html_report_20260810-090255.html">2026-08-08</a>
+<a href="html_report_20260807-010158.html" data-history-file="html_report_20260807-010158.html">2026-08-07</a>
+<a href="html_report_20260806-010230.html" data-history-file="html_report_20260806-010230.html">2026-08-06</a>
+<a href="html_report_20260805-010221.html" data-history-file="html_report_20260805-010221.html">2026-08-05</a>
+<a href="html_report_20260804-010307.html" data-history-file="html_report_20260804-010307.html">2026-08-04</a>
+<a href="html_report_20260803-092902.html" data-history-file="html_report_20260803-092902.html">2026-08-03</a>
+<a href="html_report_20260803-090702.html" data-history-file="html_report_20260803-090702.html">2026-08-02</a>
+<a href="html_report_20260801-010128.html" data-history-file="html_report_20260801-010128.html">2026-08-01</a>
+<a href="html_report_20260731-010254.html" data-history-file="html_report_20260731-010254.html">2026-07-31</a>
+<a href="html_report_20260730-010234.html" data-history-file="html_report_20260730-010234.html">2026-07-30</a>
+<a href="html_report_20260729-010142.html" data-history-file="html_report_20260729-010142.html">2026-07-29</a>
+<a href="html_report_20260728-010228.html" data-history-file="html_report_20260728-010228.html">2026-07-28</a>
+<a href="html_report_20260727-092440.html" data-history-file="html_report_20260727-092440.html">2026-07-27</a>
+<a href="html_report_20260727-091533.html" data-history-file="html_report_20260727-091533.html">2026-07-26</a>
+<a href="html_report_20260725-010200.html" data-history-file="html_report_20260725-010200.html">2026-07-25</a>
+<a href="html_report_20260724-011413.html" data-history-file="html_report_20260724-011413.html">2026-07-24</a>
+<a href="html_report_20260723-012535.html" data-history-file="html_report_20260723-012535.html">2026-07-23</a>
+<a href="html_report_20260722-101658.html" data-history-file="html_report_20260722-101658.html">2026-07-22</a>
+<a href="html_report_20260721-011631.html" data-history-file="html_report_20260721-011631.html">2026-07-21</a>
+<a href="html_report_20260720-092843.html" data-history-file="html_report_20260720-092843.html">2026-07-20</a>
+<a href="html_report_20260720-091002.html" data-history-file="html_report_20260720-091002.html">2026-07-19</a></div></noscript>
+  </div>
+
+  <script type="application/json" id="history-report-data">[{"date":"2026-08-17","href":"html_report_20260817-010116.html","file":"html_report_20260817-010116.html"},{"date":"2026-08-16","href":"html_report_20260816-010145.html","file":"html_report_20260816-010145.html"},{"date":"2026-08-15","href":"html_report_20260815-010153.html","file":"html_report_20260815-010153.html"},{"date":"2026-08-14","href":"html_report_20260814-010220.html","file":"html_report_20260814-010220.html"},{"date":"2026-08-13","href":"html_report_20260813-010246.html","file":"html_report_20260813-010246.html"},{"date":"2026-08-12","href":"html_report_20260812-010104.html","file":"html_report_20260812-010104.html"},{"date":"2026-08-11","href":"html_report_20260811-010222.html","file":"html_report_20260811-010222.html"},{"date":"2026-08-10","href":"html_report_20260810-092553.html","file":"html_report_20260810-092553.html"},{"date":"2026-08-09","href":"html_report_20260810-091525.html","file":"html_report_20260810-091525.html"},{"date":"2026-08-08","href":"html_report_20260810-090255.html","file":"html_report_20260810-090255.html"},{"date":"2026-08-07","href":"html_report_20260807-010158.html","file":"html_report_20260807-010158.html"},{"date":"2026-08-06","href":"html_report_20260806-010230.html","file":"html_report_20260806-010230.html"},{"date":"2026-08-05","href":"html_report_20260805-010221.html","file":"html_report_20260805-010221.html"},{"date":"2026-08-04","href":"html_report_20260804-010307.html","file":"html_report_20260804-010307.html"},{"date":"2026-08-03","href":"html_report_20260803-092902.html","file":"html_report_20260803-092902.html"},{"date":"2026-08-02","href":"html_report_20260803-090702.html","file":"html_report_20260803-090702.html"},{"date":"2026-08-01","href":"html_report_20260801-010128.html","file":"html_report_20260801-010128.html"},{"date":"2026-07-31","href":"html_report_20260731-010254.html","file":"html_report_20260731-010254.html"},{"date":"2026-07-30","href":"html_report_20260730-010234.html","file":"html_report_20260730-010234.html"},{"date":"2026-07-29","href":"html_report_20260729-010142.html","file":"html_report_20260729-010142.html"},{"date":"2026-07-28","href":"html_report_20260728-010228.html","file":"html_report_20260728-010228.html"},{"date":"2026-07-27","href":"html_report_20260727-092440.html","file":"html_report_20260727-092440.html"},{"date":"2026-07-26","href":"html_report_20260727-091533.html","file":"html_report_20260727-091533.html"},{"date":"2026-07-25","href":"html_report_20260725-010200.html","file":"html_report_20260725-010200.html"},{"date":"2026-07-24","href":"html_report_20260724-011413.html","file":"html_report_20260724-011413.html"},{"date":"2026-07-23","href":"html_report_20260723-012535.html","file":"html_report_20260723-012535.html"},{"date":"2026-07-22","href":"html_report_20260722-101658.html","file":"html_report_20260722-101658.html"},{"date":"2026-07-21","href":"html_report_20260721-011631.html","file":"html_report_20260721-011631.html"},{"date":"2026-07-20","href":"html_report_20260720-092843.html","file":"html_report_20260720-092843.html"},{"date":"2026-07-19","href":"html_report_20260720-091002.html","file":"html_report_20260720-091002.html"},{"date":"2026-07-18","href":"html_report_20260718-010348.html","file":"html_report_20260718-010348.html"},{"date":"2026-07-17","href":"html_report_20260717-171839.html","file":"html_report_20260717-171839.html"},{"date":"2026-07-16","href":"html_report_20260716-101354.html","file":"html_report_20260716-101354.html"},{"date":"2026-07-15","href":"html_report_20260715-143618.html","file":"html_report_20260715-143618.html"},{"date":"2026-07-14","href":"html_report_20260714-102247.html","file":"html_report_20260714-102247.html"},{"date":"2026-07-13","href":"html_report_20260713-100002.html","file":"html_report_20260713-100002.html"},{"date":"2026-07-12","href":"html_report_20260712-100003.html","file":"html_report_20260712-100003.html"},{"date":"2026-07-11","href":"html_report_20260711-100002.html","file":"html_report_20260711-100002.html"},{"date":"2026-07-10","href":"html_report_20260710-195118.html","file":"html_report_20260710-195118.html"},{"date":"2026-07-09","href":"html_report_20260709-160314.html","file":"html_report_20260709-160314.html"},{"date":"2026-07-08","href":"html_report_20260708-152744.html","file":"html_report_20260708-152744.html"},{"date":"2026-07-07","href":"html_report_20260707-100005.html","file":"html_report_20260707-100005.html"},{"date":"2026-07-06","href":"html_report_20260706-100004.html","file":"html_report_20260706-100004.html"},{"date":"2026-07-05","href":"html_report_20260705-100005.html","file":"html_report_20260705-100005.html"},{"date":"2026-07-04","href":"html_report_20260704-100005.html","file":"html_report_20260704-100005.html"},{"date":"2026-07-03","href":"html_report_20260703-100002.html","file":"html_report_20260703-100002.html"},{"date":"2026-07-02","href":"html_report_20260702-100008.html","file":"html_report_20260702-100008.html"},{"date":"2026-07-01","href":"html_report_20260701-100005.html","file":"html_report_20260701-100005.html"},{"date":"2026-06-30","href":"html_report_20260630-100003.html","file":"html_report_20260630-100003.html"}]</script>
+  <script>
+  (() => {
+    const root = document.querySelector('[data-history-calendar]');
+    const dataNode = document.getElementById('history-report-data');
+    if (!root || !dataNode) return;
+    let reports = [];
+    try { reports = JSON.parse(dataNode.textContent || '[]'); } catch (_error) { return; }
+    if (!reports.length) return;
+    const byDate = new Map(reports.map((item) => [item.date, item]));
+    const dates = reports.map((item) => item.date).sort();
+    const minDate = dates[0];
+    const maxDate = dates[dates.length - 1];
+    const trigger = document.getElementById('history-date-trigger');
+    const panel = document.getElementById('history-calendar-panel');
+    const title = root.querySelector('[data-calendar-title]');
+    const days = root.querySelector('[data-calendar-days]');
+    const previous = root.querySelector('[data-calendar-prev]');
+    const next = root.querySelector('[data-calendar-next]');
+    if (!trigger || !panel || !title || !days || !previous || !next) return;
+    const selected = byDate.has(trigger.dataset.selectedDate || '')
+      ? trigger.dataset.selectedDate
+      : maxDate;
+    let [year, month] = selected.split('-').map(Number);
+
+    const monthKey = (valueYear, valueMonth) => valueYear * 12 + valueMonth;
+    const [minYear, minMonth] = minDate.split('-').map(Number);
+    const [maxYear, maxMonth] = maxDate.split('-').map(Number);
+    const minKey = monthKey(minYear, minMonth);
+    const maxKey = monthKey(maxYear, maxMonth);
+    const localHref = (item) => {
+      if (window.location.protocol !== 'file:') return item.href;
+      const currentPath = decodeURIComponent(window.location.pathname).replace(/\\/g, '/');
+      const inReportsDirectory = /\/reports\/[^/]+$/.test(currentPath);
+      return (inReportsDirectory ? './' : './reports/') + item.file;
+    };
+    const shiftMonth = (delta) => {
+      const shifted = new Date(year, month - 1 + delta, 1);
+      year = shifted.getFullYear();
+      month = shifted.getMonth() + 1;
+    };
+    const render = () => {
+      title.textContent = `${year} 年 ${String(month).padStart(2, '0')} 月`;
+      const currentKey = monthKey(year, month);
+      previous.disabled = currentKey <= minKey;
+      next.disabled = currentKey >= maxKey;
+      days.replaceChildren();
+      const first = new Date(year, month - 1, 1);
+      const offset = (first.getDay() + 6) % 7;
+      const start = new Date(year, month - 1, 1 - offset);
+      for (let index = 0; index < 42; index += 1) {
+        const value = new Date(start);
+        value.setDate(start.getDate() + index);
+        const dateValue = `${value.getFullYear()}-${String(value.getMonth() + 1).padStart(2, '0')}-${String(value.getDate()).padStart(2, '0')}`;
+        const item = byDate.get(dateValue);
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.textContent = String(value.getDate());
+        button.className = 'history-calendar-day';
+        if (value.getMonth() + 1 !== month) button.classList.add('outside-month');
+        if (dateValue === selected) button.classList.add('selected');
+        if (!item) {
+          button.disabled = true;
+        } else {
+          button.dataset.reportDate = dateValue;
+          button.title = `${dateValue} 历史报告`;
+          button.addEventListener('click', () => window.location.assign(localHref(item)));
+        }
+        days.appendChild(button);
+      }
+    };
+    trigger.addEventListener('click', () => {
+      const opening = panel.hidden;
+      panel.hidden = !opening;
+      trigger.setAttribute('aria-expanded', String(opening));
+      if (opening) render();
+    });
+    previous.addEventListener('click', () => { shiftMonth(-1); render(); });
+    next.addEventListener('click', () => { shiftMonth(1); render(); });
+    document.addEventListener('click', (event) => {
+      if (!root.contains(event.target)) { panel.hidden = true; trigger.setAttribute('aria-expanded', 'false'); }
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') { panel.hidden = true; trigger.setAttribute('aria-expanded', 'false'); trigger.focus(); }
+    });
+  })();
+  </script>
+</section>
+
+
+<section id="priority">
+  <div class="section-head">
+    <h2>需要处理的事件</h2>
+    <p>排序: 影响等级高到低 -> 状态 -> 官方日期新到旧 -> 负责人待确认优先。</p>
+  </div>
+  <div class="table-box">
+    <table class="monitor-table priority-table">
+      <thead>
+        <tr>
+          <th>影响</th>
+          <th>状态</th>
+          <th>官方日期</th>
+          <th>平台/来源</th>
+          <th>标签</th>
+          <th>截止日期</th>
+          <th>中文 AI 摘要</th>
+          <th>影响对象</th>
+          <th>建议动作</th>
+          <th>Owner</th>
+          <th>通知</th>
+        </tr>
+      </thead>
+      <tbody>
+<tr>
+  <td><span class="badge impact-unknown">高</span></td>
+  <td><span class="badge status-actionable-today">需要处理</span></td>
+  <td>2026-07-23</td>
+  <td><div class="source-jump"><strong>AliExpress</strong><span>AliExpress Open Platform Announcements</span><span class="muted">包裹属性不支持修改项目-ISV技术手册</span><div class="link-row"><a href="https://open.aliexpress.com/announcement/index.htm#/announcement/detail?id=8220&amp;entitle=%E5%8C%85%E8%A3%B9%E5%B1%9E%E6%80%A7%E4%B8%8D%E6%94%AF%E6%8C%81%E4%BF%AE%E6%94%B9%E9%A1%B9%E7%9B%AE-ISV%E6%8A%80%E6%9C%AF%E6%89%8B%E5%86%8C&amp;queryid=129&amp;cntitle=%E5%8C%85%E8%A3%B9%E5%B1%9E%E6%80%A7%E4%B8%8D%E6%94%AF%E6%8C%81%E4%BF%AE%E6%94%B9%E9%A1%B9%E7%9B%AE-ISV%E6%8A%80%E6%9C%AF%E6%89%8B%E5%86%8C" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">物流/履约</span><div class="tag-list"><span class="tag-secondary">API 接口变更</span> <span class="tag-secondary">字段/参数变更</span> <span class="tag-secondary">商品/库存规则</span> <span class="tag-secondary">订单/履约/物流</span></div></td>
+  <td>2026-07-27</td>
+  <td><span class="ai-text">AliExpress 将逐步禁止跨境 POP 商家手动修改 APL 订单的包裹物流属性，系统改为读取包裹内商品属性并按优先级自动聚合和锁定包裹属性。询盘和创建物流单接口将不再以商家传入的物流属性决定包裹属性；第一阶段仍需传递原有申报字段，后续阶段会由商品维护属性覆写。卖家工作台于 2026-07-27 上线，API 于 2026-08-04 开启，8 月中版本的明确时间尚待平台通知。</span><details class="ai-evidence"><summary>摘要依据</summary><ul><li>2.2、AE卖家工作台上线时间：2026-07-27</li><li>2.4、API上线时间（ISV可以正式调用的时间）：2026-08-04开启</li><li>TO-BE：系统直接获取入参对应所有交易子单的属性，就高聚合出对应包裹的属性，不再使用前列枚举字段进行聚合包裹APL属性； 逻辑同上。</li></ul></details></td>
+  <td><span class="muted">AliExpress 跨境 POP 商品物流属性、运费模板、询盘和物流单创建</span></td>
+  <td>核查 SKU 物流属性与运费模板线路是否一致，按普货、带电、特货、纯电和敏货优先级验证询盘及创单结果；2026-08-04 前完成接口回归，并在平台另行通知前继续传递现有申报字段。</td>
+  <td><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: logistics_fulfillment</span></td>
+  <td><span class="badge notice-unsent">未通知</span></td>
+</tr>
+
+
+<tr>
+  <td><span class="badge impact-unknown">高</span></td>
+  <td><span class="badge status-actionable-today">需要处理</span><br><span class="muted">本日早前抓取已发现该条需要处理的变更；本次复抓内容未变，继续保留在今日需要处理区</span></td>
+  <td>2026-07-23</td>
+  <td><div class="source-jump"><strong>Ozon</strong><span>Ozon Seller API News（Telegram 官方频道）</span><span class="muted">22 июля 2026 /v3/posting/fbs/list: Добавили параметр filter.integration_type_flow в запрос метода. Добавили параметры re</span><div class="link-row"><a href="https://t.me/OzonSellerAPI/671" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">物流/履约</span><div class="tag-list"><span class="tag-secondary">API 接口变更</span> <span class="tag-secondary">字段/参数变更</span> <span class="tag-secondary">商品/库存规则</span> <span class="tag-secondary">订单/履约/物流</span></div></td>
+  <td>2026-08-17</td>
+  <td><span class="ai-text">Ozon 为多个 FBS 发货单列表、详情和未履约列表接口新增 integration_type_flow 与 sorting_center 字段，其中列表请求还新增 filter.integration_type_flow。该变化影响 FBS 发货单筛选和响应解析；同时 /v1/analytics/stocks 将从 2026-08-17 起返回实时库存信息。Telegram 消息发布于 2026-07-23，正文中的更新标题日期为 2026-07-22。</span><details class="ai-evidence"><summary>摘要依据</summary><ul><li>/v3/posting/fbs/list: Добавили параметр filter.integration_type_flow в запрос метода.</li><li>/v3/posting/fbs/get: Добавили параметры result.integration_type_flow и result.sorting_center в ответ метода.</li><li>/v1/analytics/stocks: С 17 августа 2026 года метод возвращает информацию об остатках в реальном времени.</li></ul></details></td>
+  <td><span class="muted">Ozon FBS 发货单查询、集成流程字段、分拣中心和实时库存接口</span></td>
+  <td>更新 v3/v4 FBS 发货单接口的请求与响应模型，兼容 integration_type_flow 和 sorting_center，并在 2026-08-17 前验证实时库存数据的刷新和下游消费逻辑。</td>
+  <td><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: logistics_fulfillment</span></td>
+  <td><span class="badge notice-unsent">未通知</span></td>
+</tr>
+
+
+<tr>
+  <td><span class="badge impact-unknown">高</span></td>
+  <td><span class="badge status-actionable-today">需要处理</span><br><span class="muted">本日早前抓取已发现该条需要处理的变更；本次复抓内容未变，继续保留在今日需要处理区</span></td>
+  <td>2026-07-23</td>
+  <td><div class="source-jump"><strong>Ozon</strong><span>Ozon Seller API News（Telegram 官方频道）</span><span class="muted">Обновление справочника ТН ВЭД: чистка некорректных связок 23 июля мы проводим техническое обслуживание справочника ТН ВЭ</span><div class="link-row"><a href="https://t.me/OzonSellerAPI/669" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">刊登/商品</span><div class="tag-list"><span class="tag-secondary">商品/库存规则</span> <span class="tag-secondary">合规/政策要求</span> <span class="tag-secondary">文档/SDK/示例更新</span></div></td>
+  <td>未写明</td>
+  <td><span class="ai-text">Ozon 于 2026-07-23 维护 TN VED 海关商品编码目录，删除约 55,000 条已失效的“编码值—类目”关联。该清理可能影响依赖旧关联进行商品归类、刊登或合规校验的系统。正文未列出具体被删除的编码清单，需通过原文详情链接进一步核对。</span><details class="ai-evidence"><summary>摘要依据</summary><ul><li>23 июля мы проводим техническое обслуживание справочника ТН ВЭД.</li><li>Мы удаляем порядка 55 000 неактуальных связок «значение ТН ВЭД — категория».</li></ul></details></td>
+  <td><span class="muted">Ozon 商品类目、TN VED 海关编码映射和刊登合规校验</span></td>
+  <td>在目录维护后重新拉取或校验 TN VED 编码与类目映射，对失效关联的商品进入人工复核，并通过原文详情确认受影响编码范围。</td>
+  <td><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: listing_product</span></td>
+  <td><span class="badge notice-unsent">未通知</span></td>
+</tr>
+
+
+<tr>
+  <td><span class="badge impact-unknown">高</span></td>
+  <td><span class="badge status-actionable-today">需要处理</span></td>
+  <td>2026-07-23</td>
+  <td><div class="source-jump"><strong>eBay</strong><span>eBay Updates</span><span class="muted">时尚品类尺码标准化更新</span><div class="link-row"><a href="https://www.ebay.cn/newcms/d_updates/112" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">刊登/商品</span><div class="tag-list"><span class="tag-secondary">API 接口变更</span> <span class="tag-secondary">字段/参数变更</span> <span class="tag-secondary">商品/库存规则</span> <span class="tag-secondary">合规/政策要求</span></div></td>
+  <td>未写明</td>
+  <td><span class="ai-text">eBay 正逐步停止服饰和鞋靴类目使用自定义非标准尺码；7 月起，Add 或 Revise API 可能自动映射为标准值并返回 21920466，或以 21920467 警告无法识别的尺码。8 月起，非标准、不合规或缺失尺码的刊登会进入 Hold，线上刊登同样适用，且平台停止自动转换。公告发布于 2026-07-23，但正文中的 7 月和 8 月未写年份，需人工确认。</span><details class="ai-evidence"><summary>摘要依据</summary><ul><li>自 8 月起，所有包含非标准、不合规或缺失尺码值的 Add 和 Revise API 调用将不会直接返回错误，但相关新建或修改后的刊登将被置于暂停状态（Hold）直至问题解决。</li><li>对应警告代码为：21920467。</li><li>开发者应在其系统集成中使用 Taxonomy API 的getItemAspectsForCategory 或fetchItemAspects（以及 Taxonomy SDK）。</li></ul></details></td>
+  <td><span class="muted">eBay 服饰与鞋靴刊登、尺码属性映射和 Add/Revise API 校验</span></td>
+  <td>使用 Taxonomy API 或 SDK 获取叶子类目的标准 Size 值，处理 21920466 和 21920467 警告并修复存量非标准尺码；在 8 月规则升级前完成 Add/Revise 回归，同时向 eBay 确认月份对应年份。</td>
+  <td><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: listing_product</span></td>
+  <td><span class="badge notice-unsent">未通知</span></td>
+</tr>
+
+
+<tr>
+  <td><span class="badge impact-unknown">高</span></td>
+  <td><span class="badge status-actionable-today">需要处理</span></td>
+  <td>2026-07-23</td>
+  <td><div class="source-jump"><strong>eBay</strong><span>eBay Updates</span><span class="muted">澳大利亚市场推出“免费销售”及“买家保障”</span><div class="link-row"><a href="https://www.ebay.cn/newcms/d_updates/111" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">财务/结算</span><div class="tag-list"><span class="tag-secondary">API 接口变更</span> <span class="tag-secondary">字段/参数变更</span> <span class="tag-secondary">费用/结算/账单</span> <span class="tag-secondary">订单/履约/物流</span></div></td>
+  <td>未写明</td>
+  <td><span class="ai-text">eBay 澳大利亚站向符合条件且未订阅 Pro 的卖家推出免费销售，并对部分功能、物流标签和买家保障费作出配套调整。Fulfillment 与 Trading 订单接口新增或调整买家保障费、税费和 Payment 字段，Buy Order API v1 也新增 BUYER_PROTECTION 枚举，订单总额和实付金额会包含相关费用。公告发布于 2026-07-23；正文仅写自 5 月中旬起，未写完整日期，需人工确认。</span><details class="ai-evidence"><summary>摘要依据</summary><ul><li>免费销售意味着卖家无需支付标准刊登费（Standard Listing Fees）及成交费（Final Value Fees）。</li><li>在 getOrder 和 getOrders 接口中，新增 ebayCollectedCharges.charges 数组字段。</li><li>在 Buy Order API v1 中，ServiceTypeEnum 枚举新增 BUYER_PROTECTION。</li></ul></details></td>
+  <td><span class="muted">eBay 澳大利亚卖家收费、订单金额、买家保障费和税费对账</span></td>
+  <td>更新 Fulfillment、Trading 和 Buy Order API 的订单费用模型，兼容 ebayCollectedCharges.charges、Payment、相关税费字段及 BUYER_PROTECTION，并用澳大利亚订单验证总额、实付和对账逻辑。</td>
+  <td><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: finance_settlement</span></td>
+  <td><span class="badge notice-unsent">未通知</span></td>
+</tr>
+
+
+<tr>
+  <td><span class="badge impact-unknown">高</span></td>
+  <td><span class="badge status-actionable-today">需要处理</span></td>
+  <td>2026-07-23</td>
+  <td><div class="source-jump"><strong>eBay</strong><span>eBay Updates</span><span class="muted">英国市场“轻松免费退货“政策正式上线</span><div class="link-row"><a href="https://www.ebay.cn/newcms/d_updates/110" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">客服/售后</span><div class="tag-list"><span class="tag-secondary">API 接口变更</span> <span class="tag-secondary">订单/履约/物流</span> <span class="tag-secondary">费用/结算/账单</span> <span class="tag-secondary">合规/政策要求</span></div></td>
+  <td>未写明</td>
+  <td><span class="ai-text">eBay 英国站要求符合条件的零部件与配件刊登提供 30 天或 60 天免费退货，并为通过平台购买的买家个人原因退货标签补贴 50% 费用。当前不合规的 Add 或 Revise 请求会收到警告并由平台自动调整；8 月起警告将升级为阻止性错误，请求无法提交。公告发布于 2026-07-23，但正文中的 8 月未写年份，需人工确认。</span><details class="ai-evidence"><summary>摘要依据</summary><ul><li>符合条件的零部件与配件刊登必须向买家提供 30 天或 60 天免费退货。</li><li>eBay 将为卖家通过 eBay 平台购买的退货邮寄标签提供 50% 的费用补贴。</li><li>自 8 月起，这些警告将升级为阻止性错误（Blocking Error），届时相关 Add 或 Revise API 请求将无法成功提交。</li></ul></details></td>
+  <td><span class="muted">eBay 英国零部件与配件刊登、退货政策和退货标签费用</span></td>
+  <td>把适用刊登的 Return Business Policy 调整为 30 天或 60 天卖家承担运费的免费退货，并用 Trading API 或 Account v1 Fulfillment Policy 验证 Add/Revise；同时向 eBay 确认 8 月对应年份。</td>
+  <td><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: customer_service_after_sales</span></td>
+  <td><span class="badge notice-unsent">未通知</span></td>
+</tr>
+
+
+<tr>
+  <td><span class="badge impact-unknown">中</span></td>
+  <td><span class="badge status-actionable-today">需要处理</span><br><span class="muted">本日早前抓取已发现该条需要处理的变更；本次复抓内容未变，继续保留在今日需要处理区</span></td>
+  <td>2026-07-23</td>
+  <td><div class="source-jump"><strong>Ozon</strong><span>Ozon Seller API News（Telegram 官方频道）</span><span class="muted">21 июля 2026 /v1/finance/accrual/by-day: Обновили описание параметра accruals.posting.products.delivery.services в ответ</span><div class="link-row"><a href="https://t.me/OzonSellerAPI/670" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">API/技术</span><div class="tag-list"><span class="tag-secondary">API 接口变更</span> <span class="tag-secondary">商品/库存规则</span> <span class="tag-secondary">费用/结算/账单</span> <span class="tag-secondary">文档/SDK/示例更新</span></div></td>
+  <td>未写明</td>
+  <td><span class="ai-text">Ozon 更新 /v1/finance/accrual/by-day 响应字段 accruals.posting.products.delivery.services 的说明，并为 /v2/products/stocks 补充 PRODUCT_IS_ARCHIVED 常见错误说明。正文只说明文档内容更新，没有给出字段结构变化或接口强制迁移要求。Telegram 消息发布于 2026-07-23，正文中的更新日期为 2026-07-21。</span><details class="ai-evidence"><summary>摘要依据</summary><ul><li>/v1/finance/accrual/by-day: Обновили описание параметра accruals.posting.products.delivery.services в ответе метода.</li><li>В разделе Частые ошибки добавили описание ошибки PRODUCT_IS_ARCHIVED для метода /v2/products/stocks.</li></ul></details></td>
+  <td><span class="muted">Ozon 财务计提响应说明、商品库存查询和归档商品错误处理</span></td>
+  <td>复核 delivery.services 字段的最新说明，并在 /v2/products/stocks 调用中识别 PRODUCT_IS_ARCHIVED，按归档商品场景处理；不要在平台未声明结构变化时擅自迁移字段。</td>
+  <td><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: api_technical</span></td>
+  <td><span class="badge notice-unsent">未通知</span></td>
+</tr>
+
+
+<tr>
+  <td><span class="badge impact-unknown">待确认</span></td>
+  <td><span class="badge status-failed">抓取失败</span></td>
+  <td>2026-07-21</td>
+  <td><div class="source-jump"><strong>Temu</strong><span>Temu Partner Docs</span><span class="muted">bg.local.goods.property.relations</span><div class="link-row"><a href="https://partner-us.temu.com/documentation?menu_code=fb16b05f7a904765aac4af3a24b87d4a&amp;sub_menu_code=25388019592c478b899eabe9376233b9" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">其他/待确认</span><div class="tag-list"><span class="tag-secondary">其他/待确认</span></div></td>
+  <td>未写明</td>
+  <td><span class="badge ai-degraded">AI 未配置</span><br><span class="ai-text">本次抓取失败，无法完成该来源的当天变更判断。</span><br><span class="muted">待确认</span></td>
+  <td><span class="muted">待确认</span></td>
+  <td>待 AI 配置/需人工确认</td>
+  <td><strong>待确认负责人</strong><br><span class="muted">待正文摘要与标签确认</span></td>
+  <td><span class="badge notice-unsent">未通知</span></td>
+</tr>
+
+
+<tr>
+  <td><span class="badge impact-unknown">待确认</span></td>
+  <td><span class="badge status-failed">抓取失败</span></td>
+  <td>无官方日期</td>
+  <td><div class="source-jump"><strong>Shopee</strong><span>Shopee Open Platform Announcements</span><span class="muted">Shopee Open Platform Announcements</span><div class="link-row"><a href="https://open.shopee.com/announcements?page=1&amp;category=55" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">其他/待确认</span><div class="tag-list"><span class="tag-secondary">其他/待确认</span></div></td>
+  <td>未写明</td>
+  <td><span class="badge ai-degraded">AI 未配置</span><br><span class="ai-text">官方页面在当前网络或浏览器渲染环境下未能稳定返回。</span><br><span class="muted">待确认</span></td>
+  <td><span class="muted">待确认</span></td>
+  <td>待 AI 配置/需人工确认</td>
+  <td><strong>待确认负责人</strong><br><span class="muted">待正文摘要与标签确认</span></td>
+  <td><span class="badge notice-unsent">未通知</span></td>
+</tr>
+
+
+<tr>
+  <td><span class="badge impact-unknown">待确认</span></td>
+  <td><span class="badge status-failed">抓取失败</span></td>
+  <td>无官方日期</td>
+  <td><div class="source-jump"><strong>TikTok Shop</strong><span>TikTok Shop API Changelog</span><span class="muted">TikTok Shop API Changelog</span><div class="link-row"><a href="https://partner.tiktokshop.com/docv2/changelog" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">其他/待确认</span><div class="tag-list"><span class="tag-secondary">其他/待确认</span></div></td>
+  <td>未写明</td>
+  <td><span class="badge ai-degraded">AI 未配置</span><br><span class="ai-text">官方页面在当前网络或浏览器渲染环境下未能稳定返回。</span><br><span class="muted">待确认</span></td>
+  <td><span class="muted">待确认</span></td>
+  <td>待 AI 配置/需人工确认</td>
+  <td><strong>待确认负责人</strong><br><span class="muted">待正文摘要与标签确认</span></td>
+  <td><span class="badge notice-unsent">未通知</span></td>
+</tr>
+</tbody>
+    </table>
+  </div>
+</section>
+
+
+<section id="failures">
+  <div class="section-head">
+    <h2>失败与待修复</h2>
+    <p>失败表示本次无法判断对应具体条目是否变化，不能视为无变化。</p>
+  </div>
+  <div class="table-box">
+    <table class="monitor-table">
+      <thead>
+        <tr>
+          <th>平台</th>
+          <th>具体条目</th>
+          <th>抓取方式</th>
+          <th>失败原因</th>
+          <th>影响</th>
+          <th>解决方案</th>
+          <th>通知</th>
+        </tr>
+      </thead>
+      <tbody>
+<tr>
+  <td>Temu</td>
+  <td><strong>bg.local.goods.property.relations</strong><br><span class="muted">Temu Partner Docs</span><br><span class="muted">截止日期: 未写明/需人工确认</span></td>
+  <td><span class="badge mode-detail">详情抓取</span><br><span class="badge source-reliability">详情已抓取</span></td>
+  <td>本次抓取失败，无法完成该来源的当天变更判断。</td>
+  <td>会影响该平台今天/昨天官方变更判断；本次不静默成功。</td>
+  <td>保留失败事件，人工检查官方页面后再调整抓取策略。</td>
+  <td><span class="badge notice-unsent">未通知</span></td>
+</tr>
+
+<tr>
+  <td>Shopee</td>
+  <td><strong>Shopee Open Platform Announcements</strong><br><span class="muted">Shopee Open Platform Announcements</span><br><span class="muted">截止日期: 未写明/需人工确认</span></td>
+  <td><span class="badge mode-detail">详情抓取</span><br><span class="badge source-reliability">抓取失败</span></td>
+  <td>官方页面在当前网络或浏览器渲染环境下未能稳定返回。</td>
+  <td>会影响该平台今天/昨天官方变更判断；本次不静默成功。</td>
+  <td>检查本机网络、地区访问、浏览器渲染依赖和平台级 timeout，必要时确认同一官方来源的静态 fallback。</td>
+  <td><span class="badge notice-unsent">未通知</span></td>
+</tr>
+
+<tr>
+  <td>TikTok Shop</td>
+  <td><strong>TikTok Shop API Changelog</strong><br><span class="muted">TikTok Shop API Changelog</span><br><span class="muted">截止日期: 未写明/需人工确认</span></td>
+  <td><span class="badge mode-detail">详情抓取</span><br><span class="badge source-reliability">抓取失败</span></td>
+  <td>官方页面在当前网络或浏览器渲染环境下未能稳定返回。</td>
+  <td>会影响该平台今天/昨天官方变更判断；本次不静默成功。</td>
+  <td>检查本机网络、地区访问、浏览器渲染依赖和平台级 timeout，必要时确认同一官方来源的静态 fallback。</td>
+  <td><span class="badge notice-unsent">未通知</span></td>
+</tr>
+</tbody>
+    </table>
+  </div>
+</section>
+
+    <p class="footer">Generated by scripts/render_html_report.py. HTML 只展示前端数据，不执行抓取、解析、调度或通知发送；敏感字段不会在页面中渲染。</p>
+  </main>
+
+<script>
+(() => {
+  if (window.location.protocol !== "file:") return;
+  const currentPath = decodeURIComponent(window.location.pathname).replace(/\\/g, "/");
+  const inReportsDirectory = /\/reports\/[^/]+$/.test(currentPath);
+  const basePath = inReportsDirectory ? "./" : "./reports/";
+  document.querySelectorAll("a[data-history-file]").forEach((link) => {
+    link.setAttribute("href", basePath + link.dataset.historyFile);
+  });
+})();
+</script>
+
+</body>
+</html>

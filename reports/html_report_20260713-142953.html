@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>平台 API/开发者变更监控报告</title>
+  <style>
+    :root {
+      --blue-900: #103a74;
+      --blue-800: #174a91;
+      --blue-700: #1d5fbf;
+      --blue-050: #eef6ff;
+      --bg: #f4f7fb;
+      --panel: #ffffff;
+      --text: #1f2937;
+      --muted: #667085;
+      --line: #d7deea;
+      --head: #e8f0fb;
+      --danger: #b42318;
+      --warn: #b54708;
+      --ok: #047857;
+      --info: #0b63ce;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 13px/1.45 "Segoe UI", "Microsoft YaHei", Arial, sans-serif;
+    }
+    a { color: var(--blue-700); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .page { max-width: 1760px; margin: 0 auto; padding: 16px 20px 28px; }
+    .top-strip {
+      background: var(--blue-900);
+      border-bottom: 3px solid var(--blue-700);
+      color: #fff;
+    }
+    .top-strip-inner {
+      max-width: 1760px;
+      margin: 0 auto;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+    }
+    .top-strip strong { font-size: 15px; }
+    .top-strip span { color: #c9dcff; }
+    .report-nav {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 12px 0;
+    }
+    .report-nav a {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-left: 3px solid var(--blue-700);
+      color: var(--blue-900);
+      padding: 6px 10px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+    .top-panel, .table-box {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .table-box { overflow-x: auto; }
+    .title-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 16px;
+      background: linear-gradient(90deg, var(--blue-900), var(--blue-800));
+      color: #fff;
+    }
+    .eyebrow { margin: 0 0 2px; color: #c9dcff; font-weight: 700; }
+    h1, h2, h3 { margin: 0; letter-spacing: 0; }
+    h1 { font-size: 22px; }
+    h2 { font-size: 18px; color: var(--blue-900); }
+    h3 { font-size: 16px; color: var(--blue-900); }
+    .run-time { text-align: right; }
+    .run-time span { display: block; color: #c9dcff; font-size: 12px; }
+    .run-time strong { font-size: 14px; }
+    .summary-line {
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--line);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--blue-900);
+      background: var(--blue-050);
+    }
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(8, minmax(92px, 1fr));
+      border-bottom: 1px solid var(--line);
+    }
+    .metric {
+      padding: 10px 12px;
+      border-right: 1px solid var(--line);
+      min-height: 56px;
+    }
+    .metric:last-child { border-right: 0; }
+    .metric span { display: block; color: var(--muted); }
+    .metric strong { display: block; margin-top: 2px; font-size: 22px; line-height: 1; color: var(--blue-900); }
+    .scope-line { padding: 9px 16px; color: var(--muted); }
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 16px;
+      margin: 18px 0 8px;
+    }
+    .section-head p { margin: 0; color: var(--muted); }
+    .monitor-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+    .monitor-table th {
+      background: var(--head);
+      color: var(--blue-900);
+      border-bottom: 1px solid var(--line);
+      border-right: 1px solid var(--line);
+      padding: 8px 9px;
+      text-align: left;
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .monitor-table td {
+      border-bottom: 1px solid var(--line);
+      border-right: 1px solid var(--line);
+      padding: 8px 9px;
+      vertical-align: top;
+      overflow-wrap: anywhere;
+      background: #fff;
+    }
+    .monitor-table tr:nth-child(even) td { background: #f9fbfe; }
+    .monitor-table th:last-child, .monitor-table td:last-child { border-right: 0; }
+    .priority-table { min-width: 1540px; }
+    .priority-table th:nth-child(1), .priority-table td:nth-child(1) { width: 62px; }
+    .priority-table th:nth-child(2), .priority-table td:nth-child(2) { width: 122px; }
+    .priority-table th:nth-child(3), .priority-table td:nth-child(3) { width: 94px; }
+    .priority-table th:nth-child(4), .priority-table td:nth-child(4) { width: 180px; }
+    .priority-table th:nth-child(5), .priority-table td:nth-child(5) { width: 160px; }
+    .priority-table th:nth-child(6), .priority-table td:nth-child(6) { width: 128px; }
+    .priority-table th:nth-child(7), .priority-table td:nth-child(7) { width: 240px; }
+    .priority-table th:nth-child(10), .priority-table td:nth-child(10) { width: 130px; }
+    .priority-table th:nth-child(11), .priority-table td:nth-child(11) { width: 118px; }
+    .platform-table th:nth-child(1), .platform-table td:nth-child(1) { width: 94px; }
+    .platform-table th:nth-child(2), .platform-table td:nth-child(2) { width: 86px; }
+    .platform-table th:nth-child(3), .platform-table td:nth-child(3) { width: 92px; }
+    .platform-table th:nth-child(6), .platform-table td:nth-child(6) { width: 210px; }
+    .platform-table th:nth-child(8), .platform-table td:nth-child(8) { width: 120px; }
+    .platform-table th:nth-child(9), .platform-table td:nth-child(9) { width: 105px; }
+    .platform-table th:nth-child(10), .platform-table td:nth-child(10) { width: 190px; }
+    .platform-table th:nth-child(11), .platform-table td:nth-child(11) { width: 190px; }
+    .badge {
+      display: inline-block;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.35;
+      white-space: nowrap;
+      margin: 0 3px 3px 0;
+    }
+    .priority-table td:nth-child(2) .badge {
+      max-width: 100%;
+      white-space: normal;
+      overflow-wrap: anywhere;
+    }
+    .impact-high, .status-changed { background: #fee4e2; color: var(--danger); }
+    .impact-medium, .status-new { background: #dbeafe; color: var(--info); }
+    .impact-low, .status-unchanged, .notice-sent, .notice-not-required { background: #dcfce7; color: var(--ok); }
+    .impact-pending, .status-failed, .status-needs-decision, .notice-pending-config, .notice-failed, .notice-pending { background: #fef0c7; color: var(--warn); }
+    .notice-unsent { background: #e0e7ff; color: #3730a3; }
+    .mode-direct { background: #e8f5ee; color: var(--ok); }
+    .mode-detail, .source-reliability { background: #e8f1ff; color: var(--info); }
+    .ai-degraded { background: #fff7ed; color: var(--warn); }
+    .source-jump strong, .source-jump span { display: block; }
+    .mode-inline { margin-top: 4px; }
+    .tag-cell { min-width: 150px; }
+    .muted { color: var(--muted); }
+    .error-text { color: var(--danger); font-weight: 700; }
+    .solution { color: var(--blue-900); }
+    .link-row { margin-top: 3px; color: var(--muted); }
+    .history-toolbar {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 10px;
+      margin-bottom: 8px;
+    }
+    .latest-link {
+      background: var(--blue-700);
+      color: #fff;
+      border-radius: 4px;
+      padding: 6px 10px;
+      font-weight: 700;
+    }
+    .latest-link:hover { color: #fff; }
+    .quick-days { display: flex; gap: 6px; flex-wrap: wrap; }
+    .quick-days a {
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 5px 8px;
+      background: #fff;
+    }
+    .history-warning {
+      margin: 0 0 8px;
+      color: var(--warn);
+      font-weight: 700;
+    }
+    .platform-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 16px 0 6px;
+      padding: 8px 10px;
+      background: var(--blue-050);
+      border-left: 4px solid var(--blue-700);
+      border-radius: 4px;
+    }
+    .platform-title span {
+      color: var(--muted);
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 4px;
+      padding: 2px 6px;
+    }
+    .empty { text-align: center; color: var(--muted); padding: 18px; }
+    .trial-banner {
+      margin: 10px 0;
+      padding: 9px 12px;
+      border: 1px solid #f2c94c;
+      border-radius: 4px;
+      background: #fff8db;
+      color: #6b4f00;
+    }
+    .ai-metadata {
+      margin: 10px 0;
+      padding: 7px 10px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: var(--panel);
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .tag-primary {
+      display: inline-block;
+      padding: 3px 7px;
+      border-radius: 4px;
+      background: var(--blue-800);
+      color: #fff;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .tag-list { margin-top: 4px; display: flex; gap: 4px; flex-wrap: wrap; align-items: flex-start; }
+    .tag-secondary {
+      display: inline-block;
+      padding: 2px 5px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: #fff;
+      color: var(--muted);
+      max-width: 100%;
+      white-space: normal;
+      overflow-wrap: anywhere;
+    }
+    .footer { color: var(--muted); margin: 18px 0 0; font-size: 12px; }
+    @media (max-width: 1100px) {
+      .page { padding: 12px; }
+      .metric-grid { grid-template-columns: repeat(4, minmax(90px, 1fr)); }
+      .monitor-table { min-width: 1180px; }
+      .section-head, .title-bar { align-items: flex-start; flex-direction: column; }
+      .run-time { text-align: left; }
+    }
+    @media print {
+      body { background: #fff; }
+      .top-strip, .report-nav { display: none; }
+      .page { max-width: none; padding: 0; }
+      .table-box, .top-panel { border-color: #aaa; }
+      .monitor-table th, .monitor-table td { padding: 5px; font-size: 11px; }
+      a { color: #000; text-decoration: underline; }
+    }
+  </style>
+</head>
+<body>
+  <header class="top-strip">
+    <div class="top-strip-inner">
+      <strong>平台政策抓取 · 监控报告</strong>
+      <span>生成时间: 2026-07-13T14:32:51+08:00</span>
+    </div>
+  </header>
+  <main class="page">
+
+
+    <nav class="report-nav" aria-label="报告导航">
+      <a href="#overview">运行概览</a>
+      <a href="#history">历史报告</a>
+      <a href="#priority">需要处理</a>
+      <a href="#failures">失败与待修复</a>
+    </nav>
+
+<section class="top-panel" id="overview">
+  <div class="title-bar">
+    <div>
+      <p class="eyebrow">内部监控报告</p>
+      <h1>平台 API/开发者变更监控</h1>
+    </div>
+  </div>
+  <div class="summary-line">发现 0 个今天/昨天需处理事件，0 个日期未解析的内容变化事件，0 个延迟发现需处理事件，0 个历史补录/追溯事件，3 个抓取失败，0 个待决策事件。</div>
+  <div class="metric-grid"><div class="metric"><span>监控平台</span><strong>12</strong></div>
+<div class="metric"><span>监控源</span><strong>12</strong></div>
+<div class="metric"><span>变更</span><strong>0</strong></div>
+<div class="metric"><span>失败</span><strong>3</strong></div>
+<div class="metric"><span>待决策</span><strong>0</strong></div>
+<div class="metric"><span>高影响</span><strong>0</strong></div>
+<div class="metric"><span>AI 降级</span><strong>3</strong></div>
+<div class="metric"><span>负责人待确认</span><strong>3</strong></div></div>
+  <div class="scope-line"><strong>平台范围:</strong> eBay / Amazon SP-API / AliExpress / Shopee / Lazada / Mercado Libre / Temu / Ozon / Wildberries / TikTok Shop / Shopify / Walmart</div>
+</section>
+
+
+<section id="history" class="history-panel">
+  <div class="section-head">
+    <h2>历史报告入口</h2>
+    <p>点击日期查看对应历史报告。</p>
+  </div>
+  <div class="history-toolbar">
+    <div class="quick-days history-date-row" aria-label="最近 7 天"><a href="html_report_20260717-101445.html" data-history-file="html_report_20260717-101445.html">2026-07-17</a>
+<a href="html_report_20260716-115922.html" data-history-file="html_report_20260716-115922.html">2026-07-16</a>
+<a href="html_report_20260715-143618.html" data-history-file="html_report_20260715-143618.html">2026-07-15</a>
+<a href="html_report_20260714-102247.html" data-history-file="html_report_20260714-102247.html">2026-07-14</a>
+<a href="html_report_20260713-142953.html" data-history-file="html_report_20260713-142953.html">2026-07-13</a>
+<a href="html_report_20260712-100003.html" data-history-file="html_report_20260712-100003.html">2026-07-12</a>
+<a href="html_report_20260711-100002.html" data-history-file="html_report_20260711-100002.html">2026-07-11</a></div>
+  </div>
+
+</section>
+
+
+<section id="priority">
+  <div class="section-head">
+    <h2>需要处理的事件</h2>
+    <p>排序: 影响等级高到低 -> 状态 -> 官方日期新到旧 -> 负责人待确认优先。</p>
+  </div>
+  <div class="table-box">
+    <table class="monitor-table priority-table">
+      <thead>
+        <tr>
+          <th>影响</th>
+          <th>状态</th>
+          <th>官方日期</th>
+          <th>平台/来源</th>
+          <th>标签</th>
+          <th>截止日期</th>
+          <th>中文 AI 摘要</th>
+          <th>影响对象</th>
+          <th>建议动作</th>
+          <th>Owner</th>
+          <th>通知</th>
+        </tr>
+      </thead>
+      <tbody>
+<tr>
+  <td><span class="badge impact-unknown">待确认</span></td>
+  <td><span class="badge status-failed">抓取失败</span></td>
+  <td>无官方日期</td>
+  <td><div class="source-jump"><strong>Amazon SP-API</strong><span>Amazon SP-API Release Notes</span><span class="muted">Amazon SP-API Release Notes</span><div class="link-row"><a href="https://developer-docs.amazon.com/sp-api/docs/sp-api-release-notes" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">其他/待确认</span><div class="tag-list"><span class="tag-secondary">其他/待确认</span></div></td>
+  <td>未写明</td>
+  <td><span class="badge ai-degraded">AI 未配置</span><br><span class="ai-text">本次抓取失败，无法完成该来源的当天变更判断。</span><br><span class="muted">待确认</span></td>
+  <td><span class="muted">待确认</span></td>
+  <td>待 AI 配置/需人工确认</td>
+  <td><strong>待确认负责人</strong><br><span class="muted">待正文摘要与标签确认</span></td>
+  <td><span class="badge notice-unsent">未通知</span></td>
+</tr>
+
+
+<tr>
+  <td><span class="badge impact-unknown">待确认</span></td>
+  <td><span class="badge status-failed">抓取失败</span></td>
+  <td>无官方日期</td>
+  <td><div class="source-jump"><strong>Temu</strong><span>Temu Partner Docs</span><span class="muted">Co-Warehouse ERP Fulfillment Change Notification Message</span><div class="link-row"><a href="https://partner-us.temu.com/documentation?menu_code=fb16b05f7a904765aac4af3a24b87d4a&amp;sub_menu_code=72dfeb97e79d42a78cda4bfdc5e5be82" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">其他/待确认</span><div class="tag-list"><span class="tag-secondary">其他/待确认</span></div></td>
+  <td>未写明</td>
+  <td><span class="badge ai-degraded">AI 未配置</span><br><span class="ai-text">本次抓取失败，无法完成该来源的当天变更判断。</span><br><span class="muted">待确认</span></td>
+  <td><span class="muted">待确认</span></td>
+  <td>待 AI 配置/需人工确认</td>
+  <td><strong>待确认负责人</strong><br><span class="muted">待正文摘要与标签确认</span></td>
+  <td><span class="badge notice-unsent">未通知</span></td>
+</tr>
+
+
+<tr>
+  <td><span class="badge impact-unknown">待确认</span></td>
+  <td><span class="badge status-failed">抓取失败</span></td>
+  <td>无官方日期</td>
+  <td><div class="source-jump"><strong>TikTok Shop</strong><span>TikTok Shop API Changelog</span><span class="muted">TikTok Shop API Changelog</span><div class="link-row"><a href="https://partner.tiktokshop.com/docv2/changelog" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">其他/待确认</span><div class="tag-list"><span class="tag-secondary">其他/待确认</span></div></td>
+  <td>未写明</td>
+  <td><span class="badge ai-degraded">AI 未配置</span><br><span class="ai-text">官方页面在当前网络或浏览器渲染环境下未能稳定返回。</span><br><span class="muted">待确认</span></td>
+  <td><span class="muted">待确认</span></td>
+  <td>待 AI 配置/需人工确认</td>
+  <td><strong>待确认负责人</strong><br><span class="muted">待正文摘要与标签确认</span></td>
+  <td><span class="badge notice-unsent">未通知</span></td>
+</tr>
+</tbody>
+    </table>
+  </div>
+</section>
+
+
+<section id="failures">
+  <div class="section-head">
+    <h2>失败与待修复</h2>
+    <p>失败表示本次无法判断对应具体条目是否变化，不能视为无变化。</p>
+  </div>
+  <div class="table-box">
+    <table class="monitor-table">
+      <thead>
+        <tr>
+          <th>平台</th>
+          <th>具体条目</th>
+          <th>抓取方式</th>
+          <th>失败原因</th>
+          <th>影响</th>
+          <th>解决方案</th>
+          <th>通知</th>
+        </tr>
+      </thead>
+      <tbody>
+<tr>
+  <td>Amazon SP-API</td>
+  <td><strong>Amazon SP-API Release Notes</strong><br><span class="muted">Amazon SP-API Release Notes</span><br><span class="muted">截止日期: 未写明/需人工确认</span></td>
+  <td><span class="badge mode-direct">直接抓取</span><br><span class="badge source-reliability">抓取失败</span></td>
+  <td>本次抓取失败，无法完成该来源的当天变更判断。</td>
+  <td>会影响该平台今天/昨天官方变更判断；本次不静默成功。</td>
+  <td>Confirm public access, then switch this source to Playwright or another official public endpoint if needed.</td>
+  <td><span class="badge notice-unsent">未通知</span></td>
+</tr>
+
+<tr>
+  <td>Temu</td>
+  <td><strong>Co-Warehouse ERP Fulfillment Change Notification Message</strong><br><span class="muted">Temu Partner Docs</span><br><span class="muted">截止日期: 未写明/需人工确认</span></td>
+  <td><span class="badge mode-detail">详情抓取</span><br><span class="badge source-reliability">抓取失败</span></td>
+  <td>本次抓取失败，无法完成该来源的当天变更判断。</td>
+  <td>会影响该平台今天/昨天官方变更判断；本次不静默成功。</td>
+  <td>Check public source access and retry; partial/complete failures are recorded as evidence.</td>
+  <td><span class="badge notice-unsent">未通知</span></td>
+</tr>
+
+<tr>
+  <td>TikTok Shop</td>
+  <td><strong>TikTok Shop API Changelog</strong><br><span class="muted">TikTok Shop API Changelog</span><br><span class="muted">截止日期: 未写明/需人工确认</span></td>
+  <td><span class="badge mode-detail">详情抓取</span><br><span class="badge source-reliability">抓取失败</span></td>
+  <td>官方页面在当前网络或浏览器渲染环境下未能稳定返回。</td>
+  <td>会影响该平台今天/昨天官方变更判断；本次不静默成功。</td>
+  <td>检查本机网络、地区访问、浏览器渲染依赖和平台级 timeout，必要时确认同一官方来源的静态 fallback。</td>
+  <td><span class="badge notice-unsent">未通知</span></td>
+</tr>
+</tbody>
+    </table>
+  </div>
+</section>
+
+    <p class="footer">Generated by scripts/render_html_report.py. HTML 只展示前端数据，不执行抓取、解析、调度或通知发送；敏感字段不会在页面中渲染。</p>
+  </main>
+
+<script>
+(() => {
+  if (window.location.protocol !== "file:") return;
+  const currentPath = decodeURIComponent(window.location.pathname).replace(/\\/g, "/");
+  const inReportsDirectory = /\/reports\/[^/]+$/.test(currentPath);
+  const basePath = inReportsDirectory ? "./" : "./reports/";
+  document.querySelectorAll("a[data-history-file]").forEach((link) => {
+    link.setAttribute("href", basePath + link.dataset.historyFile);
+  });
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,448 @@
+{
+  "latest_run_id": "20260817-010116",
+  "latest_run_date": "2026-08-17",
+  "latest_path": "latest.html",
+  "runs": [
+    {
+      "run_id": "20260817-010116",
+      "run_date": "2026-08-17",
+      "path": "html_report_20260817-010116.html",
+      "source_kind": "codex_ai",
+      "ai_provider": "codex_builtin_postprocess",
+      "ai_model": "current_codex_thread",
+      "ai_generated_count": 0
+    },
+    {
+      "run_id": "20260816-010145",
+      "run_date": "2026-08-16",
+      "path": "html_report_20260816-010145.html",
+      "source_kind": "codex_ai",
+      "ai_provider": "codex_builtin_postprocess",
+      "ai_model": "current_codex_thread",
+      "ai_generated_count": 1
+    },
+    {
+      "run_id": "20260815-010153",
+      "run_date": "2026-08-15",
+      "path": "html_report_20260815-010153.html",
+      "source_kind": "codex_ai",
+      "ai_provider": "codex_builtin_postprocess",
+      "ai_model": "current_codex_thread",
+      "ai_generated_count": 4
+    },
+    {
+      "run_id": "20260814-010220",
+      "run_date": "2026-08-14",
+      "path": "html_report_20260814-010220.html",
+      "source_kind": "codex_ai",
+      "ai_provider": "codex_builtin_postprocess",
+      "ai_model": "current_codex_thread",
+      "ai_generated_count": 1
+    },
+    {
+      "run_id": "20260813-010246",
+      "run_date": "2026-08-13",
+      "path": "html_report_20260813-010246.html",
+      "source_kind": "codex_ai",
+      "ai_provider": "codex_builtin_postprocess",
+      "ai_model": "current_codex_thread",
+      "ai_generated_count": 5
+    },
+    {
+      "run_id": "20260812-010104",
+      "run_date": "2026-08-12",
+      "path": "html_report_20260812-010104.html",
+      "source_kind": "codex_ai",
+      "ai_provider": "codex_builtin_postprocess",
+      "ai_model": "current_codex_thread",
+      "ai_generated_count": 6
+    },
+    {
+      "run_id": "20260811-010222",
+      "run_date": "2026-08-11",
+      "path": "html_report_20260811-010222.html",
+      "source_kind": "codex_ai",
+      "ai_provider": "codex_builtin_postprocess",
+      "ai_model": "current_codex_thread",
+      "ai_generated_count": 4
+    },
+    {
+      "run_id": "20260810-092553",
+      "run_date": "2026-08-10",
+      "path": "html_report_20260810-092553.html",
+      "source_kind": "codex_ai",
+      "ai_provider": "codex_builtin_postprocess",
+      "ai_model": "current_codex_thread",
+      "ai_generated_count": 0
+    },
+    {
+      "run_id": "20260810-091525",
+      "run_date": "2026-08-09",
+      "path": "html_report_20260810-091525.html",
+      "source_kind": "codex_ai",
+      "ai_provider": "codex_builtin_postprocess",
+      "ai_model": "current_codex_thread",
+      "ai_generated_count": 0
+    },
+    {
+      "run_id": "20260810-090255",
+      "run_date": "2026-08-08",
+      "path": "html_report_20260810-090255.html",
+      "source_kind": "codex_ai",
+      "ai_provider": "codex_builtin_postprocess",
+      "ai_model": "current_codex_thread",
+      "ai_generated_count": 2
+    },
+    {
+      "run_id": "20260807-010158",
+      "run_date": "2026-08-07",
+      "path": "html_report_20260807-010158.html",
+      "source_kind": "codex_ai",
+      "ai_provider": "codex_builtin_postprocess",
+      "ai_model": "current_codex_thread",
+      "ai_generated_count": 6
+    },
+    {
+      "run_id": "20260806-010230",
+      "run_date": "2026-08-06",
+      "path": "html_report_20260806-010230.html",
+      "source_kind": "codex_ai",
+      "ai_provider": "codex_builtin_postprocess",
+      "ai_model": "current_codex_thread",
+      "ai_generated_count": 12
+    },
+    {
+      "run_id": "20260805-010221",
+      "run_date": "2026-08-05",
+      "path": "html_report_20260805-010221.html",
+      "source_kind": "codex_ai",
+      "ai_provider": "codex_builtin_postprocess",
+      "ai_model": "current_codex_thread",
+      "ai_generated_count": 3
+    },
+    {
+      "run_id": "20260804-010307",
+      "run_date": "2026-08-04",
+      "path": "html_report_20260804-010307.html",
+      "source_kind": "codex_ai",
+      "ai_provider": "codex_builtin_postprocess",
+      "ai_model": "current_codex_thread",
+      "ai_generated_count": 5
+    },
+    {
+      "run_id": "20260803-092902",
+      "run_date": "2026-08-03",
+      "path": "html_report_20260803-092902.html",
+      "source_kind": "codex_ai",
+      "ai_provider": "codex_builtin_postprocess",
+      "ai_model": "current_codex_thread",
+      "ai_generated_count": 0
+    },
+    {
+      "run_id": "20260803-090702",
+      "run_date": "2026-08-02",
+      "path": "html_report_20260803-090702.html",
+      "source_kind": "codex_ai",
+      "ai_provider": "codex_builtin_postprocess",
+      "ai_model": "current_codex_thread",
+      "ai_generated_count": 1
+    },
+    {
+      "run_id": "20260801-010128",
+      "run_date": "2026-08-01",
+      "path": "html_report_20260801-010128.html",
+      "source_kind": "codex_ai",
+      "ai_provider": "codex_builtin_postprocess",
+      "ai_model": "current_codex_thread",
+      "ai_generated_count": 6
+    },
+    {
+      "run_id": "20260731-010254",
+      "run_date": "2026-07-31",
+      "path": "html_report_20260731-010254.html",
+      "source_kind": "codex_ai",
+      "ai_provider": "codex_builtin_postprocess",
+      "ai_model": "current_codex_thread",
+      "ai_generated_count": 8
+    },
+    {
+      "run_id": "20260730-010234",
+      "run_date": "2026-07-30",
+      "path": "html_report_20260730-010234.html",
+      "source_kind": "codex_ai",
+      "ai_provider": "codex_builtin_postprocess",
+      "ai_model": "current_codex_thread",
+      "ai_generated_count": 4
+    },
+    {
+      "run_id": "20260729-010142",
+      "run_date": "2026-07-29",
+      "path": "html_report_20260729-010142.html",
+      "source_kind": "codex_ai",
+      "ai_provider": "codex_builtin_postprocess",
+      "ai_model": "current_codex_thread",
+      "ai_generated_count": 1
+    },
+    {
+      "run_id": "20260728-010228",
+      "run_date": "2026-07-28",
+      "path": "html_report_20260728-010228.html",
+      "source_kind": "codex_ai",
+      "ai_provider": "codex_builtin_postprocess",
+      "ai_model": "current_codex_thread",
+      "ai_generated_count": 1
+    },
+    {
+      "run_id": "20260727-092440",
+      "run_date": "2026-07-27",
+      "path": "html_report_20260727-092440.html",
+      "source_kind": "codex_ai",
+      "ai_provider": "codex_builtin_postprocess",
+      "ai_model": "current_codex_thread",
+      "ai_generated_count": 0
+    },
+    {
+      "run_id": "20260727-091533",
+      "run_date": "2026-07-26",
+      "path": "html_report_20260727-091533.html",
+      "source_kind": "codex_ai",
+      "ai_provider": "codex_builtin_postprocess",
+      "ai_model": "current_codex_thread",
+      "ai_generated_count": 1
+    },
+    {
+      "run_id": "20260725-010200",
+      "run_date": "2026-07-25",
+      "path": "html_report_20260725-010200.html",
+      "source_kind": "codex_ai",
+      "ai_provider": "codex_builtin_postprocess",
+      "ai_model": "current_codex_thread",
+      "ai_generated_count": 4
+    },
+    {
+      "run_id": "20260724-011413",
+      "run_date": "2026-07-24",
+      "path": "html_report_20260724-011413.html",
+      "source_kind": "codex_ai",
+      "ai_provider": "codex_builtin_postprocess",
+      "ai_model": "current_codex_thread",
+      "ai_generated_count": 7
+    },
+    {
+      "run_id": "20260723-012535",
+      "run_date": "2026-07-23",
+      "path": "html_report_20260723-012535.html",
+      "source_kind": "codex_ai",
+      "ai_provider": "codex_builtin_postprocess",
+      "ai_model": "current_codex_thread",
+      "ai_generated_count": 3
+    },
+    {
+      "run_id": "20260722-101658",
+      "run_date": "2026-07-22",
+      "path": "html_report_20260722-101658.html",
+      "source_kind": "codex_ai",
+      "ai_provider": "codex_builtin_postprocess",
+      "ai_model": "current_codex_thread",
+      "ai_generated_count": 11
+    },
+    {
+      "run_id": "20260721-011631",
+      "run_date": "2026-07-21",
+      "path": "html_report_20260721-011631.html",
+      "source_kind": "codex_ai",
+      "ai_provider": "codex_builtin_postprocess",
+      "ai_model": "current_codex_thread",
+      "ai_generated_count": 7
+    },
+    {
+      "run_id": "20260720-092843",
+      "run_date": "2026-07-20",
+      "path": "html_report_20260720-092843.html",
+      "source_kind": "codex_ai",
+      "ai_provider": "codex_builtin_postprocess",
+      "ai_model": "current_codex_thread",
+      "ai_generated_count": 2
+    },
+    {
+      "run_id": "20260720-091002",
+      "run_date": "2026-07-19",
+      "path": "html_report_20260720-091002.html",
+      "source_kind": "codex_ai",
+      "ai_provider": "codex_builtin_postprocess",
+      "ai_model": "current_codex_thread",
+      "ai_generated_count": 2
+    },
+    {
+      "run_id": "20260718-010348",
+      "run_date": "2026-07-18",
+      "path": "html_report_20260718-010348.html",
+      "source_kind": "codex_ai",
+      "ai_provider": "codex_builtin_postprocess",
+      "ai_model": "current_codex_thread",
+      "ai_generated_count": 4
+    },
+    {
+      "run_id": "20260717-171839",
+      "run_date": "2026-07-17",
+      "path": "html_report_20260717-171839.html",
+      "source_kind": "codex_ai",
+      "ai_provider": "codex_builtin_postprocess",
+      "ai_model": "current_codex_thread",
+      "ai_generated_count": 6
+    },
+    {
+      "run_id": "20260716-101354",
+      "run_date": "2026-07-16",
+      "path": "html_report_20260716-101354.html",
+      "source_kind": "codex_ai",
+      "ai_provider": "codex_builtin_postprocess",
+      "ai_model": "current_codex_thread",
+      "ai_generated_count": 3
+    },
+    {
+      "run_id": "20260715-143618",
+      "run_date": "2026-07-15",
+      "path": "html_report_20260715-143618.html",
+      "source_kind": "codex_ai",
+      "ai_provider": "codex_builtin_postprocess",
+      "ai_model": "current_codex_thread",
+      "ai_generated_count": 9
+    },
+    {
+      "run_id": "20260714-102247",
+      "run_date": "2026-07-14",
+      "path": "html_report_20260714-102247.html",
+      "source_kind": "codex_ai",
+      "ai_provider": "codex_builtin_postprocess",
+      "ai_model": "current_codex_thread",
+      "ai_generated_count": 0
+    },
+    {
+      "run_id": "20260713-100002",
+      "run_date": "2026-07-13",
+      "path": "html_report_20260713-100002.html",
+      "source_kind": "codex_ai",
+      "ai_provider": "codex_builtin_postprocess",
+      "ai_model": "current_codex_thread",
+      "ai_generated_count": 0
+    },
+    {
+      "run_id": "20260712-100003",
+      "run_date": "2026-07-12",
+      "path": "html_report_20260712-100003.html",
+      "source_kind": "raw_events",
+      "ai_provider": "",
+      "ai_model": "",
+      "ai_generated_count": 0
+    },
+    {
+      "run_id": "20260711-100002",
+      "run_date": "2026-07-11",
+      "path": "html_report_20260711-100002.html",
+      "source_kind": "raw_events",
+      "ai_provider": "",
+      "ai_model": "",
+      "ai_generated_count": 0
+    },
+    {
+      "run_id": "20260710-195118",
+      "run_date": "2026-07-10",
+      "path": "html_report_20260710-195118.html",
+      "source_kind": "codex_ai",
+      "ai_provider": "codex_builtin_postprocess",
+      "ai_model": "current_codex_thread",
+      "ai_generated_count": 7
+    },
+    {
+      "run_id": "20260709-160314",
+      "run_date": "2026-07-09",
+      "path": "html_report_20260709-160314.html",
+      "source_kind": "codex_ai",
+      "ai_provider": "codex_builtin_trial",
+      "ai_model": "current_codex_thread",
+      "ai_generated_count": 10
+    },
+    {
+      "run_id": "20260708-152744",
+      "run_date": "2026-07-08",
+      "path": "html_report_20260708-152744.html",
+      "source_kind": "codex_ai",
+      "ai_provider": "codex_builtin_trial",
+      "ai_model": "current_codex_thread",
+      "ai_generated_count": 9
+    },
+    {
+      "run_id": "20260707-100005",
+      "run_date": "2026-07-07",
+      "path": "html_report_20260707-100005.html",
+      "source_kind": "codex_ai",
+      "ai_provider": "codex_builtin_trial",
+      "ai_model": "current_codex_thread",
+      "ai_generated_count": 6
+    },
+    {
+      "run_id": "20260706-100004",
+      "run_date": "2026-07-06",
+      "path": "html_report_20260706-100004.html",
+      "source_kind": "codex_ai",
+      "ai_provider": "codex_builtin_trial",
+      "ai_model": "current_codex_thread",
+      "ai_generated_count": 5
+    },
+    {
+      "run_id": "20260705-100005",
+      "run_date": "2026-07-05",
+      "path": "html_report_20260705-100005.html",
+      "source_kind": "raw_events",
+      "ai_provider": "",
+      "ai_model": "",
+      "ai_generated_count": 0
+    },
+    {
+      "run_id": "20260704-100005",
+      "run_date": "2026-07-04",
+      "path": "html_report_20260704-100005.html",
+      "source_kind": "raw_events",
+      "ai_provider": "",
+      "ai_model": "",
+      "ai_generated_count": 0
+    },
+    {
+      "run_id": "20260703-100002",
+      "run_date": "2026-07-03",
+      "path": "html_report_20260703-100002.html",
+      "source_kind": "codex_ai",
+      "ai_provider": "codex_builtin_trial",
+      "ai_model": "current_codex_thread",
+      "ai_generated_count": 3
+    },
+    {
+      "run_id": "20260702-100008",
+      "run_date": "2026-07-02",
+      "path": "html_report_20260702-100008.html",
+      "source_kind": "raw_events",
+      "ai_provider": "",
+      "ai_model": "",
+      "ai_generated_count": 0
+    },
+    {
+      "run_id": "20260701-100005",
+      "run_date": "2026-07-01",
+      "path": "html_report_20260701-100005.html",
+      "source_kind": "raw_events",
+      "ai_provider": "",
+      "ai_model": "",
+      "ai_generated_count": 0
+    },
+    {
+      "run_id": "20260630-100003",
+      "run_date": "2026-06-30",
+      "path": "html_report_20260630-100003.html",
+      "source_kind": "raw_events",
+      "ai_provider": "",
+      "ai_model": "",
+      "ai_generated_count": 0
+    }
+  ]
+}

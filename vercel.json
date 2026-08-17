@@ -1,0 +1,23 @@
+{
+  "cleanUrls": false,
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/reports/latest",
+      "destination": "/reports/latest.html",
+      "permanent": false
+    }
+  ],
+  "headers": [
+    {
+      "source": "/reports/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    }
+  ]
+}
+

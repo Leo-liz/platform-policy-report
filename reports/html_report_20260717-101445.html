@@ -1,0 +1,555 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>平台 API/开发者变更监控报告</title>
+  <style>
+    :root {
+      --blue-900: #103a74;
+      --blue-800: #174a91;
+      --blue-700: #1d5fbf;
+      --blue-050: #eef6ff;
+      --bg: #f4f7fb;
+      --panel: #ffffff;
+      --text: #1f2937;
+      --muted: #667085;
+      --line: #d7deea;
+      --head: #e8f0fb;
+      --danger: #b42318;
+      --warn: #b54708;
+      --ok: #047857;
+      --info: #0b63ce;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 13px/1.45 "Segoe UI", "Microsoft YaHei", Arial, sans-serif;
+    }
+    a { color: var(--blue-700); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .page { max-width: 1760px; margin: 0 auto; padding: 16px 20px 28px; }
+    .top-strip {
+      background: var(--blue-900);
+      border-bottom: 3px solid var(--blue-700);
+      color: #fff;
+    }
+    .top-strip-inner {
+      max-width: 1760px;
+      margin: 0 auto;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+    }
+    .top-strip strong { font-size: 15px; }
+    .top-strip span { color: #c9dcff; }
+    .report-nav {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 12px 0;
+    }
+    .report-nav a {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-left: 3px solid var(--blue-700);
+      color: var(--blue-900);
+      padding: 6px 10px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+    .top-panel, .table-box {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .table-box { overflow-x: auto; }
+    .title-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 16px;
+      background: linear-gradient(90deg, var(--blue-900), var(--blue-800));
+      color: #fff;
+    }
+    .eyebrow { margin: 0 0 2px; color: #c9dcff; font-weight: 700; }
+    h1, h2, h3 { margin: 0; letter-spacing: 0; }
+    h1 { font-size: 22px; }
+    h2 { font-size: 18px; color: var(--blue-900); }
+    h3 { font-size: 16px; color: var(--blue-900); }
+    .run-time { text-align: right; }
+    .run-time span { display: block; color: #c9dcff; font-size: 12px; }
+    .run-time strong { font-size: 14px; }
+    .summary-line {
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--line);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--blue-900);
+      background: var(--blue-050);
+    }
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(8, minmax(92px, 1fr));
+      border-bottom: 1px solid var(--line);
+    }
+    .metric {
+      padding: 10px 12px;
+      border-right: 1px solid var(--line);
+      min-height: 56px;
+    }
+    .metric:last-child { border-right: 0; }
+    .metric span { display: block; color: var(--muted); }
+    .metric strong { display: block; margin-top: 2px; font-size: 22px; line-height: 1; color: var(--blue-900); }
+    .scope-line { padding: 9px 16px; color: var(--muted); }
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 16px;
+      margin: 18px 0 8px;
+    }
+    .section-head p { margin: 0; color: var(--muted); }
+    .monitor-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+    .monitor-table th {
+      background: var(--head);
+      color: var(--blue-900);
+      border-bottom: 1px solid var(--line);
+      border-right: 1px solid var(--line);
+      padding: 8px 9px;
+      text-align: left;
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .monitor-table td {
+      border-bottom: 1px solid var(--line);
+      border-right: 1px solid var(--line);
+      padding: 8px 9px;
+      vertical-align: top;
+      overflow-wrap: anywhere;
+      background: #fff;
+    }
+    .monitor-table tr:nth-child(even) td { background: #f9fbfe; }
+    .monitor-table th:last-child, .monitor-table td:last-child { border-right: 0; }
+    .priority-table { min-width: 1540px; }
+    .priority-table th:nth-child(1), .priority-table td:nth-child(1) { width: 62px; }
+    .priority-table th:nth-child(2), .priority-table td:nth-child(2) { width: 122px; }
+    .priority-table th:nth-child(3), .priority-table td:nth-child(3) { width: 94px; }
+    .priority-table th:nth-child(4), .priority-table td:nth-child(4) { width: 180px; }
+    .priority-table th:nth-child(5), .priority-table td:nth-child(5) { width: 160px; }
+    .priority-table th:nth-child(6), .priority-table td:nth-child(6) { width: 128px; }
+    .priority-table th:nth-child(7), .priority-table td:nth-child(7) { width: 240px; }
+    .priority-table th:nth-child(10), .priority-table td:nth-child(10) { width: 130px; }
+    .priority-table th:nth-child(11), .priority-table td:nth-child(11) { width: 118px; }
+    .platform-table th:nth-child(1), .platform-table td:nth-child(1) { width: 94px; }
+    .platform-table th:nth-child(2), .platform-table td:nth-child(2) { width: 86px; }
+    .platform-table th:nth-child(3), .platform-table td:nth-child(3) { width: 92px; }
+    .platform-table th:nth-child(6), .platform-table td:nth-child(6) { width: 210px; }
+    .platform-table th:nth-child(8), .platform-table td:nth-child(8) { width: 120px; }
+    .platform-table th:nth-child(9), .platform-table td:nth-child(9) { width: 105px; }
+    .platform-table th:nth-child(10), .platform-table td:nth-child(10) { width: 190px; }
+    .platform-table th:nth-child(11), .platform-table td:nth-child(11) { width: 190px; }
+    .badge {
+      display: inline-block;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.35;
+      white-space: nowrap;
+      margin: 0 3px 3px 0;
+    }
+    .priority-table td:nth-child(2) .badge {
+      max-width: 100%;
+      white-space: normal;
+      overflow-wrap: anywhere;
+    }
+    .impact-high, .status-changed { background: #fee4e2; color: var(--danger); }
+    .impact-medium, .status-new { background: #dbeafe; color: var(--info); }
+    .impact-low, .status-unchanged, .notice-sent, .notice-not-required { background: #dcfce7; color: var(--ok); }
+    .impact-pending, .status-failed, .status-needs-decision, .notice-pending-config, .notice-failed, .notice-pending { background: #fef0c7; color: var(--warn); }
+    .notice-unsent { background: #e0e7ff; color: #3730a3; }
+    .mode-direct { background: #e8f5ee; color: var(--ok); }
+    .mode-detail, .source-reliability { background: #e8f1ff; color: var(--info); }
+    .ai-degraded { background: #fff7ed; color: var(--warn); }
+    .source-jump strong, .source-jump span { display: block; }
+    .mode-inline { margin-top: 4px; }
+    .tag-cell { min-width: 150px; }
+    .muted { color: var(--muted); }
+    .error-text { color: var(--danger); font-weight: 700; }
+    .solution { color: var(--blue-900); }
+    .link-row { margin-top: 3px; color: var(--muted); }
+    .history-toolbar {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 10px;
+      margin-bottom: 8px;
+    }
+    .latest-link {
+      background: var(--blue-700);
+      color: #fff;
+      border-radius: 4px;
+      padding: 6px 10px;
+      font-weight: 700;
+    }
+    .latest-link:hover { color: #fff; }
+    .quick-days { display: flex; gap: 6px; flex-wrap: wrap; }
+    .quick-days a {
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 5px 8px;
+      background: #fff;
+    }
+    .history-warning {
+      margin: 0 0 8px;
+      color: var(--warn);
+      font-weight: 700;
+    }
+    .platform-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 16px 0 6px;
+      padding: 8px 10px;
+      background: var(--blue-050);
+      border-left: 4px solid var(--blue-700);
+      border-radius: 4px;
+    }
+    .platform-title span {
+      color: var(--muted);
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 4px;
+      padding: 2px 6px;
+    }
+    .empty { text-align: center; color: var(--muted); padding: 18px; }
+    .trial-banner {
+      margin: 10px 0;
+      padding: 9px 12px;
+      border: 1px solid #f2c94c;
+      border-radius: 4px;
+      background: #fff8db;
+      color: #6b4f00;
+    }
+    .ai-metadata {
+      margin: 10px 0;
+      padding: 7px 10px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: var(--panel);
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .tag-primary {
+      display: inline-block;
+      padding: 3px 7px;
+      border-radius: 4px;
+      background: var(--blue-800);
+      color: #fff;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .tag-list { margin-top: 4px; display: flex; gap: 4px; flex-wrap: wrap; align-items: flex-start; }
+    .tag-secondary {
+      display: inline-block;
+      padding: 2px 5px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: #fff;
+      color: var(--muted);
+      max-width: 100%;
+      white-space: normal;
+      overflow-wrap: anywhere;
+    }
+    .footer { color: var(--muted); margin: 18px 0 0; font-size: 12px; }
+    @media (max-width: 1100px) {
+      .page { padding: 12px; }
+      .metric-grid { grid-template-columns: repeat(4, minmax(90px, 1fr)); }
+      .monitor-table { min-width: 1180px; }
+      .section-head, .title-bar { align-items: flex-start; flex-direction: column; }
+      .run-time { text-align: left; }
+    }
+    @media print {
+      body { background: #fff; }
+      .top-strip, .report-nav { display: none; }
+      .page { max-width: none; padding: 0; }
+      .table-box, .top-panel { border-color: #aaa; }
+      .monitor-table th, .monitor-table td { padding: 5px; font-size: 11px; }
+      a { color: #000; text-decoration: underline; }
+    }
+  </style>
+</head>
+<body>
+  <header class="top-strip">
+    <div class="top-strip-inner">
+      <strong>平台政策抓取 · 监控报告</strong>
+      <span>生成时间: 2026-07-17T10:24:04+08:00</span>
+    </div>
+  </header>
+  <main class="page">
+
+    <div class="ai-metadata" data-ai-provider="codex_builtin_postprocess" data-ai-model="current_codex_thread" data-ai-schema="11">摘要模型：codex_builtin_postprocess / current_codex_thread · Schema 11</div>
+    <nav class="report-nav" aria-label="报告导航">
+      <a href="#overview">运行概览</a>
+      <a href="#history">历史报告</a>
+      <a href="#priority">需要处理</a>
+      <a href="#failures">失败与待修复</a>
+    </nav>
+
+<section class="top-panel" id="overview">
+  <div class="title-bar">
+    <div>
+      <p class="eyebrow">内部监控报告</p>
+      <h1>平台 API/开发者变更监控</h1>
+    </div>
+  </div>
+  <div class="summary-line">发现 3 个今天/昨天需处理事件，0 个日期未解析的内容变化事件，1 个延迟发现需处理事件，3 个历史补录/追溯事件，0 个抓取失败，0 个待决策事件。</div>
+  <div class="metric-grid"><div class="metric"><span>监控平台</span><strong>12</strong></div>
+<div class="metric"><span>监控源</span><strong>12</strong></div>
+<div class="metric"><span>变更</span><strong>0</strong></div>
+<div class="metric"><span>失败</span><strong>0</strong></div>
+<div class="metric"><span>待决策</span><strong>0</strong></div>
+<div class="metric"><span>高影响</span><strong>2</strong></div>
+<div class="metric"><span>AI 降级</span><strong>0</strong></div>
+<div class="metric"><span>负责人待确认</span><strong>9</strong></div></div>
+  <div class="scope-line"><strong>平台范围:</strong> eBay / Amazon SP-API / AliExpress / Shopee / Lazada / Mercado Libre / Temu / Ozon / Wildberries / TikTok Shop / Shopify / Walmart</div>
+</section>
+
+
+<section id="history" class="history-panel">
+  <div class="section-head">
+    <h2>历史报告入口</h2>
+    <p>点击日期查看对应历史报告。</p>
+  </div>
+  <div class="history-toolbar">
+    <div class="quick-days history-date-row" aria-label="最近 7 天"><a href="html_report_20260717-101445.html" data-history-file="html_report_20260717-101445.html">2026-07-17</a>
+<a href="html_report_20260716-101354.html" data-history-file="html_report_20260716-101354.html">2026-07-16</a>
+<a href="html_report_20260715-143618.html" data-history-file="html_report_20260715-143618.html">2026-07-15</a>
+<a href="html_report_20260714-102247.html" data-history-file="html_report_20260714-102247.html">2026-07-14</a>
+<a href="html_report_20260713-100002.html" data-history-file="html_report_20260713-100002.html">2026-07-13</a>
+<a href="html_report_20260712-100003.html" data-history-file="html_report_20260712-100003.html">2026-07-12</a>
+<a href="html_report_20260711-100002.html" data-history-file="html_report_20260711-100002.html">2026-07-11</a></div>
+  </div>
+
+</section>
+
+
+<section id="priority">
+  <div class="section-head">
+    <h2>需要处理的事件</h2>
+    <p>排序: 影响等级高到低 -> 状态 -> 官方日期新到旧 -> 负责人待确认优先。</p>
+  </div>
+  <div class="table-box">
+    <table class="monitor-table priority-table">
+      <thead>
+        <tr>
+          <th>影响</th>
+          <th>状态</th>
+          <th>官方日期</th>
+          <th>平台/来源</th>
+          <th>标签</th>
+          <th>截止日期</th>
+          <th>中文 AI 摘要</th>
+          <th>影响对象</th>
+          <th>建议动作</th>
+          <th>Owner</th>
+          <th>通知</th>
+        </tr>
+      </thead>
+      <tbody>
+<tr>
+  <td><span class="badge impact-unknown">高</span></td>
+  <td><span class="badge status-actionable-today">需要处理</span></td>
+  <td>2026-07-16</td>
+  <td><div class="source-jump"><strong>Wildberries</strong><span>Wildberries Release Notes</span><span class="muted">#analytics Новая версия Оценки товара и отключение метода Скрытые из каталога Добавили новую версию метода получения отч</span><div class="link-row"><a href="https://t.me/wb_api_notifications/448" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">API/技术</span><div class="tag-list"><span class="tag-secondary">API 接口变更</span> <span class="tag-secondary">字段/参数变更</span> <span class="tag-secondary">弃用/下线/迁移</span></div></td>
+  <td>未写明</td>
+  <td><span class="ai-text">Wildberries 新增商品评分报告接口 POST /api/analytics/v2/item-rating，可按 onlyShadowedNms 筛选隐藏商品，并返回 isShadowed 字段。新版还将响应数组 cards 更名为 items，并调整 isNotIncludeNMsWithoutSales 参数拼写，现有解析和请求参数需要同步修改。旧版评分接口和隐藏商品查询接口将在 7 月 30 日停用，但正文未写明完整年份，需人工确认。</span><details class="ai-evidence"><summary>摘要依据</summary><ul><li>Added new version of the method for getting the Item Rating report — POST /api/analytics/v2/item-rating.</li><li>changed the name of the cards response array to items</li><li>The POST /api/analytics/v1/item-rating and GET /api/v1/analytics/banned-products/shadowed current methods will be disabled on July 30.</li></ul></details></td>
+  <td><span class="muted">Wildberries 商品分析、隐藏商品报告及评分接口集成</span></td>
+  <td>迁移到新版商品评分接口，更新筛选参数、响应数组和字段解析，并人工确认 7 月 30 日停用日期的完整年份后安排旧接口下线。</td>
+  <td><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: api_technical</span></td>
+  <td><span class="badge notice-unsent">未通知</span></td>
+</tr>
+
+
+<tr>
+  <td><span class="badge impact-unknown">高</span></td>
+  <td><span class="badge status-actionable-late-discovery">延迟发现/需要处理</span><br><span class="muted">前次抓取失败后的补抓发现：官方日期 2026-07-13 已超出常规今天/昨天窗口，本次仍列入需要处理区</span></td>
+  <td>2026-07-13</td>
+  <td><div class="source-jump"><strong>Temu</strong><span>Temu Partner Docs</span><span class="muted">详情源待修正/非具体变更条目</span><div class="link-row"><a href="https://partner-us.temu.com/documentation?menu_code=fb16b05f7a904765aac4af3a24b87d4a&amp;sub_menu_code=5f8078c3809146e29e2b26de4f98ac08" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">刊登/商品</span><div class="tag-list"><span class="tag-secondary">API 接口变更</span> <span class="tag-secondary">字段/参数变更</span> <span class="tag-secondary">商品/库存规则</span></div></td>
+  <td>未写明</td>
+  <td><span class="ai-text">Temu 更新了商品发布接口 V3 集成指南，核心接口为 temu.local.goods.v3.add，并明确商品、外部商品标识、SKU、图片和价格等字段约束。该接口允许直接提交外部类目名称和图片地址，由系统推荐类目并下载图片，可减少类目树查询和图片上传接口调用。正文最近更新时间为 2026-07-13，属于本轮晚发现内容。</span><details class="ai-evidence"><summary>摘要依据</summary><ul><li>Interface Name: temu.local.goods.v3.add</li><li>No need to call the bg.local.goods.cats.get API to retrieve the Temu category tree.</li><li>Up to 500 SKUs are supported per product.</li></ul></details></td>
+  <td><span class="muted">Temu 商品发布、ERP 商品字段映射及 SKU 刊登集成</span></td>
+  <td>核对商品发布链路是否准备接入 V3，重点验证 externalGoodsId、externalSkuId、图片、价格和 SKU 唯一性等字段，并按正文约束补充截断与校验测试。</td>
+  <td><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: listing_product</span></td>
+  <td><span class="badge notice-unsent">未通知</span></td>
+</tr>
+
+
+<tr>
+  <td><span class="badge impact-unknown">中</span></td>
+  <td><span class="badge status-actionable-today">需要处理</span></td>
+  <td>2026-07-16</td>
+  <td><div class="source-jump"><strong>TikTok Shop</strong><span>TikTok Shop API Changelog</span><span class="muted">Post Shoppable Video and Photos APIs v202607: New Fields Added</span><div class="link-row"><a href="https://partner.tiktokshop.com/docv2/page/0gaq46iv" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">营销/促销</span><div class="tag-list"><span class="tag-secondary">API 接口变更</span> <span class="tag-secondary">字段/参数变更</span> <span class="tag-secondary">合规/政策要求</span></div></td>
+  <td>未写明</td>
+  <td><span class="ai-text">TikTok Shop 的可购物视频接口新增请求字段 video_info.is_ai_generated，用于声明内容是否由人工智能生成，设为真时帖子会显示相应标签。可购物视频和图片接口还新增可选响应字段 quota，用于返回创作者发布额度；没有额度限制时该字段会省略，不能按错误处理。公告发布日期为 2026-07-16。</span><details class="ai-evidence"><summary>摘要依据</summary><ul><li>When this field is set to true, the published post will display an AI generated label.</li><li>Post Shoppable Video API and Post Shoppable Photos API also add a new response field, quota</li><li>Do not treat the absence of quota as an error; the field is omitted if no quota restriction applies.</li></ul></details></td>
+  <td><span class="muted">TikTok Shop 可购物视频和图片发布、人工智能内容标记及额度解析</span></td>
+  <td>升级到对应版本后识别视频是否由人工智能生成并正确传递标记，同时让视频和图片响应解析兼容可选 quota 字段，完成测试后再上线。</td>
+  <td><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: marketing_promotion</span></td>
+  <td><span class="badge notice-unsent">未通知</span></td>
+</tr>
+
+
+<tr>
+  <td><span class="badge impact-unknown">中</span></td>
+  <td><span class="badge status-actionable-today">需要处理</span></td>
+  <td>2026-07-16</td>
+  <td><div class="source-jump"><strong>Walmart</strong><span>Walmart Marketplace What&#x27;s New</span><span class="muted">Changelog</span><div class="link-row"><a href="https://developer.walmart.com/us-marketplace/changelog" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">API/技术</span><div class="tag-list"><span class="tag-secondary">API 接口变更</span> <span class="tag-secondary">字段/参数变更</span> <span class="tag-secondary">订单/履约/物流</span></div></td>
+  <td>未写明</td>
+  <td><span class="ai-text">Walmart 7 月 16 日版本在入库货件接口中新增可选请求属性 shippingSummary，并为按需报告新增 SEM_SEARCH_TERMS 报告类型。报告类型同时加入下载、请求和计划相关接口的 reportType 查询参数及响应枚举，会影响报告创建、调度和解析逻辑。版本页面日期为 2026-07-16，其中两组条目的发布日分别标为 2026-07-10 和 2026-07-13。</span><details class="ai-evidence"><summary>摘要依据</summary><ul><li>July 16, 2026 release</li><li>Added optional request property shippingSummary in:</li><li>Added NEW report type: - SEM_SEARCH_TERMS</li></ul></details></td>
+  <td><span class="muted">Walmart 入库货件、搜索词报告创建下载及报告计划接口</span></td>
+  <td>让入库货件请求兼容可选 shippingSummary，并在报告类型枚举、请求参数、下载和计划任务解析中加入 SEM_SEARCH_TERMS 后执行接口回归。</td>
+  <td><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: api_technical</span></td>
+  <td><span class="badge notice-unsent">未通知</span></td>
+</tr>
+
+
+<tr>
+  <td><span class="badge impact-unknown">中</span></td>
+  <td><span class="badge status-actionable-late-discovery">延迟发现/需要处理</span><br><span class="muted">前次抓取失败后的补抓发现：官方日期 2026-07-13 已超出常规今天/昨天窗口，本次仍列入需要处理区</span></td>
+  <td>2026-03-26</td>
+  <td><div class="source-jump"><strong>Temu</strong><span>Temu Partner Docs</span><span class="muted">[Error SOP][150011003]Invalid Request Parameters [{*}]</span><div class="link-row"><a href="https://partner-us.temu.com/documentation?menu_code=38e79b35d2cb463d85619c1c786dd303&amp;sub_menu_code=d3a23e7c11f64be3b832884953341adb" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">刊登/商品</span><div class="tag-list"><span class="tag-secondary">字段/参数变更</span> <span class="tag-secondary">API 接口变更</span> <span class="tag-secondary">文档/SDK/示例更新</span></div></td>
+  <td>未写明</td>
+  <td><span class="ai-text">Temu 的错误处理文档说明错误码 150011003 表示请求缺少必填参数，或参数名称、数据类型不符合接口定义，未定义参数会被忽略。正文示例分别指出商品发布请求需要 goodsServicePromise，且每个 SKU 都需要 specIdList。正文最近更新时间为 2026-03-26，属于本轮晚发现文档。</span><details class="ai-evidence"><summary>摘要依据</summary><ul><li>Required parameters are missing, or the parameter names/data types are incorrect.</li><li>goodsServicePromise parameter is required.</li><li>Please make sure each added sku in skuList has specIdList.</li></ul></details></td>
+  <td><span class="muted">Temu 商品发布请求校验和 ERP 刊登错误处理</span></td>
+  <td>在商品发布前按接口定义校验字段名称、类型和必填项，重点检查 goodsServicePromise 以及每个 SKU 的 specIdList，避免把未定义字段当作已被平台接收。</td>
+  <td><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: listing_product</span></td>
+  <td><span class="badge notice-unsent">未通知</span></td>
+</tr>
+
+
+<tr>
+  <td><span class="badge impact-unknown">中</span></td>
+  <td><span class="badge status-actionable-late-discovery">延迟发现/需要处理</span><br><span class="muted">前次抓取失败后的补抓发现：官方日期 2026-07-13 已超出常规今天/昨天窗口，本次仍列入需要处理区</span></td>
+  <td>2026-03-26</td>
+  <td><div class="source-jump"><strong>Temu</strong><span>Temu Partner Docs</span><span class="muted">[Error SOP][150011028]Specification information repeated: [{*}]</span><div class="link-row"><a href="https://partner-us.temu.com/documentation?menu_code=38e79b35d2cb463d85619c1c786dd303&amp;sub_menu_code=1ca3edf11e644047b14ba05e25f84558" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">刊登/商品</span><div class="tag-list"><span class="tag-secondary">商品/库存规则</span> <span class="tag-secondary">字段/参数变更</span> <span class="tag-secondary">文档/SDK/示例更新</span></div></td>
+  <td>未写明</td>
+  <td><span class="ai-text">Temu 的错误处理文档说明错误码 150011028 表示 SKU 规格组合重复，即商品中已存在相同规格组合。平台要求即使只有一个 SKU 也至少选择一种变体类型，并为各 SKU 提供唯一的变体值。正文最近更新时间为 2026-03-26，属于本轮晚发现文档。</span><details class="ai-evidence"><summary>摘要依据</summary><ul><li>A SKU with the same specification combination already exists.</li><li>Even if there is only one SKU, you must select at least one variant type.</li><li>Please remove the duplicate specification information from your request payload, as it already exists.</li></ul></details></td>
+  <td><span class="muted">Temu 商品变体、SKU 规格组合和刊登请求校验</span></td>
+  <td>提交商品前检查同一商品下的 SKU 规格组合是否唯一，删除重复组合，并为单 SKU 商品补充至少一个可区分的变体类型和值。</td>
+  <td><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: listing_product</span></td>
+  <td><span class="badge notice-unsent">未通知</span></td>
+</tr>
+
+
+<tr>
+  <td><span class="badge impact-unknown">低</span></td>
+  <td><span class="badge status-actionable-late-discovery">延迟发现/需要处理</span><br><span class="muted">前次抓取失败后的补抓发现：官方日期 2026-07-13 已超出常规今天/昨天窗口，本次仍列入需要处理区</span></td>
+  <td>2025-08-15</td>
+  <td><div class="source-jump"><strong>Temu</strong><span>Temu Partner Docs</span><span class="muted">Registration Overview</span><div class="link-row"><a href="https://partner-us.temu.com/documentation?menu_code=52ef88bdef1d4527b15f6d303b173e48&amp;sub_menu_code=cf3e2710a33748e7a06b80c8b6650eff" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">账号/权限</span><div class="tag-list"><span class="tag-secondary">认证/权限变更</span> <span class="tag-secondary">文档/SDK/示例更新</span></div></td>
+  <td>未写明</td>
+  <td><span class="ai-text">本轮晚发现 Temu 开发者注册概览文档，正文区分开发者与服务商，并说明目前线上注册只支持开发者类型。文档同时列出美国、欧洲、其他地区和中国大陆对应的平台入口，影响新合作伙伴选择注册平台。正文最近更新时间为 2025-08-15，并非今天发布的新公告。</span><details class="ai-evidence"><summary>摘要依据</summary><ul><li>Currently, only Developer type is supported for online registration.We cooperate with Service Providers offline.</li><li>Please select the appropriate option based on the type of seller you want to serve.</li><li>Last update time: 2025-08-15 17:37:36</li></ul></details></td>
+  <td><span class="muted">Temu 新开发者注册、合作伙伴类型选择和区域平台入口</span></td>
+  <td>新接入团队按服务卖家所在地区选择对应平台，并确认申请主体属于可线上注册的开发者类型；现有集成无需把该文档当作当天变更。</td>
+  <td><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: account_permission</span></td>
+  <td><span class="badge notice-unsent">未通知</span></td>
+</tr>
+
+
+<tr>
+  <td><span class="badge impact-unknown">低</span></td>
+  <td><span class="badge status-actionable-late-discovery">延迟发现/需要处理</span><br><span class="muted">前次抓取失败后的补抓发现：官方日期 2026-07-13 已超出常规今天/昨天窗口，本次仍列入需要处理区</span></td>
+  <td>2025-06-26</td>
+  <td><div class="source-jump"><strong>Temu</strong><span>Temu Partner Docs</span><span class="muted">temu.logistics.candidate.scanform.list.get</span><div class="link-row"><a href="https://partner-us.temu.com/documentation?menu_code=fb16b05f7a904765aac4af3a24b87d4a&amp;sub_menu_code=5b920f670469435f9cbbf9d70ae0b86b" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">物流/履约</span><div class="tag-list"><span class="tag-secondary">订单/履约/物流</span> <span class="tag-secondary">API 接口变更</span> <span class="tag-secondary">文档/SDK/示例更新</span></div></td>
+  <td>未写明</td>
+  <td><span class="ai-text">本轮晚发现 Temu 的候选扫描单包裹查询接口文档，该接口按承运商和仓库查询可用于生成扫描单的包裹编号列表。请求需要承运商编号、仓库编号及分页参数，单页最大数量为 500，会影响使用扫描单的订单履约集成。正文最近更新时间为 2025-06-26，并非今天发布的新公告。</span><details class="ai-evidence"><summary>摘要依据</summary><ul><li>The &quot;temu.logistics.candidate.scanform.list.get&quot; interface is for sellers to get lists of package numbers that can be used to generate a scanform based on shipCompanyId and warehouseId.</li><li>pageSize INTEGER True Page size for pagination, max is 500.</li><li>Last update time: 2025-06-26 15:00:59</li></ul></details></td>
+  <td><span class="muted">Temu 扫描单生成、仓库包裹查询及订单履约接口</span></td>
+  <td>仅在系统使用候选扫描单查询时核对承运商、仓库和分页参数映射；未使用该接口则记录为晚发现文档，无需按当天变更处理。</td>
+  <td><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: logistics_fulfillment</span></td>
+  <td><span class="badge notice-unsent">未通知</span></td>
+</tr>
+
+
+<tr>
+  <td><span class="badge impact-unknown">待确认</span></td>
+  <td><span class="badge status-actionable-late-discovery">延迟发现/需要处理</span><br><span class="muted">前次抓取失败后的补抓发现：官方日期 2026-07-13 已超出常规今天/昨天窗口，本次仍列入需要处理区</span></td>
+  <td>2026-07-13</td>
+  <td><div class="source-jump"><strong>Temu</strong><span>Temu Partner Docs</span><span class="muted">详情源待修正/非具体变更条目</span><div class="link-row"><a href="https://partner-us.temu.com/documentation?menu_code=52ef88bdef1d4527b15f6d303b173e48&amp;sub_menu_code=e20fc59017604435a8e262365f42bc4d" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">其他/待确认</span><div class="tag-list"><span class="tag-secondary">文档/SDK/示例更新</span> <span class="tag-secondary">其他/待确认</span></div></td>
+  <td>未写明</td>
+  <td><span class="ai-text">该 Temu 支持页面当前只显示联系人及公司关系材料、商业登记编号两个主题标题，没有提供可验证的变更说明正文。页面更新时间显示为横线，无法确认具体变更、影响范围或关键日期。该条应保持待人工确认，不能据标题推断负责人或建议动作。</span><details class="ai-evidence"><summary>摘要依据</summary><ul><li>How to obtain documents related to contacts and company relationships.</li><li>The correct way to obtain a business registration number.</li><li>Last update time: -</li></ul></details></td>
+  <td><span class="muted">Temu 合作伙伴支持材料和企业注册信息使用者</span></td>
+  <td>人工打开该具体文档确认正文是否可加载；在取得正文前不分派业务负责人，也不依据两个主题标题实施变更。</td>
+  <td><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: other_pending</span></td>
+  <td><span class="badge notice-unsent">未通知</span></td>
+</tr>
+</tbody>
+    </table>
+  </div>
+</section>
+
+
+<section id="failures">
+  <div class="section-head">
+    <h2>失败与待修复</h2>
+    <p>失败表示本次无法判断对应具体条目是否变化，不能视为无变化。</p>
+  </div>
+  <div class="table-box">
+    <table class="monitor-table">
+      <thead>
+        <tr>
+          <th>平台</th>
+          <th>具体条目</th>
+          <th>抓取方式</th>
+          <th>失败原因</th>
+          <th>影响</th>
+          <th>解决方案</th>
+          <th>通知</th>
+        </tr>
+      </thead>
+      <tbody><tr><td colspan="7" class="empty">本次没有抓取失败事件。</td></tr></tbody>
+    </table>
+  </div>
+</section>
+
+    <p class="footer">Generated by scripts/render_html_report.py. HTML 只展示前端数据，不执行抓取、解析、调度或通知发送；敏感字段不会在页面中渲染。</p>
+  </main>
+
+<script>
+(() => {
+  if (window.location.protocol !== "file:") return;
+  const currentPath = decodeURIComponent(window.location.pathname).replace(/\\/g, "/");
+  const inReportsDirectory = /\/reports\/[^/]+$/.test(currentPath);
+  const basePath = inReportsDirectory ? "./" : "./reports/";
+  document.querySelectorAll("a[data-history-file]").forEach((link) => {
+    link.setAttribute("href", basePath + link.dataset.historyFile);
+  });
+})();
+</script>
+
+</body>
+</html>
