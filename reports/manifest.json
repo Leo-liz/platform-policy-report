@@ -1,8 +1,17 @@
 {
-  "latest_run_id": "20260820-010317",
-  "latest_run_date": "2026-08-20",
+  "latest_run_id": "20260821-010417",
+  "latest_run_date": "2026-08-21",
   "latest_path": "latest.html",
   "runs": [
+    {
+      "run_id": "20260821-010417",
+      "run_date": "2026-08-21",
+      "path": "html_report_20260821-010417.html",
+      "source_kind": "codex_ai",
+      "ai_provider": "codex_builtin_postprocess",
+      "ai_model": "current_codex_thread",
+      "ai_generated_count": 2
+    },
     {
       "run_id": "20260820-010317",
       "run_date": "2026-08-20",
