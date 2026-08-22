@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "taxonomy_version": "2026-08-22",
+  "platforms": [
+    {
+      "code": "ebay",
+      "label": "eBay"
+    },
+    {
+      "code": "amazon",
+      "label": "Amazon SP-API"
+    },
+    {
+      "code": "aliexpress",
+      "label": "AliExpress"
+    },
+    {
+      "code": "shopee",
+      "label": "Shopee"
+    },
+    {
+      "code": "lazada",
+      "label": "Lazada"
+    },
+    {
+      "code": "mercadolibre",
+      "label": "Mercado Libre"
+    },
+    {
+      "code": "temu",
+      "label": "Temu"
+    },
+    {
+      "code": "ozon",
+      "label": "Ozon"
+    },
+    {
+      "code": "wildberries",
+      "label": "Wildberries"
+    },
+    {
+      "code": "tiktok_shop",
+      "label": "TikTok Shop"
+    },
+    {
+      "code": "shopify",
+      "label": "Shopify"
+    },
+    {
+      "code": "walmart",
+      "label": "Walmart"
+    }
+  ],
+  "primary_tags": [
+    {
+      "code": "listing_product",
+      "label": "刊登/商品"
+    },
+    {
+      "code": "inventory",
+      "label": "库存"
+    },
+    {
+      "code": "order",
+      "label": "订单"
+    },
+    {
+      "code": "logistics_fulfillment",
+      "label": "物流/履约"
+    },
+    {
+      "code": "finance_settlement",
+      "label": "财务/结算"
+    },
+    {
+      "code": "compliance_policy",
+      "label": "合规/政策"
+    },
+    {
+      "code": "account_permission",
+      "label": "账号/权限"
+    },
+    {
+      "code": "api_technical",
+      "label": "API/技术"
+    },
+    {
+      "code": "customer_service_after_sales",
+      "label": "客服/售后"
+    },
+    {
+      "code": "marketing_promotion",
+      "label": "营销/促销"
+    },
+    {
+      "code": "other_pending",
+      "label": "其他/待确认"
+    }
+  ],
+  "wildcards": {
+    "platform": "*",
+    "primary_tag": "*"
+  },
+  "generated_at": "2026-08-22T17:52:50+08:00"
+}
