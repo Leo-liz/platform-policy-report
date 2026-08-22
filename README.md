@@ -21,3 +21,7 @@
 4. 先只设置 `DINGTALK_TEST_USER_ID`，从管理页完成一次真实测试通知；确认 task_id 和发送结果后，才把 `DINGTALK_PRODUCTION_SEND_ENABLED` 改为 `true`。
 
 本仓库不包含抓取代码、原始快照、证据正文、数据库内容、人员标识、私有配置或访问令牌。`reports/notification-catalog.json` 只含公开的平台和主标签枚举。
+
+## Vercel Git 集成
+
+现有 Vercel 项目 `site` 只连接本仓库：功能分支用于 Preview 验收，只有合入 `main` 后才允许更新生产环境。
