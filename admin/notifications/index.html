@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>钉钉通知配置｜平台政策监控</title>
+    <link rel="stylesheet" href="/admin/notifications/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header>
+        <div>
+          <p class="eyebrow">PLATFORM POLICY MONITOR</p>
+          <h1>钉钉通知配置</h1>
+          <p class="lede">按“平台 × 主标签”把可信变更路由给对应同事；同一收件人每天只收到一条聚合工作通知。</p>
+        </div>
+        <a class="report-link" href="/reports/latest">查看公开日报</a>
+      </header>
+
+      <section id="login-panel" class="panel login-panel">
+        <h2>管理员登录</h2>
+        <form id="login-form">
+          <label>管理员密码<input id="admin-password" type="password" minlength="12" autocomplete="current-password" required /></label>
+          <button type="submit">登录</button>
+        </form>
+        <p class="hint">密码、会话密钥、钉钉凭证和人员数据只保存在 Vercel 私有环境变量与 Neon 数据库。</p>
+      </section>
+
+      <div id="app" hidden>
+        <nav class="tabs" aria-label="配置模块">
+          <button class="tab active" data-target="recipients">收件人</button>
+          <button class="tab" data-target="rules">订阅规则</button>
+          <button class="tab" data-target="preview">匹配预览</button>
+          <button class="tab" data-target="audit">发送审计</button>
+          <button id="logout" class="quiet">退出</button>
+        </nav>
+
+        <section id="recipients" class="panel tab-panel">
+          <div class="section-title"><div><h2>收件人管理</h2><p>优先从通讯录选择；权限不足时可手工填写显示名和 userId。</p></div></div>
+          <div class="split">
+            <form id="directory-form" class="card">
+              <h3>通讯录查找</h3>
+              <label>姓名<input id="directory-query" placeholder="输入姓名" /></label>
+              <button type="submit">查找</button>
+              <div id="directory-results" class="search-results"></div>
+            </form>
+            <form id="recipient-form" class="card">
+              <h3>新增或更新收件人</h3>
+              <input id="recipient-id" type="hidden" />
+              <input id="recipient-source" type="hidden" value="manual" />
+              <label>显示名<input id="recipient-name" maxlength="120" required /></label>
+              <label>钉钉 userId<input id="recipient-userid" maxlength="180" required /></label>
+              <label class="check"><input id="recipient-enabled" type="checkbox" checked />启用</label>
+              <button type="submit">保存收件人</button>
+            </form>
+          </div>
+          <div id="recipient-list" class="table-wrap"></div>
+        </section>
+
+        <section id="rules" class="panel tab-panel" hidden>
+          <div class="section-title"><div><h2>订阅规则</h2><p>多条规则采用任一命中；同一事件命中同一人的多条规则时自动去重。</p></div></div>
+          <form id="rule-form" class="rule-grid">
+            <input id="rule-id" type="hidden" />
+            <label>收件人<select id="rule-recipient" required></select></label>
+            <label>平台范围<select id="rule-platform" required></select></label>
+            <label>主标签范围<select id="rule-tag" required></select></label>
+            <label class="check"><input id="rule-enabled" type="checkbox" checked />启用</label>
+            <button type="submit">保存规则</button>
+          </form>
+          <div class="examples"><span>指定平台 + 全部标签</span><span>全部平台 + 指定主标签</span><span>指定平台 + 指定主标签</span></div>
+          <div id="rule-list" class="table-wrap"></div>
+        </section>
+
+        <section id="preview" class="panel tab-panel" hidden>
+          <div class="section-title"><div><h2>匹配预览与测试</h2><p>预览只在浏览器内计算；真实测试仅允许环境变量指定的测试 userId。</p></div></div>
+          <div id="match-preview" class="preview-grid"></div>
+        </section>
+
+        <section id="audit" class="panel tab-panel" hidden>
+          <div class="section-title"><div><h2>发送与操作审计</h2><p>“已受理”与“实际送达”分开记录；失败可人工重试。</p></div></div>
+          <div id="dispatch-list" class="table-wrap"></div>
+          <div id="audit-list" class="table-wrap"></div>
+        </section>
+      </div>
+      <div id="toast" role="status" aria-live="polite"></div>
+    </main>
+    <script type="module" src="/admin/notifications/app.js"></script>
+  </body>
+</html>
