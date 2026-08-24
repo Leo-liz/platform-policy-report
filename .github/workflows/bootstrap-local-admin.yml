@@ -27,12 +27,22 @@ jobs:
           from pathlib import Path
           Path("request.json").write_text(json.dumps({"password": os.environ["LOCAL_ADMIN_DB_PASSWORD"]}), encoding="utf-8")
           PY
-          curl --fail --silent --show-error --location --max-time 60 \
+          http_status=$(curl --silent --show-error --location --max-time 60 \
             --header "Authorization: Bearer $NOTIFICATION_DISPATCH_TOKEN" \
             --header "Content-Type: application/json" \
             --data-binary @request.json \
-            "$BOOTSTRAP_URL" -o bootstrap-result.json
+            "$BOOTSTRAP_URL" -o bootstrap-result.json --write-out "%{http_code}")
           rm request.json
+          echo "HTTP status: $http_status"
+          if [ "$http_status" != "200" ]; then
+            python - <<'PY'
+          import json
+          from pathlib import Path
+          result = json.loads(Path("bootstrap-result.json").read_text(encoding="utf-8"))
+          print(json.dumps({"error": result.get("error"), "stage": result.get("stage"), "database_code": result.get("database_code")}))
+          PY
+            exit 1
+          fi
 
       - name: Validate non-secret connection metadata
         run: |

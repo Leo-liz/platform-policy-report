@@ -44,20 +44,28 @@ export function connectionMetadata(databaseUrl) {
 }
 
 export default async function handler(req, res) {
+  let stage = "request_validation";
   try {
     if (req.method !== "POST") return json(res, 405, { error: "method_not_allowed" });
     requireServiceToken(req);
     const body = await bodyObject(req);
     const password = validateRolePassword(body.password);
+    stage = "database_connect";
     const sql = database();
     const current = await sql`SELECT current_database() AS name`;
     const databaseName = String(current[0]?.name || "");
     if (!databaseName) throw new Error("current database name is unavailable");
-    for (const statement of grantStatements(databaseName, password)) await sql.query(statement);
+    const statements = grantStatements(databaseName, password);
+    for (let index = 0; index < statements.length; index += 1) {
+      stage = `grant_${index + 1}`;
+      await sql.query(statements[index]);
+    }
     return json(res, 200, { ok: true, connection: connectionMetadata(process.env.DATABASE_URL) });
   } catch (error) {
     return json(res, Number(error?.statusCode || 400), {
-      error: String(error?.message || "bootstrap failed").slice(0, 240),
+      error: "bootstrap_failed",
+      stage,
+      database_code: String(error?.code || "unknown").slice(0, 40),
     });
   }
 }
