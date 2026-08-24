@@ -26,7 +26,7 @@ test("connection metadata never exposes the owner password", () => {
     host: "db.example",
     port: 5432,
     database: "neondb",
-    username: "platform_policy_local_admin",
+    username: "platform_policy_local_admin_v2",
     sslmode: "require",
   });
   assert.doesNotMatch(JSON.stringify(metadata), /owner|secret/);
@@ -37,12 +37,12 @@ test("local private env round-trips and builds the dedicated URL", () => {
   assert.equal(values.get("ADMIN_SESSION_SECRET"), "abc=def");
   assert.match(serializePrivateEnv(values), /ADMIN_PASSWORD=example/);
   const url = buildDedicatedDatabaseUrl({
-    username: "platform_policy_local_admin",
+    username: "platform_policy_local_admin_v2",
     host: "db.example",
     port: 5432,
     database: "neondb",
     sslmode: "require",
   }, "safe-password");
-  assert.equal(new URL(url).username, "platform_policy_local_admin");
+  assert.equal(new URL(url).username, "platform_policy_local_admin_v2");
   assert.equal(new URL(url).password, "safe-password");
 });

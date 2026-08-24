@@ -52,7 +52,7 @@ jobs:
           result = json.loads(Path("bootstrap-result.json").read_text(encoding="utf-8"))
           assert result.get("ok") is True
           connection = result.get("connection") or {}
-          assert connection.get("username") == "platform_policy_local_admin"
+          assert connection.get("username") == "platform_policy_local_admin_v2"
           assert connection.get("host") and connection.get("database")
           serialized = json.dumps(connection).lower()
           assert "password" not in serialized and "secret" not in serialized and "token" not in serialized

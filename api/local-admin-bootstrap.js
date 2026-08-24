@@ -2,7 +2,7 @@ import { database } from "../lib/db.js";
 import { bodyObject, json } from "../lib/http.js";
 import { requireServiceToken } from "../lib/security.js";
 
-export const LOCAL_ADMIN_ROLE = "platform_policy_local_admin";
+export const LOCAL_ADMIN_ROLE = "platform_policy_local_admin_v2";
 
 export function validateRolePassword(value) {
   const password = String(value || "");
@@ -20,8 +20,7 @@ export function grantStatements(databaseName, password) {
   const databaseIdentifier = quoteIdentifier(databaseName);
   const safePassword = validateRolePassword(password);
   return [
-    `DO $$ BEGIN IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = '${LOCAL_ADMIN_ROLE}') THEN CREATE ROLE ${LOCAL_ADMIN_ROLE} LOGIN; END IF; END $$`,
-    `ALTER ROLE ${LOCAL_ADMIN_ROLE} WITH LOGIN PASSWORD '${safePassword}' NOSUPERUSER NOCREATEDB NOCREATEROLE NOINHERIT NOREPLICATION NOBYPASSRLS`,
+    `DO $$ BEGIN IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = '${LOCAL_ADMIN_ROLE}') THEN CREATE ROLE ${LOCAL_ADMIN_ROLE} WITH LOGIN PASSWORD '${safePassword}' NOSUPERUSER NOCREATEDB NOCREATEROLE NOINHERIT NOREPLICATION NOBYPASSRLS; END IF; END $$`,
     `GRANT CONNECT ON DATABASE ${databaseIdentifier} TO ${LOCAL_ADMIN_ROLE}`,
     `GRANT USAGE ON SCHEMA public TO ${LOCAL_ADMIN_ROLE}`,
     `GRANT SELECT, INSERT, UPDATE, DELETE ON TABLE notification_recipients, notification_rules, notification_login_attempts, notification_audit_logs TO ${LOCAL_ADMIN_ROLE}`,

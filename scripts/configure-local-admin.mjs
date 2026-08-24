@@ -26,7 +26,7 @@ export function serializePrivateEnv(values) {
 }
 
 export function buildDedicatedDatabaseUrl(connection, password) {
-  if (connection?.username !== "platform_policy_local_admin") throw new Error("unexpected local database role");
+  if (connection?.username !== "platform_policy_local_admin_v2") throw new Error("unexpected local database role");
   if (!connection.host || !connection.database) throw new Error("connection metadata is incomplete");
   const url = new URL("postgresql://localhost");
   url.username = connection.username;
