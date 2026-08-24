@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "test": "node --test tests/*.test.js",
+    "vercel-build": "node scripts/vercel-build.mjs",
     "migrate": "node scripts/migrate.mjs",
     "hash-admin-password": "node scripts/hash-admin-password.mjs",
     "seed-test-recipient": "node scripts/seed-test-recipient.mjs"
