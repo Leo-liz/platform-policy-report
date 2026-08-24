@@ -103,7 +103,7 @@ async function state(sql, csrfToken) {
     dispatches,
     audits,
     capabilities: {
-      directory_search: !localMode,
+      directory_search: true,
       seed_test_subscription: !localMode,
       test_notification: !localMode,
     },
@@ -238,7 +238,9 @@ export default async function handler(req, res) {
     if (req.method === "GET" && action === "session") return json(res, 200, await state(database(), session.csrf));
     if (req.method === "GET" && action === "directory") {
       if (process.env.LOCAL_ADMIN_MODE === "true") {
-        return json(res, 503, { error: "本机 dws 当前未登录，请手工填写显示名和 userId", failure_type: "local_directory_unavailable" });
+        const { searchLocalDirectory } = await import("../lib/local-dws.js");
+        const query = new URL(req.url, "https://local.invalid").searchParams.get("q") || "";
+        return json(res, 200, { people: await searchLocalDirectory(query) });
       }
       const query = new URL(req.url, "https://local.invalid").searchParams.get("q") || "";
       return json(res, 200, { people: await searchDirectory(query) });
