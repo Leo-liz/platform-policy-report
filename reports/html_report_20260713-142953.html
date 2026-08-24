@@ -194,7 +194,7 @@
     .history-toolbar {
       display: flex;
       gap: 12px;
-      align-items: center;
+      align-items: flex-end;
       flex-wrap: wrap;
       background: var(--panel);
       border: 1px solid var(--line);
@@ -202,16 +202,102 @@
       padding: 10px;
       margin-bottom: 8px;
     }
-    .latest-link {
-      background: var(--blue-700);
-      color: #fff;
-      border-radius: 4px;
-      padding: 6px 10px;
-      font-weight: 700;
+    .history-date-filter {
+      position: relative;
+      display: grid;
+      grid-template-columns: auto minmax(210px, 280px);
+      gap: 8px;
+      align-items: center;
     }
-    .latest-link:hover { color: #fff; }
-    .quick-days { display: flex; gap: 6px; flex-wrap: wrap; }
-    .quick-days a {
+    .history-date-filter label {
+      font-weight: 700;
+      color: var(--blue-900);
+      white-space: nowrap;
+    }
+    .history-date-trigger {
+      min-height: 36px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 7px 10px;
+      color: var(--text);
+      background: #fff;
+      font: inherit;
+      text-align: left;
+      cursor: pointer;
+    }
+    .history-date-trigger:hover, .history-date-trigger:focus-visible {
+      border-color: var(--blue-700);
+      outline: 2px solid rgba(29, 95, 191, .14);
+      outline-offset: 1px;
+    }
+    .history-date-trigger:disabled { cursor: not-allowed; color: var(--muted); background: #f8fafc; }
+    .history-calendar {
+      position: absolute;
+      z-index: 20;
+      left: 76px;
+      top: calc(100% + 6px);
+      width: min(330px, calc(100vw - 48px));
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fff;
+      box-shadow: 0 12px 28px rgba(16, 58, 116, .18);
+    }
+    .history-calendar[hidden] { display: none; }
+    .history-calendar-head {
+      display: grid;
+      grid-template-columns: 34px 1fr 34px;
+      align-items: center;
+      margin-bottom: 7px;
+    }
+    .history-calendar-head strong { text-align: center; color: var(--blue-900); font-size: 14px; }
+    .history-calendar-head button {
+      width: 32px;
+      height: 30px;
+      border: 0;
+      border-radius: 4px;
+      background: transparent;
+      color: var(--blue-900);
+      font-size: 22px;
+      line-height: 1;
+      cursor: pointer;
+    }
+    .history-calendar-head button:hover:not(:disabled) { background: var(--blue-050); }
+    .history-calendar-head button:disabled { color: #b8c0cc; cursor: not-allowed; }
+    .history-calendar-week, .history-calendar-days {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 3px;
+    }
+    .history-calendar-week span {
+      padding: 4px 0;
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .history-calendar-day {
+      min-width: 0;
+      height: 32px;
+      border: 0;
+      border-radius: 4px;
+      background: var(--blue-050);
+      color: var(--blue-800);
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .history-calendar-day:hover:not(:disabled) { background: #d7e8ff; }
+    .history-calendar-day.selected { background: var(--blue-700); color: #fff; }
+    .history-calendar-day.outside-month { opacity: .55; }
+    .history-calendar-day:disabled { background: transparent; color: #b8c0cc; cursor: default; font-weight: 400; }
+    .history-calendar-foot { margin: 8px 2px 0; color: var(--muted); font-size: 12px; }
+    .history-range-note { margin: 0; color: var(--muted); }
+    .history-date-row { display: flex; gap: 6px; flex-wrap: wrap; width: 100%; }
+    .history-date-row a {
       border: 1px solid var(--line);
       border-radius: 4px;
       padding: 5px 8px;
@@ -285,6 +371,8 @@
       .monitor-table { min-width: 1180px; }
       .section-head, .title-bar { align-items: flex-start; flex-direction: column; }
       .run-time { text-align: left; }
+      .history-date-filter { grid-template-columns: 1fr; width: 100%; }
+      .history-calendar { left: 0; }
     }
     @media print {
       body { background: #fff; }
@@ -311,6 +399,7 @@
       <a href="#history">历史报告</a>
       <a href="#priority">需要处理</a>
       <a href="#failures">失败与待修复</a>
+      <a href="http://localhost:4317/admin/notifications" target="_blank" rel="noopener noreferrer" title="需先在本机启动通知配置服务">通知配置（仅本机）</a>
     </nav>
 
 <section class="top-panel" id="overview">
@@ -318,6 +407,11 @@
     <div>
       <p class="eyebrow">内部监控报告</p>
       <h1>平台 API/开发者变更监控</h1>
+    </div>
+    <div class="run-time" data-report-date="2026-07-12" data-run-date="2026-07-13">
+      <span>报告日期（北京时间）</span>
+      <strong>2026-07-12</strong>
+      <span>执行日期：2026-07-13 · 抓取窗口：2026-07-13 / 2026-07-12</span>
     </div>
   </div>
   <div class="summary-line">发现 0 个今天/昨天需处理事件，0 个日期未解析的内容变化事件，0 个延迟发现需处理事件，0 个历史补录/追溯事件，3 个抓取失败，0 个待决策事件。</div>
@@ -336,18 +430,152 @@
 <section id="history" class="history-panel">
   <div class="section-head">
     <h2>历史报告入口</h2>
-    <p>点击日期查看对应历史报告。</p>
+    <p>默认查看最近 30 天；全部历史记录永久保留，可切换月份筛选。</p>
   </div>
   <div class="history-toolbar">
-    <div class="quick-days history-date-row" aria-label="最近 7 天"><a href="html_report_20260717-101445.html" data-history-file="html_report_20260717-101445.html">2026-07-17</a>
-<a href="html_report_20260716-115922.html" data-history-file="html_report_20260716-115922.html">2026-07-16</a>
-<a href="html_report_20260715-143618.html" data-history-file="html_report_20260715-143618.html">2026-07-15</a>
-<a href="html_report_20260714-102247.html" data-history-file="html_report_20260714-102247.html">2026-07-14</a>
-<a href="html_report_20260713-142953.html" data-history-file="html_report_20260713-142953.html">2026-07-13</a>
-<a href="html_report_20260712-100003.html" data-history-file="html_report_20260712-100003.html">2026-07-12</a>
-<a href="html_report_20260711-100002.html" data-history-file="html_report_20260711-100002.html">2026-07-11</a></div>
+    <div class="history-date-filter" data-history-calendar>
+      <label for="history-date-trigger">报告日期</label>
+      <button
+        id="history-date-trigger"
+        class="history-date-trigger"
+        type="button"
+        aria-haspopup="dialog"
+        aria-expanded="false"
+        aria-controls="history-calendar-panel"
+        data-selected-date="2026-07-12"
+
+      >2026-07-12<span aria-hidden="true">▦</span></button>
+      <div id="history-calendar-panel" class="history-calendar" role="dialog" aria-label="历史报告日期筛选" hidden>
+        <div class="history-calendar-head">
+          <button type="button" data-calendar-prev aria-label="上一个月">‹</button>
+          <strong data-calendar-title></strong>
+          <button type="button" data-calendar-next aria-label="下一个月">›</button>
+        </div>
+        <div class="history-calendar-week" aria-hidden="true"><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span></div>
+        <div class="history-calendar-days" data-calendar-days></div>
+        <p class="history-calendar-foot">蓝色日期有报告；点击后打开当天最新成功报告。</p>
+      </div>
+    </div>
+    <p class="history-range-note">默认范围：2026-07-25 至 2026-08-23 · 可筛选 56 个历史日期</p>
+    <noscript><div class="history-date-row" aria-label="最近 30 天"><a href="html_report_20260823.html" data-history-file="html_report_20260823.html">2026-08-23</a>
+<a href="html_report_20260822.html" data-history-file="html_report_20260822.html">2026-08-22</a>
+<a href="html_report_20260821.html" data-history-file="html_report_20260821.html">2026-08-21</a>
+<a href="html_report_20260820.html" data-history-file="html_report_20260820.html">2026-08-20</a>
+<a href="html_report_20260819.html" data-history-file="html_report_20260819.html">2026-08-19</a>
+<a href="html_report_20260818.html" data-history-file="html_report_20260818.html">2026-08-18</a>
+<a href="html_report_20260817.html" data-history-file="html_report_20260817.html">2026-08-17</a>
+<a href="html_report_20260816.html" data-history-file="html_report_20260816.html">2026-08-16</a>
+<a href="html_report_20260815.html" data-history-file="html_report_20260815.html">2026-08-15</a>
+<a href="html_report_20260814.html" data-history-file="html_report_20260814.html">2026-08-14</a>
+<a href="html_report_20260813.html" data-history-file="html_report_20260813.html">2026-08-13</a>
+<a href="html_report_20260812.html" data-history-file="html_report_20260812.html">2026-08-12</a>
+<a href="html_report_20260811.html" data-history-file="html_report_20260811.html">2026-08-11</a>
+<a href="html_report_20260810.html" data-history-file="html_report_20260810.html">2026-08-10</a>
+<a href="html_report_20260809.html" data-history-file="html_report_20260809.html">2026-08-09</a>
+<a href="html_report_20260808.html" data-history-file="html_report_20260808.html">2026-08-08</a>
+<a href="html_report_20260807.html" data-history-file="html_report_20260807.html">2026-08-07</a>
+<a href="html_report_20260806.html" data-history-file="html_report_20260806.html">2026-08-06</a>
+<a href="html_report_20260805.html" data-history-file="html_report_20260805.html">2026-08-05</a>
+<a href="html_report_20260804.html" data-history-file="html_report_20260804.html">2026-08-04</a>
+<a href="html_report_20260803.html" data-history-file="html_report_20260803.html">2026-08-03</a>
+<a href="html_report_20260802.html" data-history-file="html_report_20260802.html">2026-08-02</a>
+<a href="html_report_20260801.html" data-history-file="html_report_20260801.html">2026-08-01</a>
+<a href="html_report_20260731.html" data-history-file="html_report_20260731.html">2026-07-31</a>
+<a href="html_report_20260730.html" data-history-file="html_report_20260730.html">2026-07-30</a>
+<a href="html_report_20260729.html" data-history-file="html_report_20260729.html">2026-07-29</a>
+<a href="html_report_20260728.html" data-history-file="html_report_20260728.html">2026-07-28</a>
+<a href="html_report_20260727.html" data-history-file="html_report_20260727.html">2026-07-27</a>
+<a href="html_report_20260726.html" data-history-file="html_report_20260726.html">2026-07-26</a>
+<a href="html_report_20260725.html" data-history-file="html_report_20260725.html">2026-07-25</a></div></noscript>
   </div>
 
+  <script type="application/json" id="history-report-data">[{"date":"2026-08-23","href":"html_report_20260823.html","file":"html_report_20260823.html"},{"date":"2026-08-22","href":"html_report_20260822.html","file":"html_report_20260822.html"},{"date":"2026-08-21","href":"html_report_20260821.html","file":"html_report_20260821.html"},{"date":"2026-08-20","href":"html_report_20260820.html","file":"html_report_20260820.html"},{"date":"2026-08-19","href":"html_report_20260819.html","file":"html_report_20260819.html"},{"date":"2026-08-18","href":"html_report_20260818.html","file":"html_report_20260818.html"},{"date":"2026-08-17","href":"html_report_20260817.html","file":"html_report_20260817.html"},{"date":"2026-08-16","href":"html_report_20260816.html","file":"html_report_20260816.html"},{"date":"2026-08-15","href":"html_report_20260815.html","file":"html_report_20260815.html"},{"date":"2026-08-14","href":"html_report_20260814.html","file":"html_report_20260814.html"},{"date":"2026-08-13","href":"html_report_20260813.html","file":"html_report_20260813.html"},{"date":"2026-08-12","href":"html_report_20260812.html","file":"html_report_20260812.html"},{"date":"2026-08-11","href":"html_report_20260811.html","file":"html_report_20260811.html"},{"date":"2026-08-10","href":"html_report_20260810.html","file":"html_report_20260810.html"},{"date":"2026-08-09","href":"html_report_20260809.html","file":"html_report_20260809.html"},{"date":"2026-08-08","href":"html_report_20260808.html","file":"html_report_20260808.html"},{"date":"2026-08-07","href":"html_report_20260807.html","file":"html_report_20260807.html"},{"date":"2026-08-06","href":"html_report_20260806.html","file":"html_report_20260806.html"},{"date":"2026-08-05","href":"html_report_20260805.html","file":"html_report_20260805.html"},{"date":"2026-08-04","href":"html_report_20260804.html","file":"html_report_20260804.html"},{"date":"2026-08-03","href":"html_report_20260803.html","file":"html_report_20260803.html"},{"date":"2026-08-02","href":"html_report_20260802.html","file":"html_report_20260802.html"},{"date":"2026-08-01","href":"html_report_20260801.html","file":"html_report_20260801.html"},{"date":"2026-07-31","href":"html_report_20260731.html","file":"html_report_20260731.html"},{"date":"2026-07-30","href":"html_report_20260730.html","file":"html_report_20260730.html"},{"date":"2026-07-29","href":"html_report_20260729.html","file":"html_report_20260729.html"},{"date":"2026-07-28","href":"html_report_20260728.html","file":"html_report_20260728.html"},{"date":"2026-07-27","href":"html_report_20260727.html","file":"html_report_20260727.html"},{"date":"2026-07-26","href":"html_report_20260726.html","file":"html_report_20260726.html"},{"date":"2026-07-25","href":"html_report_20260725.html","file":"html_report_20260725.html"},{"date":"2026-07-24","href":"html_report_20260724.html","file":"html_report_20260724.html"},{"date":"2026-07-23","href":"html_report_20260723.html","file":"html_report_20260723.html"},{"date":"2026-07-22","href":"html_report_20260722.html","file":"html_report_20260722.html"},{"date":"2026-07-21","href":"html_report_20260721.html","file":"html_report_20260721.html"},{"date":"2026-07-20","href":"html_report_20260720.html","file":"html_report_20260720.html"},{"date":"2026-07-19","href":"html_report_20260719.html","file":"html_report_20260719.html"},{"date":"2026-07-18","href":"html_report_20260718.html","file":"html_report_20260718.html"},{"date":"2026-07-17","href":"html_report_20260717.html","file":"html_report_20260717.html"},{"date":"2026-07-16","href":"html_report_20260716.html","file":"html_report_20260716.html"},{"date":"2026-07-15","href":"html_report_20260715.html","file":"html_report_20260715.html"},{"date":"2026-07-14","href":"html_report_20260714.html","file":"html_report_20260714.html"},{"date":"2026-07-13","href":"html_report_20260713.html","file":"html_report_20260713.html"},{"date":"2026-07-12","href":"html_report_20260712.html","file":"html_report_20260712.html"},{"date":"2026-07-11","href":"html_report_20260711.html","file":"html_report_20260711.html"},{"date":"2026-07-10","href":"html_report_20260710.html","file":"html_report_20260710.html"},{"date":"2026-07-09","href":"html_report_20260709.html","file":"html_report_20260709.html"},{"date":"2026-07-08","href":"html_report_20260708.html","file":"html_report_20260708.html"},{"date":"2026-07-07","href":"html_report_20260707.html","file":"html_report_20260707.html"},{"date":"2026-07-06","href":"html_report_20260706.html","file":"html_report_20260706.html"},{"date":"2026-07-05","href":"html_report_20260705.html","file":"html_report_20260705.html"},{"date":"2026-07-04","href":"html_report_20260704.html","file":"html_report_20260704.html"},{"date":"2026-07-03","href":"html_report_20260703.html","file":"html_report_20260703.html"},{"date":"2026-07-02","href":"html_report_20260702.html","file":"html_report_20260702.html"},{"date":"2026-07-01","href":"html_report_20260701.html","file":"html_report_20260701.html"},{"date":"2026-06-30","href":"html_report_20260630.html","file":"html_report_20260630.html"},{"date":"2026-06-29","href":"html_report_20260629.html","file":"html_report_20260629.html"}]</script>
+  <script>
+  (() => {
+    const root = document.querySelector('[data-history-calendar]');
+    const dataNode = document.getElementById('history-report-data');
+    if (!root || !dataNode) return;
+    let reports = [];
+    try { reports = JSON.parse(dataNode.textContent || '[]'); } catch (_error) { return; }
+    if (!reports.length) return;
+    const byDate = new Map(reports.map((item) => [item.date, item]));
+    const dates = reports.map((item) => item.date).sort();
+    const minDate = dates[0];
+    const maxDate = dates[dates.length - 1];
+    const trigger = document.getElementById('history-date-trigger');
+    const panel = document.getElementById('history-calendar-panel');
+    const title = root.querySelector('[data-calendar-title]');
+    const days = root.querySelector('[data-calendar-days]');
+    const previous = root.querySelector('[data-calendar-prev]');
+    const next = root.querySelector('[data-calendar-next]');
+    if (!trigger || !panel || !title || !days || !previous || !next) return;
+    const selected = byDate.has(trigger.dataset.selectedDate || '')
+      ? trigger.dataset.selectedDate
+      : maxDate;
+    let [year, month] = selected.split('-').map(Number);
+
+    const monthKey = (valueYear, valueMonth) => valueYear * 12 + valueMonth;
+    const [minYear, minMonth] = minDate.split('-').map(Number);
+    const [maxYear, maxMonth] = maxDate.split('-').map(Number);
+    const minKey = monthKey(minYear, minMonth);
+    const maxKey = monthKey(maxYear, maxMonth);
+    const localHref = (item) => {
+      if (window.location.protocol !== 'file:') return item.href;
+      const currentPath = decodeURIComponent(window.location.pathname).replace(/\\/g, '/');
+      const inReportsDirectory = /\/reports\/[^/]+$/.test(currentPath);
+      return (inReportsDirectory ? './' : './reports/') + item.file;
+    };
+    const shiftMonth = (delta) => {
+      const shifted = new Date(year, month - 1 + delta, 1);
+      year = shifted.getFullYear();
+      month = shifted.getMonth() + 1;
+    };
+    const render = () => {
+      title.textContent = `${year} 年 ${String(month).padStart(2, '0')} 月`;
+      const currentKey = monthKey(year, month);
+      previous.disabled = currentKey <= minKey;
+      next.disabled = currentKey >= maxKey;
+      days.replaceChildren();
+      const first = new Date(year, month - 1, 1);
+      const offset = (first.getDay() + 6) % 7;
+      const start = new Date(year, month - 1, 1 - offset);
+      for (let index = 0; index < 42; index += 1) {
+        const value = new Date(start);
+        value.setDate(start.getDate() + index);
+        const dateValue = `${value.getFullYear()}-${String(value.getMonth() + 1).padStart(2, '0')}-${String(value.getDate()).padStart(2, '0')}`;
+        const item = byDate.get(dateValue);
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.textContent = String(value.getDate());
+        button.className = 'history-calendar-day';
+        if (value.getMonth() + 1 !== month) button.classList.add('outside-month');
+        if (dateValue === selected) button.classList.add('selected');
+        if (!item) {
+          button.disabled = true;
+        } else {
+          button.dataset.reportDate = dateValue;
+          button.title = `${dateValue} 历史报告`;
+          button.addEventListener('click', () => window.location.assign(localHref(item)));
+        }
+        days.appendChild(button);
+      }
+    };
+    trigger.addEventListener('click', () => {
+      const opening = panel.hidden;
+      panel.hidden = !opening;
+      trigger.setAttribute('aria-expanded', String(opening));
+      if (opening) render();
+    });
+    previous.addEventListener('click', () => { shiftMonth(-1); render(); });
+    next.addEventListener('click', () => { shiftMonth(1); render(); });
+    document.addEventListener('click', (event) => {
+      if (!root.contains(event.target)) { panel.hidden = true; trigger.setAttribute('aria-expanded', 'false'); }
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') { panel.hidden = true; trigger.setAttribute('aria-expanded', 'false'); trigger.focus(); }
+    });
+  })();
+  </script>
 </section>
 
 
