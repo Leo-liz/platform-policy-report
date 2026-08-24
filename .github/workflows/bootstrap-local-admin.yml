@@ -1,0 +1,57 @@
+name: Bootstrap local notification admin
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  bootstrap:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      BOOTSTRAP_URL: https://site-rosy-ten-pmj8xynasf.vercel.app/api/local-admin-bootstrap
+      NOTIFICATION_DISPATCH_TOKEN: ${{ secrets.NOTIFICATION_DISPATCH_TOKEN }}
+      LOCAL_ADMIN_DB_PASSWORD: ${{ secrets.LOCAL_ADMIN_DB_PASSWORD }}
+    steps:
+      - name: Create least-privilege Neon role
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -n "$NOTIFICATION_DISPATCH_TOKEN"
+          test -n "$LOCAL_ADMIN_DB_PASSWORD"
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+          Path("request.json").write_text(json.dumps({"password": os.environ["LOCAL_ADMIN_DB_PASSWORD"]}), encoding="utf-8")
+          PY
+          curl --fail --silent --show-error --location --max-time 60 \
+            --header "Authorization: Bearer $NOTIFICATION_DISPATCH_TOKEN" \
+            --header "Content-Type: application/json" \
+            --data-binary @request.json \
+            "$BOOTSTRAP_URL" -o bootstrap-result.json
+          rm request.json
+
+      - name: Validate non-secret connection metadata
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          result = json.loads(Path("bootstrap-result.json").read_text(encoding="utf-8"))
+          assert result.get("ok") is True
+          connection = result.get("connection") or {}
+          assert connection.get("username") == "platform_policy_local_admin"
+          assert connection.get("host") and connection.get("database")
+          serialized = json.dumps(connection).lower()
+          assert "password" not in serialized and "secret" not in serialized and "token" not in serialized
+          Path("connection.json").write_text(json.dumps(connection, ensure_ascii=False, indent=2), encoding="utf-8")
+          print(json.dumps({"ok": True, "role": connection["username"], "host_configured": True}))
+          PY
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: local-admin-connection
+          path: connection.json
+          retention-days: 1

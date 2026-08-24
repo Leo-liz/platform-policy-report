@@ -25,7 +25,7 @@
           <label>管理员密码<input id="admin-password" type="password" minlength="12" autocomplete="current-password" required /></label>
           <button type="submit">登录</button>
         </form>
-        <p class="hint">密码、会话密钥、钉钉凭证和人员数据只保存在 Vercel 私有环境变量与 Neon 数据库。</p>
+        <p class="hint">本机管理页只监听 127.0.0.1；管理员凭证保存在本机私有配置，人员与规则保存在 Neon 数据库。</p>
       </section>
 
       <div id="app" hidden>

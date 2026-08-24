@@ -1,0 +1,39 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
+
+test("local admin launcher is loopback-only and reads the private local environment", async () => {
+  const script = await readFile(new URL("../scripts/start-local-admin.ps1", import.meta.url), "utf8");
+  assert.match(script, /local-admin-server\.mjs/);
+  assert.match(script, /\.env\.admin\.local/);
+  assert.doesNotMatch(script, /env run/);
+  assert.doesNotMatch(script, /env pull/);
+  assert.doesNotMatch(script, /0\.0\.0\.0/);
+  assert.doesNotMatch(script, /DINGTALK_APP_SECRET\s*=/);
+});
+
+test("local session cookies work on loopback HTTP without weakening cloud cookies", async () => {
+  const previous = process.env.LOCAL_ADMIN_MODE;
+  const { sessionCookie } = await import("../lib/security.js");
+  process.env.LOCAL_ADMIN_MODE = "true";
+  assert.doesNotMatch(sessionCookie("local"), /; Secure/);
+  process.env.LOCAL_ADMIN_MODE = "false";
+  assert.match(sessionCookie("cloud"), /; Secure/);
+  if (previous === undefined) delete process.env.LOCAL_ADMIN_MODE;
+  else process.env.LOCAL_ADMIN_MODE = previous;
+});
+
+test("local admin server exposes only the admin API and binds loopback", async () => {
+  const server = await readFile(new URL("../scripts/local-admin-server.mjs", import.meta.url), "utf8");
+  assert.match(server, /server\.listen\(port, "127\.0\.0\.1"/);
+  assert.match(server, /url\.pathname === "\/api\/admin"/);
+  assert.match(server, /SELECT 1 AS ok/);
+  assert.doesNotMatch(server, /api\/dispatch/);
+  assert.doesNotMatch(server, /0\.0\.0\.0/);
+});
+
+test("local admin environment file remains excluded from Git", async () => {
+  const ignore = await readFile(new URL("../.gitignore", import.meta.url), "utf8");
+  assert.match(ignore, /^\.env\.\*$/m);
+  assert.match(ignore, /^!\.env\.example$/m);
+});

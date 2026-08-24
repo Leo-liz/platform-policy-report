@@ -1,4 +1,4 @@
-const state = { csrf: "", catalog: null, recipients: [], rules: [], dispatches: [], audits: [] };
+const state = { csrf: "", catalog: null, recipients: [], rules: [], dispatches: [], audits: [], capabilities: {} };
 const $ = (selector) => document.querySelector(selector);
 const esc = (value) => String(value ?? "").replace(/[&<>'"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" })[c]);
 
@@ -29,6 +29,7 @@ function table(headers, rows) {
 
 function render() {
   if (!state.catalog) return;
+  const canTest = state.capabilities?.test_notification !== false;
   const platformLabel = Object.fromEntries(state.catalog.platforms.map((x) => [x.code, x.label]));
   const tagLabel = Object.fromEntries(state.catalog.primary_tags.map((x) => [x.code, x.label]));
   const recipientLabel = Object.fromEntries(state.recipients.map((x) => [x.id, x.display_name]));
@@ -40,11 +41,13 @@ function render() {
   $("#match-preview").innerHTML = state.recipients.map((recipient) => {
     const rules = state.rules.filter((rule) => rule.recipient_id === recipient.id && rule.enabled);
     const descriptions = rules.map((rule) => `${rule.platform_code === "*" ? "全部平台" : platformLabel[rule.platform_code]} × ${rule.primary_tag_code === "*" ? "全部主标签" : tagLabel[rule.primary_tag_code]}`);
-    return `<article class="preview-card"><h3>${esc(recipient.display_name)}</h3><p>${recipient.enabled ? "已启用" : "已停用"} · ${rules.length} 条有效规则</p><ul>${descriptions.map((x) => `<li>${esc(x)}</li>`).join("") || "<li>当前不会收到业务通知</li>"}</ul><button class="mini test-notification" data-id="${esc(recipient.id)}">发送测试通知</button></article>`;
+    return `<article class="preview-card"><h3>${esc(recipient.display_name)}</h3><p>${recipient.enabled ? "已启用" : "已停用"} · ${rules.length} 条有效规则</p><ul>${descriptions.map((x) => `<li>${esc(x)}</li>`).join("") || "<li>当前不会收到业务通知</li>"}</ul>${canTest ? `<button class="mini test-notification" data-id="${esc(recipient.id)}">发送测试通知</button>` : "<p class=\"hint\">本机配置页不发送测试通知</p>"}</article>`;
   }).join("") || "暂无收件人";
   $("#dispatch-list").innerHTML = `<h3>发送记录</h3>` + table(["日期", "收件人", "事件数", "状态", "task_id", "失败分类"], state.dispatches.map((x) => `<tr><td>${esc(x.report_date)}</td><td>${esc(x.display_name)}</td><td>${esc(x.event_count)}</td><td>${esc(x.status)}</td><td>${esc(x.task_id || "")}</td><td>${esc(x.failure_type || "")}</td></tr>`));
   $("#audit-list").innerHTML = `<h3>操作记录</h3>` + table(["时间", "操作", "对象", "详情"], state.audits.map((x) => `<tr><td>${esc(x.created_at)}</td><td>${esc(x.action)}</td><td>${esc(x.target_type)}</td><td>${esc(JSON.stringify(x.detail_json || {}))}</td></tr>`));
   bindRowActions();
+  $("#seed-test-subscription").hidden = state.capabilities?.seed_test_subscription === false;
+  $("#directory-form").hidden = state.capabilities?.directory_search === false;
 }
 
 async function refresh() { apply(await api("session")); }

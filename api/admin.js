@@ -93,7 +93,21 @@ async function state(sql, csrfToken) {
     SELECT id, action, target_type, target_id, detail_json, created_at
     FROM notification_audit_logs ORDER BY created_at DESC LIMIT 100
   `;
-  return { authenticated: true, csrf_token: csrfToken, catalog: loadCatalog(), recipients, rules, dispatches, audits };
+  const localMode = process.env.LOCAL_ADMIN_MODE === "true";
+  return {
+    authenticated: true,
+    csrf_token: csrfToken,
+    catalog: loadCatalog(),
+    recipients,
+    rules,
+    dispatches,
+    audits,
+    capabilities: {
+      directory_search: !localMode,
+      seed_test_subscription: !localMode,
+      test_notification: !localMode,
+    },
+  };
 }
 
 function validateRule(body, catalog) {
@@ -127,6 +141,7 @@ async function mutate(req, res, action, session) {
     `;
     await audit(sql, "save", "recipient", id, { source, enabled: body.enabled !== false });
   } else if (action === "seed_test_subscription") {
+    if (process.env.LOCAL_ADMIN_MODE === "true") throw new Error("本机管理模式不读取钉钉应用凭证，请手工填写 userId");
     const { userId, displayName, recipientId: stableId } = testSubscriptionIdentity(
       process.env.DINGTALK_TEST_USER_ID,
       process.env.DINGTALK_TEST_DISPLAY_NAME,
@@ -174,6 +189,7 @@ async function mutate(req, res, action, session) {
     await sql`UPDATE notification_rules SET enabled = ${Boolean(body.enabled)}, updated_at = now() WHERE id = ${id}`;
     await audit(sql, "toggle", "rule", id, { enabled: Boolean(body.enabled) });
   } else if (action === "test_notification") {
+    if (process.env.LOCAL_ADMIN_MODE === "true") throw new Error("本机管理模式不发送钉钉测试通知");
     const recipientId = clean(body.recipient_id, 80);
     const recipientRows = await sql`
       SELECT id, display_name, dingtalk_user_id FROM notification_recipients WHERE id = ${recipientId} AND enabled = true
@@ -221,6 +237,9 @@ export default async function handler(req, res) {
     const session = requireAdmin(req);
     if (req.method === "GET" && action === "session") return json(res, 200, await state(database(), session.csrf));
     if (req.method === "GET" && action === "directory") {
+      if (process.env.LOCAL_ADMIN_MODE === "true") {
+        return json(res, 503, { error: "本机 dws 当前未登录，请手工填写显示名和 userId", failure_type: "local_directory_unavailable" });
+      }
       const query = new URL(req.url, "https://local.invalid").searchParams.get("q") || "";
       return json(res, 200, { people: await searchDirectory(query) });
     }
