@@ -59,11 +59,11 @@ jobs:
           from pathlib import Path
 
           result = json.loads(Path("dispatch-result.json").read_text(encoding="utf-8"))
-          assert result.get("ok") is True, "dispatch API did not return ok"
+          assert result.get("accepted") is True, "dispatch API did not accept the validated payload"
           rows = result.get("results") or []
           assert rows, "no recipient matched the subscription rules"
           statuses = Counter(str(row.get("status") or "missing") for row in rows)
-          allowed = {"sent", "already_dispatched"}
-          assert set(statuses).issubset(allowed), f"dispatch failed: {dict(statuses)}"
+          allowed = {"delivered", "already_dispatched"}
+          assert set(statuses).issubset(allowed), f"delivery not verified: {dict(statuses)}"
           print(json.dumps({"ok": True, "recipient_count": len(rows), "statuses": dict(statuses)}))
           PY
