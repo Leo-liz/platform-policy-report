@@ -1,0 +1,69 @@
+name: Dispatch validated policy notifications
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - "reports/notification-dispatch-latest.json"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: policy-notification-dispatch
+  cancel-in-progress: false
+
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      DISPATCH_URL: https://site-rosy-ten-pmj8xynasf.vercel.app/api/dispatch
+      NOTIFICATION_DISPATCH_TOKEN: ${{ secrets.NOTIFICATION_DISPATCH_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate identity-free payload
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          path = Path("reports/notification-dispatch-latest.json")
+          payload = json.loads(path.read_text(encoding="utf-8"))
+          assert payload.get("run_id"), "run_id is missing"
+          assert payload.get("report_date"), "report_date is missing"
+          assert payload.get("events"), "no validated notification events"
+          serialized = path.read_text(encoding="utf-8").lower()
+          for forbidden in ("userid", "user_id", "recipient", "appsecret", "app_secret"):
+              assert forbidden not in serialized, f"identity or secret field found: {forbidden}"
+          print(json.dumps({"ok": True, "run_id": payload["run_id"], "event_count": len(payload["events"])}))
+          PY
+
+      - name: Dispatch through Vercel routing API
+        run: |
+          test -n "$NOTIFICATION_DISPATCH_TOKEN"
+          curl --fail --silent --show-error --location --max-time 60 \
+            --header "Authorization: Bearer $NOTIFICATION_DISPATCH_TOKEN" \
+            --header "Content-Type: application/json" \
+            --data-binary @reports/notification-dispatch-latest.json \
+            "$DISPATCH_URL" -o dispatch-result.json
+
+      - name: Verify aggregate delivery result
+        run: |
+          python - <<'PY'
+          import json
+          from collections import Counter
+          from pathlib import Path
+
+          result = json.loads(Path("dispatch-result.json").read_text(encoding="utf-8"))
+          assert result.get("ok") is True, "dispatch API did not return ok"
+          rows = result.get("results") or []
+          assert rows, "no recipient matched the subscription rules"
+          statuses = Counter(str(row.get("status") or "missing") for row in rows)
+          allowed = {"sent", "already_dispatched"}
+          assert set(statuses).issubset(allowed), f"dispatch failed: {dict(statuses)}"
+          print(json.dumps({"ok": True, "recipient_count": len(rows), "statuses": dict(statuses)}))
+          PY

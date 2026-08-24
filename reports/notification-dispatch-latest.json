@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "run_id": "20260822-100002",
+  "report_date": "2026-08-22",
+  "report_url": "https://site-rosy-ten-pmj8xynasf.vercel.app/reports/latest",
+  "taxonomy_version": "2026-08-22",
+  "generated_at": "2026-08-24T11:33:46+08:00",
+  "ai": {
+    "provider": "codex_builtin_postprocess",
+    "model": "current_codex_thread",
+    "summary_schema_version": 11,
+    "evidence_validated": true
+  },
+  "events": [
+    {
+      "event_id": "shopee_open_platform_announcements-2a65004039f3::detail-1",
+      "content_hash": "19ec89cdad1b78a249b5c8c959a29321d2a94838574ad888e49593b5a33bce1e",
+      "platform_code": "shopee",
+      "platform_label": "Shopee",
+      "primary_tag_code": "compliance_policy",
+      "primary_tag_label": "合规/政策",
+      "status": "actionable_today",
+      "ai_summary_zh": "Shopee 要求受影响类目的卖家映射并填写巴西国家卫生监督局登记、流程或通知代码这一必填属性。未完成映射会导致刊登提交报错，可通过 get_attribute_tree 接口查询对应类目的属性值和标识。页面要求在 2026-09-21 前完成调整。",
+      "recommended_action": "按公告中的受影响类目清单核对商品映射，调用 get_attribute_tree 获取属性值与标识，并在截止日前完成刊登回归验证。",
+      "official_date": "2026-08-22",
+      "change_url": "https://open.shopee.com/announcements/1539?category=55&is_top=false"
+    },
+    {
+      "event_id": "mercadolibre_global_selling_docs-4edbec882d48::detail-1",
+      "content_hash": "ea049b9d05fe03b4477f69303d25b3e19b7c00b6128007ba4fb4d5a45865fe94",
+      "platform_code": "mercadolibre",
+      "platform_label": "Mercado Libre",
+      "primary_tag_code": "order",
+      "primary_tag_label": "订单",
+      "status": "actionable_today",
+      "ai_summary_zh": "Mercado Libre 将跨境订单管理文档更新至 2026-08-21，正文说明墨西哥、巴西和智利的订单由卖家统一管理。文档强调应接收平台通知以实时获知 API 资源变化，并给出按卖家搜索订单的接口。抓取正文未明确标出本次更新具体新增或删除的字段，需人工与前版对照确认。",
+      "recommended_action": "核对订单搜索和通知订阅实现，并人工对照前版文档确认 2026-08-21 更新涉及的具体差异。",
+      "official_date": "2026-08-21",
+      "change_url": "https://global-selling.mercadolibre.com/devsite/manage-orders-cbt"
+    },
+    {
+      "event_id": "mercadolibre_global_selling_docs-4edbec882d48::detail-2",
+      "content_hash": "7fcc73222742403a28f9031d999ec4a9f5387c8428ba553ef2f0868d63f3d0ce",
+      "platform_code": "mercadolibre",
+      "platform_label": "Mercado Libre",
+      "primary_tag_code": "logistics_fulfillment",
+      "primary_tag_label": "物流/履约",
+      "status": "actionable_today",
+      "ai_summary_zh": "Mercado Libre 将跨境物流文档更新至 2026-08-21，正文要求物流详情请求携带 x-format-new 请求头。文档同时说明 shipments 资源不再返回 order_id 和 external_reference，并将 receiver_address 对应到 destination.shipping_address。涉及的停用日期为 2025-10-12，当前集成仍需核对是否已经完成兼容。",
+      "recommended_action": "检查所有 shipments 请求是否已带 x-format-new 请求头，并确认系统不再依赖 order_id、external_reference 和旧 receiver_address 结构。",
+      "official_date": "2026-08-21",
+      "change_url": "https://global-selling.mercadolibre.com/devsite/manage-shipments"
+    },
+    {
+      "event_id": "tiktok_shop_changelog-e1527bd6ea51::detail-1",
+      "content_hash": "7894441b565551152d89dab94e6afc41a03a50c4544fb624e19cce0f2ab1a737",
+      "platform_code": "tiktok_shop",
+      "platform_label": "TikTok Shop",
+      "primary_tag_code": "marketing_promotion",
+      "primary_tag_label": "营销/促销",
+      "status": "actionable_today",
+      "ai_summary_zh": "TikTok Shop 发布 6 个新的联盟卖家接口并向后兼容地升级 4 个现有接口，覆盖达人触达额度与记录、定向合作商品表现、会话状态和收件箱计数。现有应用无需新增权限或重新授权，但需要按需接入新增请求字段、响应字段和枚举值；新版图片上传接口还修复了美国跨境卖家图片对达人不可见的问题。公告发布日期为 2026-08-21。",
+      "recommended_action": "按正文列出的 10 个接口逐项核对版本与字段，优先验证触达额度预检、重复触达去重、会话状态同步和新版图片上传。",
+      "official_date": "2026-08-21",
+      "change_url": "https://partner.tiktokshop.com/docv2/page/g97fzz79"
+    },
+    {
+      "event_id": "shopify_developer_changelog-98340537becd::detail-1",
+      "content_hash": "c12e1be18e873d60ead80f957c828d493ebb0c7649604455c6793eee30a69243",
+      "platform_code": "shopify",
+      "platform_label": "Shopify",
+      "primary_tag_code": "api_technical",
+      "primary_tag_label": "API/技术",
+      "status": "actionable_late_discovery",
+      "ai_summary_zh": "Shopify 已把 admin.app.intent.link 目标从覆盖层改为全页面导航，但商家当前页面有未保存修改时仍使用弹窗。该变化已对所有店铺和所有接口版本生效，不要求修改扩展配置、意图结构或工具，不过依赖窄弹窗布局的页面需要验证全宽显示。公告日期为 2026-08-19。",
+      "recommended_action": "检查 admin.app.intent.link 对应路由在全宽页面和未保存修改时的弹窗两种展示下均能正常渲染并读取调用载荷。",
+      "official_date": "2026-08-19",
+      "change_url": "https://shopify.dev/changelog/app-intents-on-admin-app-intent-link-now-open-as-a-full-page-navigation"
+    },
+    {
+      "event_id": "walmart_marketplace_whats_new-8006e03830de::detail-1",
+      "content_hash": "5e722c44dc3975ccc6a1c524f29cfe37a9a32bd508031bf0e79b27a11548bdb7",
+      "platform_code": "walmart",
+      "platform_label": "Walmart",
+      "primary_tag_code": "api_technical",
+      "primary_tag_label": "API/技术",
+      "status": "actionable_late_discovery",
+      "ai_summary_zh": "Walmart 的 2026-08-20 更新区在按需报告接口中加入 CONTENT_QUALITY 和 LISTING_QUALITY 两个报告类型，并同步扩展多个报告请求与计划接口。商品搜索接口同时新增可选的 ean 和 isbn 查询参数，现有字段均为新增项。发布日期为 2026-08-20，条目内所列接口变更日期为 2026-07-30。",
+      "recommended_action": "更新报告类型枚举和相关接口校验，并为商品搜索的 ean、isbn 可选参数补充兼容性测试。",
+      "official_date": "2026-08-20",
+      "change_url": "https://developer.walmart.com/us-marketplace/changelog"
+    }
+  ]
+}
