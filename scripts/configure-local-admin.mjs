@@ -71,10 +71,21 @@ async function applyConnection(connectionPath) {
   process.stdout.write("least-privilege database connection saved locally\n");
 }
 
+async function finalize() {
+  const values = await loadPrivateEnv();
+  if (!String(values.get("DATABASE_URL") || "").includes("platform_policy_local_admin_v2")) {
+    throw new Error("dedicated local database connection is not configured");
+  }
+  for (const key of ["ADMIN_PASSWORD", "LOCAL_ADMIN_DB_PASSWORD", "NOTIFICATION_DISPATCH_TOKEN"]) values.delete(key);
+  await savePrivateEnv(values);
+  process.stdout.write("temporary local plaintext values removed\n");
+}
+
 const invokedDirectly = process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
 if (invokedDirectly) {
   const [command, argument] = process.argv.slice(2);
   if (command === "prepare") await prepare();
   else if (command === "apply" && argument) await applyConnection(argument);
-  else throw new Error("usage: node scripts/configure-local-admin.mjs prepare|apply <connection.json>");
+  else if (command === "finalize") await finalize();
+  else throw new Error("usage: node scripts/configure-local-admin.mjs prepare|apply <connection.json>|finalize");
 }

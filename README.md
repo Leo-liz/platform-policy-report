@@ -23,6 +23,8 @@
 
 管理服务固定绑定 `127.0.0.1`，同事及局域网设备无法访问。本机模式不复制钉钉 AppSecret，也不提供真实测试发送；姓名搜索不可用时手工填写显示名和 userId。正式每日通知仍由 Vercel 云端调度执行。
 
+本机数据库账号固定为 `platform_policy_local_admin_v2`：只允许维护收件人、规则、登录限流和操作审计，只读发送记录，不能修改发送结果或创建数据库结构。可运行 `npm run verify-local-admin` 随时复核权限边界。
+
 ## 首次配置
 
 1. 在 Vercel Marketplace 连接 Neon，并将 `DATABASE_URL` 设为私有环境变量。
