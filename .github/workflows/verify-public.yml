@@ -1,0 +1,53 @@
+name: Verify public report and admin shell
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - codex/dingtalk-notification-routing
+    paths:
+      - ".github/workflows/verify-public.yml"
+      - "admin/**"
+      - "api/**"
+      - "reports/**"
+      - "vercel.json"
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      SITE_ORIGIN: https://site-rosy-ten-pmj8xynasf.vercel.app
+    steps:
+      - name: Wait for Vercel deployment
+        run: sleep 30
+
+      - name: Fetch anonymous public endpoints
+        run: |
+          curl --fail --silent --show-error --location --max-time 30 \
+            "$SITE_ORIGIN/reports/manifest.json" -o manifest.json
+          curl --fail --silent --show-error --location --max-time 30 \
+            "$SITE_ORIGIN/reports/latest.html" -o latest.html
+          curl --fail --silent --show-error --location --max-time 30 \
+            "$SITE_ORIGIN/admin/notifications" -o admin.html
+
+      - name: Validate public content and isolation
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          manifest = json.loads(Path("manifest.json").read_text(encoding="utf-8"))
+          latest = Path("latest.html").read_text(encoding="utf-8")
+          admin = Path("admin.html").read_text(encoding="utf-8")
+          assert manifest.get("latest_run_id"), "manifest latest_run_id is missing"
+          assert "平台政策" in latest, "latest report body is missing"
+          assert "通知配置" in admin, "admin login shell is missing"
+          assert "dingtalk_user_id" not in admin.lower(), "admin shell leaked recipient data"
+          assert "Vercel Authentication" not in latest, "deployment protection is still active"
+          print(json.dumps({"ok": True, "latest_run_id": manifest["latest_run_id"]}, ensure_ascii=False))
+          PY
