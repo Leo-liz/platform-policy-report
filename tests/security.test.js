@@ -1,6 +1,13 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
 import { createSession, hashPassword, readSession, requireAdmin, verifyOrigin, verifyPassword } from "../lib/security.js";
+
+test("admin shell points users to the GitHub Pages report instead of the blocked Vercel report", async () => {
+  const html = await readFile(new URL("../admin/notifications/index.html", import.meta.url), "utf8");
+  assert.match(html, /https:\/\/leo-liz\.github\.io\/platform-policy-report\/reports\/latest\.html/);
+  assert.doesNotMatch(html, /href="\/reports\/latest"/);
+});
 
 test("scrypt password hash verifies without storing plaintext", () => {
   const hash = hashPassword("a sufficiently long password", "0011223344556677");
