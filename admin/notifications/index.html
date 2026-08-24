@@ -6,6 +6,7 @@
     <meta name="robots" content="noindex,nofollow" />
     <title>钉钉通知配置｜平台政策监控</title>
     <link rel="stylesheet" href="/admin/notifications/styles.css" />
+    <link rel="stylesheet" href="/admin/notifications/setup.css" />
   </head>
   <body>
     <main class="shell">
@@ -38,6 +39,10 @@
 
         <section id="recipients" class="panel tab-panel">
           <div class="section-title"><div><h2>收件人管理</h2><p>优先从通讯录选择；权限不足时可手工填写显示名和 userId。</p></div></div>
+          <div class="setup-strip">
+            <div><strong>首次初始化</strong><p>使用 Vercel 私有环境变量中的测试 userId，创建已启用收件人及“全部平台 × 全部主标签”规则；可重复执行，不会重复创建。</p></div>
+            <button id="seed-test-subscription" type="button">初始化测试订阅</button>
+          </div>
           <div class="split">
             <form id="directory-form" class="card">
               <h3>通讯录查找</h3>

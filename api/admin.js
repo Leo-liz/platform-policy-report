@@ -4,6 +4,7 @@ import { database } from "../lib/db.js";
 import { searchDirectory, sendAndPoll } from "../lib/dingtalk.js";
 import { bodyObject, clientAddress, json } from "../lib/http.js";
 import { buildTestMarkdownNotification } from "../lib/routing.js";
+import { testSubscriptionIdentity, wildcardRuleId } from "../lib/setup.js";
 import {
   clearSessionCookie,
   createSession,
@@ -125,6 +126,34 @@ async function mutate(req, res, action, session) {
         enabled = EXCLUDED.enabled, updated_at = now()
     `;
     await audit(sql, "save", "recipient", id, { source, enabled: body.enabled !== false });
+  } else if (action === "seed_test_subscription") {
+    const { userId, displayName, recipientId: stableId } = testSubscriptionIdentity(
+      process.env.DINGTALK_TEST_USER_ID,
+      process.env.DINGTALK_TEST_DISPLAY_NAME,
+    );
+    const recipientRows = await sql`
+      INSERT INTO notification_recipients (id, display_name, dingtalk_user_id, source, enabled)
+      VALUES (${stableId}, ${displayName}, ${userId}, 'manual', true)
+      ON CONFLICT (dingtalk_user_id) DO UPDATE SET
+        display_name = EXCLUDED.display_name,
+        enabled = true,
+        updated_at = now()
+      RETURNING id
+    `;
+    const recipientId = recipientRows[0].id;
+    const ruleId = wildcardRuleId(recipientId);
+    await sql`
+      INSERT INTO notification_rules (id, recipient_id, platform_code, primary_tag_code, enabled)
+      VALUES (${ruleId}, ${recipientId}, '*', '*', true)
+      ON CONFLICT (recipient_id, platform_code, primary_tag_code) DO UPDATE SET
+        enabled = true,
+        updated_at = now()
+    `;
+    await audit(sql, "seed_test_subscription", "recipient", recipientId, {
+      enabled: true,
+      platform_code: "*",
+      primary_tag_code: "*",
+    });
   } else if (action === "save_rule") {
     const id = clean(body.id, 80) || crypto.randomUUID();
     const recipientId = clean(body.recipient_id, 80);

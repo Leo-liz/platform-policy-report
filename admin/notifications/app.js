@@ -57,6 +57,15 @@ function bindRowActions() {
 
 $("#login-form").onsubmit = async (event) => { event.preventDefault(); try { const result = await api("login", { method: "POST", body: JSON.stringify({ password: $("#admin-password").value }) }); state.csrf = result.csrf_token; $("#login-panel").hidden = true; $("#app").hidden = false; await refresh(); } catch (error) { toast(error.message); } };
 $("#logout").onclick = async () => { await api("logout", { method: "POST", body: "{}" }); location.reload(); };
+$("#seed-test-subscription").onclick = async () => {
+  if (!confirm("将创建或启用测试收件人，并订阅全部平台和全部主标签。正式发送仍受服务端发送门禁控制，是否继续？")) return;
+  try {
+    apply(await api("seed_test_subscription", { method: "POST", body: "{}" }));
+    toast("测试收件人和全量订阅规则已初始化");
+  } catch (error) {
+    toast(error.message);
+  }
+};
 $("#directory-form").onsubmit = async (event) => { event.preventDefault(); try { const result = await api(`directory&q=${encodeURIComponent($("#directory-query").value)}`); $("#directory-results").innerHTML = result.people.map((person) => `<button type="button" data-name="${esc(person.display_name)}" data-userid="${esc(person.dingtalk_user_id)}">${esc(person.display_name)} · ${esc(person.dingtalk_user_id)}</button>`).join("") || "未找到，可手工填写"; $("#directory-results").querySelectorAll("button").forEach((button) => button.onclick = () => { $("#recipient-name").value = button.dataset.name; $("#recipient-userid").value = button.dataset.userid; $("#recipient-source").value = "directory"; }); } catch (error) { toast(`${error.message}；可改为手工填写 userId`); } };
 $("#recipient-form").onsubmit = async (event) => { event.preventDefault(); try { apply(await api("save_recipient", { method: "POST", body: JSON.stringify({ id: $("#recipient-id").value, display_name: $("#recipient-name").value, dingtalk_user_id: $("#recipient-userid").value, source: $("#recipient-source").value, enabled: $("#recipient-enabled").checked }) })); event.target.reset(); $("#recipient-enabled").checked = true; $("#recipient-source").value = "manual"; toast("收件人已保存"); } catch (error) { toast(error.message); } };
 $("#rule-form").onsubmit = async (event) => { event.preventDefault(); try { apply(await api("save_rule", { method: "POST", body: JSON.stringify({ id: $("#rule-id").value, recipient_id: $("#rule-recipient").value, platform_code: $("#rule-platform").value, primary_tag_code: $("#rule-tag").value, enabled: $("#rule-enabled").checked }) })); toast("订阅规则已保存"); } catch (error) { toast(error.message); } };
