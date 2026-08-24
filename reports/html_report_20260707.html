@@ -388,7 +388,7 @@
   <header class="top-strip">
     <div class="top-strip-inner">
       <strong>平台政策抓取 · 监控报告</strong>
-      <span>生成时间: 2026-07-08T10:04:46+08:00</span>
+      <span>生成时间: 2026-07-08T15:33:41+08:00</span>
     </div>
   </header>
   <main class="page">
@@ -414,16 +414,16 @@
       <span>执行日期：2026-07-08 · 抓取窗口：2026-07-08 / 2026-07-07</span>
     </div>
   </div>
-  <div class="summary-line">发现 3 个今天/昨天需处理事件，2 个历史补录/追溯事件，2 个抓取失败，0 个待决策事件。</div>
-  <div class="metric-grid"><div class="metric"><span>监控平台</span><strong>8</strong></div>
-<div class="metric"><span>监控源</span><strong>8</strong></div>
+  <div class="summary-line">发现 4 个今天/昨天需处理事件，4 个历史补录/追溯事件，1 个抓取失败，0 个待决策事件。</div>
+  <div class="metric-grid"><div class="metric"><span>监控平台</span><strong>12</strong></div>
+<div class="metric"><span>监控源</span><strong>12</strong></div>
 <div class="metric"><span>变更</span><strong>0</strong></div>
-<div class="metric"><span>失败</span><strong>2</strong></div>
+<div class="metric"><span>失败</span><strong>1</strong></div>
 <div class="metric"><span>待决策</span><strong>0</strong></div>
-<div class="metric"><span>高影响</span><strong>1</strong></div>
-<div class="metric"><span>AI 降级</span><strong>2</strong></div>
-<div class="metric"><span>负责人待确认</span><strong>6</strong></div></div>
-  <div class="scope-line"><strong>平台范围:</strong> eBay / Amazon SP-API / AliExpress / Shopee / Lazada / TikTok Shop / Shopify / Walmart</div>
+<div class="metric"><span>高影响</span><strong>2</strong></div>
+<div class="metric"><span>AI 降级</span><strong>1</strong></div>
+<div class="metric"><span>负责人待确认</span><strong>12</strong></div></div>
+  <div class="scope-line"><strong>平台范围:</strong> eBay / Amazon SP-API / AliExpress / Shopee / Lazada / Mercado Libre / Temu / Ozon / Wildberries / TikTok Shop / Shopify / Walmart</div>
 </section>
 
 
@@ -605,14 +605,29 @@
 <tr>
   <td><span class="badge impact-unknown">高</span></td>
   <td><span class="badge status-actionable-today">需要处理</span></td>
+  <td>2026-07-08</td>
+  <td><div class="source-jump"><strong>TikTok Shop</strong><span>TikTok Shop API Changelog</span><span class="muted">US &amp; EMEA Markets: Replacement Orders</span><div class="link-row"><a href="https://partner.tiktokshop.com/docv2/changelog#inline-1" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">客服/售后</span><div class="tag-list"><span class="tag-secondary">订单/履约/物流</span> <span class="tag-secondary">字段/参数变更</span> <span class="tag-secondary">API 接口变更</span></div></td>
+  <td>2026-07-08</td>
+  <td><span class="ai-text">TikTok Shop 在 2026-07-08 发布 US 与 EMEA 市场 Replacement Orders 更新，生效日期同为 2026-07-08。买家在订单已送达且满足条件时可请求补发，并保留原商品，快照同时显示 Exchange Orders 和 US 市场 room_id 等订单 API 相关变化。影响售后、订单状态处理和补发履约，需要确认退换货链路是否能识别 replacement/exchange 场景及新增订单字段。</span></td>
+  <td><span class="muted">TikTok Shop 售后、订单 API、补发和换货履约流程</span></td>
+  <td>让售后和订单接口负责人验证 replacement/exchange 订单在现有系统中的状态、字段和履约动作，必要时补充映射和测试用例。</td>
+  <td><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: customer_service_after_sales</span></td>
+  <td><span class="badge notice-unsent">未通知</span></td>
+</tr>
+
+
+<tr>
+  <td><span class="badge impact-unknown">高</span></td>
+  <td><span class="badge status-actionable-today">需要处理</span></td>
   <td>2026-07-07</td>
-  <td><div class="source-jump"><strong>TikTok Shop</strong><span>TikTok Shop API Changelog</span><span class="muted">For SEA Market: Add Mandatory Attributes to Baby&amp;Maternity and Automotive&amp;Motorcycle Categories</span><div class="link-row"><a href="https://partner.tiktokshop.com/docv2/changelog#inline-1" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
-  <td class="tag-cell"><span class="tag-primary">刊登/商品</span><div class="tag-list"><span class="tag-secondary">字段/参数变更</span> <span class="tag-secondary">商品/库存规则</span> <span class="tag-secondary">合规/政策要求</span> <span class="tag-secondary">API 接口变更</span></div></td>
+  <td><div class="source-jump"><strong>TikTok Shop</strong><span>TikTok Shop API Changelog</span><span class="muted">For SEA Market: Add Mandatory Attributes to Baby&amp;Maternity and Automotive&amp;Motorcycle Categories</span><div class="link-row"><a href="https://partner.tiktokshop.com/docv2/changelog#inline-2" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">客服/售后</span><div class="tag-list"><span class="tag-secondary">订单/履约/物流</span> <span class="tag-secondary">字段/参数变更</span> <span class="tag-secondary">API 接口变更</span></div></td>
   <td>2026-08-01</td>
-  <td><span class="ai-text">TikTok Shop 公告称，SEA 市场自 2026-08-01 起，Baby &amp; Maternity 类目新增 Recommended Age 和 Baby Life Stage 两个必填商品属性。Automotive &amp; Motorcycle 类目也新增 Applicable Brand 和 Model 两个必填属性。该变更会影响商品刊登、编辑、类目属性校验和 API 提交流程，未补齐字段可能导致相关商品无法正常提交。</span></td>
-  <td><span class="muted">SEA 市场商品刊登、类目属性和 API 提交流程</span></td>
-  <td>在 2026-08-01 前补齐受影响类目的必填属性采集、校验和 API 映射，避免刊登或编辑失败。</td>
-  <td><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: listing_product</span></td>
+  <td><span class="ai-text">TikTok Shop 在 2026-07-08 发布 US 与 EMEA 市场 Replacement Orders 更新，生效日期同为 2026-07-08。买家在订单已送达且满足条件时可请求补发，并保留原商品，快照同时显示 Exchange Orders 和 US 市场 room_id 等订单 API 相关变化。影响售后、订单状态处理和补发履约，需要确认退换货链路是否能识别 replacement/exchange 场景及新增订单字段。</span></td>
+  <td><span class="muted">TikTok Shop 售后、订单 API、补发和换货履约流程</span></td>
+  <td>让售后和订单接口负责人验证 replacement/exchange 订单在现有系统中的状态、字段和履约动作，必要时补充映射和测试用例。</td>
+  <td><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: customer_service_after_sales</span></td>
   <td><span class="badge notice-unsent">未通知</span></td>
 </tr>
 
@@ -663,16 +678,91 @@
 
 
 <tr>
-  <td><span class="badge impact-unknown">待确认</span></td>
-  <td><span class="badge status-failed">抓取失败</span></td>
-  <td>无官方日期</td>
-  <td><div class="source-jump"><strong>AliExpress</strong><span>AliExpress Open Platform Announcements</span><span class="muted">AliExpress Open Platform Announcements</span><div class="link-row"><a href="https://open.aliexpress.com/announcement/index.htm?spm=a2o9m.11193535.0.0.5d8259b2INS6ee#/announcement/document?id=129&amp;entitle=All%20Announcements&amp;cntitle=%E6%89%80%E6%9C%89%E5%85%AC%E5%91%8A&amp;_k=i7saq6" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
-  <td class="tag-cell"><span class="tag-primary">其他/待确认</span><div class="tag-list"><span class="tag-secondary">其他/待确认</span></div></td>
+  <td><span class="badge impact-unknown">中</span></td>
+  <td><span class="badge status-actionable-today">需要处理</span></td>
+  <td>2026-07-07</td>
+  <td><div class="source-jump"><strong>Temu</strong><span>Temu Partner Docs</span><span class="muted">Co-Warehouse ERP Fulfillment Change Notification Message</span><div class="link-row"><a href="https://partner-us.temu.com/documentation?menu_code=fb16b05f7a904765aac4af3a24b87d4a&amp;sub_menu_code=72dfeb97e79d42a78cda4bfdc5e5be82" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">物流/履约</span><div class="tag-list"><span class="tag-secondary">订单/履约/物流</span> <span class="tag-secondary">API 接口变更</span> <span class="tag-secondary">文档/SDK/示例更新</span> <span class="tag-secondary">其他/待确认</span></div></td>
   <td>未写明</td>
-  <td><span class="badge ai-degraded">AI 未配置</span><br><span class="ai-text">列表页可访问，但未能获取符合要求的具体详情正文。</span><br><span class="muted">待确认</span></td>
-  <td><span class="muted">待确认</span></td>
-  <td>待 AI 配置/需人工确认</td>
-  <td><strong>待确认负责人</strong><br><span class="muted">待正文摘要与标签确认</span></td>
+  <td><span class="ai-text">Temu 本次快照显示 2026-07-07 的合作仓/ERP 履约文档发生变化，焦点条目是 Co-Warehouse ERP Fulfillment Change Notification Message。快照同时列出 cooperativewarehouse.fulfill.cancel、query、submit 等履约接口页面，但本次详情正文主要捕获到标题和导航内容，未提取到更细字段说明。影响仓储履约、ERP 对接和消息通知处理，需要人工打开焦点详情页复核通知消息结构或接口参数是否调整。</span></td>
+  <td><span class="muted">Temu 合作仓、ERP 履约接口、履约变更通知消息消费者</span></td>
+  <td>让履约接口负责人复核 Temu 焦点详情页，确认合作仓通知消息和 fulfill 接口是否有字段、状态或回调格式变化。</td>
+  <td><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: logistics_fulfillment</span></td>
+  <td><span class="badge notice-unsent">未通知</span></td>
+</tr>
+
+
+<tr>
+  <td><span class="badge impact-unknown">中</span></td>
+  <td><span class="badge status-actionable-today">需要处理</span></td>
+  <td>2026-07-07</td>
+  <td><div class="source-jump"><strong>Temu</strong><span>Temu Partner Docs</span><span class="muted">bg.cooperativewarehouse.fulfill.cancel</span><div class="link-row"><a href="https://partner-us.temu.com/documentation?menu_code=fb16b05f7a904765aac4af3a24b87d4a&amp;sub_menu_code=085d46b8a6604228b371e0706ac4af7d" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">物流/履约</span><div class="tag-list"><span class="tag-secondary">订单/履约/物流</span> <span class="tag-secondary">API 接口变更</span> <span class="tag-secondary">文档/SDK/示例更新</span> <span class="tag-secondary">其他/待确认</span></div></td>
+  <td>未写明</td>
+  <td><span class="ai-text">Temu 本次快照显示 2026-07-07 的合作仓/ERP 履约文档发生变化，焦点条目是 Co-Warehouse ERP Fulfillment Change Notification Message。快照同时列出 cooperativewarehouse.fulfill.cancel、query、submit 等履约接口页面，但本次详情正文主要捕获到标题和导航内容，未提取到更细字段说明。影响仓储履约、ERP 对接和消息通知处理，需要人工打开焦点详情页复核通知消息结构或接口参数是否调整。</span></td>
+  <td><span class="muted">Temu 合作仓、ERP 履约接口、履约变更通知消息消费者</span></td>
+  <td>让履约接口负责人复核 Temu 焦点详情页，确认合作仓通知消息和 fulfill 接口是否有字段、状态或回调格式变化。</td>
+  <td><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: logistics_fulfillment</span></td>
+  <td><span class="badge notice-unsent">未通知</span></td>
+</tr>
+
+
+<tr>
+  <td><span class="badge impact-unknown">中</span></td>
+  <td><span class="badge status-actionable-today">需要处理</span></td>
+  <td>2026-07-07</td>
+  <td><div class="source-jump"><strong>Temu</strong><span>Temu Partner Docs</span><span class="muted">Integration : Placing Outbound Orders from ERP to Partner Warehouses</span><div class="link-row"><a href="https://partner-us.temu.com/documentation?menu_code=fb16b05f7a904765aac4af3a24b87d4a&amp;sub_menu_code=ff5f3af29bf947ad9b43ceb374a95b7a" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">物流/履约</span><div class="tag-list"><span class="tag-secondary">订单/履约/物流</span> <span class="tag-secondary">API 接口变更</span> <span class="tag-secondary">文档/SDK/示例更新</span> <span class="tag-secondary">其他/待确认</span></div></td>
+  <td>未写明</td>
+  <td><span class="ai-text">Temu 本次快照显示 2026-07-07 的合作仓/ERP 履约文档发生变化，焦点条目是 Co-Warehouse ERP Fulfillment Change Notification Message。快照同时列出 cooperativewarehouse.fulfill.cancel、query、submit 等履约接口页面，但本次详情正文主要捕获到标题和导航内容，未提取到更细字段说明。影响仓储履约、ERP 对接和消息通知处理，需要人工打开焦点详情页复核通知消息结构或接口参数是否调整。</span></td>
+  <td><span class="muted">Temu 合作仓、ERP 履约接口、履约变更通知消息消费者</span></td>
+  <td>让履约接口负责人复核 Temu 焦点详情页，确认合作仓通知消息和 fulfill 接口是否有字段、状态或回调格式变化。</td>
+  <td><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: logistics_fulfillment</span></td>
+  <td><span class="badge notice-unsent">未通知</span></td>
+</tr>
+
+
+<tr>
+  <td><span class="badge impact-unknown">中</span></td>
+  <td><span class="badge status-actionable-today">需要处理</span></td>
+  <td>2026-07-07</td>
+  <td><div class="source-jump"><strong>Temu</strong><span>Temu Partner Docs</span><span class="muted">bg.cooperativewarehouse.fulfill.query</span><div class="link-row"><a href="https://partner-us.temu.com/documentation?menu_code=fb16b05f7a904765aac4af3a24b87d4a&amp;sub_menu_code=343bd5191b0f429580dfaa863906c478" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">物流/履约</span><div class="tag-list"><span class="tag-secondary">订单/履约/物流</span> <span class="tag-secondary">API 接口变更</span> <span class="tag-secondary">文档/SDK/示例更新</span> <span class="tag-secondary">其他/待确认</span></div></td>
+  <td>未写明</td>
+  <td><span class="ai-text">Temu 本次快照显示 2026-07-07 的合作仓/ERP 履约文档发生变化，焦点条目是 Co-Warehouse ERP Fulfillment Change Notification Message。快照同时列出 cooperativewarehouse.fulfill.cancel、query、submit 等履约接口页面，但本次详情正文主要捕获到标题和导航内容，未提取到更细字段说明。影响仓储履约、ERP 对接和消息通知处理，需要人工打开焦点详情页复核通知消息结构或接口参数是否调整。</span></td>
+  <td><span class="muted">Temu 合作仓、ERP 履约接口、履约变更通知消息消费者</span></td>
+  <td>让履约接口负责人复核 Temu 焦点详情页，确认合作仓通知消息和 fulfill 接口是否有字段、状态或回调格式变化。</td>
+  <td><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: logistics_fulfillment</span></td>
+  <td><span class="badge notice-unsent">未通知</span></td>
+</tr>
+
+
+<tr>
+  <td><span class="badge impact-unknown">中</span></td>
+  <td><span class="badge status-actionable-today">需要处理</span></td>
+  <td>2026-07-07</td>
+  <td><div class="source-jump"><strong>Temu</strong><span>Temu Partner Docs</span><span class="muted">bg.cooperativewarehouse.fulfill.submit</span><div class="link-row"><a href="https://partner-us.temu.com/documentation?menu_code=fb16b05f7a904765aac4af3a24b87d4a&amp;sub_menu_code=d2d218ed9b8c4356aec5033744abe90b" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">物流/履约</span><div class="tag-list"><span class="tag-secondary">订单/履约/物流</span> <span class="tag-secondary">API 接口变更</span> <span class="tag-secondary">文档/SDK/示例更新</span> <span class="tag-secondary">其他/待确认</span></div></td>
+  <td>未写明</td>
+  <td><span class="ai-text">Temu 本次快照显示 2026-07-07 的合作仓/ERP 履约文档发生变化，焦点条目是 Co-Warehouse ERP Fulfillment Change Notification Message。快照同时列出 cooperativewarehouse.fulfill.cancel、query、submit 等履约接口页面，但本次详情正文主要捕获到标题和导航内容，未提取到更细字段说明。影响仓储履约、ERP 对接和消息通知处理，需要人工打开焦点详情页复核通知消息结构或接口参数是否调整。</span></td>
+  <td><span class="muted">Temu 合作仓、ERP 履约接口、履约变更通知消息消费者</span></td>
+  <td>让履约接口负责人复核 Temu 焦点详情页，确认合作仓通知消息和 fulfill 接口是否有字段、状态或回调格式变化。</td>
+  <td><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: logistics_fulfillment</span></td>
+  <td><span class="badge notice-unsent">未通知</span></td>
+</tr>
+
+
+<tr>
+  <td><span class="badge impact-unknown">中</span></td>
+  <td><span class="badge status-actionable-today">需要处理</span></td>
+  <td>2026-07-07</td>
+  <td><div class="source-jump"><strong>Temu</strong><span>Temu Partner Docs</span><span class="muted">bg.cooperativewarehouse.provider.list</span><div class="link-row"><a href="https://partner-us.temu.com/documentation?menu_code=fb16b05f7a904765aac4af3a24b87d4a&amp;sub_menu_code=e77d444a60b540039bfa1fc64e3cada7" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">物流/履约</span><div class="tag-list"><span class="tag-secondary">订单/履约/物流</span> <span class="tag-secondary">API 接口变更</span> <span class="tag-secondary">文档/SDK/示例更新</span> <span class="tag-secondary">其他/待确认</span></div></td>
+  <td>未写明</td>
+  <td><span class="ai-text">Temu 本次快照显示 2026-07-07 的合作仓/ERP 履约文档发生变化，焦点条目是 Co-Warehouse ERP Fulfillment Change Notification Message。快照同时列出 cooperativewarehouse.fulfill.cancel、query、submit 等履约接口页面，但本次详情正文主要捕获到标题和导航内容，未提取到更细字段说明。影响仓储履约、ERP 对接和消息通知处理，需要人工打开焦点详情页复核通知消息结构或接口参数是否调整。</span></td>
+  <td><span class="muted">Temu 合作仓、ERP 履约接口、履约变更通知消息消费者</span></td>
+  <td>让履约接口负责人复核 Temu 焦点详情页，确认合作仓通知消息和 fulfill 接口是否有字段、状态或回调格式变化。</td>
+  <td><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: logistics_fulfillment</span></td>
   <td><span class="badge notice-unsent">未通知</span></td>
 </tr>
 
@@ -681,10 +771,10 @@
   <td><span class="badge impact-unknown">待确认</span></td>
   <td><span class="badge status-failed">抓取失败</span></td>
   <td>无官方日期</td>
-  <td><div class="source-jump"><strong>eBay</strong><span>eBay Updates</span><span class="muted">eBay Updates</span><div class="link-row"><a href="https://www.ebay.cn/newcms/developer/updates/" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td><div class="source-jump"><strong>AliExpress</strong><span>AliExpress Open Platform Announcements</span><span class="muted">AliExpress Open Platform Announcements</span><div class="link-row"><a href="https://open.aliexpress.com/announcement/index.htm?spm=a2o9m.11193535.0.0.5d8259b2INS6ee#/announcement/document?id=129&amp;entitle=All%20Announcements&amp;cntitle=%E6%89%80%E6%9C%89%E5%85%AC%E5%91%8A&amp;_k=i7saq6" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
   <td class="tag-cell"><span class="tag-primary">其他/待确认</span><div class="tag-list"><span class="tag-secondary">其他/待确认</span></div></td>
   <td>未写明</td>
-  <td><span class="badge ai-degraded">AI 未配置</span><br><span class="ai-text">官方页面在当前网络或浏览器渲染环境下未能稳定返回。</span><br><span class="muted">待确认</span></td>
+  <td><span class="badge ai-degraded">AI 未配置</span><br><span class="ai-text">列表页可访问，但未能获取符合要求的具体详情正文。</span><br><span class="muted">待确认</span></td>
   <td><span class="muted">待确认</span></td>
   <td>待 AI 配置/需人工确认</td>
   <td><strong>待确认负责人</strong><br><span class="muted">待正文摘要与标签确认</span></td>
@@ -722,16 +812,6 @@
   <td>列表页可访问，但未能获取符合要求的具体详情正文。</td>
   <td>会影响该平台今天/昨天官方变更判断；本次不静默成功。</td>
   <td>检查列表页是否变更结构，补充官方详情链接选择器或官方详情 API fallback。</td>
-  <td><span class="badge notice-unsent">未通知</span></td>
-</tr>
-
-<tr>
-  <td>eBay</td>
-  <td><strong>eBay Updates</strong><br><span class="muted">eBay Updates</span><br><span class="muted">截止日期: 未写明/需人工确认</span></td>
-  <td><span class="badge mode-direct">直接抓取</span><br><span class="badge source-reliability">抓取失败</span></td>
-  <td>官方页面在当前网络或浏览器渲染环境下未能稳定返回。</td>
-  <td>会影响该平台今天/昨天官方变更判断；本次不静默成功。</td>
-  <td>检查本机网络、地区访问、浏览器渲染依赖和平台级 timeout，必要时确认同一官方来源的静态 fallback。</td>
   <td><span class="badge notice-unsent">未通知</span></td>
 </tr>
 </tbody>
