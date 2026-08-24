@@ -18,7 +18,7 @@
 1. 在 Vercel Marketplace 连接 Neon，并将 `DATABASE_URL` 设为私有环境变量。
 2. 按 `.env.example` 配置管理员会话、heartbeat 调度令牌及钉钉内部应用变量。
 3. 运行 `npm run migrate` 初始化数据库结构。
-4. 先只设置 `DINGTALK_TEST_USER_ID`，从管理页完成一次真实测试通知；确认 task_id 和发送结果后，才把 `DINGTALK_PRODUCTION_SEND_ENABLED` 改为 `true`。
+4. 先只设置 `DINGTALK_TEST_USER_ID`，运行 `npm run seed-test-recipient` 或从管理页保存测试收件人，再完成一次真实测试通知；确认 task_id 和发送结果后，才把 `DINGTALK_PRODUCTION_SEND_ENABLED` 改为 `true`。
 
 通讯录姓名搜索要求 `DINGTALK_DIRECTORY_DEPARTMENT_IDS` 中的每个部门都位于该内部应用的通讯录可见范围内。权限名称已开通但可见范围未覆盖部门时，钉钉会拒绝读取；管理页会明确提示，并继续允许手工填写显示名和 userId。
 
