@@ -37,3 +37,11 @@ test("local admin environment file remains excluded from Git", async () => {
   assert.match(ignore, /^\.env\.\*$/m);
   assert.match(ignore, /^!\.env\.example$/m);
 });
+
+test("password reset uses a secure prompt and never accepts a command-line password", async () => {
+  const script = await readFile(new URL("../scripts/reset-local-admin-password.ps1", import.meta.url), "utf8");
+  assert.match(script, /Read-Host .* -AsSecureString/);
+  assert.match(script, /LOCAL_ADMIN_NEW_PASSWORD/);
+  assert.match(script, /ZeroFreeBSTR/);
+  assert.doesNotMatch(script, /param\([^)]*Password/si);
+});

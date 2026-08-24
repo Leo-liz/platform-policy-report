@@ -4,7 +4,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
-import { hashPassword } from "../lib/security.js";
+import { hashPassword, verifyPassword } from "../lib/security.js";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const privateEnvPath = path.join(root, ".env.admin.local");
@@ -81,11 +81,25 @@ async function finalize() {
   process.stdout.write("temporary local plaintext values removed\n");
 }
 
+async function resetPasswordFromEnvironment() {
+  const password = String(process.env.LOCAL_ADMIN_NEW_PASSWORD || "");
+  if (password.length < 12 || password.length > 256) throw new Error("administrator password must contain 12 to 256 characters");
+  const values = await loadPrivateEnv();
+  const passwordHash = hashPassword(password);
+  if (!verifyPassword(password, passwordHash)) throw new Error("administrator password hash verification failed");
+  values.set("ADMIN_PASSWORD_HASH", passwordHash);
+  values.delete("ADMIN_PASSWORD");
+  await savePrivateEnv(values);
+  delete process.env.LOCAL_ADMIN_NEW_PASSWORD;
+  process.stdout.write("administrator password hash updated\n");
+}
+
 const invokedDirectly = process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
 if (invokedDirectly) {
   const [command, argument] = process.argv.slice(2);
   if (command === "prepare") await prepare();
   else if (command === "apply" && argument) await applyConnection(argument);
   else if (command === "finalize") await finalize();
-  else throw new Error("usage: node scripts/configure-local-admin.mjs prepare|apply <connection.json>|finalize");
+  else if (command === "reset-password-env") await resetPasswordFromEnvironment();
+  else throw new Error("usage: node scripts/configure-local-admin.mjs prepare|apply <connection.json>|finalize|reset-password-env");
 }
