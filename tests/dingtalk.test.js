@@ -65,7 +65,7 @@ test("polling an existing task verifies delivery without sending a second notifi
   const fetcher = async (url) => {
     calls.push(String(url));
     if (calls.length === 1) return jsonResponse({ accessToken: "token" });
-    return jsonResponse({ errcode: 0, send_result: { success_user_id_list: ["u-1"] } });
+    return jsonResponse({ errcode: 0, send_result: { unread_user_id_list: ["u-1"] } });
   };
   const delivery = await pollWorkNotification("123", "u-1", fetcher, async () => {});
   assert.equal(delivery.status, "delivered");
@@ -80,7 +80,7 @@ test("send and poll distinguishes API acceptance from verified delivery", async 
     calls.push(String(url));
     if (calls.length === 1 || calls.length === 3) return jsonResponse({ accessToken: "token" });
     if (calls.length === 2) return jsonResponse({ errcode: 0, task_id: 456 });
-    return jsonResponse({ errcode: 0, send_result: { success_user_id_list: ["u-1"] } });
+    return jsonResponse({ errcode: 0, send_result: { read_user_id_list: { string: ["u-1"] } } });
   };
   const delivery = await sendAndPoll(
     "u-1",
@@ -92,4 +92,16 @@ test("send and poll distinguishes API acceptance from verified delivery", async 
   assert.equal(delivery.task_id, "456");
   assert.equal(calls.filter((url) => url.includes("asyncsend_v2")).length, 1);
   assert.equal(calls.filter((url) => url.includes("getsendresult")).length, 1);
+});
+
+test("polling reports the configured recipient as rejected", async () => {
+  const calls = [];
+  const fetcher = async () => {
+    calls.push(calls.length);
+    if (calls.length === 1) return jsonResponse({ accessToken: "token" });
+    return jsonResponse({ errcode: 0, send_result: { forbidden_list: [{ userid: "u-1", code: "scope" }] } });
+  };
+  const delivery = await pollWorkNotification("789", "u-1", fetcher, async () => {});
+  assert.equal(delivery.status, "failed");
+  assert.equal(delivery.failure_type, "recipient_rejected");
 });
