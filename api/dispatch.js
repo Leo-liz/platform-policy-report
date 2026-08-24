@@ -1,7 +1,7 @@
 import crypto from "node:crypto";
 import { loadCatalog } from "../lib/catalog.js";
 import { database } from "../lib/db.js";
-import { sendAndPoll } from "../lib/dingtalk.js";
+import { pollWorkNotification, sendAndPoll } from "../lib/dingtalk.js";
 import { bodyObject, json } from "../lib/http.js";
 import { buildMarkdownNotification, payloadHash, routeEvents, validateDispatchPayload } from "../lib/routing.js";
 import { requireServiceToken } from "../lib/security.js";
@@ -96,7 +96,33 @@ export default async function handler(req, res) {
     for (const recipient of routed) {
       const claim = await insertDispatch(sql, payload, recipient);
       if (!claim.claimed) {
-        results.push({ recipient_id: recipient.recipient_id, status: "already_dispatched", task_id: claim.existing?.task_id || "" });
+        const existing = claim.existing || {};
+        if (existing.status === "delivered") {
+          results.push({ recipient_id: recipient.recipient_id, status: "already_dispatched", task_id: existing.task_id || "" });
+          continue;
+        }
+        if (["accepted", "pending"].includes(existing.status) && existing.task_id) {
+          const delivery = await pollWorkNotification(existing.task_id, recipient.dingtalk_user_id);
+          await sql`
+            UPDATE notification_dispatches
+            SET status = ${delivery.status}, failure_type = ${delivery.failure_type || null},
+                response_json = ${JSON.stringify(delivery.poll || {})}::jsonb, updated_at = now()
+            WHERE id = ${existing.id}
+          `;
+          results.push({
+            recipient_id: recipient.recipient_id,
+            status: delivery.status,
+            task_id: existing.task_id,
+            event_count: recipient.events.length,
+          });
+          continue;
+        }
+        results.push({
+          recipient_id: recipient.recipient_id,
+          status: existing.status || "pending",
+          task_id: existing.task_id || "",
+          event_count: recipient.events.length,
+        });
         continue;
       }
       try {

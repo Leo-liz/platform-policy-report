@@ -1,9 +1,10 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { searchDirectory } from "../lib/dingtalk.js";
+import { pollWorkNotification, searchDirectory, sendAndPoll } from "../lib/dingtalk.js";
 
 process.env.DINGTALK_APP_KEY = "test-app-key";
 process.env.DINGTALK_APP_SECRET = "test-app-secret";
+process.env.DINGTALK_AGENT_ID = "1001";
 
 function jsonResponse(value, ok = true, status = 200) {
   return {
@@ -57,4 +58,38 @@ test("directory search reports authorization-scope failures without pretending t
     if (previous === undefined) delete process.env.DINGTALK_DIRECTORY_DEPARTMENT_IDS;
     else process.env.DINGTALK_DIRECTORY_DEPARTMENT_IDS = previous;
   }
+});
+
+test("polling an existing task verifies delivery without sending a second notification", async () => {
+  const calls = [];
+  const fetcher = async (url) => {
+    calls.push(String(url));
+    if (calls.length === 1) return jsonResponse({ accessToken: "token" });
+    return jsonResponse({ errcode: 0, send_result: { success_user_id_list: ["u-1"] } });
+  };
+  const delivery = await pollWorkNotification("123", "u-1", fetcher, async () => {});
+  assert.equal(delivery.status, "delivered");
+  assert.equal(delivery.task_id, "123");
+  assert.equal(calls.filter((url) => url.includes("asyncsend_v2")).length, 0);
+  assert.equal(calls.filter((url) => url.includes("getsendresult")).length, 1);
+});
+
+test("send and poll distinguishes API acceptance from verified delivery", async () => {
+  const calls = [];
+  const fetcher = async (url) => {
+    calls.push(String(url));
+    if (calls.length === 1 || calls.length === 3) return jsonResponse({ accessToken: "token" });
+    if (calls.length === 2) return jsonResponse({ errcode: 0, task_id: 456 });
+    return jsonResponse({ errcode: 0, send_result: { success_user_id_list: ["u-1"] } });
+  };
+  const delivery = await sendAndPoll(
+    "u-1",
+    { title: "测试", text: "测试内容" },
+    fetcher,
+    async () => {},
+  );
+  assert.equal(delivery.status, "delivered");
+  assert.equal(delivery.task_id, "456");
+  assert.equal(calls.filter((url) => url.includes("asyncsend_v2")).length, 1);
+  assert.equal(calls.filter((url) => url.includes("getsendresult")).length, 1);
 });
