@@ -20,6 +20,8 @@
 3. 运行 `npm run migrate` 初始化数据库结构。
 4. 先只设置 `DINGTALK_TEST_USER_ID`，从管理页完成一次真实测试通知；确认 task_id 和发送结果后，才把 `DINGTALK_PRODUCTION_SEND_ENABLED` 改为 `true`。
 
+通讯录姓名搜索要求 `DINGTALK_DIRECTORY_DEPARTMENT_IDS` 中的每个部门都位于该内部应用的通讯录可见范围内。权限名称已开通但可见范围未覆盖部门时，钉钉会拒绝读取；管理页会明确提示，并继续允许手工填写显示名和 userId。
+
 本仓库不包含抓取代码、原始快照、证据正文、数据库内容、人员标识、私有配置或访问令牌。`reports/notification-catalog.json` 只含公开的平台和主标签枚举。
 
 ## Vercel Git 集成

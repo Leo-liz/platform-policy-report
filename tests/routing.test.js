@@ -1,6 +1,12 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { buildMarkdownNotification, routeEvents, ruleMatches, validateDispatchPayload } from "../lib/routing.js";
+import {
+  buildMarkdownNotification,
+  buildTestMarkdownNotification,
+  routeEvents,
+  ruleMatches,
+  validateDispatchPayload,
+} from "../lib/routing.js";
 
 const catalog = {
   taxonomy_version: "v1",
@@ -38,6 +44,21 @@ test("multiple rules and platforms aggregate once per recipient", () => {
   assert.equal(routed.length, 1);
   assert.equal(routed[0].events.length, 3);
   const message = buildMarkdownNotification(routed[0], { report_date: "2026-08-22", report_url: "https://example.com/reports/latest" });
+  assert.match(message.text, /共命中 3 条/);
+});
+
+test("test notification is unmistakably marked and still aggregated", () => {
+  const events = [
+    event("temu", "api_technical", 1),
+    event("ozon", "api_technical", 2),
+    event("shopify", "logistics_fulfillment", 3),
+  ];
+  const message = buildTestMarkdownNotification(
+    { recipient_id: "r1", events },
+    { report_date: "2026-08-24", report_url: "https://example.com/reports/latest" },
+  );
+  assert.equal(message.title, "平台政策通知测试");
+  assert.match(message.text, /【测试】平台政策聚合工作通知/);
   assert.match(message.text, /共命中 3 条/);
 });
 

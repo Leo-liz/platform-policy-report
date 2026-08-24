@@ -3,7 +3,7 @@ import { loadCatalog } from "../lib/catalog.js";
 import { database } from "../lib/db.js";
 import { searchDirectory, sendAndPoll } from "../lib/dingtalk.js";
 import { bodyObject, clientAddress, json } from "../lib/http.js";
-import { buildMarkdownNotification } from "../lib/routing.js";
+import { buildTestMarkdownNotification } from "../lib/routing.js";
 import {
   clearSessionCookie,
   createSession,
@@ -167,7 +167,7 @@ async function mutate(req, res, action, session) {
       recommended_action: "请确认收到的测试通知格式，不需要处理业务变更。",
       change_url: String(process.env.PUBLIC_REPORT_URL || "https://example.invalid/reports/latest"),
     }));
-    const message = buildMarkdownNotification(
+    const message = buildTestMarkdownNotification(
       { ...recipient, events: exampleEvents },
       { report_date: new Date().toISOString().slice(0, 10), report_url: String(process.env.PUBLIC_REPORT_URL || "https://example.invalid/reports/latest") },
     );
@@ -198,6 +198,9 @@ export default async function handler(req, res) {
     if (req.method === "POST") return await mutate(req, res, action, session);
     return json(res, 405, { error: "method_not_allowed" });
   } catch (error) {
-    return json(res, Number(error?.statusCode || 400), { error: String(error?.message || "request failed").slice(0, 300) });
+    return json(res, Number(error?.statusCode || 400), {
+      error: String(error?.message || "request failed").slice(0, 300),
+      failure_type: String(error?.failureType || "request_failed").slice(0, 80),
+    });
   }
 }
