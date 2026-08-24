@@ -26,23 +26,33 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Validate identity-free payload
+        id: payload
         run: |
           python - <<'PY'
           import json
+          import os
           from pathlib import Path
 
           path = Path("reports/notification-dispatch-latest.json")
           payload = json.loads(path.read_text(encoding="utf-8"))
           assert payload.get("run_id"), "run_id is missing"
           assert payload.get("report_date"), "report_date is missing"
-          assert payload.get("events"), "no validated notification events"
+          events = payload.get("events")
+          assert isinstance(events, list), "events must be an array"
           serialized = path.read_text(encoding="utf-8").lower()
           for forbidden in ("userid", "user_id", "recipient", "appsecret", "app_secret"):
               assert forbidden not in serialized, f"identity or secret field found: {forbidden}"
-          print(json.dumps({"ok": True, "run_id": payload["run_id"], "event_count": len(payload["events"])}))
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
+              output.write(f"event_count={len(events)}\n")
+          print(json.dumps({"ok": True, "run_id": payload["run_id"], "event_count": len(events)}))
           PY
 
+      - name: Confirm no notification is required
+        if: steps.payload.outputs.event_count == '0'
+        run: echo '{"ok":true,"reason":"no_notifiable_events"}'
+
       - name: Dispatch through Vercel routing API
+        if: steps.payload.outputs.event_count != '0'
         run: |
           test -n "$NOTIFICATION_DISPATCH_TOKEN"
           curl --fail --silent --show-error --location --max-time 60 \
@@ -52,6 +62,7 @@ jobs:
             "$DISPATCH_URL" -o dispatch-result.json
 
       - name: Verify aggregate delivery result
+        if: steps.payload.outputs.event_count != '0'
         run: |
           python - <<'PY'
           import json
