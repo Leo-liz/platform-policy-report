@@ -1,0 +1,121 @@
+{
+  "schema_version": 1,
+  "run_id": "20260825-010308",
+  "report_date": "2026-08-24",
+  "generated_at": "2026-08-25T02:08:43.127Z",
+  "source": "verified_dingtalk_dispatch_snapshot",
+  "events": [
+    {
+      "event_id": "shopee_open_platform_announcements-b245f98598ec::detail-1",
+      "content_hash": "8b25f11a4078e48c645f267ddf6817eaf74323f2c8a8801bd60d9c206da4b58b",
+      "owners": [
+        {
+          "display_name": "测试收件人",
+          "notification_status": "delivered",
+          "notified_at": "Tue Aug 25 2026 01:08:39 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "张蕾",
+          "notification_status": "delivered",
+          "notified_at": "Tue Aug 25 2026 01:08:42 GMT+0000 (Coordinated Universal Time)"
+        }
+      ]
+    },
+    {
+      "event_id": "temu_partner_docs-6a319de980ae::detail-1",
+      "content_hash": "1e9b7b3c7b2bce35a3232319ae8f4a049a624c3fae531d023a102f6ec18addb2",
+      "owners": [
+        {
+          "display_name": "测试收件人",
+          "notification_status": "delivered",
+          "notified_at": "Tue Aug 25 2026 01:08:39 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "张蕾",
+          "notification_status": "delivered",
+          "notified_at": "Tue Aug 25 2026 01:08:42 GMT+0000 (Coordinated Universal Time)"
+        }
+      ]
+    },
+    {
+      "event_id": "temu_partner_docs-6a319de980ae::detail-2",
+      "content_hash": "49b7bc6820ae23d344e6d3c63df537a366e39162b68a694bb3a6a978ddabd7cb",
+      "owners": [
+        {
+          "display_name": "测试收件人",
+          "notification_status": "delivered",
+          "notified_at": "Tue Aug 25 2026 01:08:39 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "张蕾",
+          "notification_status": "delivered",
+          "notified_at": "Tue Aug 25 2026 01:08:42 GMT+0000 (Coordinated Universal Time)"
+        }
+      ]
+    },
+    {
+      "event_id": "temu_partner_docs-6a319de980ae::detail-3",
+      "content_hash": "59fa7778e6b8d6fd3280aa56ce334d9953af0235e5001f08516fc57fada02770",
+      "owners": [
+        {
+          "display_name": "测试收件人",
+          "notification_status": "delivered",
+          "notified_at": "Tue Aug 25 2026 01:08:39 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "张蕾",
+          "notification_status": "delivered",
+          "notified_at": "Tue Aug 25 2026 01:08:42 GMT+0000 (Coordinated Universal Time)"
+        }
+      ]
+    },
+    {
+      "event_id": "temu_partner_docs-6a319de980ae::detail-4",
+      "content_hash": "b99835f82611159dbbc057c66fbcb2755054821af6bd25d496c1ce9868f87d96",
+      "owners": [
+        {
+          "display_name": "测试收件人",
+          "notification_status": "delivered",
+          "notified_at": "Tue Aug 25 2026 01:08:39 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "张蕾",
+          "notification_status": "delivered",
+          "notified_at": "Tue Aug 25 2026 01:08:42 GMT+0000 (Coordinated Universal Time)"
+        }
+      ]
+    },
+    {
+      "event_id": "ozon_seller_api_news-806691a36ca2::detail-1",
+      "content_hash": "fc671114e2c0cde8ad5dc1743e028c303f7129ae28ac6710d93427db43636b4e",
+      "owners": [
+        {
+          "display_name": "测试收件人",
+          "notification_status": "delivered",
+          "notified_at": "Tue Aug 25 2026 01:08:39 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "张蕾",
+          "notification_status": "delivered",
+          "notified_at": "Tue Aug 25 2026 01:08:42 GMT+0000 (Coordinated Universal Time)"
+        }
+      ]
+    },
+    {
+      "event_id": "wildberries_release_notes-e851ded773e8::detail-1",
+      "content_hash": "81d921914a18ecc7724f8df9632d11272d9aed37f4264bbbba73fb72e0137f46",
+      "owners": [
+        {
+          "display_name": "测试收件人",
+          "notification_status": "delivered",
+          "notified_at": "Tue Aug 25 2026 01:08:39 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "张蕾",
+          "notification_status": "delivered",
+          "notified_at": "Tue Aug 25 2026 01:08:42 GMT+0000 (Coordinated Universal Time)"
+        }
+      ]
+    }
+  ]
+}
