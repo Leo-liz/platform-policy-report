@@ -388,18 +388,18 @@
   <header class="top-strip">
     <div class="top-strip-inner">
       <strong>平台政策抓取 · 监控报告</strong>
-      <span>生成时间: 2026-08-25T01:02:27+08:00</span>
+      <span>生成时间: 2026-08-25T01:08:37+08:00</span>
     </div>
   </header>
   <main class="page">
 
-
+    <div class="ai-metadata" data-ai-provider="codex_builtin_postprocess" data-ai-model="current_codex_thread" data-ai-schema="11">摘要模型：codex_builtin_postprocess / current_codex_thread · Schema 11</div>
     <nav class="report-nav" aria-label="报告导航">
       <a href="#overview">运行概览</a>
       <a href="#history">历史报告</a>
       <a href="#priority">需要处理</a>
       <a href="#failures">失败与待修复</a>
-      <a href="http://localhost:4317/admin/notifications" target="_blank" rel="noopener noreferrer" title="需先在本机启动通知配置服务">通知配置（仅本机）</a>
+      <a href="http://localhost:4317/admin/notifications" target="_blank" rel="noopener noreferrer" title="通知配置">通知配置</a>
     </nav>
 
 <section class="top-panel" id="overview">
@@ -414,15 +414,15 @@
       <span>执行日期：2026-08-25 · 抓取窗口：2026-08-25 / 2026-08-24</span>
     </div>
   </div>
-  <div class="summary-line">发现 0 个今天/昨天需处理事件，0 个日期未解析的内容变化事件，0 个延迟发现需处理事件，0 个历史补录/追溯事件，12 个抓取失败，0 个待决策事件。</div>
+  <div class="summary-line">发现 3 个今天/昨天需处理事件，0 个日期未解析的内容变化事件，1 个延迟发现需处理事件，3 个历史补录/追溯事件，0 个抓取失败，0 个待决策事件。</div>
   <div class="metric-grid"><div class="metric"><span>监控平台</span><strong>12</strong></div>
 <div class="metric"><span>监控源</span><strong>12</strong></div>
 <div class="metric"><span>变更</span><strong>0</strong></div>
-<div class="metric"><span>失败</span><strong>12</strong></div>
+<div class="metric"><span>失败</span><strong>0</strong></div>
 <div class="metric"><span>待决策</span><strong>0</strong></div>
-<div class="metric"><span>高影响</span><strong>0</strong></div>
-<div class="metric"><span>AI 降级</span><strong>12</strong></div>
-<div class="metric"><span>负责人待确认</span><strong>12</strong></div></div>
+<div class="metric"><span>高影响</span><strong>2</strong></div>
+<div class="metric"><span>AI 降级</span><strong>1</strong></div>
+<div class="metric"><span>负责人待确认</span><strong>8</strong></div></div>
   <div class="scope-line"><strong>平台范围:</strong> eBay / Amazon SP-API / AliExpress / Shopee / Lazada / Mercado Libre / Temu / Ozon（Telegram 官方频道） / Wildberries（Telegram 官方频道） / TikTok Shop / Shopify / Walmart</div>
 </section>
 
@@ -453,7 +453,6 @@
         </div>
         <div class="history-calendar-week" aria-hidden="true"><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span></div>
         <div class="history-calendar-days" data-calendar-days></div>
-        <p class="history-calendar-foot">蓝色日期有报告；点击后打开当天最新成功报告。</p>
       </div>
     </div>
     <p class="history-range-note">默认范围：2026-07-26 至 2026-08-24 · 可筛选 57 个历史日期</p>
@@ -603,13 +602,28 @@
       </thead>
       <tbody>
 <tr>
+  <td><span class="badge impact-unknown">高</span></td>
+  <td><span class="badge status-actionable-today">需要处理</span></td>
+  <td>2026-08-24</td>
+  <td><div class="source-jump"><strong>Ozon</strong><span>Ozon Seller API News（Telegram 官方频道）</span><span class="muted">Изменения в методах для работы с финансовыми отчетами в Seller API 8 сентября 2026 года будут отключены устаревшие метод</span><div class="link-row"><a href="https://t.me/OzonSellerAPI/684" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">API/技术</span><div class="tag-list"><span class="tag-secondary">API 接口变更</span> <span class="tag-secondary">弃用/下线/迁移</span> <span class="tag-secondary">费用/结算/账单</span></div></td>
+  <td>2026-09-08</td>
+  <td><span class="ai-text">Ozon 宣布将在 2026-09-08 停用财务报表相关的旧接口 /v3/finance/transaction/list 和 /v3/finance/transaction/totals。依赖这两个接口的交易明细、汇总或对账链路届时将无法继续调用，正文要求在该日期前迁移到现行接口。开发与财务系统负责人应尽快完成替代接口核对、联调和上线。</span><details class="ai-evidence"><summary>摘要依据</summary><ul><li>Изменения в методах для работы с финансовыми отчетами в Seller API</li><li>8 сентября 2026 года будут отключены устаревшие методы /v3/finance/transaction/list и /v3/finance/transaction/totals. Пожалуйста, перенесите ваши интеграции на актуальные методы до указанной даты</li></ul></details></td>
+  <td><span class="muted">Ozon 财务交易报表接口的开发、财务与对账团队</span></td>
+  <td>盘点对 /v3/finance/transaction/list 和 /v3/finance/transaction/totals 的依赖，并在 2026-09-08 前迁移、联调和上线公告所指的现行方法。</td>
+  <td><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: api_technical</span></td>
+  <td><span class="badge notice-unsent">未通知</span></td>
+</tr>
+
+
+<tr>
   <td><span class="badge impact-unknown">待确认</span></td>
-  <td><span class="badge status-failed">抓取失败</span></td>
-  <td>无官方日期</td>
-  <td><div class="source-jump"><strong>AliExpress</strong><span>AliExpress Open Platform Announcements</span><span class="muted">AliExpress Open Platform Announcements</span><div class="link-row"><a href="https://open.aliexpress.com/announcement/index.htm" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td><span class="badge status-failed">抓取失败</span><br><span class="muted">本次轮转首次发现该页变化；官方日期已超出今天/昨天窗口，但仍在允许的延迟发现范围内</span></td>
+  <td>2025-02-12</td>
+  <td><div class="source-jump"><strong>Temu</strong><span>Temu Partner Docs</span><span class="muted">Promotion activities API overview</span><div class="link-row"><a href="https://partner-us.temu.com/documentation?menu_code=fb16b05f7a904765aac4af3a24b87d4a&amp;sub_menu_code=43785b5858214a4a97d9bf459d6b73cd" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
   <td class="tag-cell"><span class="tag-primary">其他/待确认</span><div class="tag-list"><span class="tag-secondary">其他/待确认</span></div></td>
   <td>未写明</td>
-  <td><span class="badge ai-degraded">AI 未配置</span><br><span class="ai-text">官方页面在当前网络或浏览器渲染环境下未能稳定返回。</span><br><span class="muted">待确认</span></td>
+  <td><span class="badge ai-degraded">AI 未配置</span><br><span class="ai-text">AI 未配置，未生成中文摘要；已抓取官方详情正文，请负责人查看详情来源和快照确认影响。</span><br><span class="muted">待确认</span></td>
   <td><span class="muted">待确认</span></td>
   <td>待 AI 配置/需人工确认</td>
   <td><strong>待确认负责人</strong><br><span class="muted">待正文摘要与标签确认</span></td>
@@ -618,166 +632,96 @@
 
 
 <tr>
-  <td><span class="badge impact-unknown">待确认</span></td>
-  <td><span class="badge status-failed">抓取失败</span></td>
-  <td>无官方日期</td>
-  <td><div class="source-jump"><strong>Amazon SP-API</strong><span>Amazon SP-API Release Notes</span><span class="muted">Amazon SP-API Release Notes</span><div class="link-row"><a href="https://developer-docs.amazon/sp-api/docs/sp-api-release-notes" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
-  <td class="tag-cell"><span class="tag-primary">其他/待确认</span><div class="tag-list"><span class="tag-secondary">其他/待确认</span></div></td>
+  <td><span class="badge impact-unknown">中</span></td>
+  <td><span class="badge status-actionable-today">需要处理</span></td>
+  <td>2026-08-24</td>
+  <td><div class="source-jump"><strong>Shopee</strong><span>Shopee Open Platform Announcements</span><span class="muted">Levantamento de Segurança – PenTest | Parceiros Integradores</span><div class="link-row"><a href="https://open.shopee.com/announcements/1540?category=55&amp;is_top=false" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">合规/政策</span><div class="tag-list"><span class="tag-secondary">合规/政策要求</span></div></td>
   <td>未写明</td>
-  <td><span class="badge ai-degraded">AI 未配置</span><br><span class="ai-text">官方页面在当前网络或浏览器渲染环境下未能稳定返回。</span><br><span class="muted">待确认</span></td>
-  <td><span class="muted">待确认</span></td>
-  <td>待 AI 配置/需人工确认</td>
-  <td><strong>待确认负责人</strong><br><span class="muted">待正文摘要与标签确认</span></td>
+  <td><span class="ai-text">Shopee 于 2026-08-24 面向集成合作伙伴发起安全渗透测试（PenTest）情况调查，并要求在 8 月 26 日前提交表单。该事项会影响合作伙伴的安全合规协作与信息报送安排，但正文没有宣布 API 行为或接入规则变更。相关团队应据实确认是否开展过 PenTest，并在截止日前完成反馈。</span><details class="ai-evidence"><summary>摘要依据</summary><ul><li>Last Updated: 24 Aug 2026</li><li>Estamos realizando um levantamento sobre a realização de (PenTest).</li><li>Prazo de resposta até dia 26/08.</li></ul></details></td>
+  <td><span class="muted">Shopee 集成合作伙伴的安全与合规负责人</span></td>
+  <td>核实本机构 PenTest 开展情况，并在 2026-08-26 前按公告表单提交反馈。</td>
+  <td><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: compliance_policy</span></td>
   <td><span class="badge notice-unsent">未通知</span></td>
 </tr>
 
 
 <tr>
-  <td><span class="badge impact-unknown">待确认</span></td>
-  <td><span class="badge status-failed">抓取失败</span></td>
-  <td>无官方日期</td>
-  <td><div class="source-jump"><strong>Lazada</strong><span>Lazada Open Platform Announcements</span><span class="muted">Lazada Open Platform Announcements</span><div class="link-row"><a href="https://open.lazada.com/apps/announcement/index?spm=a1zq7z.man.0.droot_normal_announcement.7f467c73H8oA8D" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
-  <td class="tag-cell"><span class="tag-primary">其他/待确认</span><div class="tag-list"><span class="tag-secondary">其他/待确认</span></div></td>
+  <td><span class="badge impact-unknown">中</span></td>
+  <td><span class="badge status-actionable-today">需要处理</span></td>
+  <td>2026-08-24</td>
+  <td><div class="source-jump"><strong>Wildberries</strong><span>Wildberries Release Notes（Telegram 官方频道）</span><span class="muted">#analytics Новый отчёт по остаткам на складах продавца Добавили отчёт по остаткам на складах продавца — POST /api/analyt</span><div class="link-row"><a href="https://t.me/wb_api_notifications/460" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">库存</span><div class="tag-list"><span class="tag-secondary">API 接口变更</span> <span class="tag-secondary">商品/库存规则</span> <span class="tag-secondary">弃用/下线/迁移</span> <span class="tag-secondary">认证/权限变更</span></div></td>
   <td>未写明</td>
-  <td><span class="badge ai-degraded">AI 未配置</span><br><span class="ai-text">官方页面在当前网络或浏览器渲染环境下未能稳定返回。</span><br><span class="muted">待确认</span></td>
-  <td><span class="muted">待确认</span></td>
-  <td>待 AI 配置/需人工确认</td>
-  <td><strong>待确认负责人</strong><br><span class="muted">待正文摘要与标签确认</span></td>
+  <td><span class="ai-text">Wildberries 新增卖家仓库存报告接口 POST /api/analytics/v1/stocks-report/seller-warehouses，并建议以它替代 POST /api/v3/stocks/{warehouseId}。新报告无需在请求中提供卖家仓库 ID 和尺码 ID，数据每 30 分钟更新一次，且只允许使用“Analytics”类别的个人或服务令牌。库存系统需评估数据时效并按新的鉴权和请求方式迁移。</span><details class="ai-evidence"><summary>摘要依据</summary><ul><li>Добавили отчёт по остаткам на складах продавца — POST /api/analytics/v1/stocks-report/seller-warehouses.</li><li>Используйте новый отчёт вместо метода POST /api/v3/stocks/{warehouseId}, чтобы получить остатки без указания ID складов продавца и ID размеров в запросе.</li><li>Данные в отчёте обновляются 1 раз в 30 минут.
+Метод доступен по Персональному и Сервисному токену категории Аналитика.</li></ul></details></td>
+  <td><span class="muted">Wildberries 卖家仓库存同步接口的开发与库存运营团队</span></td>
+  <td>验证 POST /api/analytics/v1/stocks-report/seller-warehouses 的库存结果与 30 分钟刷新节奏，使用 Analytics 类别令牌，并规划替代旧 warehouseId 接口。</td>
+  <td><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: inventory</span></td>
   <td><span class="badge notice-unsent">未通知</span></td>
 </tr>
 
 
 <tr>
-  <td><span class="badge impact-unknown">待确认</span></td>
-  <td><span class="badge status-failed">抓取失败</span></td>
-  <td>无官方日期</td>
-  <td><div class="source-jump"><strong>Mercado Libre</strong><span>Mercado Libre Global Selling Docs</span><span class="muted">Official Stores</span><div class="link-row"><a href="https://global-selling.mercadolibre.com/devsite/official-storesglobal-selling" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
-  <td class="tag-cell"><span class="tag-primary">其他/待确认</span><div class="tag-list"><span class="tag-secondary">其他/待确认</span></div></td>
+  <td><span class="badge impact-unknown">中</span></td>
+  <td><span class="badge status-actionable-late-discovery">延迟发现/需要处理</span><br><span class="muted">本次轮转首次发现该页变化；官方日期已超出今天/昨天窗口，但仍在允许的延迟发现范围内</span></td>
+  <td>2026-08-23</td>
+  <td><div class="source-jump"><strong>Temu</strong><span>Temu Partner Docs</span><span class="muted">bg.local.goods.compliance.edit</span><div class="link-row"><a href="https://partner-us.temu.com/documentation?menu_code=fb16b05f7a904765aac4af3a24b87d4a&amp;sub_menu_code=8f8522c74e024e5ea1244bd3c9e5aff6" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">合规/政策</span><div class="tag-list"><span class="tag-secondary">API 接口变更</span> <span class="tag-secondary">字段/参数变更</span> <span class="tag-secondary">合规/政策要求</span></div></td>
   <td>未写明</td>
-  <td><span class="badge ai-degraded">AI 未配置</span><br><span class="ai-text">官方页面在当前网络或浏览器渲染环境下未能稳定返回。</span><br><span class="muted">待确认</span></td>
-  <td><span class="muted">待确认</span></td>
-  <td>待 AI 配置/需人工确认</td>
-  <td><strong>待确认负责人</strong><br><span class="muted">待正文摘要与标签确认</span></td>
+  <td><span class="ai-text">Temu 的 bg.local.goods.compliance.edit 文档于 2026-08-23 更新，该接口用于编辑商品资质信息，并记录已支持通过 API 上传 EPA 信息。请求以 goodsId 定位商品，正文列出 certificateInfo、actualPhoto、repInfo 和 extraTemplate 等资质相关对象；未写明强制切换期限。使用该接口的团队需要复核商品合规资料映射，尤其是 EPA 信息的上传逻辑。</span><details class="ai-evidence"><summary>摘要依据</summary><ul><li>LocalLast update time: 2026-08-23 22:57:02</li><li>Description: Edit product qualification information</li><li>API Update --- Supported uploading EPA information via APIs</li></ul></details></td>
+  <td><span class="muted">Temu 本地商品合规资料接口的开发与运营团队</span></td>
+  <td>复核 bg.local.goods.compliance.edit 的请求映射，并验证 EPA 信息及各可选资质对象能按最新文档正确上传。</td>
+  <td><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: compliance_policy</span></td>
   <td><span class="badge notice-unsent">未通知</span></td>
 </tr>
 
 
 <tr>
-  <td><span class="badge impact-unknown">待确认</span></td>
-  <td><span class="badge status-failed">抓取失败</span></td>
-  <td>无官方日期</td>
-  <td><div class="source-jump"><strong>Ozon</strong><span>Ozon Seller API News（Telegram 官方频道）</span><span class="muted">Ozon Seller API News</span><div class="link-row"><a href="https://t.me/s/OzonSellerAPI" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
-  <td class="tag-cell"><span class="tag-primary">其他/待确认</span><div class="tag-list"><span class="tag-secondary">其他/待确认</span></div></td>
+  <td><span class="badge impact-unknown">中</span></td>
+  <td><span class="badge status-actionable-late-discovery">延迟发现/需要处理</span><br><span class="muted">本次轮转首次发现该页变化；官方日期已超出今天/昨天窗口，但仍在允许的延迟发现范围内</span></td>
+  <td>2026-08-23</td>
+  <td><div class="source-jump"><strong>Temu</strong><span>Temu Partner Docs</span><span class="muted">bg.local.goods.detail.query</span><div class="link-row"><a href="https://partner-us.temu.com/documentation?menu_code=fb16b05f7a904765aac4af3a24b87d4a&amp;sub_menu_code=9ebbd5d269014322ad4a6c123b1dfdae" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">API/技术</span><div class="tag-list"><span class="tag-secondary">API 接口变更</span> <span class="tag-secondary">字段/参数变更</span> <span class="tag-secondary">商品/库存规则</span></div></td>
   <td>未写明</td>
-  <td><span class="badge ai-degraded">AI 未配置</span><br><span class="ai-text">Ozon 官方文档未能在当前环境稳定渲染或访问，可能与页面动态加载、地区网络或官方访问限制有关。</span><br><span class="muted">待确认</span></td>
-  <td><span class="muted">待确认</span></td>
-  <td>待 AI 配置/需人工确认</td>
-  <td><strong>待确认负责人</strong><br><span class="muted">待正文摘要与标签确认</span></td>
+  <td><span class="ai-text">Temu 的 bg.local.goods.detail.query 文档于 2026-08-23 更新，该接口用于查询本地商品详情。正文说明 versionQueryType 可选择读取审核中的最新版本或编辑前的线上快照，默认值为 2；调用仍需提供 goodsId。依赖商品详情读取的系统应确认所需版本并显式处理该参数，避免误取线上快照或审核版本。</span><details class="ai-evidence"><summary>摘要依据</summary><ul><li>LocalLast update time: 2026-08-23 22:13:37</li><li>Description: Query local goods detail</li><li>- 1: Retrieves the latest version of the product information that is currently under review.
+- 2: Retrieves a snapshot of the product information that is live and online (before the edit).
+Default: 2</li></ul></details></td>
+  <td><span class="muted">Temu 本地商品详情查询接口的开发团队</span></td>
+  <td>检查 bg.local.goods.detail.query 的调用代码，按业务需要设置 versionQueryType，并分别验证审核版本与线上快照的返回结果。</td>
+  <td><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: api_technical</span></td>
   <td><span class="badge notice-unsent">未通知</span></td>
 </tr>
 
 
 <tr>
-  <td><span class="badge impact-unknown">待确认</span></td>
-  <td><span class="badge status-failed">抓取失败</span></td>
-  <td>无官方日期</td>
-  <td><div class="source-jump"><strong>Shopee</strong><span>Shopee Open Platform Announcements</span><span class="muted">Shopee Open Platform Announcements</span><div class="link-row"><a href="https://open.shopee.com/announcements?page=1&amp;category=55" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
-  <td class="tag-cell"><span class="tag-primary">其他/待确认</span><div class="tag-list"><span class="tag-secondary">其他/待确认</span></div></td>
+  <td><span class="badge impact-unknown">中</span></td>
+  <td><span class="badge status-actionable-late-discovery">延迟发现/需要处理</span><br><span class="muted">本次轮转首次发现该页变化；官方日期已超出今天/昨天窗口，但仍在允许的延迟发现范围内</span></td>
+  <td>2025-07-06</td>
+  <td><div class="source-jump"><strong>Temu</strong><span>Temu Partner Docs</span><span class="muted">bg.promotion.activity.goods.enroll</span><div class="link-row"><a href="https://partner-us.temu.com/documentation?menu_code=fb16b05f7a904765aac4af3a24b87d4a&amp;sub_menu_code=27a87ec9d0d94273a48096c050f17854" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">营销/促销</span><div class="tag-list"><span class="tag-secondary">API 接口变更</span> <span class="tag-secondary">商品/库存规则</span></div></td>
   <td>未写明</td>
-  <td><span class="badge ai-degraded">AI 未配置</span><br><span class="ai-text">官方页面在当前网络或浏览器渲染环境下未能稳定返回。</span><br><span class="muted">待确认</span></td>
-  <td><span class="muted">待确认</span></td>
-  <td>待 AI 配置/需人工确认</td>
-  <td><strong>待确认负责人</strong><br><span class="muted">待正文摘要与标签确认</span></td>
+  <td><span class="ai-text">本轮延迟发现 Temu 的 bg.promotion.activity.goods.enroll 文档，该接口用于将商品报名至本地对本地促销活动，文档最后更新时间为 2025-07-06。请求需提交 activityId 和 enrollGoods，响应会返回 draftId、operationStatus、failReason 与 goodsId 等操作结果。接入促销报名的团队应保存草稿标识并根据返回状态处理报名成功或失败。</span><details class="ai-evidence"><summary>摘要依据</summary><ul><li>LocalLast update time: 2025-07-06 14:17:13</li><li>Description: enroll products in the local to local activity</li><li>activityId
+LONG True unique identifier for the activity</li></ul></details></td>
+  <td><span class="muted">Temu 本地促销活动报名接口的开发与运营团队</span></td>
+  <td>按文档核对 activityId 与 enrollGoods 请求结构，并在报名流程中持久化 draftId、检查 operationStatus 和 failReason。</td>
+  <td><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: marketing_promotion</span></td>
   <td><span class="badge notice-unsent">未通知</span></td>
 </tr>
 
 
 <tr>
-  <td><span class="badge impact-unknown">待确认</span></td>
-  <td><span class="badge status-failed">抓取失败</span></td>
-  <td>无官方日期</td>
-  <td><div class="source-jump"><strong>Shopify</strong><span>Shopify Developer Changelog</span><span class="muted">Shopify Developer Changelog</span><div class="link-row"><a href="https://shopify.dev/changelog" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
-  <td class="tag-cell"><span class="tag-primary">其他/待确认</span><div class="tag-list"><span class="tag-secondary">其他/待确认</span></div></td>
+  <td><span class="badge impact-unknown">中</span></td>
+  <td><span class="badge status-actionable-late-discovery">延迟发现/需要处理</span><br><span class="muted">本次轮转首次发现该页变化；官方日期已超出今天/昨天窗口，但仍在允许的延迟发现范围内</span></td>
+  <td>2025-07-06</td>
+  <td><div class="source-jump"><strong>Temu</strong><span>Temu Partner Docs</span><span class="muted">bg.promotion.activity.goods.operation.query</span><div class="link-row"><a href="https://partner-us.temu.com/documentation?menu_code=fb16b05f7a904765aac4af3a24b87d4a&amp;sub_menu_code=57a37eb5dd104e3f9f90118e3276b291" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">营销/促销</span><div class="tag-list"><span class="tag-secondary">API 接口变更</span></div></td>
   <td>未写明</td>
-  <td><span class="badge ai-degraded">AI 未配置</span><br><span class="ai-text">官方页面在当前网络或浏览器渲染环境下未能稳定返回。</span><br><span class="muted">待确认</span></td>
-  <td><span class="muted">待确认</span></td>
-  <td>待 AI 配置/需人工确认</td>
-  <td><strong>待确认负责人</strong><br><span class="muted">待正文摘要与标签确认</span></td>
-  <td><span class="badge notice-unsent">未通知</span></td>
-</tr>
-
-
-<tr>
-  <td><span class="badge impact-unknown">待确认</span></td>
-  <td><span class="badge status-failed">抓取失败</span></td>
-  <td>无官方日期</td>
-  <td><div class="source-jump"><strong>Temu</strong><span>Temu Partner Docs</span><span class="muted">Co-Warehouse ERP Fulfillment Change Notification Message</span><div class="link-row"><a href="https://partner-us.temu.com/documentation?menu_code=fb16b05f7a904765aac4af3a24b87d4a&amp;sub_menu_code=72dfeb97e79d42a78cda4bfdc5e5be82" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
-  <td class="tag-cell"><span class="tag-primary">其他/待确认</span><div class="tag-list"><span class="tag-secondary">其他/待确认</span></div></td>
-  <td>未写明</td>
-  <td><span class="badge ai-degraded">AI 未配置</span><br><span class="ai-text">官方页面在当前网络或浏览器渲染环境下未能稳定返回。</span><br><span class="muted">待确认</span></td>
-  <td><span class="muted">待确认</span></td>
-  <td>待 AI 配置/需人工确认</td>
-  <td><strong>待确认负责人</strong><br><span class="muted">待正文摘要与标签确认</span></td>
-  <td><span class="badge notice-unsent">未通知</span></td>
-</tr>
-
-
-<tr>
-  <td><span class="badge impact-unknown">待确认</span></td>
-  <td><span class="badge status-failed">抓取失败</span></td>
-  <td>无官方日期</td>
-  <td><div class="source-jump"><strong>TikTok Shop</strong><span>TikTok Shop API Changelog</span><span class="muted">TikTok Shop API Changelog</span><div class="link-row"><a href="https://partner.tiktokshop.com/docv2/changelog" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
-  <td class="tag-cell"><span class="tag-primary">其他/待确认</span><div class="tag-list"><span class="tag-secondary">其他/待确认</span></div></td>
-  <td>未写明</td>
-  <td><span class="badge ai-degraded">AI 未配置</span><br><span class="ai-text">官方页面在当前网络或浏览器渲染环境下未能稳定返回。</span><br><span class="muted">待确认</span></td>
-  <td><span class="muted">待确认</span></td>
-  <td>待 AI 配置/需人工确认</td>
-  <td><strong>待确认负责人</strong><br><span class="muted">待正文摘要与标签确认</span></td>
-  <td><span class="badge notice-unsent">未通知</span></td>
-</tr>
-
-
-<tr>
-  <td><span class="badge impact-unknown">待确认</span></td>
-  <td><span class="badge status-failed">抓取失败</span></td>
-  <td>无官方日期</td>
-  <td><div class="source-jump"><strong>Walmart</strong><span>Walmart Marketplace What&#x27;s New</span><span class="muted">Walmart Marketplace What&#x27;s New</span><div class="link-row"><a href="https://developer.walmart.com/us-marketplace/page/whats-new" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
-  <td class="tag-cell"><span class="tag-primary">其他/待确认</span><div class="tag-list"><span class="tag-secondary">其他/待确认</span></div></td>
-  <td>未写明</td>
-  <td><span class="badge ai-degraded">AI 未配置</span><br><span class="ai-text">官方页面在当前网络或浏览器渲染环境下未能稳定返回。</span><br><span class="muted">待确认</span></td>
-  <td><span class="muted">待确认</span></td>
-  <td>待 AI 配置/需人工确认</td>
-  <td><strong>待确认负责人</strong><br><span class="muted">待正文摘要与标签确认</span></td>
-  <td><span class="badge notice-unsent">未通知</span></td>
-</tr>
-
-
-<tr>
-  <td><span class="badge impact-unknown">待确认</span></td>
-  <td><span class="badge status-failed">抓取失败</span></td>
-  <td>无官方日期</td>
-  <td><div class="source-jump"><strong>Wildberries</strong><span>Wildberries Release Notes（Telegram 官方频道）</span><span class="muted">Wildberries Release Notes</span><div class="link-row"><a href="https://t.me/s/wb_api_notifications" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
-  <td class="tag-cell"><span class="tag-primary">其他/待确认</span><div class="tag-list"><span class="tag-secondary">其他/待确认</span></div></td>
-  <td>未写明</td>
-  <td><span class="badge ai-degraded">AI 未配置</span><br><span class="ai-text">WB 官方 release notes 按直接页面抓取处理；当前失败表示直接页正文不可用、过短或返回访问挑战。</span><br><span class="muted">待确认</span></td>
-  <td><span class="muted">待确认</span></td>
-  <td>待 AI 配置/需人工确认</td>
-  <td><strong>待确认负责人</strong><br><span class="muted">待正文摘要与标签确认</span></td>
-  <td><span class="badge notice-unsent">未通知</span></td>
-</tr>
-
-
-<tr>
-  <td><span class="badge impact-unknown">待确认</span></td>
-  <td><span class="badge status-failed">抓取失败</span></td>
-  <td>无官方日期</td>
-  <td><div class="source-jump"><strong>eBay</strong><span>eBay Updates</span><span class="muted">eBay Updates</span><div class="link-row"><a href="https://www.ebay.cn/newcms/developer/updates/" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
-  <td class="tag-cell"><span class="tag-primary">其他/待确认</span><div class="tag-list"><span class="tag-secondary">其他/待确认</span></div></td>
-  <td>未写明</td>
-  <td><span class="badge ai-degraded">AI 未配置</span><br><span class="ai-text">官方页面在当前网络或浏览器渲染环境下未能稳定返回。</span><br><span class="muted">待确认</span></td>
-  <td><span class="muted">待确认</span></td>
-  <td>待 AI 配置/需人工确认</td>
-  <td><strong>待确认负责人</strong><br><span class="muted">待正文摘要与标签确认</span></td>
+  <td><span class="ai-text">本轮延迟发现 Temu 的 bg.promotion.activity.goods.operation.query 文档，该接口用于查询本地对本地促销活动中的操作结果，文档最后更新时间为 2025-07-06。查询请求必须传入前置流程成功后生成的 draftIdList，响应按草稿返回商品操作状态。促销报名链路需要保留前序草稿 ID，并用本接口轮询或查询最终结果。</span><details class="ai-evidence"><summary>摘要依据</summary><ul><li>LocalLast update time: 2025-07-06 14:17:13</li><li>Description: query the result of operation in the local to local activity</li><li>draftIdList
+LONG[] True goods registration activity draft id, which will be generated when the pre-procedure is successfully completed.</li></ul></details></td>
+  <td><span class="muted">Temu 本地促销活动结果查询接口的开发团队</span></td>
+  <td>在促销报名流程中保存前置接口生成的 draftId，并按文档用 draftIdList 查询和处理各商品的操作结果。</td>
+  <td><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: marketing_promotion</span></td>
   <td><span class="badge notice-unsent">未通知</span></td>
 </tr>
 </tbody>
@@ -804,127 +748,7 @@
           <th>通知</th>
         </tr>
       </thead>
-      <tbody>
-<tr>
-  <td>AliExpress</td>
-  <td><strong>AliExpress Open Platform Announcements</strong><br><span class="muted">AliExpress Open Platform Announcements</span><br><span class="muted">截止日期: 未写明/需人工确认</span></td>
-  <td><span class="badge mode-detail">详情抓取</span><br><span class="badge source-reliability">抓取失败</span></td>
-  <td>官方页面在当前网络或浏览器渲染环境下未能稳定返回。</td>
-  <td>会影响该平台今天/昨天官方变更判断；本次不静默成功。</td>
-  <td>检查本机网络、地区访问、浏览器渲染依赖和平台级 timeout，必要时确认同一官方来源的静态 fallback。</td>
-  <td><span class="badge notice-unsent">未通知</span></td>
-</tr>
-
-<tr>
-  <td>Amazon SP-API</td>
-  <td><strong>Amazon SP-API Release Notes</strong><br><span class="muted">Amazon SP-API Release Notes</span><br><span class="muted">截止日期: 未写明/需人工确认</span></td>
-  <td><span class="badge mode-direct">直接抓取</span><br><span class="badge source-reliability">抓取失败</span></td>
-  <td>官方页面在当前网络或浏览器渲染环境下未能稳定返回。</td>
-  <td>会影响该平台今天/昨天官方变更判断；本次不静默成功。</td>
-  <td>检查本机网络、地区访问、浏览器渲染依赖和平台级 timeout，必要时确认同一官方来源的静态 fallback。</td>
-  <td><span class="badge notice-unsent">未通知</span></td>
-</tr>
-
-<tr>
-  <td>Lazada</td>
-  <td><strong>Lazada Open Platform Announcements</strong><br><span class="muted">Lazada Open Platform Announcements</span><br><span class="muted">截止日期: 未写明/需人工确认</span></td>
-  <td><span class="badge mode-detail">详情抓取</span><br><span class="badge source-reliability">抓取失败</span></td>
-  <td>官方页面在当前网络或浏览器渲染环境下未能稳定返回。</td>
-  <td>会影响该平台今天/昨天官方变更判断；本次不静默成功。</td>
-  <td>检查本机网络、地区访问、浏览器渲染依赖和平台级 timeout，必要时确认同一官方来源的静态 fallback。</td>
-  <td><span class="badge notice-unsent">未通知</span></td>
-</tr>
-
-<tr>
-  <td>Mercado Libre</td>
-  <td><strong>Official Stores</strong><br><span class="muted">Mercado Libre Global Selling Docs</span><br><span class="muted">截止日期: 未写明/需人工确认</span></td>
-  <td><span class="badge mode-detail">详情抓取</span><br><span class="badge source-reliability">抓取失败</span></td>
-  <td>官方页面在当前网络或浏览器渲染环境下未能稳定返回。</td>
-  <td>会影响该平台今天/昨天官方变更判断；本次不静默成功。</td>
-  <td>检查本机网络、地区访问、浏览器渲染依赖和平台级 timeout，必要时确认同一官方来源的静态 fallback。</td>
-  <td><span class="badge notice-unsent">未通知</span></td>
-</tr>
-
-<tr>
-  <td>Ozon</td>
-  <td><strong>Ozon Seller API News</strong><br><span class="muted">Ozon Seller API News（Telegram 官方频道）</span><br><span class="muted">截止日期: 未写明/需人工确认</span></td>
-  <td><span class="badge mode-detail">详情抓取</span><br><span class="badge source-reliability">抓取失败</span></td>
-  <td>Ozon 官方文档未能在当前环境稳定渲染或访问，可能与页面动态加载、地区网络或官方访问限制有关。</td>
-  <td>会影响该平台今天/昨天官方变更判断；本次不静默成功。</td>
-  <td>Ozon 官方文档在当前网络下可能存在渲染超时、区域访问限制或重定向循环；建议在稳定可访问网络复测，或由总控确认官方静态数据接口/文档源替代入口。</td>
-  <td><span class="badge notice-unsent">未通知</span></td>
-</tr>
-
-<tr>
-  <td>Shopee</td>
-  <td><strong>Shopee Open Platform Announcements</strong><br><span class="muted">Shopee Open Platform Announcements</span><br><span class="muted">截止日期: 未写明/需人工确认</span></td>
-  <td><span class="badge mode-detail">详情抓取</span><br><span class="badge source-reliability">抓取失败</span></td>
-  <td>官方页面在当前网络或浏览器渲染环境下未能稳定返回。</td>
-  <td>会影响该平台今天/昨天官方变更判断；本次不静默成功。</td>
-  <td>检查本机网络、地区访问、浏览器渲染依赖和平台级 timeout，必要时确认同一官方来源的静态 fallback。</td>
-  <td><span class="badge notice-unsent">未通知</span></td>
-</tr>
-
-<tr>
-  <td>Shopify</td>
-  <td><strong>Shopify Developer Changelog</strong><br><span class="muted">Shopify Developer Changelog</span><br><span class="muted">截止日期: 未写明/需人工确认</span></td>
-  <td><span class="badge mode-detail">详情抓取</span><br><span class="badge source-reliability">抓取失败</span></td>
-  <td>官方页面在当前网络或浏览器渲染环境下未能稳定返回。</td>
-  <td>会影响该平台今天/昨天官方变更判断；本次不静默成功。</td>
-  <td>检查本机网络、地区访问、浏览器渲染依赖和平台级 timeout，必要时确认同一官方来源的静态 fallback。</td>
-  <td><span class="badge notice-unsent">未通知</span></td>
-</tr>
-
-<tr>
-  <td>Temu</td>
-  <td><strong>Co-Warehouse ERP Fulfillment Change Notification Message</strong><br><span class="muted">Temu Partner Docs</span><br><span class="muted">截止日期: 未写明/需人工确认</span></td>
-  <td><span class="badge mode-detail">详情抓取</span><br><span class="badge source-reliability">抓取失败</span></td>
-  <td>官方页面在当前网络或浏览器渲染环境下未能稳定返回。</td>
-  <td>会影响该平台今天/昨天官方变更判断；本次不静默成功。</td>
-  <td>检查本机网络、地区访问、浏览器渲染依赖和平台级 timeout，必要时确认同一官方来源的静态 fallback。</td>
-  <td><span class="badge notice-unsent">未通知</span></td>
-</tr>
-
-<tr>
-  <td>TikTok Shop</td>
-  <td><strong>TikTok Shop API Changelog</strong><br><span class="muted">TikTok Shop API Changelog</span><br><span class="muted">截止日期: 未写明/需人工确认</span></td>
-  <td><span class="badge mode-detail">详情抓取</span><br><span class="badge source-reliability">抓取失败</span></td>
-  <td>官方页面在当前网络或浏览器渲染环境下未能稳定返回。</td>
-  <td>会影响该平台今天/昨天官方变更判断；本次不静默成功。</td>
-  <td>检查本机网络、地区访问、浏览器渲染依赖和平台级 timeout，必要时确认同一官方来源的静态 fallback。</td>
-  <td><span class="badge notice-unsent">未通知</span></td>
-</tr>
-
-<tr>
-  <td>Walmart</td>
-  <td><strong>Walmart Marketplace What&#x27;s New</strong><br><span class="muted">Walmart Marketplace What&#x27;s New</span><br><span class="muted">截止日期: 未写明/需人工确认</span></td>
-  <td><span class="badge mode-detail">详情抓取</span><br><span class="badge source-reliability">抓取失败</span></td>
-  <td>官方页面在当前网络或浏览器渲染环境下未能稳定返回。</td>
-  <td>会影响该平台今天/昨天官方变更判断；本次不静默成功。</td>
-  <td>检查本机网络、地区访问、浏览器渲染依赖和平台级 timeout，必要时确认同一官方来源的静态 fallback。</td>
-  <td><span class="badge notice-unsent">未通知</span></td>
-</tr>
-
-<tr>
-  <td>Wildberries</td>
-  <td><strong>Wildberries Release Notes</strong><br><span class="muted">Wildberries Release Notes（Telegram 官方频道）</span><br><span class="muted">截止日期: 未写明/需人工确认</span></td>
-  <td><span class="badge mode-detail">详情抓取</span><br><span class="badge source-reliability">抓取失败</span></td>
-  <td>WB 官方 release notes 按直接页面抓取处理；当前失败表示直接页正文不可用、过短或返回访问挑战。</td>
-  <td>会影响该平台今天/昨天官方变更判断；本次不静默成功。</td>
-  <td>WB 官方 release notes 当前按直接抓取处理；若仍返回访问挑战或正文异常，建议切换稳定网络复测，或确认 WB 官方可公开访问的静态 release notes/API 数据源。</td>
-  <td><span class="badge notice-unsent">未通知</span></td>
-</tr>
-
-<tr>
-  <td>eBay</td>
-  <td><strong>eBay Updates</strong><br><span class="muted">eBay Updates</span><br><span class="muted">截止日期: 未写明/需人工确认</span></td>
-  <td><span class="badge mode-direct">直接抓取</span><br><span class="badge source-reliability">抓取失败</span></td>
-  <td>官方页面在当前网络或浏览器渲染环境下未能稳定返回。</td>
-  <td>会影响该平台今天/昨天官方变更判断；本次不静默成功。</td>
-  <td>检查本机网络、地区访问、浏览器渲染依赖和平台级 timeout，必要时确认同一官方来源的静态 fallback。</td>
-  <td><span class="badge notice-unsent">未通知</span></td>
-</tr>
-</tbody>
+      <tbody><tr><td colspan="7" class="empty">本次没有抓取失败事件。</td></tr></tbody>
     </table>
   </div>
 </section>
