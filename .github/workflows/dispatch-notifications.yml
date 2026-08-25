@@ -44,6 +44,7 @@ jobs:
               assert forbidden not in serialized, f"identity or secret field found: {forbidden}"
           with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
               output.write(f"event_count={len(events)}\n")
+              output.write(f"report_date={payload['report_date']}\n")
           print(json.dumps({"ok": True, "run_id": payload["run_id"], "event_count": len(events)}))
           PY
 
@@ -125,5 +126,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add "reports/notification-snapshot-*.json"
-          git commit -m "Publish notification snapshot for $(python -c \"import json; print(json.load(open('reports/notification-dispatch-latest.json', encoding='utf-8'))['report_date'])\")"
+          git commit -m "Publish notification snapshot for ${{ steps.payload.outputs.report_date }}"
           git push
