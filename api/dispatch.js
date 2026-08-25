@@ -3,7 +3,13 @@ import { loadCatalog } from "../lib/catalog.js";
 import { database } from "../lib/db.js";
 import { pollWorkNotification, sendAndPoll } from "../lib/dingtalk.js";
 import { bodyObject, json } from "../lib/http.js";
-import { buildMarkdownNotification, payloadHash, routeEvents, validateDispatchPayload } from "../lib/routing.js";
+import {
+  buildMarkdownNotification,
+  buildPublicReportSnapshot,
+  payloadHash,
+  routeEvents,
+  validateDispatchPayload,
+} from "../lib/routing.js";
 import { requireServiceToken } from "../lib/security.js";
 
 function sanitizedFailure(error) {
@@ -33,7 +39,7 @@ async function insertDispatch(sql, payload, recipient) {
   `;
   if (!inserted.length) {
     const existing = await sql`
-      SELECT id, status, task_id, run_id
+      SELECT id, status, task_id, run_id, updated_at
       FROM notification_dispatches
       WHERE report_date = ${payload.report_date} AND recipient_id = ${recipient.recipient_id}
     `;
@@ -147,12 +153,21 @@ export default async function handler(req, res) {
         results.push({ recipient_id: recipient.recipient_id, status: "failed", failure_type: failure.type });
       }
     }
+    const deliveryRows = await sql`
+      SELECT d.recipient_id, d.status, d.updated_at,
+             i.event_id, i.content_hash
+      FROM notification_dispatches AS d
+      JOIN notification_delivery_items AS i ON i.dispatch_id = d.id
+      WHERE d.report_date = ${payload.report_date}
+    `;
+    const publicSnapshot = buildPublicReportSnapshot(payload, routed, deliveryRows);
     return json(res, 200, {
       accepted: true,
       run_id: payload.run_id,
       report_date: payload.report_date,
       matched_recipients: routed.length,
       results,
+      public_snapshot: publicSnapshot,
     });
   } catch (error) {
     const failure = sanitizedFailure(error);

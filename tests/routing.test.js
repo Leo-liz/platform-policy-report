@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import {
   buildMarkdownNotification,
+  buildPublicReportSnapshot,
   buildTestMarkdownNotification,
   routeEvents,
   ruleMatches,
@@ -74,4 +75,38 @@ test("dispatch validation rejects unknown tags and untrusted AI", () => {
   assert.equal(validateDispatchPayload(base, catalog).events.length, 1);
   assert.throws(() => validateDispatchPayload({ ...base, events: [event("temu", "unknown", 2)] }, catalog), /unknown primary tag/);
   assert.throws(() => validateDispatchPayload({ ...base, ai: { ...base.ai, evidence_validated: false } }, catalog), /schema 11/);
+});
+
+test("public report snapshot exposes display names and exact delivery facts only", () => {
+  const events = [event("temu", "api_technical", 1), event("ozon", "api_technical", 2)];
+  const base = {
+    recipient_id: "private-r1",
+    display_name: "测试同事",
+    dingtalk_user_id: "private-user-id",
+    enabled: true,
+    recipient_enabled: true,
+  };
+  const routed = routeEvents(events, [
+    { ...base, platform_code: "*", primary_tag_code: "api_technical" },
+  ]);
+  const snapshot = buildPublicReportSnapshot(
+    { run_id: "20260825-010000", report_date: "2026-08-24", events },
+    routed,
+    [{
+      recipient_id: "private-r1",
+      event_id: events[0].event_id,
+      content_hash: events[0].content_hash,
+      status: "delivered",
+      delivered_at: "2026-08-24T17:08:09.000Z",
+    }],
+    new Date("2026-08-24T17:10:00.000Z"),
+  );
+  assert.deepEqual(snapshot.events[0].owners, [{
+    display_name: "测试同事",
+    notification_status: "delivered",
+    notified_at: "2026-08-24T17:08:09.000Z",
+  }]);
+  assert.equal(snapshot.events[1].owners[0].notification_status, "deferred");
+  const serialized = JSON.stringify(snapshot);
+  assert.doesNotMatch(serialized, /private-r1|private-user-id|recipient_id|dingtalk_user_id/);
 });

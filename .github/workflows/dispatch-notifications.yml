@@ -9,7 +9,7 @@ on:
       - "reports/notification-dispatch-latest.json"
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: policy-notification-dispatch
@@ -72,9 +72,58 @@ jobs:
           result = json.loads(Path("dispatch-result.json").read_text(encoding="utf-8"))
           assert result.get("accepted") is True, "dispatch API did not accept the validated payload"
           rows = result.get("results") or []
-          assert rows, "no recipient matched the subscription rules"
+          matched = int(result.get("matched_recipients") or 0)
+          assert rows or matched == 0, "matched recipients were omitted from the dispatch result"
           statuses = Counter(str(row.get("status") or "missing") for row in rows)
           allowed = {"delivered", "already_dispatched"}
           assert set(statuses).issubset(allowed), f"delivery not verified: {dict(statuses)}"
           print(json.dumps({"ok": True, "recipient_count": len(rows), "statuses": dict(statuses)}))
           PY
+
+      - name: Save immutable public owner and delivery snapshot
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          payload = json.loads(Path("reports/notification-dispatch-latest.json").read_text(encoding="utf-8"))
+          if payload.get("events"):
+              result = json.loads(Path("dispatch-result.json").read_text(encoding="utf-8"))
+              snapshot = result.get("public_snapshot")
+              assert isinstance(snapshot, dict), "dispatch API omitted public_snapshot"
+          else:
+              snapshot = {
+                  "schema_version": 1,
+                  "run_id": payload["run_id"],
+                  "report_date": payload["report_date"],
+                  "generated_at": payload.get("generated_at", ""),
+                  "source": "verified_dingtalk_dispatch_snapshot",
+                  "events": [],
+              }
+          assert snapshot.get("run_id") == payload.get("run_id"), "snapshot run_id mismatch"
+          assert snapshot.get("report_date") == payload.get("report_date"), "snapshot report_date mismatch"
+          assert isinstance(snapshot.get("events"), list), "snapshot events must be an array"
+          serialized = json.dumps(snapshot, ensure_ascii=False).lower()
+          for forbidden in ("userid", "user_id", "recipient_id", "dingtalk_user_id", "task_id", "appsecret"):
+              assert forbidden not in serialized, f"private identity leaked into snapshot: {forbidden}"
+          target = Path(f"reports/notification-snapshot-{payload['report_date']}.json")
+          if target.exists():
+              print(json.dumps({"preserved": str(target), "reason": "immutable_snapshot_exists"}))
+              with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
+                  output.write("changed=false\n")
+          else:
+              target.write_text(json.dumps(snapshot, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+              print(json.dumps({"created": str(target), "event_count": len(snapshot["events"])}, ensure_ascii=False))
+              with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
+                  output.write("changed=true\n")
+        id: public_snapshot
+
+      - name: Publish owner and delivery snapshot
+        if: steps.public_snapshot.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "reports/notification-snapshot-*.json"
+          git commit -m "Publish notification snapshot for $(python -c \"import json; print(json.load(open('reports/notification-dispatch-latest.json', encoding='utf-8'))['report_date'])\")"
+          git push
