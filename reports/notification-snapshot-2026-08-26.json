@@ -1,0 +1,381 @@
+{
+  "schema_version": 1,
+  "run_id": "20260827-010317",
+  "report_date": "2026-08-26",
+  "generated_at": "2026-08-26T17:17:40.707Z",
+  "source": "verified_dingtalk_dispatch_snapshot",
+  "events": [
+    {
+      "event_id": "shopee_open_platform_announcements-b224d6ea8071::detail-1",
+      "content_hash": "ef8ba3b282dcd737f12c06fe2f6eb9ef1758901d52baa034ea45650bd7676e18",
+      "owners": [
+        {
+          "display_name": "连雄山",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:32 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "林哲",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:29 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "刘攀",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:35 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "张蕾",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:27 GMT+0000 (Coordinated Universal Time)"
+        }
+      ]
+    },
+    {
+      "event_id": "temu_partner_docs-58370bb778d9::detail-1",
+      "content_hash": "8fcdd981d3f73723acc73bf38874182a78a8101da07a9bfc7d5cfe1cc46af081",
+      "owners": [
+        {
+          "display_name": "陈磊",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:38 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "连雄山",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:32 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "林哲",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:29 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "刘攀",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:35 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "张蕾",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:27 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "钟志刚",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:40 GMT+0000 (Coordinated Universal Time)"
+        }
+      ]
+    },
+    {
+      "event_id": "temu_partner_docs-58370bb778d9::detail-2",
+      "content_hash": "6225d76f3d3f0144781026bf7e91ea7d3ab29b502bb41c5c9c6152ec4f1b668e",
+      "owners": [
+        {
+          "display_name": "陈磊",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:38 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "连雄山",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:32 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "林哲",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:29 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "刘攀",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:35 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "张蕾",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:27 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "钟志刚",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:40 GMT+0000 (Coordinated Universal Time)"
+        }
+      ]
+    },
+    {
+      "event_id": "temu_partner_docs-58370bb778d9::detail-3",
+      "content_hash": "f7ad9bbbcefc65a5f8bfd2375abf3366918267d960ee8dfb037d7c159e69e8aa",
+      "owners": [
+        {
+          "display_name": "陈磊",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:38 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "连雄山",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:32 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "林哲",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:29 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "刘攀",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:35 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "张蕾",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:27 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "钟志刚",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:40 GMT+0000 (Coordinated Universal Time)"
+        }
+      ]
+    },
+    {
+      "event_id": "temu_partner_docs-58370bb778d9::detail-4",
+      "content_hash": "82dcc0a36744207c9bc69340c52c2a0e1698043eee4db15ad4a21ab357b3705f",
+      "owners": [
+        {
+          "display_name": "陈磊",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:38 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "连雄山",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:32 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "林哲",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:29 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "刘攀",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:35 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "张蕾",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:27 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "钟志刚",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:40 GMT+0000 (Coordinated Universal Time)"
+        }
+      ]
+    },
+    {
+      "event_id": "temu_partner_docs-58370bb778d9::detail-5",
+      "content_hash": "300b0faf0c60c5238d3f81d765bb8b256483d3305ab22b1ef836a7df6886625e",
+      "owners": [
+        {
+          "display_name": "陈磊",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:38 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "连雄山",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:32 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "林哲",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:29 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "刘攀",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:35 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "张蕾",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:27 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "钟志刚",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:40 GMT+0000 (Coordinated Universal Time)"
+        }
+      ]
+    },
+    {
+      "event_id": "temu_partner_docs-58370bb778d9::detail-6",
+      "content_hash": "f66bd02573fa87a9b76969270a641250309622c2dd16d4ecbfa1893c3f00e46f",
+      "owners": [
+        {
+          "display_name": "陈磊",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:38 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "连雄山",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:32 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "林哲",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:29 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "刘攀",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:35 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "张蕾",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:27 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "钟志刚",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:40 GMT+0000 (Coordinated Universal Time)"
+        }
+      ]
+    },
+    {
+      "event_id": "tiktok_shop_changelog-660e5ad97098::detail-1",
+      "content_hash": "bd17763af33592437d5f9dc57a1a85bc9c4835ce6e06dce16b85800af0b7f44a",
+      "owners": [
+        {
+          "display_name": "连雄山",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:32 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "林哲",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:29 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "刘攀",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:35 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "张蕾",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:27 GMT+0000 (Coordinated Universal Time)"
+        }
+      ]
+    },
+    {
+      "event_id": "tiktok_shop_changelog-660e5ad97098::detail-2",
+      "content_hash": "8df807d45a4154b946c3599eeae3debc48fe4f063a160f72408e11de84d34152",
+      "owners": [
+        {
+          "display_name": "连雄山",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:32 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "林哲",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:29 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "刘攀",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:35 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "张蕾",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:27 GMT+0000 (Coordinated Universal Time)"
+        }
+      ]
+    },
+    {
+      "event_id": "tiktok_shop_changelog-660e5ad97098::detail-3",
+      "content_hash": "d953c6aeee28fea95abab3b601a93309e6c6d14f3d6e55269e25ac48471a71e9",
+      "owners": [
+        {
+          "display_name": "连雄山",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:32 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "林哲",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:29 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "刘攀",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:35 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "张蕾",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:27 GMT+0000 (Coordinated Universal Time)"
+        }
+      ]
+    },
+    {
+      "event_id": "shopify_developer_changelog-c27b712b4695::detail-1",
+      "content_hash": "acc442da9a1640d368a3c35672624a57139c204ebcc0d2bca72bccb9548eeb6b",
+      "owners": [
+        {
+          "display_name": "连雄山",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:32 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "林哲",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:29 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "刘攀",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:35 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "张蕾",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:27 GMT+0000 (Coordinated Universal Time)"
+        }
+      ]
+    },
+    {
+      "event_id": "shopify_developer_changelog-c27b712b4695::detail-2",
+      "content_hash": "c7907e190a92e4bc3b69d8d4ec1dc47933c7adcc025f24b8c6612345e9d6a6c7",
+      "owners": [
+        {
+          "display_name": "连雄山",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:32 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "林哲",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:29 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "刘攀",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:35 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "张蕾",
+          "notification_status": "delivered",
+          "notified_at": "Wed Aug 26 2026 17:17:27 GMT+0000 (Coordinated Universal Time)"
+        }
+      ]
+    }
+  ]
+}
