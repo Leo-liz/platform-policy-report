@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "run_id": "20260826-010251",
+  "report_date": "2026-08-25",
+  "generated_at": "2026-08-25T17:15:50.356Z",
+  "source": "verified_dingtalk_dispatch_snapshot",
+  "events": [
+    {
+      "event_id": "mercadolibre_global_selling_docs-3737e93f29fe::detail-1",
+      "content_hash": "3a61450ccb10dd90061ac9ce0f5ebfba99e3989f3b7d00ba0efe69102e87af48",
+      "owners": [
+        {
+          "display_name": "林哲",
+          "notification_status": "delivered",
+          "notified_at": "Tue Aug 25 2026 17:15:50 GMT+0000 (Coordinated Universal Time)"
+        }
+      ]
+    },
+    {
+      "event_id": "tiktok_shop_changelog-293af5cb757c::detail-1",
+      "content_hash": "365d63d1c39ace93158b06031d4f871e575b65249ba9b1ea911d299ee3e246ff",
+      "owners": [
+        {
+          "display_name": "林哲",
+          "notification_status": "delivered",
+          "notified_at": "Tue Aug 25 2026 17:15:50 GMT+0000 (Coordinated Universal Time)"
+        }
+      ]
+    }
+  ]
+}
