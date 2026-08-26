@@ -47,7 +47,7 @@ test("local admin server exposes only the admin API and binds loopback", async (
   assert.match(server, /SELECT 1 AS ok/);
   assert.doesNotMatch(server, /api\/dispatch/);
   assert.doesNotMatch(server, /0\.0\.0\.0/);
-  assert.match(server, /import\("\.\/migrate\.mjs"\)/);
+  assert.doesNotMatch(server, /migrate\.mjs/);
 });
 
 test("local admin environment file remains excluded from Git", async () => {
