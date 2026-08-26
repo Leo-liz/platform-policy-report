@@ -89,6 +89,8 @@ export default async function handler(req, res) {
         rule.recipient_id,
         rule.platform_code,
         rule.primary_tag_code,
+        rule.platform_codes,
+        rule.primary_tag_codes,
         rule.enabled,
         recipient.display_name,
         recipient.dingtalk_user_id,

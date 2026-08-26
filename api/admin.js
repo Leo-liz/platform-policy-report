@@ -4,6 +4,7 @@ import { database } from "../lib/db.js";
 import { searchDirectory, sendAndPoll } from "../lib/dingtalk.js";
 import { bodyObject, clientAddress, json } from "../lib/http.js";
 import { buildTestMarkdownNotification } from "../lib/routing.js";
+import { canonicalScope, legacyScopeValue } from "../lib/rule-scopes.js";
 import { testSubscriptionIdentity, wildcardRuleId } from "../lib/setup.js";
 import {
   clearSessionCookie,
@@ -77,7 +78,8 @@ async function state(sql, csrfToken) {
     FROM notification_recipients ORDER BY display_name
   `;
   const rules = await sql`
-    SELECT id, recipient_id, platform_code, primary_tag_code, enabled, created_at, updated_at
+    SELECT id, recipient_id, platform_code, primary_tag_code,
+           platform_codes, primary_tag_codes, enabled, created_at, updated_at
     FROM notification_rules ORDER BY created_at DESC
   `;
   const dispatches = await sql`
@@ -113,12 +115,15 @@ async function state(sql, csrfToken) {
 function validateRule(body, catalog) {
   const platforms = new Set(catalog.platforms.map((item) => item.code));
   const tags = new Set(catalog.primary_tags.map((item) => item.code));
-  const platform = clean(body.platform_code, 80);
-  const tag = clean(body.primary_tag_code, 80);
-  if (platform !== "*" && !platforms.has(platform)) throw new Error("unknown platform rule");
-  if (tag !== "*" && !tags.has(tag)) throw new Error("unknown primary-tag rule");
-  if (!platform || !tag) throw new Error("platform and primary tag are required");
-  return { platform, tag };
+  const platformCodes = canonicalScope(body.platform_codes ?? body.platform_code, {
+    allowed: platforms,
+    field: "platform rule",
+  });
+  const primaryTagCodes = canonicalScope(body.primary_tag_codes ?? body.primary_tag_code, {
+    allowed: tags,
+    field: "primary-tag rule",
+  });
+  return { platformCodes, primaryTagCodes };
 }
 
 async function mutate(req, res, action, session) {
@@ -158,9 +163,10 @@ async function mutate(req, res, action, session) {
     const recipientId = recipientRows[0].id;
     const ruleId = wildcardRuleId(recipientId);
     await sql`
-      INSERT INTO notification_rules (id, recipient_id, platform_code, primary_tag_code, enabled)
-      VALUES (${ruleId}, ${recipientId}, '*', '*', true)
-      ON CONFLICT (recipient_id, platform_code, primary_tag_code) DO UPDATE SET
+      INSERT INTO notification_rules
+        (id, recipient_id, platform_code, primary_tag_code, platform_codes, primary_tag_codes, enabled)
+      VALUES (${ruleId}, ${recipientId}, '*', '*', '["*"]'::jsonb, '["*"]'::jsonb, true)
+      ON CONFLICT (recipient_id, platform_codes, primary_tag_codes) DO UPDATE SET
         enabled = true,
         updated_at = now()
     `;
@@ -170,16 +176,43 @@ async function mutate(req, res, action, session) {
       primary_tag_code: "*",
     });
   } else if (action === "save_rule") {
-    const id = clean(body.id, 80) || crypto.randomUUID();
+    const requestedId = clean(body.id, 80);
     const recipientId = clean(body.recipient_id, 80);
-    const { platform, tag } = validateRule(body, loadCatalog());
-    await sql`
-      INSERT INTO notification_rules (id, recipient_id, platform_code, primary_tag_code, enabled)
-      VALUES (${id}, ${recipientId}, ${platform}, ${tag}, ${body.enabled !== false})
-      ON CONFLICT (recipient_id, platform_code, primary_tag_code) DO UPDATE SET
-        enabled = EXCLUDED.enabled, updated_at = now()
-    `;
-    await audit(sql, "save", "rule", id, { recipient_id: recipientId, platform_code: platform, primary_tag_code: tag });
+    if (!recipientId) throw new Error("recipient is required");
+    const { platformCodes, primaryTagCodes } = validateRule(body, loadCatalog());
+    const platformJson = JSON.stringify(platformCodes);
+    const tagJson = JSON.stringify(primaryTagCodes);
+    const platform = legacyScopeValue(platformCodes);
+    const tag = legacyScopeValue(primaryTagCodes);
+    let saved;
+    if (requestedId) {
+      saved = await sql`
+        UPDATE notification_rules
+        SET recipient_id = ${recipientId}, platform_code = ${platform}, primary_tag_code = ${tag},
+            platform_codes = ${platformJson}::jsonb, primary_tag_codes = ${tagJson}::jsonb,
+            enabled = ${body.enabled !== false}, updated_at = now()
+        WHERE id = ${requestedId}
+        RETURNING id
+      `;
+      if (!saved.length) throw new Error("rule does not exist");
+    } else {
+      const id = crypto.randomUUID();
+      saved = await sql`
+        INSERT INTO notification_rules
+          (id, recipient_id, platform_code, primary_tag_code, platform_codes, primary_tag_codes, enabled)
+        VALUES
+          (${id}, ${recipientId}, ${platform}, ${tag}, ${platformJson}::jsonb, ${tagJson}::jsonb, ${body.enabled !== false})
+        ON CONFLICT (recipient_id, platform_codes, primary_tag_codes) DO UPDATE SET
+          enabled = EXCLUDED.enabled, updated_at = now()
+        RETURNING id
+      `;
+    }
+    const savedId = saved[0].id;
+    await audit(sql, "save", "rule", savedId, {
+      recipient_id: recipientId,
+      platform_codes: platformCodes,
+      primary_tag_codes: primaryTagCodes,
+    });
   } else if (action === "toggle_recipient") {
     const id = clean(body.id, 80);
     await sql`UPDATE notification_recipients SET enabled = ${Boolean(body.enabled)}, updated_at = now() WHERE id = ${id}`;

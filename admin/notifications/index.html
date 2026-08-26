@@ -7,6 +7,7 @@
     <title>钉钉通知配置｜平台政策监控</title>
     <link rel="stylesheet" href="/admin/notifications/styles.css" />
     <link rel="stylesheet" href="/admin/notifications/setup.css" />
+    <link rel="stylesheet" href="/admin/notifications/multiselect.css" />
   </head>
   <body>
     <main class="shell">
@@ -64,14 +65,14 @@
         </section>
 
         <section id="rules" class="panel tab-panel" hidden>
-          <div class="section-title"><div><h2>订阅规则</h2><p>多条规则采用任一命中；同一事件命中同一人的多条规则时自动去重。</p></div></div>
+          <div class="section-title"><div><h2>订阅规则</h2><p>同一范围内多选为任一命中，平台与主标签之间同时命中；同一事件发给同一人时自动去重。</p></div></div>
           <form id="rule-form" class="rule-grid">
             <input id="rule-id" type="hidden" />
             <label>收件人<select id="rule-recipient" required></select></label>
-            <label>平台范围<select id="rule-platform" required></select></label>
-            <label>主标签范围<select id="rule-tag" required></select></label>
+            <div class="field"><span>平台范围（可多选）</span><div id="rule-platform" class="scope-picker"></div></div>
+            <div class="field"><span>主标签范围（可多选）</span><div id="rule-tag" class="scope-picker"></div></div>
             <label class="check"><input id="rule-enabled" type="checkbox" checked />启用</label>
-            <button type="submit">保存规则</button>
+            <div class="rule-actions"><button type="submit">保存规则</button><button id="cancel-rule-edit" class="quiet" type="button" hidden>取消编辑</button></div>
           </form>
           <div class="examples"><span>指定平台 + 全部标签</span><span>全部平台 + 指定主标签</span><span>指定平台 + 指定主标签</span></div>
           <div id="rule-list" class="table-wrap"></div>
@@ -90,6 +91,6 @@
       </div>
       <div id="toast" role="status" aria-live="polite"></div>
     </main>
-    <script type="module" src="/admin/notifications/app.js"></script>
+    <script type="module" src="/admin/notifications/app-v2.js"></script>
   </body>
 </html>

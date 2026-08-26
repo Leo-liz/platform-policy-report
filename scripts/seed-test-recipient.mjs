@@ -19,9 +19,10 @@ const rows = await sql`
 
 const ruleId = wildcardRuleId(rows[0].id);
 await sql`
-  INSERT INTO notification_rules (id, recipient_id, platform_code, primary_tag_code, enabled)
-  VALUES (${ruleId}, ${rows[0].id}, '*', '*', true)
-  ON CONFLICT (recipient_id, platform_code, primary_tag_code) DO UPDATE SET
+  INSERT INTO notification_rules
+    (id, recipient_id, platform_code, primary_tag_code, platform_codes, primary_tag_codes, enabled)
+  VALUES (${ruleId}, ${rows[0].id}, '*', '*', '["*"]'::jsonb, '["*"]'::jsonb, true)
+  ON CONFLICT (recipient_id, platform_codes, primary_tag_codes) DO UPDATE SET
     enabled = true,
     updated_at = now()
 `;

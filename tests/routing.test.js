@@ -77,6 +77,24 @@ test("dispatch validation rejects unknown tags and untrusted AI", () => {
   assert.throws(() => validateDispatchPayload({ ...base, ai: { ...base.ai, evidence_validated: false } }, catalog), /schema 11/);
 });
 
+test("multi-select rule uses OR within each scope and AND across scopes", () => {
+  const rule = {
+    platform_codes: ["ozon", "temu"],
+    primary_tag_codes: ["api_technical", "logistics_fulfillment"],
+  };
+  assert.equal(ruleMatches(event("temu", "api_technical", 1), rule), true);
+  assert.equal(ruleMatches(event("ozon", "logistics_fulfillment", 2), rule), true);
+  assert.equal(ruleMatches(event("shopify", "api_technical", 3), rule), false);
+  assert.equal(ruleMatches(event("temu", "other_pending", 4), rule), false);
+});
+
+test("legacy scalar rules remain routable after multi-select upgrade", () => {
+  assert.equal(ruleMatches(event("temu", "api_technical", 1), {
+    platform_code: "temu",
+    primary_tag_code: "api_technical",
+  }), true);
+});
+
 test("public report snapshot exposes display names and exact delivery facts only", () => {
   const events = [event("temu", "api_technical", 1), event("ozon", "api_technical", 2)];
   const base = {

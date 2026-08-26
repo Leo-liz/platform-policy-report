@@ -19,6 +19,7 @@ process.env.PUBLIC_REPORT_URL ||= "https://leo-liz.github.io/platform-policy-rep
 if (!String(process.env.DATABASE_URL || "").startsWith("postgres")) throw new Error("DATABASE_URL is unavailable");
 if (String(process.env.ADMIN_PASSWORD_HASH || "").length < 32) throw new Error("ADMIN_PASSWORD_HASH is unavailable");
 if (String(process.env.ADMIN_SESSION_SECRET || "").length < 32) throw new Error("ADMIN_SESSION_SECRET is unavailable");
+await import("./migrate.mjs");
 const { default: adminHandler } = await import("../api/admin.js");
 const { database } = await import("../lib/db.js");
 await database()`SELECT 1 AS ok`;
