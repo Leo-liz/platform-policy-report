@@ -12,6 +12,23 @@ test("local admin launcher is loopback-only and reads the private local environm
   assert.doesNotMatch(script, /DINGTALK_APP_SECRET\s*=/);
 });
 
+test("local admin can run hidden at login and verifies readiness before returning", async () => {
+  const start = await readFile(new URL("../scripts/start-local-admin.ps1", import.meta.url), "utf8");
+  const install = await readFile(new URL("../scripts/install-local-admin-autostart.ps1", import.meta.url), "utf8");
+  assert.match(start, /\[switch\]\$Background/);
+  assert.match(start, /Test-LocalAdminReady/);
+  assert.match(start, /-WindowStyle Hidden/);
+  assert.match(start, /serverScript/);
+  assert.match(install, /GetFolderPath\("Startup"\)/);
+  assert.match(install, /CreateShortcut/);
+  assert.match(install, /Start-Process -FilePath explorer\.exe/);
+  assert.match(install, /start-local-admin\.ps1/);
+  assert.match(install, /-WindowStyle Hidden/);
+  assert.match(install, /WindowStyle = 7/);
+  assert.match(install, /127\.0\.0\.1/);
+  assert.doesNotMatch(install, /ADMIN_PASSWORD|DATABASE_URL|DINGTALK_APP_SECRET/);
+});
+
 test("local session cookies work on loopback HTTP without weakening cloud cookies", async () => {
   const previous = process.env.LOCAL_ADMIN_MODE;
   const { sessionCookie } = await import("../lib/security.js");

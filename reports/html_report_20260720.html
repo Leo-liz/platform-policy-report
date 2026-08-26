@@ -181,6 +181,9 @@
     .impact-low, .status-unchanged, .notice-sent, .notice-not-required { background: #dcfce7; color: var(--ok); }
     .impact-pending, .status-failed, .status-needs-decision, .notice-pending-config, .notice-failed, .notice-pending { background: #fef0c7; color: var(--warn); }
     .notice-unsent { background: #e0e7ff; color: #3730a3; }
+    .notification-owner-list, .notification-delivery-list { display: grid; gap: 4px; }
+    .notification-owner-list + .muted { display: block; margin-top: 4px; }
+    .notification-delivery-line { display: grid; gap: 2px; align-items: start; }
     .mode-direct { background: #e8f5ee; color: var(--ok); }
     .mode-detail, .source-reliability { background: #e8f1ff; color: var(--info); }
     .ai-degraded { background: #fff7ed; color: var(--warn); }
@@ -455,8 +458,9 @@
         <div class="history-calendar-days" data-calendar-days></div>
       </div>
     </div>
-    <p class="history-range-note">默认范围：2026-07-26 至 2026-08-24 · 可筛选 57 个历史日期</p>
-    <noscript><div class="history-date-row" aria-label="最近 30 天"><a href="html_report_20260824.html" data-history-file="html_report_20260824.html">2026-08-24</a>
+    <p class="history-range-note" data-history-range>默认范围：2026-07-27 至 2026-08-25 · 可筛选 58 个历史日期</p>
+    <noscript><div class="history-date-row" aria-label="最近 30 天"><a href="html_report_20260825.html" data-history-file="html_report_20260825.html">2026-08-25</a>
+<a href="html_report_20260824.html" data-history-file="html_report_20260824.html">2026-08-24</a>
 <a href="html_report_20260823.html" data-history-file="html_report_20260823.html">2026-08-23</a>
 <a href="html_report_20260822.html" data-history-file="html_report_20260822.html">2026-08-22</a>
 <a href="html_report_20260821.html" data-history-file="html_report_20260821.html">2026-08-21</a>
@@ -484,40 +488,66 @@
 <a href="html_report_20260730.html" data-history-file="html_report_20260730.html">2026-07-30</a>
 <a href="html_report_20260729.html" data-history-file="html_report_20260729.html">2026-07-29</a>
 <a href="html_report_20260728.html" data-history-file="html_report_20260728.html">2026-07-28</a>
-<a href="html_report_20260727.html" data-history-file="html_report_20260727.html">2026-07-27</a>
-<a href="html_report_20260726.html" data-history-file="html_report_20260726.html">2026-07-26</a></div></noscript>
+<a href="html_report_20260727.html" data-history-file="html_report_20260727.html">2026-07-27</a></div></noscript>
   </div>
 
-  <script type="application/json" id="history-report-data">[{"date":"2026-08-24","href":"html_report_20260824.html","file":"html_report_20260824.html"},{"date":"2026-08-23","href":"html_report_20260823.html","file":"html_report_20260823.html"},{"date":"2026-08-22","href":"html_report_20260822.html","file":"html_report_20260822.html"},{"date":"2026-08-21","href":"html_report_20260821.html","file":"html_report_20260821.html"},{"date":"2026-08-20","href":"html_report_20260820.html","file":"html_report_20260820.html"},{"date":"2026-08-19","href":"html_report_20260819.html","file":"html_report_20260819.html"},{"date":"2026-08-18","href":"html_report_20260818.html","file":"html_report_20260818.html"},{"date":"2026-08-17","href":"html_report_20260817.html","file":"html_report_20260817.html"},{"date":"2026-08-16","href":"html_report_20260816.html","file":"html_report_20260816.html"},{"date":"2026-08-15","href":"html_report_20260815.html","file":"html_report_20260815.html"},{"date":"2026-08-14","href":"html_report_20260814.html","file":"html_report_20260814.html"},{"date":"2026-08-13","href":"html_report_20260813.html","file":"html_report_20260813.html"},{"date":"2026-08-12","href":"html_report_20260812.html","file":"html_report_20260812.html"},{"date":"2026-08-11","href":"html_report_20260811.html","file":"html_report_20260811.html"},{"date":"2026-08-10","href":"html_report_20260810.html","file":"html_report_20260810.html"},{"date":"2026-08-09","href":"html_report_20260809.html","file":"html_report_20260809.html"},{"date":"2026-08-08","href":"html_report_20260808.html","file":"html_report_20260808.html"},{"date":"2026-08-07","href":"html_report_20260807.html","file":"html_report_20260807.html"},{"date":"2026-08-06","href":"html_report_20260806.html","file":"html_report_20260806.html"},{"date":"2026-08-05","href":"html_report_20260805.html","file":"html_report_20260805.html"},{"date":"2026-08-04","href":"html_report_20260804.html","file":"html_report_20260804.html"},{"date":"2026-08-03","href":"html_report_20260803.html","file":"html_report_20260803.html"},{"date":"2026-08-02","href":"html_report_20260802.html","file":"html_report_20260802.html"},{"date":"2026-08-01","href":"html_report_20260801.html","file":"html_report_20260801.html"},{"date":"2026-07-31","href":"html_report_20260731.html","file":"html_report_20260731.html"},{"date":"2026-07-30","href":"html_report_20260730.html","file":"html_report_20260730.html"},{"date":"2026-07-29","href":"html_report_20260729.html","file":"html_report_20260729.html"},{"date":"2026-07-28","href":"html_report_20260728.html","file":"html_report_20260728.html"},{"date":"2026-07-27","href":"html_report_20260727.html","file":"html_report_20260727.html"},{"date":"2026-07-26","href":"html_report_20260726.html","file":"html_report_20260726.html"},{"date":"2026-07-25","href":"html_report_20260725.html","file":"html_report_20260725.html"},{"date":"2026-07-24","href":"html_report_20260724.html","file":"html_report_20260724.html"},{"date":"2026-07-23","href":"html_report_20260723.html","file":"html_report_20260723.html"},{"date":"2026-07-22","href":"html_report_20260722.html","file":"html_report_20260722.html"},{"date":"2026-07-21","href":"html_report_20260721.html","file":"html_report_20260721.html"},{"date":"2026-07-20","href":"html_report_20260720.html","file":"html_report_20260720.html"},{"date":"2026-07-19","href":"html_report_20260719.html","file":"html_report_20260719.html"},{"date":"2026-07-18","href":"html_report_20260718.html","file":"html_report_20260718.html"},{"date":"2026-07-17","href":"html_report_20260717.html","file":"html_report_20260717.html"},{"date":"2026-07-16","href":"html_report_20260716.html","file":"html_report_20260716.html"},{"date":"2026-07-15","href":"html_report_20260715.html","file":"html_report_20260715.html"},{"date":"2026-07-14","href":"html_report_20260714.html","file":"html_report_20260714.html"},{"date":"2026-07-13","href":"html_report_20260713.html","file":"html_report_20260713.html"},{"date":"2026-07-12","href":"html_report_20260712.html","file":"html_report_20260712.html"},{"date":"2026-07-11","href":"html_report_20260711.html","file":"html_report_20260711.html"},{"date":"2026-07-10","href":"html_report_20260710.html","file":"html_report_20260710.html"},{"date":"2026-07-09","href":"html_report_20260709.html","file":"html_report_20260709.html"},{"date":"2026-07-08","href":"html_report_20260708.html","file":"html_report_20260708.html"},{"date":"2026-07-07","href":"html_report_20260707.html","file":"html_report_20260707.html"},{"date":"2026-07-06","href":"html_report_20260706.html","file":"html_report_20260706.html"},{"date":"2026-07-05","href":"html_report_20260705.html","file":"html_report_20260705.html"},{"date":"2026-07-04","href":"html_report_20260704.html","file":"html_report_20260704.html"},{"date":"2026-07-03","href":"html_report_20260703.html","file":"html_report_20260703.html"},{"date":"2026-07-02","href":"html_report_20260702.html","file":"html_report_20260702.html"},{"date":"2026-07-01","href":"html_report_20260701.html","file":"html_report_20260701.html"},{"date":"2026-06-30","href":"html_report_20260630.html","file":"html_report_20260630.html"},{"date":"2026-06-29","href":"html_report_20260629.html","file":"html_report_20260629.html"}]</script>
+  <script type="application/json" id="history-report-data">[{"date":"2026-08-25","href":"html_report_20260825.html","file":"html_report_20260825.html"},{"date":"2026-08-24","href":"html_report_20260824.html","file":"html_report_20260824.html"},{"date":"2026-08-23","href":"html_report_20260823.html","file":"html_report_20260823.html"},{"date":"2026-08-22","href":"html_report_20260822.html","file":"html_report_20260822.html"},{"date":"2026-08-21","href":"html_report_20260821.html","file":"html_report_20260821.html"},{"date":"2026-08-20","href":"html_report_20260820.html","file":"html_report_20260820.html"},{"date":"2026-08-19","href":"html_report_20260819.html","file":"html_report_20260819.html"},{"date":"2026-08-18","href":"html_report_20260818.html","file":"html_report_20260818.html"},{"date":"2026-08-17","href":"html_report_20260817.html","file":"html_report_20260817.html"},{"date":"2026-08-16","href":"html_report_20260816.html","file":"html_report_20260816.html"},{"date":"2026-08-15","href":"html_report_20260815.html","file":"html_report_20260815.html"},{"date":"2026-08-14","href":"html_report_20260814.html","file":"html_report_20260814.html"},{"date":"2026-08-13","href":"html_report_20260813.html","file":"html_report_20260813.html"},{"date":"2026-08-12","href":"html_report_20260812.html","file":"html_report_20260812.html"},{"date":"2026-08-11","href":"html_report_20260811.html","file":"html_report_20260811.html"},{"date":"2026-08-10","href":"html_report_20260810.html","file":"html_report_20260810.html"},{"date":"2026-08-09","href":"html_report_20260809.html","file":"html_report_20260809.html"},{"date":"2026-08-08","href":"html_report_20260808.html","file":"html_report_20260808.html"},{"date":"2026-08-07","href":"html_report_20260807.html","file":"html_report_20260807.html"},{"date":"2026-08-06","href":"html_report_20260806.html","file":"html_report_20260806.html"},{"date":"2026-08-05","href":"html_report_20260805.html","file":"html_report_20260805.html"},{"date":"2026-08-04","href":"html_report_20260804.html","file":"html_report_20260804.html"},{"date":"2026-08-03","href":"html_report_20260803.html","file":"html_report_20260803.html"},{"date":"2026-08-02","href":"html_report_20260802.html","file":"html_report_20260802.html"},{"date":"2026-08-01","href":"html_report_20260801.html","file":"html_report_20260801.html"},{"date":"2026-07-31","href":"html_report_20260731.html","file":"html_report_20260731.html"},{"date":"2026-07-30","href":"html_report_20260730.html","file":"html_report_20260730.html"},{"date":"2026-07-29","href":"html_report_20260729.html","file":"html_report_20260729.html"},{"date":"2026-07-28","href":"html_report_20260728.html","file":"html_report_20260728.html"},{"date":"2026-07-27","href":"html_report_20260727.html","file":"html_report_20260727.html"},{"date":"2026-07-26","href":"html_report_20260726.html","file":"html_report_20260726.html"},{"date":"2026-07-25","href":"html_report_20260725.html","file":"html_report_20260725.html"},{"date":"2026-07-24","href":"html_report_20260724.html","file":"html_report_20260724.html"},{"date":"2026-07-23","href":"html_report_20260723.html","file":"html_report_20260723.html"},{"date":"2026-07-22","href":"html_report_20260722.html","file":"html_report_20260722.html"},{"date":"2026-07-21","href":"html_report_20260721.html","file":"html_report_20260721.html"},{"date":"2026-07-20","href":"html_report_20260720.html","file":"html_report_20260720.html"},{"date":"2026-07-19","href":"html_report_20260719.html","file":"html_report_20260719.html"},{"date":"2026-07-18","href":"html_report_20260718.html","file":"html_report_20260718.html"},{"date":"2026-07-17","href":"html_report_20260717.html","file":"html_report_20260717.html"},{"date":"2026-07-16","href":"html_report_20260716.html","file":"html_report_20260716.html"},{"date":"2026-07-15","href":"html_report_20260715.html","file":"html_report_20260715.html"},{"date":"2026-07-14","href":"html_report_20260714.html","file":"html_report_20260714.html"},{"date":"2026-07-13","href":"html_report_20260713.html","file":"html_report_20260713.html"},{"date":"2026-07-12","href":"html_report_20260712.html","file":"html_report_20260712.html"},{"date":"2026-07-11","href":"html_report_20260711.html","file":"html_report_20260711.html"},{"date":"2026-07-10","href":"html_report_20260710.html","file":"html_report_20260710.html"},{"date":"2026-07-09","href":"html_report_20260709.html","file":"html_report_20260709.html"},{"date":"2026-07-08","href":"html_report_20260708.html","file":"html_report_20260708.html"},{"date":"2026-07-07","href":"html_report_20260707.html","file":"html_report_20260707.html"},{"date":"2026-07-06","href":"html_report_20260706.html","file":"html_report_20260706.html"},{"date":"2026-07-05","href":"html_report_20260705.html","file":"html_report_20260705.html"},{"date":"2026-07-04","href":"html_report_20260704.html","file":"html_report_20260704.html"},{"date":"2026-07-03","href":"html_report_20260703.html","file":"html_report_20260703.html"},{"date":"2026-07-02","href":"html_report_20260702.html","file":"html_report_20260702.html"},{"date":"2026-07-01","href":"html_report_20260701.html","file":"html_report_20260701.html"},{"date":"2026-06-30","href":"html_report_20260630.html","file":"html_report_20260630.html"},{"date":"2026-06-29","href":"html_report_20260629.html","file":"html_report_20260629.html"}]</script>
   <script>
   (() => {
     const root = document.querySelector('[data-history-calendar]');
     const dataNode = document.getElementById('history-report-data');
     if (!root || !dataNode) return;
     let reports = [];
-    try { reports = JSON.parse(dataNode.textContent || '[]'); } catch (_error) { return; }
-    if (!reports.length) return;
-    const byDate = new Map(reports.map((item) => [item.date, item]));
-    const dates = reports.map((item) => item.date).sort();
-    const minDate = dates[0];
-    const maxDate = dates[dates.length - 1];
+    try { reports = JSON.parse(dataNode.textContent || '[]'); } catch (_error) { reports = []; }
     const trigger = document.getElementById('history-date-trigger');
     const panel = document.getElementById('history-calendar-panel');
     const title = root.querySelector('[data-calendar-title]');
     const days = root.querySelector('[data-calendar-days]');
     const previous = root.querySelector('[data-calendar-prev]');
     const next = root.querySelector('[data-calendar-next]');
+    const range = root.closest('.history-toolbar')?.querySelector('[data-history-range]');
     if (!trigger || !panel || !title || !days || !previous || !next) return;
-    const selected = byDate.has(trigger.dataset.selectedDate || '')
-      ? trigger.dataset.selectedDate
-      : maxDate;
-    let [year, month] = selected.split('-').map(Number);
-
     const monthKey = (valueYear, valueMonth) => valueYear * 12 + valueMonth;
-    const [minYear, minMonth] = minDate.split('-').map(Number);
-    const [maxYear, maxMonth] = maxDate.split('-').map(Number);
-    const minKey = monthKey(minYear, minMonth);
-    const maxKey = monthKey(maxYear, maxMonth);
+    const normalizeReport = (item) => {
+      if (!item || typeof item !== 'object') return null;
+      const date = String(item.report_date || item.target_date || item.date || item.run_date || '');
+      const href = String(item.path || item.href || '');
+      const file = String(item.file || href.split('?')[0].split('/').pop() || '');
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || !href || !file) return null;
+      return { date, href, file };
+    };
+    let byDate = new Map();
+    let minDate = '';
+    let maxDate = '';
+    let minKey = 0;
+    let maxKey = 0;
+    let selected = '';
+    let year = 0;
+    let month = 0;
+    const rebuildCatalog = () => {
+      byDate = new Map();
+      reports.map(normalizeReport).filter(Boolean).forEach((item) => byDate.set(item.date, item));
+      reports = [...byDate.values()].sort((left, right) => left.date.localeCompare(right.date));
+      if (!reports.length) return false;
+      minDate = reports[0].date;
+      maxDate = reports[reports.length - 1].date;
+      const [minYear, minMonth] = minDate.split('-').map(Number);
+      const [maxYear, maxMonth] = maxDate.split('-').map(Number);
+      minKey = monthKey(minYear, minMonth);
+      maxKey = monthKey(maxYear, maxMonth);
+      selected = byDate.has(trigger.dataset.selectedDate || '')
+        ? trigger.dataset.selectedDate
+        : maxDate;
+      if (!year || !month) [year, month] = selected.split('-').map(Number);
+      if (range) {
+        const recent = new Date(`${maxDate}T00:00:00Z`);
+        recent.setUTCDate(recent.getUTCDate() - 29);
+        range.textContent = `默认范围：${recent.toISOString().slice(0, 10)} 至 ${maxDate} · 可筛选 ${reports.length} 个历史日期`;
+      }
+      trigger.disabled = false;
+      return true;
+    };
+    if (!rebuildCatalog()) return;
     const localHref = (item) => {
       if (window.location.protocol !== 'file:') return item.href;
       const currentPath = decodeURIComponent(window.location.pathname).replace(/\\/g, '/');
@@ -573,6 +603,25 @@
     document.addEventListener('keydown', (event) => {
       if (event.key === 'Escape') { panel.hidden = true; trigger.setAttribute('aria-expanded', 'false'); trigger.focus(); }
     });
+    if (window.location.protocol !== 'file:') {
+      fetch('manifest.json', { cache: 'no-store' })
+        .then((response) => {
+          if (!response.ok) throw new Error(`history manifest HTTP ${response.status}`);
+          return response.json();
+        })
+        .then((manifest) => {
+          const latest = Array.isArray(manifest?.runs) ? manifest.runs : [];
+          if (!latest.length) return;
+          const merged = new Map(reports.map((item) => [item.date, item]));
+          latest.map(normalizeReport).filter(Boolean).forEach((item) => merged.set(item.date, item));
+          reports = [...merged.values()];
+          if (rebuildCatalog() && !panel.hidden) render();
+        })
+        .catch(() => {
+          // The embedded catalog remains a complete offline fallback.  A failed
+          // live refresh must never make existing historical dates unusable.
+        });
+    }
   })();
   </script>
 </section>
@@ -611,8 +660,8 @@
   <td><span class="ai-text">AliExpress 发布商机项目 ISV 技术手册，为全托管仓发、POP（含半托管）和海外托管商家提供 AI 商机选品与权益查看能力。商品发布和查询接口新增 plan_id 字段，并新增主题、商机列表、商机详情及已发品查询等接口；ISV 未改造时，商家将无法通过 ERP 页面直接查看商机及使用相关权益。公告发布于 2026-07-20；正文写明 API 于 7 月 2 日上线并建议 8 月 22 日前完成改造，但未写明这两个日期的年份，需人工确认。</span><details class="ai-evidence"><summary>摘要依据</summary><ul><li>AI商机选品是平台重点扶植的商家新品扶植能力，针对平台所缺商品机会，透出商家，只要发品即可享受权益！</li><li>允许ISV自由测试，平台建议8月22日前ISV完成改造</li><li>历史api，商品查询结果里面新增字段plan_id，表示商品发品时绑定的商机</li></ul></details></td>
   <td><span class="muted">AliExpress 商品发布、商品查询、商机选品和 ERP 商机权益展示集成</span></td>
   <td>核对商品发布与查询模型是否支持 plan_id，并接入所需的主题及商机查询接口；按正文要求安排在 8 月 22 日前完成联调，同时向平台确认该月日对应的年份。</td>
-  <td><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: listing_product</span></td>
-  <td><span class="badge notice-unsent">未通知</span></td>
+  <td data-owner-cell><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: listing_product</span></td>
+  <td data-notice-cell><span class="badge notice-unsent">未通知</span></td>
 </tr>
 
 
@@ -626,8 +675,8 @@
   <td><span class="ai-text">Ozon 宣布 /v1/analytics/stocks 将从每天两次定时更新改为实时返回库存数据，当前更新时间为 UTC 07:00 和 16:00。正文写明该接口将在 8 月 17 日切换到实时模式，可能影响依赖固定批次更新时间的库存同步与对账逻辑。消息发布于 2026-07-20，但切换日期未写年份，需人工确认。</span><details class="ai-evidence"><summary>摘要依据</summary><ul><li>В настоящий момент данные обновляются дважды в сутки (в 07:00 и 16:00 по UTC).</li><li>17 августа метод перейдет на работу в режиме реального времени.</li><li>Пожалуйста, подготовьте свои системы к изменениям, чтобы переход на новый формат данных прошел бесшовно.</li></ul></details></td>
   <td><span class="muted">Ozon FBS 库存查询、库存同步频率及依赖固定更新时间的下游任务</span></td>
   <td>检查是否硬编码 UTC 07:00/16:00 批次更新时间，改为能够处理实时库存数据；在切换前完成调用频率、去重和库存对账验证，并向平台确认 8 月 17 日对应年份。</td>
-  <td><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: inventory</span></td>
-  <td><span class="badge notice-unsent">未通知</span></td>
+  <td data-owner-cell><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: inventory</span></td>
+  <td data-notice-cell><span class="badge notice-unsent">未通知</span></td>
 </tr>
 
 
@@ -641,8 +690,8 @@
   <td><span class="ai-text">Shopee 面向巴西新开发者更新接入指南，集中说明应用类别决定可调用的 API 与权限，现有应用不能人工追加权限，需要其他能力时可能必须新建对应类别的应用。指南同时重申客服聊天接口申请限制、IP 白名单、敏感数据脱敏、沙箱和认证等接入规则。文档更新于 2026-07-20；其中客服类第三方新申请自 2024-11-18 起已关闭，这是历史政策说明而非本次新增截止日。</span><details class="ai-evidence"><summary>摘要依据</summary><ul><li>A categoria selecionada durante a criação do aplicativo é o fator que determina todas as capacidades e limitações da integração.</li><li>As permissões são definidas exclusivamente pela categoria escolhida na criação do App.</li><li>O acesso a dados sensíveis está diretamente relacionado às configurações de segurança da aplicação, incluindo IP Whitelist.</li></ul></details></td>
   <td><span class="muted">Shopee 巴西站新应用创建、API 权限、客服聊天接口及敏感数据访问配置</span></td>
   <td>按目标 API 重新核对应用类别和权限包，检查 IP 白名单与敏感数据配置；需要客服聊天能力的卖家应按正文通过客户经理流程确认资格，不要依赖人工开通接口权限。</td>
-  <td><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: account_permission</span></td>
-  <td><span class="badge notice-unsent">未通知</span></td>
+  <td data-owner-cell><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: account_permission</span></td>
+  <td data-notice-cell><span class="badge notice-unsent">未通知</span></td>
 </tr>
 
 
@@ -656,8 +705,8 @@
   <td><span class="ai-text">Temu 更新 bg.order.detail.v2.get，用于按父订单号获取指定店铺的父订单及子订单详细信息，响应包含订单状态、发货时间、标签、履约警告、包裹、库存扣减仓和商品等字段。请求可按卖家履约或合作仓履约类型筛选；接口只支持 SEMI 或 LOCAL 店铺，不支持跨境卖家。页面最后更新时间为 2026-07-20，正文未写明强制迁移截止日期。</span><details class="ai-evidence"><summary>摘要依据</summary><ul><li>The bg.order.detail.v2.get interface is designed for merchants to retrieve detailed information about a specific order within their respective stores.</li><li>fulfillBySeller :fulfill by seller,</li><li>This interface does not support cross-border sellers. Please check whether the store bound to the token is a SEMI or LOCAL store!</li></ul></details></td>
   <td><span class="muted">Temu 父订单详情、子订单处理、履约方式和库存扣减仓数据模型</span></td>
   <td>核对订单详情响应模型是否兼容新增或完整字段，分别验证卖家履约与合作仓履约订单；调用前确认令牌绑定的是 SEMI 或 LOCAL 店铺。</td>
-  <td><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: order</span></td>
-  <td><span class="badge notice-unsent">未通知</span></td>
+  <td data-owner-cell><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: order</span></td>
+  <td data-notice-cell><span class="badge notice-unsent">未通知</span></td>
 </tr>
 
 
@@ -671,8 +720,8 @@
   <td><span class="ai-text">Temu 更新 bg.order.list.v2.get，用于按条件批量返回订单列表，支持父订单状态、订单号、创建和更新时间、确认时间、区域、履约类型、订单标签、物流异常、预售、资质上传及 SKU 等筛选条件。分页每页最多 100 条，父订单号列表每次最多 20 个；成对的起止时间参数必须同时传入。页面最后更新时间为 2026-07-20，正文未写明强制迁移截止日期。</span><details class="ai-evidence"><summary>摘要依据</summary><ul><li>Description: The bg.order.list.v2.get interface is designed for support batch return of corresponding order lists based on filtering criteria.</li><li>Page size for pagination, default is 10, max is 100.</li><li>List of parent order numbers, max 20 per request.</li></ul></details></td>
   <td><span class="muted">Temu 订单批量查询、分页、状态与时间范围筛选及物流异常筛选</span></td>
   <td>更新订单列表查询模型和筛选参数校验，限制 pageSize 不超过 100、parentOrderSnList 不超过 20，并确保创建、更新及确认时间的起止参数成对提交。</td>
-  <td><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: order</span></td>
-  <td><span class="badge notice-unsent">未通知</span></td>
+  <td data-owner-cell><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: order</span></td>
+  <td data-notice-cell><span class="badge notice-unsent">未通知</span></td>
 </tr>
 
 
@@ -686,8 +735,8 @@
   <td><span class="ai-text">TikTok Shop 为按需印刷的定制商品新增 POD 配置能力：图片上传接口增加 CUSTOMIZATION_IMAGE，商品局部编辑接口增加可选 pod_info，请求可配置模板、SKU、商品表面及图片或文本定制区域，商品查询接口会返回保存后的 POD 配置。每个 SKU 只能属于一个模板，每个模板最多 10 个表面、每个表面最多 10 个定制区域，区域顺序决定渲染层级。公告发布于 2026-07-20，但页面标记为即将上线，正文未写明完整启用日期，需人工确认。</span><details class="ai-evidence"><summary>摘要依据</summary><ul><li>Adds CUSTOMIZATION_IMAGE to the request use_case enum for POD background, mask, and default images.</li><li>Adds the optional request object pod_info for POD templates, surfaces, and customization areas.</li><li>ISVs and seller applications can upload customization assets, submit template configurations, and retrieve the saved configuration programmatically.</li></ul></details></td>
   <td><span class="muted">TikTok Shop 按需印刷商品的图片上传、商品编辑、商品查询和定制模板数据模型</span></td>
   <td>扩展图片用途枚举和商品读写模型，按文档校验 SKU 唯一归属、表面与区域数量、区域顺序及图片 URI；先在测试环境验证非 POD 商品对缺失 pod_info 的兼容性，待平台确认正式启用日期后再上线。</td>
-  <td><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: listing_product</span></td>
-  <td><span class="badge notice-unsent">未通知</span></td>
+  <td data-owner-cell><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: listing_product</span></td>
+  <td data-notice-cell><span class="badge notice-unsent">未通知</span></td>
 </tr>
 
 
@@ -701,8 +750,8 @@
   <td><span class="ai-text">Wildberries 在推广配置接口 GET /api/advert/v1/config 的响应中新增 minTopUp 字段，用于返回广告活动预算的最低充值金额。依赖推广配置的系统需要兼容该新增字段，并可据此限制低于最低金额的充值输入。消息发布于 2026-07-20，正文未写明强制启用或迁移截止日期。</span><details class="ai-evidence"><summary>摘要依据</summary><ul><li>В ответ метода GET /api/advert/v1/config добавили информацию о минимальной сумме пополнения бюджета кампании — поле minTopUp.</li></ul></details></td>
   <td><span class="muted">Wildberries 广告活动配置、预算充值校验和推广管理界面</span></td>
   <td>更新推广配置响应模型以兼容 minTopUp，并在预算充值界面或服务端校验最低充值金额；同时保持新增字段缺失时的兼容处理。</td>
-  <td><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: marketing_promotion</span></td>
-  <td><span class="badge notice-unsent">未通知</span></td>
+  <td data-owner-cell><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: marketing_promotion</span></td>
+  <td data-notice-cell><span class="badge notice-unsent">未通知</span></td>
 </tr>
 
 
@@ -716,8 +765,8 @@
   <td><span class="badge ai-degraded">AI 未配置</span><br><span class="ai-text">AI 未配置，未生成中文摘要；已抓取官方详情正文，请负责人查看详情来源和快照确认影响。</span><br><span class="muted">待确认</span></td>
   <td><span class="muted">待确认</span></td>
   <td>待 AI 配置/需人工确认</td>
-  <td><strong>待确认负责人</strong><br><span class="muted">待正文摘要与标签确认</span></td>
-  <td><span class="badge notice-unsent">未通知</span></td>
+  <td data-owner-cell><strong>待确认负责人</strong><br><span class="muted">待正文摘要与标签确认</span></td>
+  <td data-notice-cell><span class="badge notice-unsent">未通知</span></td>
 </tr>
 
 
@@ -731,8 +780,8 @@
   <td><span class="badge ai-degraded">AI 未配置</span><br><span class="ai-text">AI 未配置，未生成中文摘要；已抓取官方详情正文，请负责人查看详情来源和快照确认影响。</span><br><span class="muted">待确认</span></td>
   <td><span class="muted">待确认</span></td>
   <td>待 AI 配置/需人工确认</td>
-  <td><strong>待确认负责人</strong><br><span class="muted">待正文摘要与标签确认</span></td>
-  <td><span class="badge notice-unsent">未通知</span></td>
+  <td data-owner-cell><strong>待确认负责人</strong><br><span class="muted">待正文摘要与标签确认</span></td>
+  <td data-notice-cell><span class="badge notice-unsent">未通知</span></td>
 </tr>
 
 
@@ -746,8 +795,8 @@
   <td><span class="badge ai-degraded">AI 未配置</span><br><span class="ai-text">AI 未配置，未生成中文摘要；已抓取官方详情正文，请负责人查看详情来源和快照确认影响。</span><br><span class="muted">待确认</span></td>
   <td><span class="muted">待确认</span></td>
   <td>待 AI 配置/需人工确认</td>
-  <td><strong>待确认负责人</strong><br><span class="muted">待正文摘要与标签确认</span></td>
-  <td><span class="badge notice-unsent">未通知</span></td>
+  <td data-owner-cell><strong>待确认负责人</strong><br><span class="muted">待正文摘要与标签确认</span></td>
+  <td data-notice-cell><span class="badge notice-unsent">未通知</span></td>
 </tr>
 </tbody>
     </table>
@@ -792,6 +841,7 @@
   });
 })();
 </script>
+
 
 </body>
 </html>

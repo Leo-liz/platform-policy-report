@@ -181,6 +181,9 @@
     .impact-low, .status-unchanged, .notice-sent, .notice-not-required { background: #dcfce7; color: var(--ok); }
     .impact-pending, .status-failed, .status-needs-decision, .notice-pending-config, .notice-failed, .notice-pending { background: #fef0c7; color: var(--warn); }
     .notice-unsent { background: #e0e7ff; color: #3730a3; }
+    .notification-owner-list, .notification-delivery-list { display: grid; gap: 4px; }
+    .notification-owner-list + .muted { display: block; margin-top: 4px; }
+    .notification-delivery-line { display: grid; gap: 2px; align-items: start; }
     .mode-direct { background: #e8f5ee; color: var(--ok); }
     .mode-detail, .source-reliability { background: #e8f1ff; color: var(--info); }
     .ai-degraded { background: #fff7ed; color: var(--warn); }
@@ -455,8 +458,9 @@
         <div class="history-calendar-days" data-calendar-days></div>
       </div>
     </div>
-    <p class="history-range-note">默认范围：2026-07-26 至 2026-08-24 · 可筛选 57 个历史日期</p>
-    <noscript><div class="history-date-row" aria-label="最近 30 天"><a href="html_report_20260824.html" data-history-file="html_report_20260824.html">2026-08-24</a>
+    <p class="history-range-note" data-history-range>默认范围：2026-07-27 至 2026-08-25 · 可筛选 58 个历史日期</p>
+    <noscript><div class="history-date-row" aria-label="最近 30 天"><a href="html_report_20260825.html" data-history-file="html_report_20260825.html">2026-08-25</a>
+<a href="html_report_20260824.html" data-history-file="html_report_20260824.html">2026-08-24</a>
 <a href="html_report_20260823.html" data-history-file="html_report_20260823.html">2026-08-23</a>
 <a href="html_report_20260822.html" data-history-file="html_report_20260822.html">2026-08-22</a>
 <a href="html_report_20260821.html" data-history-file="html_report_20260821.html">2026-08-21</a>
@@ -484,40 +488,66 @@
 <a href="html_report_20260730.html" data-history-file="html_report_20260730.html">2026-07-30</a>
 <a href="html_report_20260729.html" data-history-file="html_report_20260729.html">2026-07-29</a>
 <a href="html_report_20260728.html" data-history-file="html_report_20260728.html">2026-07-28</a>
-<a href="html_report_20260727.html" data-history-file="html_report_20260727.html">2026-07-27</a>
-<a href="html_report_20260726.html" data-history-file="html_report_20260726.html">2026-07-26</a></div></noscript>
+<a href="html_report_20260727.html" data-history-file="html_report_20260727.html">2026-07-27</a></div></noscript>
   </div>
 
-  <script type="application/json" id="history-report-data">[{"date":"2026-08-24","href":"html_report_20260824.html","file":"html_report_20260824.html"},{"date":"2026-08-23","href":"html_report_20260823.html","file":"html_report_20260823.html"},{"date":"2026-08-22","href":"html_report_20260822.html","file":"html_report_20260822.html"},{"date":"2026-08-21","href":"html_report_20260821.html","file":"html_report_20260821.html"},{"date":"2026-08-20","href":"html_report_20260820.html","file":"html_report_20260820.html"},{"date":"2026-08-19","href":"html_report_20260819.html","file":"html_report_20260819.html"},{"date":"2026-08-18","href":"html_report_20260818.html","file":"html_report_20260818.html"},{"date":"2026-08-17","href":"html_report_20260817.html","file":"html_report_20260817.html"},{"date":"2026-08-16","href":"html_report_20260816.html","file":"html_report_20260816.html"},{"date":"2026-08-15","href":"html_report_20260815.html","file":"html_report_20260815.html"},{"date":"2026-08-14","href":"html_report_20260814.html","file":"html_report_20260814.html"},{"date":"2026-08-13","href":"html_report_20260813.html","file":"html_report_20260813.html"},{"date":"2026-08-12","href":"html_report_20260812.html","file":"html_report_20260812.html"},{"date":"2026-08-11","href":"html_report_20260811.html","file":"html_report_20260811.html"},{"date":"2026-08-10","href":"html_report_20260810.html","file":"html_report_20260810.html"},{"date":"2026-08-09","href":"html_report_20260809.html","file":"html_report_20260809.html"},{"date":"2026-08-08","href":"html_report_20260808.html","file":"html_report_20260808.html"},{"date":"2026-08-07","href":"html_report_20260807.html","file":"html_report_20260807.html"},{"date":"2026-08-06","href":"html_report_20260806.html","file":"html_report_20260806.html"},{"date":"2026-08-05","href":"html_report_20260805.html","file":"html_report_20260805.html"},{"date":"2026-08-04","href":"html_report_20260804.html","file":"html_report_20260804.html"},{"date":"2026-08-03","href":"html_report_20260803.html","file":"html_report_20260803.html"},{"date":"2026-08-02","href":"html_report_20260802.html","file":"html_report_20260802.html"},{"date":"2026-08-01","href":"html_report_20260801.html","file":"html_report_20260801.html"},{"date":"2026-07-31","href":"html_report_20260731.html","file":"html_report_20260731.html"},{"date":"2026-07-30","href":"html_report_20260730.html","file":"html_report_20260730.html"},{"date":"2026-07-29","href":"html_report_20260729.html","file":"html_report_20260729.html"},{"date":"2026-07-28","href":"html_report_20260728.html","file":"html_report_20260728.html"},{"date":"2026-07-27","href":"html_report_20260727.html","file":"html_report_20260727.html"},{"date":"2026-07-26","href":"html_report_20260726.html","file":"html_report_20260726.html"},{"date":"2026-07-25","href":"html_report_20260725.html","file":"html_report_20260725.html"},{"date":"2026-07-24","href":"html_report_20260724.html","file":"html_report_20260724.html"},{"date":"2026-07-23","href":"html_report_20260723.html","file":"html_report_20260723.html"},{"date":"2026-07-22","href":"html_report_20260722.html","file":"html_report_20260722.html"},{"date":"2026-07-21","href":"html_report_20260721.html","file":"html_report_20260721.html"},{"date":"2026-07-20","href":"html_report_20260720.html","file":"html_report_20260720.html"},{"date":"2026-07-19","href":"html_report_20260719.html","file":"html_report_20260719.html"},{"date":"2026-07-18","href":"html_report_20260718.html","file":"html_report_20260718.html"},{"date":"2026-07-17","href":"html_report_20260717.html","file":"html_report_20260717.html"},{"date":"2026-07-16","href":"html_report_20260716.html","file":"html_report_20260716.html"},{"date":"2026-07-15","href":"html_report_20260715.html","file":"html_report_20260715.html"},{"date":"2026-07-14","href":"html_report_20260714.html","file":"html_report_20260714.html"},{"date":"2026-07-13","href":"html_report_20260713.html","file":"html_report_20260713.html"},{"date":"2026-07-12","href":"html_report_20260712.html","file":"html_report_20260712.html"},{"date":"2026-07-11","href":"html_report_20260711.html","file":"html_report_20260711.html"},{"date":"2026-07-10","href":"html_report_20260710.html","file":"html_report_20260710.html"},{"date":"2026-07-09","href":"html_report_20260709.html","file":"html_report_20260709.html"},{"date":"2026-07-08","href":"html_report_20260708.html","file":"html_report_20260708.html"},{"date":"2026-07-07","href":"html_report_20260707.html","file":"html_report_20260707.html"},{"date":"2026-07-06","href":"html_report_20260706.html","file":"html_report_20260706.html"},{"date":"2026-07-05","href":"html_report_20260705.html","file":"html_report_20260705.html"},{"date":"2026-07-04","href":"html_report_20260704.html","file":"html_report_20260704.html"},{"date":"2026-07-03","href":"html_report_20260703.html","file":"html_report_20260703.html"},{"date":"2026-07-02","href":"html_report_20260702.html","file":"html_report_20260702.html"},{"date":"2026-07-01","href":"html_report_20260701.html","file":"html_report_20260701.html"},{"date":"2026-06-30","href":"html_report_20260630.html","file":"html_report_20260630.html"},{"date":"2026-06-29","href":"html_report_20260629.html","file":"html_report_20260629.html"}]</script>
+  <script type="application/json" id="history-report-data">[{"date":"2026-08-25","href":"html_report_20260825.html","file":"html_report_20260825.html"},{"date":"2026-08-24","href":"html_report_20260824.html","file":"html_report_20260824.html"},{"date":"2026-08-23","href":"html_report_20260823.html","file":"html_report_20260823.html"},{"date":"2026-08-22","href":"html_report_20260822.html","file":"html_report_20260822.html"},{"date":"2026-08-21","href":"html_report_20260821.html","file":"html_report_20260821.html"},{"date":"2026-08-20","href":"html_report_20260820.html","file":"html_report_20260820.html"},{"date":"2026-08-19","href":"html_report_20260819.html","file":"html_report_20260819.html"},{"date":"2026-08-18","href":"html_report_20260818.html","file":"html_report_20260818.html"},{"date":"2026-08-17","href":"html_report_20260817.html","file":"html_report_20260817.html"},{"date":"2026-08-16","href":"html_report_20260816.html","file":"html_report_20260816.html"},{"date":"2026-08-15","href":"html_report_20260815.html","file":"html_report_20260815.html"},{"date":"2026-08-14","href":"html_report_20260814.html","file":"html_report_20260814.html"},{"date":"2026-08-13","href":"html_report_20260813.html","file":"html_report_20260813.html"},{"date":"2026-08-12","href":"html_report_20260812.html","file":"html_report_20260812.html"},{"date":"2026-08-11","href":"html_report_20260811.html","file":"html_report_20260811.html"},{"date":"2026-08-10","href":"html_report_20260810.html","file":"html_report_20260810.html"},{"date":"2026-08-09","href":"html_report_20260809.html","file":"html_report_20260809.html"},{"date":"2026-08-08","href":"html_report_20260808.html","file":"html_report_20260808.html"},{"date":"2026-08-07","href":"html_report_20260807.html","file":"html_report_20260807.html"},{"date":"2026-08-06","href":"html_report_20260806.html","file":"html_report_20260806.html"},{"date":"2026-08-05","href":"html_report_20260805.html","file":"html_report_20260805.html"},{"date":"2026-08-04","href":"html_report_20260804.html","file":"html_report_20260804.html"},{"date":"2026-08-03","href":"html_report_20260803.html","file":"html_report_20260803.html"},{"date":"2026-08-02","href":"html_report_20260802.html","file":"html_report_20260802.html"},{"date":"2026-08-01","href":"html_report_20260801.html","file":"html_report_20260801.html"},{"date":"2026-07-31","href":"html_report_20260731.html","file":"html_report_20260731.html"},{"date":"2026-07-30","href":"html_report_20260730.html","file":"html_report_20260730.html"},{"date":"2026-07-29","href":"html_report_20260729.html","file":"html_report_20260729.html"},{"date":"2026-07-28","href":"html_report_20260728.html","file":"html_report_20260728.html"},{"date":"2026-07-27","href":"html_report_20260727.html","file":"html_report_20260727.html"},{"date":"2026-07-26","href":"html_report_20260726.html","file":"html_report_20260726.html"},{"date":"2026-07-25","href":"html_report_20260725.html","file":"html_report_20260725.html"},{"date":"2026-07-24","href":"html_report_20260724.html","file":"html_report_20260724.html"},{"date":"2026-07-23","href":"html_report_20260723.html","file":"html_report_20260723.html"},{"date":"2026-07-22","href":"html_report_20260722.html","file":"html_report_20260722.html"},{"date":"2026-07-21","href":"html_report_20260721.html","file":"html_report_20260721.html"},{"date":"2026-07-20","href":"html_report_20260720.html","file":"html_report_20260720.html"},{"date":"2026-07-19","href":"html_report_20260719.html","file":"html_report_20260719.html"},{"date":"2026-07-18","href":"html_report_20260718.html","file":"html_report_20260718.html"},{"date":"2026-07-17","href":"html_report_20260717.html","file":"html_report_20260717.html"},{"date":"2026-07-16","href":"html_report_20260716.html","file":"html_report_20260716.html"},{"date":"2026-07-15","href":"html_report_20260715.html","file":"html_report_20260715.html"},{"date":"2026-07-14","href":"html_report_20260714.html","file":"html_report_20260714.html"},{"date":"2026-07-13","href":"html_report_20260713.html","file":"html_report_20260713.html"},{"date":"2026-07-12","href":"html_report_20260712.html","file":"html_report_20260712.html"},{"date":"2026-07-11","href":"html_report_20260711.html","file":"html_report_20260711.html"},{"date":"2026-07-10","href":"html_report_20260710.html","file":"html_report_20260710.html"},{"date":"2026-07-09","href":"html_report_20260709.html","file":"html_report_20260709.html"},{"date":"2026-07-08","href":"html_report_20260708.html","file":"html_report_20260708.html"},{"date":"2026-07-07","href":"html_report_20260707.html","file":"html_report_20260707.html"},{"date":"2026-07-06","href":"html_report_20260706.html","file":"html_report_20260706.html"},{"date":"2026-07-05","href":"html_report_20260705.html","file":"html_report_20260705.html"},{"date":"2026-07-04","href":"html_report_20260704.html","file":"html_report_20260704.html"},{"date":"2026-07-03","href":"html_report_20260703.html","file":"html_report_20260703.html"},{"date":"2026-07-02","href":"html_report_20260702.html","file":"html_report_20260702.html"},{"date":"2026-07-01","href":"html_report_20260701.html","file":"html_report_20260701.html"},{"date":"2026-06-30","href":"html_report_20260630.html","file":"html_report_20260630.html"},{"date":"2026-06-29","href":"html_report_20260629.html","file":"html_report_20260629.html"}]</script>
   <script>
   (() => {
     const root = document.querySelector('[data-history-calendar]');
     const dataNode = document.getElementById('history-report-data');
     if (!root || !dataNode) return;
     let reports = [];
-    try { reports = JSON.parse(dataNode.textContent || '[]'); } catch (_error) { return; }
-    if (!reports.length) return;
-    const byDate = new Map(reports.map((item) => [item.date, item]));
-    const dates = reports.map((item) => item.date).sort();
-    const minDate = dates[0];
-    const maxDate = dates[dates.length - 1];
+    try { reports = JSON.parse(dataNode.textContent || '[]'); } catch (_error) { reports = []; }
     const trigger = document.getElementById('history-date-trigger');
     const panel = document.getElementById('history-calendar-panel');
     const title = root.querySelector('[data-calendar-title]');
     const days = root.querySelector('[data-calendar-days]');
     const previous = root.querySelector('[data-calendar-prev]');
     const next = root.querySelector('[data-calendar-next]');
+    const range = root.closest('.history-toolbar')?.querySelector('[data-history-range]');
     if (!trigger || !panel || !title || !days || !previous || !next) return;
-    const selected = byDate.has(trigger.dataset.selectedDate || '')
-      ? trigger.dataset.selectedDate
-      : maxDate;
-    let [year, month] = selected.split('-').map(Number);
-
     const monthKey = (valueYear, valueMonth) => valueYear * 12 + valueMonth;
-    const [minYear, minMonth] = minDate.split('-').map(Number);
-    const [maxYear, maxMonth] = maxDate.split('-').map(Number);
-    const minKey = monthKey(minYear, minMonth);
-    const maxKey = monthKey(maxYear, maxMonth);
+    const normalizeReport = (item) => {
+      if (!item || typeof item !== 'object') return null;
+      const date = String(item.report_date || item.target_date || item.date || item.run_date || '');
+      const href = String(item.path || item.href || '');
+      const file = String(item.file || href.split('?')[0].split('/').pop() || '');
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || !href || !file) return null;
+      return { date, href, file };
+    };
+    let byDate = new Map();
+    let minDate = '';
+    let maxDate = '';
+    let minKey = 0;
+    let maxKey = 0;
+    let selected = '';
+    let year = 0;
+    let month = 0;
+    const rebuildCatalog = () => {
+      byDate = new Map();
+      reports.map(normalizeReport).filter(Boolean).forEach((item) => byDate.set(item.date, item));
+      reports = [...byDate.values()].sort((left, right) => left.date.localeCompare(right.date));
+      if (!reports.length) return false;
+      minDate = reports[0].date;
+      maxDate = reports[reports.length - 1].date;
+      const [minYear, minMonth] = minDate.split('-').map(Number);
+      const [maxYear, maxMonth] = maxDate.split('-').map(Number);
+      minKey = monthKey(minYear, minMonth);
+      maxKey = monthKey(maxYear, maxMonth);
+      selected = byDate.has(trigger.dataset.selectedDate || '')
+        ? trigger.dataset.selectedDate
+        : maxDate;
+      if (!year || !month) [year, month] = selected.split('-').map(Number);
+      if (range) {
+        const recent = new Date(`${maxDate}T00:00:00Z`);
+        recent.setUTCDate(recent.getUTCDate() - 29);
+        range.textContent = `默认范围：${recent.toISOString().slice(0, 10)} 至 ${maxDate} · 可筛选 ${reports.length} 个历史日期`;
+      }
+      trigger.disabled = false;
+      return true;
+    };
+    if (!rebuildCatalog()) return;
     const localHref = (item) => {
       if (window.location.protocol !== 'file:') return item.href;
       const currentPath = decodeURIComponent(window.location.pathname).replace(/\\/g, '/');
@@ -573,6 +603,25 @@
     document.addEventListener('keydown', (event) => {
       if (event.key === 'Escape') { panel.hidden = true; trigger.setAttribute('aria-expanded', 'false'); trigger.focus(); }
     });
+    if (window.location.protocol !== 'file:') {
+      fetch('manifest.json', { cache: 'no-store' })
+        .then((response) => {
+          if (!response.ok) throw new Error(`history manifest HTTP ${response.status}`);
+          return response.json();
+        })
+        .then((manifest) => {
+          const latest = Array.isArray(manifest?.runs) ? manifest.runs : [];
+          if (!latest.length) return;
+          const merged = new Map(reports.map((item) => [item.date, item]));
+          latest.map(normalizeReport).filter(Boolean).forEach((item) => merged.set(item.date, item));
+          reports = [...merged.values()];
+          if (rebuildCatalog() && !panel.hidden) render();
+        })
+        .catch(() => {
+          // The embedded catalog remains a complete offline fallback.  A failed
+          // live refresh must never make existing historical dates unusable.
+        });
+    }
   })();
   </script>
 </section>
@@ -611,8 +660,8 @@
   <td><span class="ai-text">Shopify 自 2026-08-03 起允许开发商店把 Hydrogen 店面部署到 Oxygen，此前 Oxygen 托管要求付费套餐。开发商店不提供公开环境，因此部署地址始终要求商店登录。正文未写明后续执行截止日期。</span><details class="ai-evidence"><summary>摘要依据</summary><ul><li>DateAugust 3, 2026</li><li>You can now deploy Hydrogen storefronts to Oxygen from dev stores. Previously, Oxygen hosting required a paid plan.</li><li>Note that development stores don&#x27;t include public environments, so deployment URLs always require a store login.</li></ul></details></td>
   <td><span class="muted">使用开发商店测试 Hydrogen 与 Oxygen 部署流程的团队</span></td>
   <td>在开发商店验证 Hydrogen 到 Oxygen 的部署流程，并确保测试人员具备商店登录权限；不要把开发商店部署地址当作公开预览链接。</td>
-  <td><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: api_technical</span></td>
-  <td><span class="badge notice-unsent">未通知</span></td>
+  <td data-owner-cell><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: api_technical</span></td>
+  <td data-notice-cell><span class="badge notice-unsent">未通知</span></td>
 </tr>
 
 
@@ -626,8 +675,8 @@
   <td><span class="ai-text">Shopify 的 orderCreate 在 2026-10 版中为 OrderCreateFulfillmentInput 新增 trackingNumbers，可在导入订单时一次提交同一履约的多个物流单号，无需创建后再补充。数组中的全部单号共用 trackingCompany；若同时传 trackingNumber 和 trackingNumbers，单值字段优先且数组会被忽略。公告日期为 2026-08-03，正文未写明完整上线日期，需人工确认。</span><details class="ai-evidence"><summary>摘要依据</summary><ul><li>We’ve added a trackingNumbers field to OrderCreateFulfillmentInput, so you can attach multiple tracking numbers to a fulfillment when importing orders.</li><li>If you provide both the singular trackingNumber and the plural trackingNumbers, the singular value takes precedence.</li><li>This field is available starting in API version 2026-10.</li></ul></details></td>
   <td><span class="muted">通过 Shopify orderCreate 导入多包裹订单和履约信息的系统</span></td>
   <td>在切换到 2026-10 版前增加 trackingNumbers 数组映射，确认 trackingCompany 对全部单号适用，并避免同时发送 trackingNumber 与 trackingNumbers；回归单包裹和多包裹导入。</td>
-  <td><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: logistics_fulfillment</span></td>
-  <td><span class="badge notice-unsent">未通知</span></td>
+  <td data-owner-cell><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: logistics_fulfillment</span></td>
+  <td data-notice-cell><span class="badge notice-unsent">未通知</span></td>
 </tr>
 
 
@@ -642,8 +691,8 @@
 OBJECT[] False edit package request list</li></ul></details></td>
   <td><span class="muted">调用 Temu 接口更新物流单号和切换履约方式的系统</span></td>
   <td>按当前接口文档核对 editPackageRequestList 的字段映射，并回归非集成物流、集成物流转非集成物流及错误码处理；同时确认本次文档更新是否要求现有接入迁移。</td>
-  <td><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: logistics_fulfillment</span></td>
-  <td><span class="badge notice-unsent">未通知</span></td>
+  <td data-owner-cell><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: logistics_fulfillment</span></td>
+  <td data-notice-cell><span class="badge notice-unsent">未通知</span></td>
 </tr>
 
 
@@ -657,8 +706,8 @@ OBJECT[] False edit package request list</li></ul></details></td>
   <td><span class="ai-text">Temu 于 2026-08-02 更新 bg.logistics.shipment.sub.confirm 文档；当前正文限定该接口用于最小 SKU 需要拆成多个包裹发货的场景，并将子包裹信息追加到主包裹。调用时需要传入已发货主包裹号 mainPackageSn 和子包裹列表 sendSubRequestList，同时处理子包裹只能追加一次等校验。正文未写明执行截止日期，需人工确认。</span><details class="ai-evidence"><summary>摘要依据</summary><ul><li>LocalCross BorderLast update time: 2026-08-02 19:31:25</li><li>Description: The bg.logistics.shipment.sub.confirm interface should only be used in scenarios where the smallest sku needs to be shipped as split packages, and can append the sub-parcel information to the main parcel.</li><li>120012043 Sub-package can only be added once.</li></ul></details></td>
   <td><span class="muted">使用 Temu 拆包发货和主子包裹关联接口的履约系统</span></td>
   <td>核对 mainPackageSn 和 sendSubRequestList 的生成与校验逻辑，使用最小 SKU 拆包场景回归主子包裹关联，并处理重复追加及物流单号错误。</td>
-  <td><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: logistics_fulfillment</span></td>
-  <td><span class="badge notice-unsent">未通知</span></td>
+  <td data-owner-cell><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: logistics_fulfillment</span></td>
+  <td data-notice-cell><span class="badge notice-unsent">未通知</span></td>
 </tr>
 
 
@@ -673,8 +722,8 @@ OBJECT[] False edit package request list</li></ul></details></td>
 OBJECT[] True Shipment package details</li></ul></details></td>
   <td><span class="muted">通过 Temu 接口确认发货并同步订单履约状态的系统</span></td>
   <td>核对 sendType 与 sendRequestList 的组装规则，分别回归单包裹、多包裹和多订单合包，并验证重复发货、物流单号和承运商相关错误码。</td>
-  <td><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: logistics_fulfillment</span></td>
-  <td><span class="badge notice-unsent">未通知</span></td>
+  <td data-owner-cell><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: logistics_fulfillment</span></td>
+  <td data-notice-cell><span class="badge notice-unsent">未通知</span></td>
 </tr>
 
 
@@ -688,8 +737,8 @@ OBJECT[] True Shipment package details</li></ul></details></td>
   <td><span class="badge ai-degraded">AI 未配置</span><br><span class="ai-text">AI 未配置，未生成中文摘要；已抓取官方详情正文，请负责人查看详情来源和快照确认影响。</span><br><span class="muted">待确认</span></td>
   <td><span class="muted">待确认</span></td>
   <td>待 AI 配置/需人工确认</td>
-  <td><strong>待确认负责人</strong><br><span class="muted">待正文摘要与标签确认</span></td>
-  <td><span class="badge notice-unsent">未通知</span></td>
+  <td data-owner-cell><strong>待确认负责人</strong><br><span class="muted">待正文摘要与标签确认</span></td>
+  <td data-notice-cell><span class="badge notice-unsent">未通知</span></td>
 </tr>
 
 
@@ -703,8 +752,8 @@ OBJECT[] True Shipment package details</li></ul></details></td>
   <td><span class="badge ai-degraded">AI 未配置</span><br><span class="ai-text">AI 未配置，未生成中文摘要；已抓取官方详情正文，请负责人查看详情来源和快照确认影响。</span><br><span class="muted">待确认</span></td>
   <td><span class="muted">待确认</span></td>
   <td>待 AI 配置/需人工确认</td>
-  <td><strong>待确认负责人</strong><br><span class="muted">待正文摘要与标签确认</span></td>
-  <td><span class="badge notice-unsent">未通知</span></td>
+  <td data-owner-cell><strong>待确认负责人</strong><br><span class="muted">待正文摘要与标签确认</span></td>
+  <td data-notice-cell><span class="badge notice-unsent">未通知</span></td>
 </tr>
 
 
@@ -718,8 +767,8 @@ OBJECT[] True Shipment package details</li></ul></details></td>
   <td><span class="badge ai-degraded">AI 未配置</span><br><span class="ai-text">AI 未配置，未生成中文摘要；已抓取官方详情正文，请负责人查看详情来源和快照确认影响。</span><br><span class="muted">待确认</span></td>
   <td><span class="muted">待确认</span></td>
   <td>待 AI 配置/需人工确认</td>
-  <td><strong>待确认负责人</strong><br><span class="muted">待正文摘要与标签确认</span></td>
-  <td><span class="badge notice-unsent">未通知</span></td>
+  <td data-owner-cell><strong>待确认负责人</strong><br><span class="muted">待正文摘要与标签确认</span></td>
+  <td data-notice-cell><span class="badge notice-unsent">未通知</span></td>
 </tr>
 </tbody>
     </table>
@@ -764,6 +813,7 @@ OBJECT[] True Shipment package details</li></ul></details></td>
   });
 })();
 </script>
+
 
 </body>
 </html>
