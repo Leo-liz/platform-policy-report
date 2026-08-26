@@ -1,10 +1,21 @@
 {
-  "latest_run_id": "20260826-010251",
-  "latest_run_date": "2026-08-26",
-  "latest_report_date": "2026-08-25",
-  "target_date": "2026-08-25",
+  "latest_run_id": "20260827-010317",
+  "latest_run_date": "2026-08-27",
+  "latest_report_date": "2026-08-26",
+  "target_date": "2026-08-26",
   "latest_path": "latest.html",
   "runs": [
+    {
+      "run_id": "20260827-010317",
+      "run_date": "2026-08-27",
+      "report_date": "2026-08-26",
+      "target_date": "2026-08-26",
+      "path": "html_report_20260826.html",
+      "source_kind": "codex_ai",
+      "ai_provider": "codex_builtin_postprocess",
+      "ai_model": "current_codex_thread",
+      "ai_generated_count": 12
+    },
     {
       "run_id": "20260826-010251",
       "run_date": "2026-08-26",
