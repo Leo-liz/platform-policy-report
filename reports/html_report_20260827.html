@@ -1,0 +1,996 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>平台 API/开发者变更监控报告</title>
+  <style>
+    :root {
+      --blue-900: #103a74;
+      --blue-800: #174a91;
+      --blue-700: #1d5fbf;
+      --blue-050: #eef6ff;
+      --bg: #f4f7fb;
+      --panel: #ffffff;
+      --text: #1f2937;
+      --muted: #667085;
+      --line: #d7deea;
+      --head: #e8f0fb;
+      --danger: #b42318;
+      --warn: #b54708;
+      --ok: #047857;
+      --info: #0b63ce;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 13px/1.45 "Segoe UI", "Microsoft YaHei", Arial, sans-serif;
+    }
+    a { color: var(--blue-700); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .page { max-width: 1760px; margin: 0 auto; padding: 16px 20px 28px; }
+    .top-strip {
+      background: var(--blue-900);
+      border-bottom: 3px solid var(--blue-700);
+      color: #fff;
+    }
+    .top-strip-inner {
+      max-width: 1760px;
+      margin: 0 auto;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+    }
+    .top-strip strong { font-size: 15px; }
+    .top-strip span { color: #c9dcff; }
+    .report-nav {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 12px 0;
+    }
+    .report-nav a {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-left: 3px solid var(--blue-700);
+      color: var(--blue-900);
+      padding: 6px 10px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+    .top-panel, .table-box {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .table-box { overflow-x: auto; }
+    .title-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 16px;
+      background: linear-gradient(90deg, var(--blue-900), var(--blue-800));
+      color: #fff;
+    }
+    .eyebrow { margin: 0 0 2px; color: #c9dcff; font-weight: 700; }
+    h1, h2, h3 { margin: 0; letter-spacing: 0; }
+    h1 { font-size: 22px; }
+    h2 { font-size: 18px; color: var(--blue-900); }
+    h3 { font-size: 16px; color: var(--blue-900); }
+    .run-time { text-align: right; }
+    .run-time span { display: block; color: #c9dcff; font-size: 12px; }
+    .run-time strong { font-size: 14px; }
+    .summary-line {
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--line);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--blue-900);
+      background: var(--blue-050);
+    }
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(8, minmax(92px, 1fr));
+      border-bottom: 1px solid var(--line);
+    }
+    .metric {
+      padding: 10px 12px;
+      border-right: 1px solid var(--line);
+      min-height: 56px;
+    }
+    .metric:last-child { border-right: 0; }
+    .metric span { display: block; color: var(--muted); }
+    .metric strong { display: block; margin-top: 2px; font-size: 22px; line-height: 1; color: var(--blue-900); }
+    .scope-line { padding: 9px 16px; color: var(--muted); }
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 16px;
+      margin: 18px 0 8px;
+    }
+    .section-head p { margin: 0; color: var(--muted); }
+    .monitor-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+    .monitor-table th {
+      background: var(--head);
+      color: var(--blue-900);
+      border-bottom: 1px solid var(--line);
+      border-right: 1px solid var(--line);
+      padding: 8px 9px;
+      text-align: left;
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .monitor-table td {
+      border-bottom: 1px solid var(--line);
+      border-right: 1px solid var(--line);
+      padding: 8px 9px;
+      vertical-align: top;
+      overflow-wrap: anywhere;
+      background: #fff;
+    }
+    .monitor-table tr:nth-child(even) td { background: #f9fbfe; }
+    .monitor-table th:last-child, .monitor-table td:last-child { border-right: 0; }
+    .priority-table { min-width: 1540px; }
+    .priority-table th:nth-child(1), .priority-table td:nth-child(1) { width: 62px; }
+    .priority-table th:nth-child(2), .priority-table td:nth-child(2) { width: 122px; }
+    .priority-table th:nth-child(3), .priority-table td:nth-child(3) { width: 94px; }
+    .priority-table th:nth-child(4), .priority-table td:nth-child(4) { width: 180px; }
+    .priority-table th:nth-child(5), .priority-table td:nth-child(5) { width: 160px; }
+    .priority-table th:nth-child(6), .priority-table td:nth-child(6) { width: 128px; }
+    .priority-table th:nth-child(7), .priority-table td:nth-child(7) { width: 240px; }
+    .priority-table th:nth-child(10), .priority-table td:nth-child(10) { width: 130px; }
+    .priority-table th:nth-child(11), .priority-table td:nth-child(11) { width: 118px; }
+    .platform-table th:nth-child(1), .platform-table td:nth-child(1) { width: 94px; }
+    .platform-table th:nth-child(2), .platform-table td:nth-child(2) { width: 86px; }
+    .platform-table th:nth-child(3), .platform-table td:nth-child(3) { width: 92px; }
+    .platform-table th:nth-child(6), .platform-table td:nth-child(6) { width: 210px; }
+    .platform-table th:nth-child(8), .platform-table td:nth-child(8) { width: 120px; }
+    .platform-table th:nth-child(9), .platform-table td:nth-child(9) { width: 105px; }
+    .platform-table th:nth-child(10), .platform-table td:nth-child(10) { width: 190px; }
+    .platform-table th:nth-child(11), .platform-table td:nth-child(11) { width: 190px; }
+    .badge {
+      display: inline-block;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.35;
+      white-space: nowrap;
+      margin: 0 3px 3px 0;
+    }
+    .priority-table td:nth-child(2) .badge {
+      max-width: 100%;
+      white-space: normal;
+      overflow-wrap: anywhere;
+    }
+    .impact-high, .status-changed { background: #fee4e2; color: var(--danger); }
+    .impact-medium, .status-new { background: #dbeafe; color: var(--info); }
+    .impact-low, .status-unchanged, .notice-sent, .notice-not-required { background: #dcfce7; color: var(--ok); }
+    .impact-pending, .status-failed, .status-needs-decision, .notice-pending-config, .notice-failed, .notice-pending { background: #fef0c7; color: var(--warn); }
+    .notice-unsent { background: #e0e7ff; color: #3730a3; }
+    .notification-owner-list, .notification-delivery-list { display: grid; gap: 4px; }
+    .notification-owner-list + .muted { display: block; margin-top: 4px; }
+    .notification-delivery-line { display: grid; gap: 2px; align-items: start; }
+    .mode-direct { background: #e8f5ee; color: var(--ok); }
+    .mode-detail, .source-reliability { background: #e8f1ff; color: var(--info); }
+    .ai-degraded { background: #fff7ed; color: var(--warn); }
+    .source-jump strong, .source-jump span { display: block; }
+    .mode-inline { margin-top: 4px; }
+    .tag-cell { min-width: 150px; }
+    .muted { color: var(--muted); }
+    .error-text { color: var(--danger); font-weight: 700; }
+    .solution { color: var(--blue-900); }
+    .link-row { margin-top: 3px; color: var(--muted); }
+    .history-toolbar {
+      display: flex;
+      gap: 12px;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 10px;
+      margin-bottom: 8px;
+    }
+    .history-date-filter {
+      position: relative;
+      display: grid;
+      grid-template-columns: auto minmax(210px, 280px);
+      gap: 8px;
+      align-items: center;
+    }
+    .history-date-filter label {
+      font-weight: 700;
+      color: var(--blue-900);
+      white-space: nowrap;
+    }
+    .history-date-trigger {
+      min-height: 36px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 7px 10px;
+      color: var(--text);
+      background: #fff;
+      font: inherit;
+      text-align: left;
+      cursor: pointer;
+    }
+    .history-date-trigger:hover, .history-date-trigger:focus-visible {
+      border-color: var(--blue-700);
+      outline: 2px solid rgba(29, 95, 191, .14);
+      outline-offset: 1px;
+    }
+    .history-date-trigger:disabled { cursor: not-allowed; color: var(--muted); background: #f8fafc; }
+    .history-calendar {
+      position: absolute;
+      z-index: 20;
+      left: 76px;
+      top: calc(100% + 6px);
+      width: min(330px, calc(100vw - 48px));
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fff;
+      box-shadow: 0 12px 28px rgba(16, 58, 116, .18);
+    }
+    .history-calendar[hidden] { display: none; }
+    .history-calendar-head {
+      display: grid;
+      grid-template-columns: 34px 1fr 34px;
+      align-items: center;
+      margin-bottom: 7px;
+    }
+    .history-calendar-head strong { text-align: center; color: var(--blue-900); font-size: 14px; }
+    .history-calendar-head button {
+      width: 32px;
+      height: 30px;
+      border: 0;
+      border-radius: 4px;
+      background: transparent;
+      color: var(--blue-900);
+      font-size: 22px;
+      line-height: 1;
+      cursor: pointer;
+    }
+    .history-calendar-head button:hover:not(:disabled) { background: var(--blue-050); }
+    .history-calendar-head button:disabled { color: #b8c0cc; cursor: not-allowed; }
+    .history-calendar-week, .history-calendar-days {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 3px;
+    }
+    .history-calendar-week span {
+      padding: 4px 0;
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .history-calendar-day {
+      min-width: 0;
+      height: 32px;
+      border: 0;
+      border-radius: 4px;
+      background: var(--blue-050);
+      color: var(--blue-800);
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .history-calendar-day:hover:not(:disabled) { background: #d7e8ff; }
+    .history-calendar-day.selected { background: var(--blue-700); color: #fff; }
+    .history-calendar-day.outside-month { opacity: .55; }
+    .history-calendar-day:disabled { background: transparent; color: #b8c0cc; cursor: default; font-weight: 400; }
+    .history-calendar-foot { margin: 8px 2px 0; color: var(--muted); font-size: 12px; }
+    .history-range-note { margin: 0; color: var(--muted); }
+    .history-date-row { display: flex; gap: 6px; flex-wrap: wrap; width: 100%; }
+    .history-date-row a {
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 5px 8px;
+      background: #fff;
+    }
+    .history-warning {
+      margin: 0 0 8px;
+      color: var(--warn);
+      font-weight: 700;
+    }
+    .platform-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 16px 0 6px;
+      padding: 8px 10px;
+      background: var(--blue-050);
+      border-left: 4px solid var(--blue-700);
+      border-radius: 4px;
+    }
+    .platform-title span {
+      color: var(--muted);
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 4px;
+      padding: 2px 6px;
+    }
+    .empty { text-align: center; color: var(--muted); padding: 18px; }
+    .trial-banner {
+      margin: 10px 0;
+      padding: 9px 12px;
+      border: 1px solid #f2c94c;
+      border-radius: 4px;
+      background: #fff8db;
+      color: #6b4f00;
+    }
+    .ai-metadata {
+      margin: 10px 0;
+      padding: 7px 10px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: var(--panel);
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .tag-primary {
+      display: inline-block;
+      padding: 3px 7px;
+      border-radius: 4px;
+      background: var(--blue-800);
+      color: #fff;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .tag-list { margin-top: 4px; display: flex; gap: 4px; flex-wrap: wrap; align-items: flex-start; }
+    .tag-secondary {
+      display: inline-block;
+      padding: 2px 5px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: #fff;
+      color: var(--muted);
+      max-width: 100%;
+      white-space: normal;
+      overflow-wrap: anywhere;
+    }
+    .footer { color: var(--muted); margin: 18px 0 0; font-size: 12px; }
+    @media (max-width: 1100px) {
+      .page { padding: 12px; }
+      .metric-grid { grid-template-columns: repeat(4, minmax(90px, 1fr)); }
+      .monitor-table { min-width: 1180px; }
+      .section-head, .title-bar { align-items: flex-start; flex-direction: column; }
+      .run-time { text-align: left; }
+      .history-date-filter { grid-template-columns: 1fr; width: 100%; }
+      .history-calendar { left: 0; }
+    }
+    @media print {
+      body { background: #fff; }
+      .top-strip, .report-nav { display: none; }
+      .page { max-width: none; padding: 0; }
+      .table-box, .top-panel { border-color: #aaa; }
+      .monitor-table th, .monitor-table td { padding: 5px; font-size: 11px; }
+      a { color: #000; text-decoration: underline; }
+    }
+  </style>
+</head>
+<body>
+  <header class="top-strip">
+    <div class="top-strip-inner">
+      <strong>平台政策抓取 · 监控报告</strong>
+      <span>生成时间: 2026-08-28T01:10:08+08:00</span>
+    </div>
+  </header>
+  <main class="page">
+
+    <div class="ai-metadata" data-ai-provider="codex_builtin_postprocess" data-ai-model="current_codex_thread" data-ai-schema="11">摘要模型：codex_builtin_postprocess / current_codex_thread · Schema 11</div>
+    <nav class="report-nav" aria-label="报告导航">
+      <a href="#overview">运行概览</a>
+      <a href="#history">历史报告</a>
+      <a href="#priority">需要处理</a>
+      <a href="#failures">失败与待修复</a>
+      <a href="http://localhost:4317/admin/notifications" target="_blank" rel="noopener noreferrer" title="通知配置">通知配置</a>
+    </nav>
+
+<section class="top-panel" id="overview">
+  <div class="title-bar">
+    <div>
+      <p class="eyebrow">内部监控报告</p>
+      <h1>平台 API/开发者变更监控</h1>
+    </div>
+    <div class="run-time" data-report-date="2026-08-27" data-run-date="2026-08-28">
+      <span>报告日期（北京时间）</span>
+      <strong>2026-08-27</strong>
+      <span>执行日期：2026-08-28 · 抓取窗口：2026-08-28 / 2026-08-27</span>
+    </div>
+  </div>
+  <div class="summary-line">发现 2 个今天/昨天需处理事件，0 个日期未解析的内容变化事件，3 个延迟发现需处理事件，2 个历史补录/追溯事件，0 个抓取失败，0 个待决策事件。</div>
+  <div class="metric-grid"><div class="metric"><span>监控平台</span><strong>12</strong></div>
+<div class="metric"><span>监控源</span><strong>12</strong></div>
+<div class="metric"><span>变更</span><strong>0</strong></div>
+<div class="metric"><span>失败</span><strong>0</strong></div>
+<div class="metric"><span>待决策</span><strong>0</strong></div>
+<div class="metric"><span>高影响</span><strong>3</strong></div>
+<div class="metric"><span>AI 降级</span><strong>0</strong></div>
+<div class="metric"><span>负责人待确认</span><strong>14</strong></div></div>
+  <div class="scope-line"><strong>平台范围:</strong> eBay / Amazon SP-API / AliExpress / Shopee / Lazada / Mercado Libre / Temu / Ozon（Telegram 官方频道） / Wildberries（Telegram 官方频道） / TikTok Shop / Shopify / Walmart</div>
+</section>
+
+
+<section id="history" class="history-panel">
+  <div class="section-head">
+    <h2>历史报告入口</h2>
+    <p>默认查看最近 30 天；全部历史记录永久保留，可切换月份筛选。</p>
+  </div>
+  <div class="history-toolbar">
+    <div class="history-date-filter" data-history-calendar>
+      <label for="history-date-trigger">报告日期</label>
+      <button
+        id="history-date-trigger"
+        class="history-date-trigger"
+        type="button"
+        aria-haspopup="dialog"
+        aria-expanded="false"
+        aria-controls="history-calendar-panel"
+        data-selected-date="2026-08-27"
+
+      >2026-08-27<span aria-hidden="true">▦</span></button>
+      <div id="history-calendar-panel" class="history-calendar" role="dialog" aria-label="历史报告日期筛选" hidden>
+        <div class="history-calendar-head">
+          <button type="button" data-calendar-prev aria-label="上一个月">‹</button>
+          <strong data-calendar-title></strong>
+          <button type="button" data-calendar-next aria-label="下一个月">›</button>
+        </div>
+        <div class="history-calendar-week" aria-hidden="true"><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span></div>
+        <div class="history-calendar-days" data-calendar-days></div>
+      </div>
+    </div>
+    <p class="history-range-note" data-history-range>默认范围：2026-07-29 至 2026-08-27 · 可筛选 60 个历史日期</p>
+    <noscript><div class="history-date-row" aria-label="最近 30 天"><a href="html_report_20260827.html" data-history-file="html_report_20260827.html">2026-08-27</a>
+<a href="html_report_20260826.html" data-history-file="html_report_20260826.html">2026-08-26</a>
+<a href="html_report_20260825.html" data-history-file="html_report_20260825.html">2026-08-25</a>
+<a href="html_report_20260824.html" data-history-file="html_report_20260824.html">2026-08-24</a>
+<a href="html_report_20260823.html" data-history-file="html_report_20260823.html">2026-08-23</a>
+<a href="html_report_20260822.html" data-history-file="html_report_20260822.html">2026-08-22</a>
+<a href="html_report_20260821.html" data-history-file="html_report_20260821.html">2026-08-21</a>
+<a href="html_report_20260820.html" data-history-file="html_report_20260820.html">2026-08-20</a>
+<a href="html_report_20260819.html" data-history-file="html_report_20260819.html">2026-08-19</a>
+<a href="html_report_20260818.html" data-history-file="html_report_20260818.html">2026-08-18</a>
+<a href="html_report_20260817.html" data-history-file="html_report_20260817.html">2026-08-17</a>
+<a href="html_report_20260816.html" data-history-file="html_report_20260816.html">2026-08-16</a>
+<a href="html_report_20260815.html" data-history-file="html_report_20260815.html">2026-08-15</a>
+<a href="html_report_20260814.html" data-history-file="html_report_20260814.html">2026-08-14</a>
+<a href="html_report_20260813.html" data-history-file="html_report_20260813.html">2026-08-13</a>
+<a href="html_report_20260812.html" data-history-file="html_report_20260812.html">2026-08-12</a>
+<a href="html_report_20260811.html" data-history-file="html_report_20260811.html">2026-08-11</a>
+<a href="html_report_20260810.html" data-history-file="html_report_20260810.html">2026-08-10</a>
+<a href="html_report_20260809.html" data-history-file="html_report_20260809.html">2026-08-09</a>
+<a href="html_report_20260808.html" data-history-file="html_report_20260808.html">2026-08-08</a>
+<a href="html_report_20260807.html" data-history-file="html_report_20260807.html">2026-08-07</a>
+<a href="html_report_20260806.html" data-history-file="html_report_20260806.html">2026-08-06</a>
+<a href="html_report_20260805.html" data-history-file="html_report_20260805.html">2026-08-05</a>
+<a href="html_report_20260804.html" data-history-file="html_report_20260804.html">2026-08-04</a>
+<a href="html_report_20260803.html" data-history-file="html_report_20260803.html">2026-08-03</a>
+<a href="html_report_20260802.html" data-history-file="html_report_20260802.html">2026-08-02</a>
+<a href="html_report_20260801.html" data-history-file="html_report_20260801.html">2026-08-01</a>
+<a href="html_report_20260731.html" data-history-file="html_report_20260731.html">2026-07-31</a>
+<a href="html_report_20260730.html" data-history-file="html_report_20260730.html">2026-07-30</a>
+<a href="html_report_20260729.html" data-history-file="html_report_20260729.html">2026-07-29</a></div></noscript>
+  </div>
+
+  <script type="application/json" id="history-report-data">[{"date":"2026-08-27","href":"html_report_20260827.html","file":"html_report_20260827.html"},{"date":"2026-08-26","href":"html_report_20260826.html","file":"html_report_20260826.html"},{"date":"2026-08-25","href":"html_report_20260825.html","file":"html_report_20260825.html"},{"date":"2026-08-24","href":"html_report_20260824.html","file":"html_report_20260824.html"},{"date":"2026-08-23","href":"html_report_20260823.html","file":"html_report_20260823.html"},{"date":"2026-08-22","href":"html_report_20260822.html","file":"html_report_20260822.html"},{"date":"2026-08-21","href":"html_report_20260821.html","file":"html_report_20260821.html"},{"date":"2026-08-20","href":"html_report_20260820.html","file":"html_report_20260820.html"},{"date":"2026-08-19","href":"html_report_20260819.html","file":"html_report_20260819.html"},{"date":"2026-08-18","href":"html_report_20260818.html","file":"html_report_20260818.html"},{"date":"2026-08-17","href":"html_report_20260817.html","file":"html_report_20260817.html"},{"date":"2026-08-16","href":"html_report_20260816.html","file":"html_report_20260816.html"},{"date":"2026-08-15","href":"html_report_20260815.html","file":"html_report_20260815.html"},{"date":"2026-08-14","href":"html_report_20260814.html","file":"html_report_20260814.html"},{"date":"2026-08-13","href":"html_report_20260813.html","file":"html_report_20260813.html"},{"date":"2026-08-12","href":"html_report_20260812.html","file":"html_report_20260812.html"},{"date":"2026-08-11","href":"html_report_20260811.html","file":"html_report_20260811.html"},{"date":"2026-08-10","href":"html_report_20260810.html","file":"html_report_20260810.html"},{"date":"2026-08-09","href":"html_report_20260809.html","file":"html_report_20260809.html"},{"date":"2026-08-08","href":"html_report_20260808.html","file":"html_report_20260808.html"},{"date":"2026-08-07","href":"html_report_20260807.html","file":"html_report_20260807.html"},{"date":"2026-08-06","href":"html_report_20260806.html","file":"html_report_20260806.html"},{"date":"2026-08-05","href":"html_report_20260805.html","file":"html_report_20260805.html"},{"date":"2026-08-04","href":"html_report_20260804.html","file":"html_report_20260804.html"},{"date":"2026-08-03","href":"html_report_20260803.html","file":"html_report_20260803.html"},{"date":"2026-08-02","href":"html_report_20260802.html","file":"html_report_20260802.html"},{"date":"2026-08-01","href":"html_report_20260801.html","file":"html_report_20260801.html"},{"date":"2026-07-31","href":"html_report_20260731.html","file":"html_report_20260731.html"},{"date":"2026-07-30","href":"html_report_20260730.html","file":"html_report_20260730.html"},{"date":"2026-07-29","href":"html_report_20260729.html","file":"html_report_20260729.html"},{"date":"2026-07-28","href":"html_report_20260728.html","file":"html_report_20260728.html"},{"date":"2026-07-27","href":"html_report_20260727.html","file":"html_report_20260727.html"},{"date":"2026-07-26","href":"html_report_20260726.html","file":"html_report_20260726.html"},{"date":"2026-07-25","href":"html_report_20260725.html","file":"html_report_20260725.html"},{"date":"2026-07-24","href":"html_report_20260724.html","file":"html_report_20260724.html"},{"date":"2026-07-23","href":"html_report_20260723.html","file":"html_report_20260723.html"},{"date":"2026-07-22","href":"html_report_20260722.html","file":"html_report_20260722.html"},{"date":"2026-07-21","href":"html_report_20260721.html","file":"html_report_20260721.html"},{"date":"2026-07-20","href":"html_report_20260720.html","file":"html_report_20260720.html"},{"date":"2026-07-19","href":"html_report_20260719.html","file":"html_report_20260719.html"},{"date":"2026-07-18","href":"html_report_20260718.html","file":"html_report_20260718.html"},{"date":"2026-07-17","href":"html_report_20260717.html","file":"html_report_20260717.html"},{"date":"2026-07-16","href":"html_report_20260716.html","file":"html_report_20260716.html"},{"date":"2026-07-15","href":"html_report_20260715.html","file":"html_report_20260715.html"},{"date":"2026-07-14","href":"html_report_20260714.html","file":"html_report_20260714.html"},{"date":"2026-07-13","href":"html_report_20260713.html","file":"html_report_20260713.html"},{"date":"2026-07-12","href":"html_report_20260712.html","file":"html_report_20260712.html"},{"date":"2026-07-11","href":"html_report_20260711.html","file":"html_report_20260711.html"},{"date":"2026-07-10","href":"html_report_20260710.html","file":"html_report_20260710.html"},{"date":"2026-07-09","href":"html_report_20260709.html","file":"html_report_20260709.html"},{"date":"2026-07-08","href":"html_report_20260708.html","file":"html_report_20260708.html"},{"date":"2026-07-07","href":"html_report_20260707.html","file":"html_report_20260707.html"},{"date":"2026-07-06","href":"html_report_20260706.html","file":"html_report_20260706.html"},{"date":"2026-07-05","href":"html_report_20260705.html","file":"html_report_20260705.html"},{"date":"2026-07-04","href":"html_report_20260704.html","file":"html_report_20260704.html"},{"date":"2026-07-03","href":"html_report_20260703.html","file":"html_report_20260703.html"},{"date":"2026-07-02","href":"html_report_20260702.html","file":"html_report_20260702.html"},{"date":"2026-07-01","href":"html_report_20260701.html","file":"html_report_20260701.html"},{"date":"2026-06-30","href":"html_report_20260630.html","file":"html_report_20260630.html"},{"date":"2026-06-29","href":"html_report_20260629.html","file":"html_report_20260629.html"}]</script>
+  <script>
+  (() => {
+    const root = document.querySelector('[data-history-calendar]');
+    const dataNode = document.getElementById('history-report-data');
+    if (!root || !dataNode) return;
+    let reports = [];
+    try { reports = JSON.parse(dataNode.textContent || '[]'); } catch (_error) { reports = []; }
+    const trigger = document.getElementById('history-date-trigger');
+    const panel = document.getElementById('history-calendar-panel');
+    const title = root.querySelector('[data-calendar-title]');
+    const days = root.querySelector('[data-calendar-days]');
+    const previous = root.querySelector('[data-calendar-prev]');
+    const next = root.querySelector('[data-calendar-next]');
+    const range = root.closest('.history-toolbar')?.querySelector('[data-history-range]');
+    if (!trigger || !panel || !title || !days || !previous || !next) return;
+    const monthKey = (valueYear, valueMonth) => valueYear * 12 + valueMonth;
+    const normalizeReport = (item) => {
+      if (!item || typeof item !== 'object') return null;
+      const date = String(item.report_date || item.target_date || item.date || item.run_date || '');
+      const href = String(item.path || item.href || '');
+      const file = String(item.file || href.split('?')[0].split('/').pop() || '');
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || !href || !file) return null;
+      return { date, href, file };
+    };
+    let byDate = new Map();
+    let minDate = '';
+    let maxDate = '';
+    let minKey = 0;
+    let maxKey = 0;
+    let selected = '';
+    let year = 0;
+    let month = 0;
+    const rebuildCatalog = () => {
+      byDate = new Map();
+      reports.map(normalizeReport).filter(Boolean).forEach((item) => byDate.set(item.date, item));
+      reports = [...byDate.values()].sort((left, right) => left.date.localeCompare(right.date));
+      if (!reports.length) return false;
+      minDate = reports[0].date;
+      maxDate = reports[reports.length - 1].date;
+      const [minYear, minMonth] = minDate.split('-').map(Number);
+      const [maxYear, maxMonth] = maxDate.split('-').map(Number);
+      minKey = monthKey(minYear, minMonth);
+      maxKey = monthKey(maxYear, maxMonth);
+      selected = byDate.has(trigger.dataset.selectedDate || '')
+        ? trigger.dataset.selectedDate
+        : maxDate;
+      if (!year || !month) [year, month] = selected.split('-').map(Number);
+      if (range) {
+        const recent = new Date(`${maxDate}T00:00:00Z`);
+        recent.setUTCDate(recent.getUTCDate() - 29);
+        range.textContent = `默认范围：${recent.toISOString().slice(0, 10)} 至 ${maxDate} · 可筛选 ${reports.length} 个历史日期`;
+      }
+      trigger.disabled = false;
+      return true;
+    };
+    if (!rebuildCatalog()) return;
+    const localHref = (item) => {
+      if (window.location.protocol !== 'file:') return item.href;
+      const currentPath = decodeURIComponent(window.location.pathname).replace(/\\/g, '/');
+      const inReportsDirectory = /\/reports\/[^/]+$/.test(currentPath);
+      return (inReportsDirectory ? './' : './reports/') + item.file;
+    };
+    const shiftMonth = (delta) => {
+      const shifted = new Date(year, month - 1 + delta, 1);
+      year = shifted.getFullYear();
+      month = shifted.getMonth() + 1;
+    };
+    const render = () => {
+      title.textContent = `${year} 年 ${String(month).padStart(2, '0')} 月`;
+      const currentKey = monthKey(year, month);
+      previous.disabled = currentKey <= minKey;
+      next.disabled = currentKey >= maxKey;
+      days.replaceChildren();
+      const first = new Date(year, month - 1, 1);
+      const offset = (first.getDay() + 6) % 7;
+      const start = new Date(year, month - 1, 1 - offset);
+      for (let index = 0; index < 42; index += 1) {
+        const value = new Date(start);
+        value.setDate(start.getDate() + index);
+        const dateValue = `${value.getFullYear()}-${String(value.getMonth() + 1).padStart(2, '0')}-${String(value.getDate()).padStart(2, '0')}`;
+        const item = byDate.get(dateValue);
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.textContent = String(value.getDate());
+        button.className = 'history-calendar-day';
+        if (value.getMonth() + 1 !== month) button.classList.add('outside-month');
+        if (dateValue === selected) button.classList.add('selected');
+        if (!item) {
+          button.disabled = true;
+        } else {
+          button.dataset.reportDate = dateValue;
+          button.title = `${dateValue} 历史报告`;
+          button.addEventListener('click', () => window.location.assign(localHref(item)));
+        }
+        days.appendChild(button);
+      }
+    };
+    trigger.addEventListener('click', () => {
+      const opening = panel.hidden;
+      panel.hidden = !opening;
+      trigger.setAttribute('aria-expanded', String(opening));
+      if (opening) render();
+    });
+    previous.addEventListener('click', () => { shiftMonth(-1); render(); });
+    next.addEventListener('click', () => { shiftMonth(1); render(); });
+    document.addEventListener('click', (event) => {
+      if (!root.contains(event.target)) { panel.hidden = true; trigger.setAttribute('aria-expanded', 'false'); }
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') { panel.hidden = true; trigger.setAttribute('aria-expanded', 'false'); trigger.focus(); }
+    });
+    if (window.location.protocol !== 'file:') {
+      fetch('manifest.json', { cache: 'no-store' })
+        .then((response) => {
+          if (!response.ok) throw new Error(`history manifest HTTP ${response.status}`);
+          return response.json();
+        })
+        .then((manifest) => {
+          const latest = Array.isArray(manifest?.runs) ? manifest.runs : [];
+          if (!latest.length) return;
+          const merged = new Map(reports.map((item) => [item.date, item]));
+          latest.map(normalizeReport).filter(Boolean).forEach((item) => merged.set(item.date, item));
+          reports = [...merged.values()];
+          if (rebuildCatalog() && !panel.hidden) render();
+        })
+        .catch(() => {
+          // The embedded catalog remains a complete offline fallback.  A failed
+          // live refresh must never make existing historical dates unusable.
+        });
+    }
+  })();
+  </script>
+</section>
+
+
+<section id="priority">
+  <div class="section-head">
+    <h2>需要处理的事件</h2>
+    <p>排序: 影响等级高到低 -> 状态 -> 官方日期新到旧 -> 负责人待确认优先。</p>
+  </div>
+  <div class="table-box">
+    <table class="monitor-table priority-table">
+      <thead>
+        <tr>
+          <th>影响</th>
+          <th>状态</th>
+          <th>官方日期</th>
+          <th>平台/来源</th>
+          <th>标签</th>
+          <th>截止日期</th>
+          <th>中文 AI 摘要</th>
+          <th>影响对象</th>
+          <th>建议动作</th>
+          <th>Owner</th>
+          <th>通知</th>
+        </tr>
+      </thead>
+      <tbody>
+<tr data-notification-key="ozon_seller_api_news-a4ecbdd01dd1::detail-1:3e72916103cf148c23c018ee41aaf077d910da3b28c4653b11523be4243d2395">
+  <td><span class="badge impact-unknown">高</span></td>
+  <td><span class="badge status-actionable-today">需要处理</span></td>
+  <td>2026-08-27</td>
+  <td><div class="source-jump"><strong>Ozon</strong><span>Ozon Seller API News（Telegram 官方频道）</span><span class="muted">Изменения в сроках действия ключей Seller API С 3 сентября 2026 года меняются правила генерации ключей Seller API: срок</span><div class="link-row"><a href="https://t.me/OzonSellerAPI/685" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">账号/权限</span><div class="tag-list"><span class="tag-secondary">认证/权限变更</span> <span class="tag-secondary">API 接口变更</span></div></td>
+  <td>2026-09-03</td>
+  <td><span class="ai-text">Ozon 宣布自 2026-09-03 起调整 Seller API 密钥生成规则，新生成密钥的有效期将为 3 个月。该变化会缩短新密钥的可用周期，依赖长期静态密钥的集成需要更频繁轮换。正文未说明既有密钥是否追溯适用，因此需按官方详情进一步确认。</span><details class="ai-evidence"><summary>摘要依据</summary><ul><li>Изменения в сроках действия ключей Seller API</li><li>С 3 сентября 2026 года меняются правила генерации ключей Seller API: срок действия новых ключей составит 3 месяца.</li></ul></details></td>
+  <td><span class="muted">使用 Ozon Seller API 密钥的卖家与集成运维团队</span></td>
+  <td>在 2026-09-03 前检查密钥到期监控和轮换流程，使新密钥至少能按 3 个月周期安全更新，并从官方详情确认现有密钥的适用范围。</td>
+  <td data-owner-cell><strong>通知规则快照生成中</strong><br><span class="muted">仅展示同事姓名</span></td>
+  <td data-notice-cell><span class="badge notice-pending">待确认</span><br><span class="muted">等待真实送达结果</span></td>
+</tr>
+
+
+<tr data-notification-key="tiktok_shop_changelog-797addf364f8::detail-1:97ba223bcf6932336587836782d82af2c4991ee95f6a3e691b2b1497628ae696">
+  <td><span class="badge impact-unknown">高</span></td>
+  <td><span class="badge status-actionable-today">需要处理</span></td>
+  <td>2026-08-27</td>
+  <td><div class="source-jump"><strong>TikTok Shop</strong><span>TikTok Shop API Changelog</span><span class="muted">For SEA market: Order and Fulfillment API will be changed for In-Store Pickup Business</span><div class="link-row"><a href="https://partner.tiktokshop.com/docv2/page/fqmbs42f" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">物流/履约</span><div class="tag-list"><span class="tag-secondary">API 接口变更</span> <span class="tag-secondary">字段/参数变更</span> <span class="tag-secondary">订单/履约/物流</span></div></td>
+  <td>未写明</td>
+  <td><span class="ai-text">TikTok Shop 于 2026-08-27 公告，自 2026-09-01 起更新东南亚到店自提业务的订单和履约 API：订单查询响应新增 instore_pickup_sla_time，更新包裹配送状态请求新增 verification_code，并增加多项错误码。Update Package Delivery Status 将以 DELIVERY_SUCCESS 表示自提成功，相关更新适用于新加坡、菲律宾、越南、泰国、印度尼西亚和马来西亚本地卖家，且覆盖相关 API 的所有版本。使用这些接口的应用需要在生效日前更新字段、OTP 验证和异常处理。</span><details class="ai-evidence"><summary>摘要依据</summary><ul><li>From September 1, 2026, Platform will update order and fulfillment API for in-store pickup business.</li><li>A new parameter &quot;verification_code&quot; will be added into request body of Update Package Delivery Status API, which is the verification code for order pickup.</li><li>The updates of the requirements apply to local to local sellers in Singapore, Philippines, Vietnam, Thailand, Indonesia and Malaysia markets.</li></ul></details></td>
+  <td><span class="muted">东南亚六个市场使用到店自提订单与履约 API 的本地卖家和开发者</span></td>
+  <td>在 2026-09-01 前更新 Get Order Detail/List、Update Package Delivery Status、Ship Package 和 Batch Ship Package 的模型与流程，补充 verification_code、DELIVERY_SUCCESS 及新增错误码测试。</td>
+  <td data-owner-cell><strong>通知规则快照生成中</strong><br><span class="muted">仅展示同事姓名</span></td>
+  <td data-notice-cell><span class="badge notice-pending">待确认</span><br><span class="muted">等待真实送达结果</span></td>
+</tr>
+
+
+<tr data-notification-key="amazon_sp_api_release_notes-250d5c0525a4::detail-5:e18a44231720d764ee46290a17c096c76e482a23776a05b9be936f88f804fb58">
+  <td><span class="badge impact-unknown">高</span></td>
+  <td><span class="badge status-actionable-late-discovery">延迟发现/需要处理</span><br><span class="muted">前次抓取失败后的补抓发现：官方日期 2026-08-26 已超出常规今天/昨天窗口，本次仍列入需要处理区</span></td>
+  <td>2026-07-29</td>
+  <td><div class="source-jump"><strong>Amazon SP-API</strong><span>Amazon SP-API Release Notes</span><span class="muted">Invoices API v2026-06-25</span><div class="link-row"><a href="https://developer-docs.amazon/sp-api/docs/sp-api-release-notes#inline-5" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">API/技术</span><div class="tag-list"><span class="tag-secondary">API 接口变更</span> <span class="tag-secondary">字段/参数变更</span> <span class="tag-secondary">费用/结算/账单</span></div></td>
+  <td>未写明</td>
+  <td><span class="ai-text">Amazon 于 2026-07-29 上线 Invoices API v2026-06-25，可按日期检索发票、跟踪付款状态并获取行项目用于对账；同批还上线 Fulfillment Outbound v2026-07-04，并为财务、订单、刊登、定价和打款相关 API 增加操作或字段。Orders API v2026-01-01 新增取消执行信息和面单打印时间窗，Product Pricing API 增加实时促销数组。该批变更横跨财务与履约集成，使用相关接口的系统需要逐项核对模型与解析逻辑。</span><details class="ai-evidence"><summary>摘要依据</summary><ul><li>Launched the new Invoices API.</li><li>The Invoices API enables you to search for invoices within a specified date range, track invoice payment status, and retrieve detailed line-item information for reconciliation with purchase orders.</li><li>Added the cancellationExecution object to the getOrder and searchOrders operations.</li></ul></details></td>
+  <td><span class="muted">使用 Amazon 发票、财务、履约、订单、定价或打款 API 的集成团队</span></td>
+  <td>盘点正文列出的相关 API 使用情况，优先验证新 Invoices API、Fulfillment Outbound 版本，以及现有订单、定价和财务响应解析对新增字段与操作的兼容性。</td>
+  <td data-owner-cell><strong>通知规则快照生成中</strong><br><span class="muted">仅展示同事姓名</span></td>
+  <td data-notice-cell><span class="badge notice-pending">待确认</span><br><span class="muted">等待真实送达结果</span></td>
+</tr>
+
+
+<tr data-notification-key="amazon_sp_api_release_notes-250d5c0525a4::detail-1:c186e486737030795943d34207da004def95f1743e5624accd4d7158bbd3bf6a">
+  <td><span class="badge impact-unknown">中</span></td>
+  <td><span class="badge status-actionable-late-discovery">延迟发现/需要处理</span><br><span class="muted">前次抓取失败后的补抓发现：官方日期 2026-08-26 已超出常规今天/昨天窗口，本次仍列入需要处理区</span></td>
+  <td>2026-08-26</td>
+  <td><div class="source-jump"><strong>Amazon SP-API</strong><span>Amazon SP-API Release Notes</span><span class="muted">Promotions API v2025-12-01</span><div class="link-row"><a href="https://developer-docs.amazon/sp-api/docs/sp-api-release-notes#inline-1" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">营销/促销</span><div class="tag-list"><span class="tag-secondary">API 接口变更</span> <span class="tag-secondary">字段/参数变更</span></div></td>
+  <td>未写明</td>
+  <td><span class="ai-text">Amazon 于 2026-08-26 发布 Promotions API v2025-12-01，支持搜索、获取和管理 Deal、Coupon、Price Discount 与 Basket Building 等促销，并可程序化监控状态、商品选择及校验问题。Reports v2021-06-30 同时在两类促销绩效报告中新增 promotionsApiMappingId，便于把报告数据与 Promotions API 管理的促销对应起来。使用促销或绩效报告的集成需要评估新接口及字段映射。</span><details class="ai-evidence"><summary>摘要依据</summary><ul><li>Launched the new Promotions API, which you can use to search, retrieve, and manage promotions.</li><li>The Promotions API supports multiple promotion types: deals, coupons, price discounts, and basket building promotions.</li><li>Added the promotionsApiMappingId field to the GET_COUPON_PERFORMANCE_REPORT and GET_PROMOTION_PERFORMANCE_REPORT report types.</li></ul></details></td>
+  <td><span class="muted">使用 Amazon 促销管理与促销绩效报告的卖家、供应商和集成团队</span></td>
+  <td>如业务使用促销管理或两类促销绩效报告，验证 Promotions API v2025-12-01 的调用流程，并把 promotionsApiMappingId 纳入报告解析和促销记录关联。</td>
+  <td data-owner-cell><strong>通知规则快照生成中</strong><br><span class="muted">仅展示同事姓名</span></td>
+  <td data-notice-cell><span class="badge notice-pending">待确认</span><br><span class="muted">等待真实送达结果</span></td>
+</tr>
+
+
+<tr data-notification-key="amazon_sp_api_release_notes-250d5c0525a4::detail-2:38059a47769c72435bcb7f7ee87eaf14b1f8a8ae034ee9a65018234df8917648">
+  <td><span class="badge impact-unknown">中</span></td>
+  <td><span class="badge status-actionable-late-discovery">延迟发现/需要处理</span><br><span class="muted">前次抓取失败后的补抓发现：官方日期 2026-08-26 已超出常规今天/昨天窗口，本次仍列入需要处理区</span></td>
+  <td>2026-08-26</td>
+  <td><div class="source-jump"><strong>Amazon SP-API</strong><span>Amazon SP-API Release Notes</span><span class="muted">Added the Seller Authorizations FAQ.</span><div class="link-row"><a href="https://developer-docs.amazon/sp-api/docs/sp-api-release-notes#inline-2" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">合规/政策</span><div class="tag-list"><span class="tag-secondary">合规/政策要求</span> <span class="tag-secondary">文档/SDK/示例更新</span> <span class="tag-secondary">弃用/下线/迁移</span></div></td>
+  <td>未写明</td>
+  <td><span class="ai-text">Amazon 于 2026-08-26 新增 Seller Authorizations FAQ，并更新安全与合规最佳实践指南，以反映 DPP、AUP 和 Solution Provider Portal Agreement 的新增或修订要求。正文同时重申，已弃用的 SP-API 资源将在移除日期后调用失败。开发者需要核对最新合规要求及弃用计划，但本条未给出具体移除日期。</span><details class="ai-evidence"><summary>摘要依据</summary><ul><li>Added the Seller Authorizations FAQ.</li><li>Updated the Security and Compliance Best Practices Guide to reflect new and revised requirements in the Data Protection Policy (DPP), Acceptable Use Policy (AUP), and Solution Provider Portal Agreement.</li><li>Calls to deprecated SP-API resources will fail as of their removal date.</li></ul></details></td>
+  <td><span class="muted">Amazon SP-API 应用开发者、解决方案提供商与安全合规负责人</span></td>
+  <td>阅读新增授权 FAQ 和更新后的安全合规指南，对照现有应用的数据保护与可接受使用做差距检查，并在 SP-API Deprecation Schedule 中核对所用资源的移除日期。</td>
+  <td data-owner-cell><strong>通知规则快照生成中</strong><br><span class="muted">仅展示同事姓名</span></td>
+  <td data-notice-cell><span class="badge notice-pending">待确认</span><br><span class="muted">等待真实送达结果</span></td>
+</tr>
+
+
+<tr data-notification-key="mercadolibre_global_selling_docs-595f7527d960::detail-1:f5d993dead95b1b262309f61d17e7a3fb5324b2122d79f6102d02416cb59dee8">
+  <td><span class="badge impact-unknown">中</span></td>
+  <td><span class="badge status-actionable-late-discovery">延迟发现/需要处理</span><br><span class="muted">前次抓取失败后的补抓发现：官方日期 2026-08-26 已超出常规今天/昨天窗口，本次仍列入需要处理区</span></td>
+  <td>2026-08-26</td>
+  <td><div class="source-jump"><strong>Mercado Libre</strong><span>Mercado Libre Global Selling Docs</span><span class="muted">Receive notifications</span><div class="link-row"><a href="https://global-selling.mercadolibre.com/devsite/receive-notifications" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">API/技术</span><div class="tag-list"><span class="tag-secondary">Webhook/通知机制</span> <span class="tag-secondary">认证/权限变更</span> <span class="tag-secondary">文档/SDK/示例更新</span></div></td>
+  <td>未写明</td>
+  <td><span class="ai-text">Mercado Libre 的“Receive notifications”文档于 2026-08-26 更新，说明通知可实时获知商品、问题、订单、付款或发货等 API 资源变化，避免持续轮询。开发者需要在应用管理器中配置可公开访问并接收 HTTP POST 的 Callback URL，再选择订阅主题；通知时间使用 UTC。依赖资源状态变化的应用应确认回调可达、主题覆盖及 UTC 时间处理。</span><details class="ai-evidence"><summary>摘要依据</summary><ul><li>Receiving notifications enables you to have a real-time feed of the changes that occur on the different resources of our API.</li><li>Specifies the public URL where the system will send notifications via HTTP POST.</li><li>Notifications have UTC time zone.</li></ul></details></td>
+  <td><span class="muted">使用 Mercado Libre Global Selling API 并需要实时资源变更的应用开发者</span></td>
+  <td>在应用管理器核对所需通知主题，验证公开 Callback URL 能接收 HTTP POST，并将通知时间按 UTC 正确解析和存储。</td>
+  <td data-owner-cell><strong>通知规则快照生成中</strong><br><span class="muted">仅展示同事姓名</span></td>
+  <td data-notice-cell><span class="badge notice-pending">待确认</span><br><span class="muted">等待真实送达结果</span></td>
+</tr>
+
+
+<tr data-notification-key="shopify_developer_changelog-1c7322209a7b::detail-4:224c7985d3cd806f96f402332877af4d4abf641f72d26ceff56d44d307f3c9d2">
+  <td><span class="badge impact-unknown">中</span></td>
+  <td><span class="badge status-actionable-late-discovery">延迟发现/需要处理</span><br><span class="muted">前次抓取失败后的补抓发现：官方日期 2026-08-26 已超出常规今天/昨天窗口，本次仍列入需要处理区</span></td>
+  <td>2026-08-19</td>
+  <td><div class="source-jump"><strong>Shopify</strong><span>Shopify Developer Changelog</span><span class="muted">08.19 App intents on admin.app.intent.link now open as a full-page navigation Platform</span><div class="link-row"><a href="https://shopify.dev/changelog/app-intents-on-admin-app-intent-link-now-open-as-a-full-page-navigation" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">API/技术</span><div class="tag-list"><span class="tag-secondary">API 接口变更</span> <span class="tag-secondary">文档/SDK/示例更新</span></div></td>
+  <td>未写明</td>
+  <td><span class="ai-text">Shopify 于 2026-08-19 将 Sidekick 调用 admin.app.intent.link 时的展示从覆盖层改为跳转到扩展 URL 的完整页面；若当前页面存在未保存更改，仍会使用模态框以避免丢失进度。该行为已对所有商店和 API 版本生效，不要求修改扩展配置、intent schema 或 tools，admin.app.intent.render 不受影响。相关应用应验证目标路由在全宽页面和保留的模态框场景中均可正常呈现。</span><details class="ai-evidence"><summary>摘要依据</summary><ul><li>admin.app.intent.link intents now use a full-page navigation instead</li><li>There&#x27;s one case where the overlay is still used: if the merchant has unsaved changes on their current page, the intent opens in a modal instead of navigating away, so their in-progress work isn&#x27;t lost.</li><li>This is live for all shops, isn&#x27;t gated by API version, and doesn&#x27;t require any changes to your extension&#x27;s configuration, intent schema, or tools.</li></ul></details></td>
+  <td><span class="muted">声明 admin.app.intent.link 的 Shopify 应用开发者</span></td>
+  <td>验证 admin.app.intent.link 指向的路由在全宽页面下布局正确，同时保留对未保存更改时模态框展示的兼容；无需改动现有 target、URL、schema 或 tools。</td>
+  <td data-owner-cell><strong>通知规则快照生成中</strong><br><span class="muted">仅展示同事姓名</span></td>
+  <td data-notice-cell><span class="badge notice-pending">待确认</span><br><span class="muted">等待真实送达结果</span></td>
+</tr>
+
+
+<tr data-notification-key="amazon_sp_api_release_notes-250d5c0525a4::detail-3:a9650cdf4b763b3e7b3cb539070a19cbea3abaec0d41c9e1929d19dd85891f6a">
+  <td><span class="badge impact-unknown">中</span></td>
+  <td><span class="badge status-actionable-late-discovery">延迟发现/需要处理</span><br><span class="muted">前次抓取失败后的补抓发现：官方日期 2026-08-26 已超出常规今天/昨天窗口，本次仍列入需要处理区</span></td>
+  <td>2026-08-05</td>
+  <td><div class="source-jump"><strong>Amazon SP-API</strong><span>Amazon SP-API Release Notes</span><span class="muted">Tracking API v2026-01-30</span><div class="link-row"><a href="https://developer-docs.amazon/sp-api/docs/sp-api-release-notes#inline-3" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">物流/履约</span><div class="tag-list"><span class="tag-secondary">API 接口变更</span> <span class="tag-secondary">Webhook/通知机制</span> <span class="tag-secondary">字段/参数变更</span></div></td>
+  <td>未写明</td>
+  <td><span class="ai-text">Amazon 于 2026-08-05 上线 Tracking API v2026-01-30，在美国站提供 getShipmentTracking，用于查询货件在 Amazon 供应链中的跟踪详情。Notifications V1 同时新增 SHIPMENT_TRACKING_MILESTONE_CHANGED 通知类型及对应 TrackingFilter，可按跟踪标识订阅实时里程碑更新。涉及货件跟踪的系统可从轮询扩展为接口查询与实时通知结合。</span><details class="ai-evidence"><summary>摘要依据</summary><ul><li>Launched the new Tracking API with one operation available in the US store.</li><li>The getShipmentTracking operation allows sellers and vendors to retrieve tracking details for a shipment as it moves through Amazon’s supply chain.</li><li>Launched the SHIPMENT_TRACKING_MILESTONE_CHANGED notification type.</li></ul></details></td>
+  <td><span class="muted">美国站使用 Amazon 货件跟踪数据的卖家、供应商与物流集成团队</span></td>
+  <td>如需跟踪 Amazon 供应链货件，验证 getShipmentTracking 的返回数据，并评估订阅 SHIPMENT_TRACKING_MILESTONE_CHANGED 及使用 TrackingFilter 按跟踪标识过滤。</td>
+  <td data-owner-cell><strong>通知规则快照生成中</strong><br><span class="muted">仅展示同事姓名</span></td>
+  <td data-notice-cell><span class="badge notice-pending">待确认</span><br><span class="muted">等待真实送达结果</span></td>
+</tr>
+
+
+<tr data-notification-key="amazon_sp_api_release_notes-250d5c0525a4::detail-6:348891a4142e31a24697d94e3a8442ac5201afe92690dc533f424d5bdc8a63ce">
+  <td><span class="badge impact-unknown">中</span></td>
+  <td><span class="badge status-actionable-late-discovery">延迟发现/需要处理</span><br><span class="muted">前次抓取失败后的补抓发现：官方日期 2026-08-26 已超出常规今天/昨天窗口，本次仍列入需要处理区</span></td>
+  <td>2026-05-27</td>
+  <td><div class="source-jump"><strong>Amazon SP-API</strong><span>Amazon SP-API Release Notes</span><span class="muted">Notifications API v1</span><div class="link-row"><a href="https://developer-docs.amazon/sp-api/docs/sp-api-release-notes#inline-6" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">API/技术</span><div class="tag-list"><span class="tag-secondary">API 接口变更</span> <span class="tag-secondary">字段/参数变更</span> <span class="tag-secondary">Webhook/通知机制</span></div></td>
+  <td>未写明</td>
+  <td><span class="ai-text">Amazon 于 2026-05-27 为 Notifications API v1 的 createSubscription 增加 filterExpression，可用 CEL 在投递前过滤事件，并新增 DeliveryTipChange 订单变更类型。同期 Orders、Product Type Definitions、Replenishment 和 Services API 增加订单拆分、Easy Ship 履约 ID、父子层级、日粒度指标及服务任务查询等字段或能力。相关集成需要检查订阅过滤表达式、响应模型和新增查询参数。</span><details class="ai-evidence"><summary>摘要依据</summary><ul><li>Added the filterExpression field to the createSubscription operation.</li><li>Filters are applied to the notification payload using Common Expression Language (CEL) syntax.</li><li>Added DeliveryTipChange as a supported order change type to the OrderChangeType notification schema.</li></ul></details></td>
+  <td><span class="muted">使用 Amazon 通知、订单、商品类型、补货或服务 API 的开发团队</span></td>
+  <td>按实际使用范围更新请求和响应模型；如使用 Notifications API，测试 CEL filterExpression 的匹配结果，并确认 DeliveryTipChange 不会被现有消费者遗漏。</td>
+  <td data-owner-cell><strong>通知规则快照生成中</strong><br><span class="muted">仅展示同事姓名</span></td>
+  <td data-notice-cell><span class="badge notice-pending">待确认</span><br><span class="muted">等待真实送达结果</span></td>
+</tr>
+
+
+<tr data-notification-key="amazon_sp_api_release_notes-250d5c0525a4::detail-8:f050aef0f73e8e3be9ad14ec503a33143086190b97515d4723ff37eb7696e4c7">
+  <td><span class="badge impact-unknown">中</span></td>
+  <td><span class="badge status-actionable-late-discovery">延迟发现/需要处理</span><br><span class="muted">前次抓取失败后的补抓发现：官方日期 2026-08-26 已超出常规今天/昨天窗口，本次仍列入需要处理区</span></td>
+  <td>2026-04-29</td>
+  <td><div class="source-jump"><strong>Amazon SP-API</strong><span>Amazon SP-API Release Notes</span><span class="muted">External Fulfillment Shipping v2024-09-11</span><div class="link-row"><a href="https://developer-docs.amazon/sp-api/docs/sp-api-release-notes#inline-8" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">物流/履约</span><div class="tag-list"><span class="tag-secondary">API 接口变更</span> <span class="tag-secondary">字段/参数变更</span> <span class="tag-secondary">订单/履约/物流</span></div></td>
+  <td>未写明</td>
+  <td><span class="ai-text">Amazon 于 2026-04-29 为 External Fulfillment Shipping v2024-09-11 增加美国境内 Easy Ship、投递点地址/地图/距离及美制单位支持。Fulfillment Outbound 新增储物柜送达和取件事件码，Orders API v2026-01-01 则为 getOrders 与 searchOrders 增加 TAX 和 PAYMENT 属性以弥合旧版差异。美国履约和订单集成需要兼容这些物流事件与税费、支付字段。</span><details class="ai-evidence"><summary>摘要依据</summary><ul><li>Added support for the Easy Ship program for US domestic shipments.</li><li>EVENT_801: Package delivered to locker.</li><li>Added TAX and PAYMENT attributes to the getOrders and searchOrders operations to address discrepancies between Orders v0 and Orders v2026-01-01.</li></ul></details></td>
+  <td><span class="muted">使用 Amazon 美国 Easy Ship、储物柜配送或 Orders API v2026-01-01 的团队</span></td>
+  <td>更新物流事件码和投递点数据解析，并检查 getOrders/searchOrders 的 TAX、PAYMENT 属性是否需要进入订单税费与支付模型。</td>
+  <td data-owner-cell><strong>通知规则快照生成中</strong><br><span class="muted">仅展示同事姓名</span></td>
+  <td data-notice-cell><span class="badge notice-pending">待确认</span><br><span class="muted">等待真实送达结果</span></td>
+</tr>
+
+
+<tr data-notification-key="amazon_sp_api_release_notes-250d5c0525a4::detail-10:bbd7b85583147b3bb8d4177631e6edd6a0c5978e1084e718da6aca893e159ba8">
+  <td><span class="badge impact-unknown">中</span></td>
+  <td><span class="badge status-actionable-late-discovery">延迟发现/需要处理</span><br><span class="muted">前次抓取失败后的补抓发现：官方日期 2026-08-26 已超出常规今天/昨天窗口，本次仍列入需要处理区</span></td>
+  <td>2026-04-01</td>
+  <td><div class="source-jump"><strong>Amazon SP-API</strong><span>Amazon SP-API Release Notes</span><span class="muted">FBA Inbound Eligibility API v1</span><div class="link-row"><a href="https://developer-docs.amazon/sp-api/docs/sp-api-release-notes#inline-10" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">API/技术</span><div class="tag-list"><span class="tag-secondary">API 接口变更</span> <span class="tag-secondary">字段/参数变更</span> <span class="tag-secondary">商品/库存规则</span></div></td>
+  <td>未写明</td>
+  <td><span class="ai-text">Amazon 于 2026-04-01 为 FBA Inbound Eligibility 新增 FBA_INB_0465 原因枚举，并为 Feed/Report 文档下载增加可选的自动解压参数。Product Pricing 增加 similarItems，Replenishment 改为商品报价粒度并加入 SKU、履约渠道、库存与配送健康筛选等能力，Services API 还新增现场收款数组。使用这些接口的系统需要更新枚举、参数和响应模型。</span><details class="ai-evidence"><summary>摘要依据</summary><ul><li>Added the FBA_INB_0465 enum value to the ineligibilityReasonList in the getItemEligibilityPreview operation.</li><li>Added the optional query parameter enableContentEncodingUrlHeader to the GetFeedDocument operation.</li><li>Updated the listOfferMetrics operation to return metrics at the offer level instead of the ASIN level.</li></ul></details></td>
+  <td><span class="muted">使用 Amazon FBA 入库资格、Feed/Report、定价、补货或服务 API 的集成团队</span></td>
+  <td>按所用接口补充 FBA_INB_0465、enableContentEncodingUrlHeader、similarItems 及补货商品报价粒度字段的兼容测试，并确认新增字段不会破坏现有解析。</td>
+  <td data-owner-cell><strong>通知规则快照生成中</strong><br><span class="muted">仅展示同事姓名</span></td>
+  <td data-notice-cell><span class="badge notice-pending">待确认</span><br><span class="muted">等待真实送达结果</span></td>
+</tr>
+
+
+<tr data-notification-key="amazon_sp_api_release_notes-250d5c0525a4::detail-4:79f815760173fec49fafefb5b0fc3dcce8cadac41260326cb54646d3c6d85baa">
+  <td><span class="badge impact-unknown">低</span></td>
+  <td><span class="badge status-actionable-late-discovery">延迟发现/需要处理</span><br><span class="muted">前次抓取失败后的补抓发现：官方日期 2026-08-26 已超出常规今天/昨天窗口，本次仍列入需要处理区</span></td>
+  <td>2026-08-05</td>
+  <td><div class="source-jump"><strong>Amazon SP-API</strong><span>Amazon SP-API Release Notes</span><span class="muted">详情源待修正/非具体变更条目</span><div class="link-row"><a href="https://developer-docs.amazon/sp-api/docs/sp-api-release-notes#inline-4" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">物流/履约</span><div class="tag-list"><span class="tag-secondary">文档/SDK/示例更新</span> <span class="tag-secondary">订单/履约/物流</span></div></td>
+  <td>未写明</td>
+  <td><span class="ai-text">Amazon 于 2026-08-05 为 Fulfillment Outbound API 新增多货件包裹跟踪、配送跟踪、部分履约订单跟踪以及配送结果处理指南。新增文档覆盖 Multi-Channel Fulfillment 订单的全部包裹、出库货件包裹以及低库存导致的部分履约情形。使用 MCF 履约的集成团队可据此完善不同订单状态下的跟踪和异常处理。</span><details class="ai-evidence"><summary>摘要依据</summary><ul><li>Added the Retrieve multi-shipment package tracking details guide for Fulfillment Outbound API.</li><li>This guide explains how to retrieve tracking information for all packages in a Multi-Channel Fulfillment order.</li><li>Added the Track a partially fulfilled order guide for Fulfillment Outbound API.</li></ul></details></td>
+  <td><span class="muted">使用 Amazon Multi-Channel Fulfillment 与 Fulfillment Outbound API 的物流和开发团队</span></td>
+  <td>按新增指南复核多包裹、单包裹和部分履约订单的跟踪实现，并补充配送结果与低库存场景的测试。</td>
+  <td data-owner-cell><strong>通知规则快照生成中</strong><br><span class="muted">仅展示同事姓名</span></td>
+  <td data-notice-cell><span class="badge notice-pending">待确认</span><br><span class="muted">等待真实送达结果</span></td>
+</tr>
+
+
+<tr data-notification-key="amazon_sp_api_release_notes-250d5c0525a4::detail-7:826362e0dfd9e669aea3814ade5d1803cee3dd46b6cd1d4effdd5c7283233985">
+  <td><span class="badge impact-unknown">低</span></td>
+  <td><span class="badge status-actionable-late-discovery">延迟发现/需要处理</span><br><span class="muted">前次抓取失败后的补抓发现：官方日期 2026-08-26 已超出常规今天/昨天窗口，本次仍列入需要处理区</span></td>
+  <td>2026-05-27</td>
+  <td><div class="source-jump"><strong>Amazon SP-API</strong><span>Amazon SP-API Release Notes</span><span class="muted">详情源待修正/非具体变更条目</span><div class="link-row"><a href="https://developer-docs.amazon/sp-api/docs/sp-api-release-notes#inline-7" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">API/技术</span><div class="tag-list"><span class="tag-secondary">字段/参数变更</span> <span class="tag-secondary">Webhook/通知机制</span> <span class="tag-secondary">文档/SDK/示例更新</span></div></td>
+  <td>未写明</td>
+  <td><span class="ai-text">Amazon 于 2026-05-27 在 Listings Items API 指南中加入 Industry Vertical Pricing 受众值，符合资格的美国站第三方卖家可在 purchasable_offer.audience 字段使用。Notifications API 还新增创建和过滤订阅指南，说明如何用 CEL 的 filterExpression 只接收满足条件的事件。正文未给出弃用资源的具体移除日期，仅提示需查阅弃用计划。</span><details class="ai-evidence"><summary>摘要依据</summary><ul><li>Added Industry Vertical Pricing (IVP) audience values to the Listings Items API guide.</li><li>Eligible third-party sellers in the US store can use IVP audience values in the purchasable_offer.audience field.</li><li>This guide explains how to create subscriptions with filter expressions that control which event notifications you receive.</li></ul></details></td>
+  <td><span class="muted">符合 IVP 条件的美国站第三方卖家及使用 Amazon 通知订阅的开发者</span></td>
+  <td>符合资格的美国站卖家可核对 purchasable_offer.audience 的 IVP 取值；使用通知订阅的团队应按新指南测试 CEL 过滤表达式，并另行检查弃用计划。</td>
+  <td data-owner-cell><strong>通知规则快照生成中</strong><br><span class="muted">仅展示同事姓名</span></td>
+  <td data-notice-cell><span class="badge notice-pending">待确认</span><br><span class="muted">等待真实送达结果</span></td>
+</tr>
+
+
+<tr data-notification-key="amazon_sp_api_release_notes-250d5c0525a4::detail-9:87b5170a3f8d5558fcf10fe9838b070b25d5772b93d1bfe97969b857f98e1c9f">
+  <td><span class="badge impact-unknown">低</span></td>
+  <td><span class="badge status-actionable-late-discovery">延迟发现/需要处理</span><br><span class="muted">前次抓取失败后的补抓发现：官方日期 2026-08-26 已超出常规今天/昨天窗口，本次仍列入需要处理区</span></td>
+  <td>2026-04-29</td>
+  <td><div class="source-jump"><strong>Amazon SP-API</strong><span>Amazon SP-API Release Notes</span><span class="muted">详情源待修正/非具体变更条目</span><div class="link-row"><a href="https://developer-docs.amazon/sp-api/docs/sp-api-release-notes#inline-9" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">API/技术</span><div class="tag-list"><span class="tag-secondary">文档/SDK/示例更新</span> <span class="tag-secondary">合规/政策要求</span></div></td>
+  <td>未写明</td>
+  <td><span class="ai-text">Amazon 于 2026-04-29 在 Listings Items API 和 Product Pricing API 指南中补充定价校验说明，帮助在提交或生产受影响前发现并修复定价问题。Orders API Migration Guide、Access Orders PII 和 Get Tax Information 指南也有更新。使用刊登、定价或订单敏感信息的团队应将这些文档变化纳入实现与权限复核。</span><details class="ai-evidence"><summary>摘要依据</summary><ul><li>Added pricing validation details to the Listings Items API and Product Pricing API guides.</li><li>This feature allows users to detect and fix pricing problems before submission or production impact.</li><li>Added the Get Tax Information guide for the Orders API.</li></ul></details></td>
+  <td><span class="muted">使用 Amazon 刊登、定价、订单 PII 或税务信息的开发与合规团队</span></td>
+  <td>把新增定价校验纳入提交前检查，并复核 Orders API 迁移、PII 访问及税务信息指南是否影响当前字段读取和权限设计。</td>
+  <td data-owner-cell><strong>通知规则快照生成中</strong><br><span class="muted">仅展示同事姓名</span></td>
+  <td data-notice-cell><span class="badge notice-pending">待确认</span><br><span class="muted">等待真实送达结果</span></td>
+</tr>
+</tbody>
+    </table>
+  </div>
+</section>
+
+
+<section id="failures">
+  <div class="section-head">
+    <h2>失败与待修复</h2>
+    <p>失败表示本次无法判断对应具体条目是否变化，不能视为无变化。</p>
+  </div>
+  <div class="table-box">
+    <table class="monitor-table">
+      <thead>
+        <tr>
+          <th>平台</th>
+          <th>具体条目</th>
+          <th>抓取方式</th>
+          <th>失败原因</th>
+          <th>影响</th>
+          <th>解决方案</th>
+          <th>通知</th>
+        </tr>
+      </thead>
+      <tbody><tr><td colspan="7" class="empty">本次没有抓取失败事件。</td></tr></tbody>
+    </table>
+  </div>
+</section>
+
+    <p class="footer">Generated by scripts/render_html_report.py. HTML 只展示前端数据，不执行抓取、解析、调度或通知发送；敏感字段不会在页面中渲染。</p>
+  </main>
+
+<script>
+(() => {
+  if (window.location.protocol !== "file:") return;
+  const currentPath = decodeURIComponent(window.location.pathname).replace(/\\/g, "/");
+  const inReportsDirectory = /\/reports\/[^/]+$/.test(currentPath);
+  const basePath = inReportsDirectory ? "./" : "./reports/";
+  document.querySelectorAll("a[data-history-file]").forEach((link) => {
+    link.setAttribute("href", basePath + link.dataset.historyFile);
+  });
+})();
+</script>
+
+
+<script data-notification-snapshot="notification-snapshot-2026-08-27.json">
+(() => {
+  const currentScript = document.currentScript;
+  const snapshotName = currentScript && currentScript.dataset.notificationSnapshot;
+  if (!snapshotName) return;
+  const statusMeta = {
+    delivered: ["已通知", "notice-sent"],
+    accepted: ["发送中", "notice-pending"],
+    pending: ["发送中", "notice-pending"],
+    failed: ["通知失败", "notice-failed"],
+    deferred: ["顺延通知", "notice-unsent"],
+    unsent: ["未通知", "notice-unsent"],
+  };
+  const formatBeijing = (value) => {
+    if (!value) return "";
+    const parsed = new Date(value);
+    if (Number.isNaN(parsed.getTime())) return "";
+    return new Intl.DateTimeFormat("zh-CN", {
+      timeZone: "Asia/Shanghai",
+      year: "numeric", month: "2-digit", day: "2-digit",
+      hour: "2-digit", minute: "2-digit", second: "2-digit",
+      hour12: false,
+    }).format(parsed).replaceAll("/", "-");
+  };
+  const muted = (value) => {
+    const node = document.createElement("span");
+    node.className = "muted";
+    node.textContent = value;
+    return node;
+  };
+  fetch(snapshotName, { cache: "no-store", credentials: "omit" })
+    .then((response) => {
+      if (!response.ok) throw new Error(`snapshot HTTP ${response.status}`);
+      return response.json();
+    })
+    .then((snapshot) => {
+      const byKey = new Map((snapshot.events || []).map((item) => [
+        `${item.event_id || ""}:${item.content_hash || ""}`,
+        item,
+      ]));
+      document.querySelectorAll("tr[data-notification-key]").forEach((row) => {
+        const record = byKey.get(row.dataset.notificationKey);
+        const ownerCell = row.querySelector("[data-owner-cell]");
+        const noticeCell = row.querySelector("[data-notice-cell]");
+        if (!record || !ownerCell || !noticeCell) return;
+        const owners = Array.isArray(record.owners) ? record.owners : [];
+        ownerCell.replaceChildren();
+        noticeCell.replaceChildren();
+        if (!owners.length) {
+          const owner = document.createElement("strong");
+          owner.textContent = "未匹配负责人";
+          ownerCell.append(owner, document.createElement("br"), muted("当次通知规则无匹配"));
+          const badge = document.createElement("span");
+          badge.className = "badge notice-unsent";
+          badge.textContent = "未通知";
+          noticeCell.append(badge, document.createElement("br"), muted("未匹配通知人"));
+          return;
+        }
+        const ownerList = document.createElement("div");
+        ownerList.className = "notification-owner-list";
+        owners.forEach((item) => {
+          const line = document.createElement("div");
+          line.textContent = item.display_name || "未命名同事";
+          ownerList.appendChild(line);
+        });
+        ownerCell.append(ownerList, muted("当次通知规则快照"));
+        const deliveryList = document.createElement("div");
+        deliveryList.className = "notification-delivery-list";
+        owners.forEach((item) => {
+          const line = document.createElement("div");
+          line.className = "notification-delivery-line";
+          const meta = statusMeta[item.notification_status] || ["未通知", "notice-unsent"];
+          const badge = document.createElement("span");
+          badge.className = `badge ${meta[1]}`;
+          badge.textContent = meta[0];
+          const time = formatBeijing(item.notified_at);
+          line.append(badge, muted(`${item.display_name || "未命名同事"}${time ? ` · ${time}` : ""}`));
+          deliveryList.appendChild(line);
+        });
+        noticeCell.appendChild(deliveryList);
+      });
+    })
+    .catch(() => {
+      // Keep the explicit "snapshot pending" placeholder.  A missing public
+      // snapshot must never be presented as a successful notification.
+    });
+})();
+</script>
+
+</body>
+</html>

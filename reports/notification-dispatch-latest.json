@@ -4,7 +4,7 @@
   "report_date": "2026-08-28",
   "report_url": "https://leo-liz.github.io/platform-policy-report/reports/latest.html",
   "taxonomy_version": "2026-08-22",
-  "generated_at": "2026-08-29T01:16:04+08:00",
+  "generated_at": "2026-08-29T01:20:17+08:00",
   "ai": {
     "provider": "codex_builtin_postprocess",
     "model": "current_codex_thread",
