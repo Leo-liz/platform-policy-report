@@ -1,10 +1,32 @@
 {
-  "latest_run_id": "20260827-010317",
-  "latest_run_date": "2026-08-27",
-  "latest_report_date": "2026-08-26",
-  "target_date": "2026-08-26",
+  "latest_run_id": "20260829-010438",
+  "latest_run_date": "2026-08-29",
+  "latest_report_date": "2026-08-28",
+  "target_date": "2026-08-28",
   "latest_path": "latest.html",
   "runs": [
+    {
+      "run_id": "20260829-010438",
+      "run_date": "2026-08-29",
+      "report_date": "2026-08-28",
+      "target_date": "2026-08-28",
+      "path": "html_report_20260828.html",
+      "source_kind": "codex_ai",
+      "ai_provider": "codex_builtin_postprocess",
+      "ai_model": "current_codex_thread",
+      "ai_generated_count": 13
+    },
+    {
+      "run_id": "20260828-010406",
+      "run_date": "2026-08-28",
+      "report_date": "2026-08-27",
+      "target_date": "2026-08-27",
+      "path": "html_report_20260827.html",
+      "source_kind": "codex_ai",
+      "ai_provider": "codex_builtin_postprocess",
+      "ai_model": "current_codex_thread",
+      "ai_generated_count": 14
+    },
     {
       "run_id": "20260827-010317",
       "run_date": "2026-08-27",
