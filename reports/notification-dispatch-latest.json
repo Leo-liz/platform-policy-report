@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "run_id": "20260830-010409",
-  "report_date": "2026-08-29",
+  "run_id": "20260831-011131",
+  "report_date": "2026-08-30",
   "report_url": "https://leo-liz.github.io/platform-policy-report/reports/latest.html",
   "taxonomy_version": "2026-08-22",
-  "generated_at": "2026-08-30T01:13:03+08:00",
+  "generated_at": "2026-08-31T01:21:22+08:00",
   "ai": {
     "provider": "codex_builtin_postprocess",
     "model": "current_codex_thread",
@@ -13,30 +13,17 @@
   },
   "events": [
     {
-      "event_id": "shopee_open_platform_announcements-79d08bcccafe::detail-1",
-      "content_hash": "c5efe309f03549b9c58ef583cb9a45cda6761b699089e533a49cf8183515659e",
-      "platform_code": "shopee",
-      "platform_label": "Shopee",
-      "primary_tag_code": "account_permission",
-      "primary_tag_label": "账号/权限",
-      "status": "actionable_today",
-      "ai_summary_zh": "Shopee 于 2026-08-29 更新巴西新开发者指南，集中说明应用类别决定 API 和权限范围，平台不会为现有应用单独开放 API 或新增权限，能力变化可能需要创建其他类别的新应用。指南还重申敏感数据访问依赖开发者自行配置 IP Whitelist，并提示第三方合作伙伴和独立开发者的 Customer Service App 新申请已于 2024-11-18 关闭。巴西集成团队应依据官方文档、API Reference 和 Announcements 核对权限与安全配置。",
-      "recommended_action": "核对现有应用类别是否覆盖所需 API，并按敏感数据指南自行检查 IP Whitelist；若能力不匹配，依据官方说明评估新建正确类别应用，而不要依赖人工增加权限。",
-      "official_date": "2026-08-29",
-      "change_url": "https://open.shopee.com/announcements/1548?category=55&is_top=false"
-    },
-    {
-      "event_id": "shopee_open_platform_announcements-79d08bcccafe::detail-2",
-      "content_hash": "8f8d1524a5a00e11bdcbc535759b3b386febaa4dadc3ae6366c5b0d4a59c2f6b",
-      "platform_code": "shopee",
-      "platform_label": "Shopee",
-      "primary_tag_code": "logistics_fulfillment",
-      "primary_tag_label": "物流/履约",
-      "status": "actionable_today",
-      "ai_summary_zh": "Shopee 于 2026-08-29 更新巴西 Seller Logistics SPI App 的创建和上线流程：开发者可在控制台直接创建应用，并在 Go Live 时配置接收运费报价请求的 HTTPS Live Host URL 与单一 Logistics Channel。创建阶段不再要求 Test Redirect URL Domain，上线阶段移除 IP Address Whitelist 和 Other IT Assets Declaration；应用获批 Online 后，卖家授权变为永久授权。技术审核预计约 10 个工作日，Seller Logistics 集成需据此调整上线准备。",
-      "recommended_action": "按新流程在控制台核对应用类别，准备可接收 Shopee 运费报价调用的 HTTPS 生产端点并选择正确物流渠道，同时为约 10 个工作日的技术审核预留上线时间。",
-      "official_date": "2026-08-29",
-      "change_url": "https://open.shopee.com/announcements/1522?category=55&is_top=false"
+      "event_id": "tiktok_shop_changelog-66252976ad4f::detail-1",
+      "content_hash": "a6bf090d4fc34000f04371d8ec07328b309cbde32bfcd02311c6ef8fa8bc52d3",
+      "platform_code": "tiktok_shop",
+      "platform_label": "TikTok Shop",
+      "primary_tag_code": "compliance_policy",
+      "primary_tag_label": "合规/政策",
+      "status": "actionable_late_discovery",
+      "ai_summary_zh": "TikTok Shop 于 2026-08-28 公告欧盟市场 7 项商品属性与类目更新：4 项涉及玩具/母婴、电子电器、可追溯性及 GARAN 保证字段，3 项为新类目开放。GARAN 字段需在 2026-09-27 前完成并自 9 月 28 日执行，其余列明属性需在 2026-09-30 前补齐并自 10 月 1 日执行。变更会影响卖家与 ISV 的刊登、编辑、批量导入和 API 提交校验，同时需刷新已开放类目。",
+      "recommended_action": "使用 GET Attributes 与 GET Categories 刷新字段和类目：最迟 2026-09-27 完成 GARAN 字段适配，9 月 30 日前完成其余必填属性，并在刊登、编辑、批量导入与 API 提交前校验。",
+      "official_date": "2026-08-28",
+      "change_url": "https://partner.tiktokshop.com/docv2/page/4t418mt7"
     }
   ]
 }
