@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "run_id": "20260831-011131",
-  "report_date": "2026-08-30",
+  "run_id": "20260901-010232",
+  "report_date": "2026-08-31",
   "report_url": "https://leo-liz.github.io/platform-policy-report/reports/latest.html",
   "taxonomy_version": "2026-08-22",
-  "generated_at": "2026-08-31T01:21:22+08:00",
+  "generated_at": "2026-09-01T01:12:46+08:00",
   "ai": {
     "provider": "codex_builtin_postprocess",
     "model": "current_codex_thread",
@@ -13,17 +13,56 @@
   },
   "events": [
     {
-      "event_id": "tiktok_shop_changelog-66252976ad4f::detail-1",
-      "content_hash": "a6bf090d4fc34000f04371d8ec07328b309cbde32bfcd02311c6ef8fa8bc52d3",
+      "event_id": "mercadolibre_global_selling_docs-90580da01b2e::detail-1",
+      "content_hash": "44d853c45ba0ce029ea18c602d6797786d998752cf8430923ec29e67133bc905",
+      "platform_code": "mercadolibre",
+      "platform_label": "Mercado Libre",
+      "primary_tag_code": "listing_product",
+      "primary_tag_label": "刊登/商品",
+      "status": "actionable_today",
+      "ai_summary_zh": "Mercado Libre 于 2026-08-31 更新 Listing types and exposures 文档，明确 free、gold_special 和 gold_pro 的曝光、费用与数量差异，且可用类型会随目的市场变化。其中 MLA 已弃用 gold_pro 并要求分期能力改用 campaign_tags；free 每个用户最多 10 个活跃刊登，其余两类不限数量。该规则影响跨市场商品刊登类型选择、曝光和费用计算，对接方不应假定各站点类型一致。",
+      "recommended_action": "刊登前按目的站点调用 listing_types 和 available_listing_types 查询，根据 remaining_listings 校验 free 额度，并将 MLA 分期能力从 gold_pro 假设调整为 campaign_tags。",
+      "official_date": "2026-08-31",
+      "change_url": "https://global-selling.mercadolibre.com/devsite/listing-types-and-exposures"
+    },
+    {
+      "event_id": "tiktok_shop_changelog-6f3f426993d9::detail-1",
+      "content_hash": "4e916beec74e137e9fd3f197f23b36d2679d72ed25516c6e214ab2068154d6f0",
       "platform_code": "tiktok_shop",
       "platform_label": "TikTok Shop",
-      "primary_tag_code": "compliance_policy",
-      "primary_tag_label": "合规/政策",
-      "status": "actionable_late_discovery",
-      "ai_summary_zh": "TikTok Shop 于 2026-08-28 公告欧盟市场 7 项商品属性与类目更新：4 项涉及玩具/母婴、电子电器、可追溯性及 GARAN 保证字段，3 项为新类目开放。GARAN 字段需在 2026-09-27 前完成并自 9 月 28 日执行，其余列明属性需在 2026-09-30 前补齐并自 10 月 1 日执行。变更会影响卖家与 ISV 的刊登、编辑、批量导入和 API 提交校验，同时需刷新已开放类目。",
-      "recommended_action": "使用 GET Attributes 与 GET Categories 刷新字段和类目：最迟 2026-09-27 完成 GARAN 字段适配，9 月 30 日前完成其余必填属性，并在刊登、编辑、批量导入与 API 提交前校验。",
-      "official_date": "2026-08-28",
-      "change_url": "https://partner.tiktokshop.com/docv2/page/4t418mt7"
+      "primary_tag_code": "api_technical",
+      "primary_tag_label": "API/技术",
+      "status": "actionable_today",
+      "ai_summary_zh": "TikTok Shop 于 2026-08-31 为 Get Product API v202309 新增 audit.not_submitted_reasons 字符串数组，仅在 audit.status=NONE 且店铺不满足刊登前置条件时返回原因，其他情况返回空数组。已列原因包括未绑定付款账户、店铺未激活以及美国店铺未配置 W-8，可用于诊断商品为何未提交审核。这是增量响应变更，但严格反序列化、穷举枚举或只接受单一原因的集成会受影响。",
+      "recommended_action": "将 audit.not_submitted_reasons 按可扩展字符串数组加入响应模型，仅在 audit.status=NONE 时用于诊断前置条件，同时允许多值、空数组和未知未来值，上线前在 API Testing Tool 中回归严格解析逻辑。",
+      "official_date": "2026-08-31",
+      "change_url": "https://partner.tiktokshop.com/docv2/page/q50o39n1"
+    },
+    {
+      "event_id": "shopify_developer_changelog-1ceeef8f9b62::detail-1",
+      "content_hash": "33e4e8f28b6b3de6a0b0582d9e06529adad2586094a7d08ddbec3bd92509c3eb",
+      "platform_code": "shopify",
+      "platform_label": "Shopify",
+      "primary_tag_code": "api_technical",
+      "primary_tag_label": "API/技术",
+      "status": "actionable_today",
+      "ai_summary_zh": "Shopify 于 2026-08-31 发布 Polaris CDN 1.1 候选版，新增 EmptyState 和 Number 组件，并为 Heading、Paragraph、Text、DatePicker 和 Page 增加属性。候选版同时修复多项交互与可访问性问题，其中 overlay 的 show/hide 等事件不再冒泡，依赖父层事件的应用可能需要调整。fontVariantNumeric 尚可使用但已建议迁移到 Number，影响从 Shopify CDN 加载 Polaris Web Components 的前端开发与测试。",
+      "recommended_action": "在开发与测试环境切换到 polaris-1.1-rc.js 回归现有页面，重点检查 overlay 事件监听是否需改到组件自身或 on* 属性，并逐步以 Number 替代 fontVariantNumeric。",
+      "official_date": "2026-08-31",
+      "change_url": "https://shopify.dev/changelog/polaris-cdn-1-1-release-candidate"
+    },
+    {
+      "event_id": "shopify_developer_changelog-1ceeef8f9b62::detail-2",
+      "content_hash": "c40fba28c409f9145596aff8b624f5a2d25a57b5f0dddb0856bedd24ec6c8fc1",
+      "platform_code": "shopify",
+      "platform_label": "Shopify",
+      "primary_tag_code": "api_technical",
+      "primary_tag_label": "API/技术",
+      "status": "actionable_today",
+      "ai_summary_zh": "Shopify 于 2026-08-31 宣布 Polaris CDN 改用语义化版本：主版本可包含破坏性 API 或行为变更，次版本只提供兼容的组件、修复及性能改进。稳定主版本通道如 polaris-1.js 会自动获得兼容更新但不会跨主版本，固定到具体版本则不再获得常规功能和修复。现有应用无需立即处理，但新规则影响第三方应用的 CDN 版本选择、发布测试以及 @shopify/polaris-types 主版本对齐。",
+      "recommended_action": "默认使用 polaris-1.js 等稳定主版本通道获得兼容更新，只在需要锁定生产复现时固定具体版本；采用新主版本前使用候选版回归，并保持 @shopify/polaris-types 主版本一致。",
+      "official_date": "2026-08-31",
+      "change_url": "https://shopify.dev/changelog/the-polaris-cdn-is-adopting-semantic-versioning"
     }
   ]
 }
