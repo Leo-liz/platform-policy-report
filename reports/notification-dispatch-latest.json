@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "run_id": "20260901-010232",
-  "report_date": "2026-08-31",
+  "run_id": "20260902-010105",
+  "report_date": "2026-09-01",
   "report_url": "https://leo-liz.github.io/platform-policy-report/reports/latest.html",
   "taxonomy_version": "2026-08-22",
-  "generated_at": "2026-09-01T01:12:46+08:00",
+  "generated_at": "2026-09-02T01:11:23+08:00",
   "ai": {
     "provider": "codex_builtin_postprocess",
     "model": "current_codex_thread",
@@ -13,56 +13,56 @@
   },
   "events": [
     {
-      "event_id": "mercadolibre_global_selling_docs-90580da01b2e::detail-1",
-      "content_hash": "44d853c45ba0ce029ea18c602d6797786d998752cf8430923ec29e67133bc905",
+      "event_id": "shopee_open_platform_announcements-9f17efee8962::detail-1",
+      "content_hash": "4c2f96ee4b1156e1f7ecca1683dd40db28fc177b540e66cebfbb81c613006122",
+      "platform_code": "shopee",
+      "platform_label": "Shopee",
+      "primary_tag_code": "order",
+      "primary_tag_label": "订单",
+      "status": "actionable_today",
+      "ai_summary_zh": "Shopee 于 2026-09-01 公布 Open API 订单部分取消功能，计划自 2026-09-28 起允许符合条件的卖家按商品、模型和数量取消缺货项，其余商品继续履约，且仅适用于 Out of Stock 原因。v2.order.get_order_detail 和 get_package_detail 新增完整/部分取消资格、买家偏好与各类数量字段，cancel_order 新增 partial_cancel_item_list，并新增 get_estimate_cancel_value 预估取消金额接口。这会影响订单解析、缺货处理、取消金额展示和履约状态同步，巴西目前仅 Turbo 渠道可用。",
+      "recommended_action": "在 2026-09-28 前更新 get_order_detail 和 get_package_detail 响应模型，使用新资格、买家偏好和数量字段判断流程；只对 OOS 构建 partial_cancel_item_list，并在执行前调用 get_estimate_cancel_value 核对预估金额。",
+      "official_date": "2026-09-01",
+      "change_url": "https://open.shopee.com/announcements/1547?category=55&is_top=false"
+    },
+    {
+      "event_id": "mercadolibre_global_selling_docs-d827d6a73960::detail-2",
+      "content_hash": "df4ae902862a15d21de5446b3f793368c02180d98ed7200343273356ceb69819",
       "platform_code": "mercadolibre",
       "platform_label": "Mercado Libre",
       "primary_tag_code": "listing_product",
       "primary_tag_label": "刊登/商品",
       "status": "actionable_today",
-      "ai_summary_zh": "Mercado Libre 于 2026-08-31 更新 Listing types and exposures 文档，明确 free、gold_special 和 gold_pro 的曝光、费用与数量差异，且可用类型会随目的市场变化。其中 MLA 已弃用 gold_pro 并要求分期能力改用 campaign_tags；free 每个用户最多 10 个活跃刊登，其余两类不限数量。该规则影响跨市场商品刊登类型选择、曝光和费用计算，对接方不应假定各站点类型一致。",
-      "recommended_action": "刊登前按目的站点调用 listing_types 和 available_listing_types 查询，根据 remaining_listings 校验 free 额度，并将 MLA 分期能力从 gold_pro 假设调整为 campaign_tags。",
-      "official_date": "2026-08-31",
-      "change_url": "https://global-selling.mercadolibre.com/devsite/listing-types-and-exposures"
+      "ai_summary_zh": "Mercado Libre 于 2026-09-01 更新 Price per Variation 文档，说明 User Products 模型下每个变体都是独立 UP Siteless，可分别配置价格、刊登类型和配送，同一商品家族通过 family_id 统一管理。商品属性、图片和标题在 UP Siteless 层管理，价格、库存与物流等销售条件在 item 层管理；可用卖家需具备 user_product_seller 标签。该模型改变了变体刊登、站点定价、库存和家族分组的数据结构，继续发送 variations 数组会报错。",
+      "recommended_action": "先通过 users API 确认 user_product_seller 标签，然后为每个变体分别创建 UP Siteless 并使用一致 family_name 和分组属性；不再发送 variations 数组，并分层校验 UP 商品信息、item 销售条件与中心库存。",
+      "official_date": "2026-09-01",
+      "change_url": "https://global-selling.mercadolibre.com/devsite/price-per-variation-cbt"
     },
     {
-      "event_id": "tiktok_shop_changelog-6f3f426993d9::detail-1",
-      "content_hash": "4e916beec74e137e9fd3f197f23b36d2679d72ed25516c6e214ab2068154d6f0",
+      "event_id": "wildberries_release_notes-c116389d168c::detail-1",
+      "content_hash": "dca45d514c0034eead2e6531b2bfe066d73d00dfd734fc3f9171014bcab69ca0",
+      "platform_code": "wildberries",
+      "platform_label": "Wildberries",
+      "primary_tag_code": "logistics_fulfillment",
+      "primary_tag_label": "物流/履约",
+      "status": "actionable_today",
+      "ai_summary_zh": "Wildberries 宣布俄罗斯卖家自 2026-09-01 起可通过新增的 FBS API 查询发货地点并设置供货发货方式，运输公司配送还需要电子运单 ID。自 2026-10-01 起，发货参数和电子运单 ID 将成为必填项，缺失时 deliver 接口会返回 409，无法将供货转入配送。waybill 接口尚在开发中，因此该变更影响 FBS 供货创建、运输方式选择和正式交付流程。",
+      "recommended_action": "立即接入 shipping-points 查询和 shipping-method 设置，为运输公司流程预留 waybill ID 字段并跟踪该接口可用通知；在 2026-10-01 前对 deliver 前置数据做必填校验和 409 错误回归。",
+      "official_date": "2026-09-01",
+      "change_url": "https://t.me/wb_api_notifications/461"
+    },
+    {
+      "event_id": "tiktok_shop_changelog-ac6603b3b2d8::detail-1",
+      "content_hash": "d2115f669f07efb7bf37c63d601c95aec1fbcbaff4b20465f18406bc87269159",
       "platform_code": "tiktok_shop",
       "platform_label": "TikTok Shop",
-      "primary_tag_code": "api_technical",
-      "primary_tag_label": "API/技术",
+      "primary_tag_code": "compliance_policy",
+      "primary_tag_label": "合规/政策",
       "status": "actionable_today",
-      "ai_summary_zh": "TikTok Shop 于 2026-08-31 为 Get Product API v202309 新增 audit.not_submitted_reasons 字符串数组，仅在 audit.status=NONE 且店铺不满足刊登前置条件时返回原因，其他情况返回空数组。已列原因包括未绑定付款账户、店铺未激活以及美国店铺未配置 W-8，可用于诊断商品为何未提交审核。这是增量响应变更，但严格反序列化、穷举枚举或只接受单一原因的集成会受影响。",
-      "recommended_action": "将 audit.not_submitted_reasons 按可扩展字符串数组加入响应模型，仅在 audit.status=NONE 时用于诊断前置条件，同时允许多值、空数组和未知未来值，上线前在 API Testing Tool 中回归严格解析逻辑。",
-      "official_date": "2026-08-31",
-      "change_url": "https://partner.tiktokshop.com/docv2/page/q50o39n1"
-    },
-    {
-      "event_id": "shopify_developer_changelog-1ceeef8f9b62::detail-1",
-      "content_hash": "33e4e8f28b6b3de6a0b0582d9e06529adad2586094a7d08ddbec3bd92509c3eb",
-      "platform_code": "shopify",
-      "platform_label": "Shopify",
-      "primary_tag_code": "api_technical",
-      "primary_tag_label": "API/技术",
-      "status": "actionable_today",
-      "ai_summary_zh": "Shopify 于 2026-08-31 发布 Polaris CDN 1.1 候选版，新增 EmptyState 和 Number 组件，并为 Heading、Paragraph、Text、DatePicker 和 Page 增加属性。候选版同时修复多项交互与可访问性问题，其中 overlay 的 show/hide 等事件不再冒泡，依赖父层事件的应用可能需要调整。fontVariantNumeric 尚可使用但已建议迁移到 Number，影响从 Shopify CDN 加载 Polaris Web Components 的前端开发与测试。",
-      "recommended_action": "在开发与测试环境切换到 polaris-1.1-rc.js 回归现有页面，重点检查 overlay 事件监听是否需改到组件自身或 on* 属性，并逐步以 Number 替代 fontVariantNumeric。",
-      "official_date": "2026-08-31",
-      "change_url": "https://shopify.dev/changelog/polaris-cdn-1-1-release-candidate"
-    },
-    {
-      "event_id": "shopify_developer_changelog-1ceeef8f9b62::detail-2",
-      "content_hash": "c40fba28c409f9145596aff8b624f5a2d25a57b5f0dddb0856bedd24ec6c8fc1",
-      "platform_code": "shopify",
-      "platform_label": "Shopify",
-      "primary_tag_code": "api_technical",
-      "primary_tag_label": "API/技术",
-      "status": "actionable_today",
-      "ai_summary_zh": "Shopify 于 2026-08-31 宣布 Polaris CDN 改用语义化版本：主版本可包含破坏性 API 或行为变更，次版本只提供兼容的组件、修复及性能改进。稳定主版本通道如 polaris-1.js 会自动获得兼容更新但不会跨主版本，固定到具体版本则不再获得常规功能和修复。现有应用无需立即处理，但新规则影响第三方应用的 CDN 版本选择、发布测试以及 @shopify/polaris-types 主版本对齐。",
-      "recommended_action": "默认使用 polaris-1.js 等稳定主版本通道获得兼容更新，只在需要锁定生产复现时固定具体版本；采用新主版本前使用候选版回归，并保持 @shopify/polaris-types 主版本一致。",
-      "official_date": "2026-08-31",
-      "change_url": "https://shopify.dev/changelog/the-polaris-cdn-is-adopting-semantic-versioning"
+      "ai_summary_zh": "TikTok Shop 公告称，自 2026-11-01 起，从欧盟外直发欧盟消费者的 GSPOP 商品海关申报信息必须包含有效 PID，卖家至少要提供 Seller SKU（NS-PID）或 Product Identifier（S-PID）之一。Seller SKU 只能使用字母数字且长度为 6–50 位，Product Identifier 应采用 GTIN、JAN、EAN、UPC 或 ISBN 等可用标准标识。新商品从 2026-09-01 起应在刊登前满足规则，存量商品需在 10 月底前完成修复，否则可能出现刊登校验、海关申报或清关失败。",
+      "recommended_action": "立即扫描欧盟直发商品，保证 Seller SKU 或 Product Identifier 至少一项有效；对 Seller SKU 强制 6–50 位字母数字校验，有标准编码时优先填写 S-PID，并在 2026-10-31 前完成存量数据修复和同步回归。",
+      "official_date": "2026-09-01",
+      "change_url": "https://partner.tiktokshop.com/docv2/page/2ixd0cad"
     }
   ]
 }
