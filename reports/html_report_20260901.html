@@ -423,8 +423,8 @@
 <div class="metric"><span>变更</span><strong>0</strong></div>
 <div class="metric"><span>失败</span><strong>1</strong></div>
 <div class="metric"><span>待决策</span><strong>0</strong></div>
-<div class="metric"><span>高影响</span><strong>5</strong></div>
-<div class="metric"><span>AI 降级</span><strong>2</strong></div>
+<div class="metric"><span>高影响</span><strong>4</strong></div>
+<div class="metric"><span>AI 降级</span><strong>1</strong></div>
 <div class="metric"><span>负责人待确认</span><strong>6</strong></div></div>
   <div class="scope-line"><strong>平台范围:</strong> eBay / Amazon SP-API / AliExpress / Shopee / Lazada / Mercado Libre / Temu / Ozon（Telegram 官方频道） / Wildberries（Telegram 官方频道） / TikTok Shop / Shopify / Walmart</div>
 </section>
@@ -710,18 +710,18 @@
 </tr>
 
 
-<tr>
-  <td><span class="badge impact-unknown">待确认</span></td>
+<tr data-notification-key="mercadolibre_global_selling_docs-d827d6a73960::detail-1:220899ef11e87a3866a68f85f10ee69d95c62b090be8c7d35c11c1682e9c93fe">
+  <td><span class="badge impact-unknown">中</span></td>
   <td><span class="badge status-actionable-today">需要处理</span></td>
   <td>2026-08-31</td>
   <td><div class="source-jump"><strong>Mercado Libre</strong><span>Mercado Libre Global Selling Docs</span><span class="muted">Receive notifications</span><div class="link-row"><a href="https://global-selling.mercadolibre.com/devsite/receive-notifications" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
-  <td class="tag-cell"><span class="tag-primary">其他/待确认</span><div class="tag-list"><span class="tag-secondary">其他/待确认</span></div></td>
+  <td class="tag-cell"><span class="tag-primary">API/技术</span><div class="tag-list"><span class="tag-secondary">Webhook/通知机制</span> <span class="tag-secondary">认证/权限变更</span> <span class="tag-secondary">文档/SDK/示例更新</span></div></td>
   <td>未写明</td>
-  <td><span class="badge ai-degraded">AI 未配置</span><br><span class="ai-text">AI 未配置，未生成中文摘要；已抓取官方详情正文，请负责人查看详情来源和快照确认影响。</span><br><span class="muted">待确认</span></td>
-  <td><span class="muted">待确认</span></td>
-  <td>待 AI 配置/需人工确认</td>
-  <td data-owner-cell><strong>待确认负责人</strong><br><span class="muted">待正文摘要与标签确认</span></td>
-  <td data-notice-cell><span class="badge notice-unsent">未通知</span></td>
+  <td><span class="ai-text">Mercado Libre 于 2026-08-31 更新 Receive notifications 文档，重申应用应通过通知实时接收商品、问题、订单、付款与发货等 API 资源变化，避免持续轮询。开发者需要在应用管理器配置可公开访问并接收 HTTP POST 的 Callback URL，再选择订阅主题，且通知时间统一使用 UTC。依赖这些资源状态的系统应检查回调可达性、订阅主题覆盖及 UTC 时间解析；正文未写明强制迁移截止日期。</span><details class="ai-evidence"><summary>摘要依据</summary><ul><li>Receiving notifications enables you to have a real-time feed of the changes that occur on the different resources of our API.</li><li>Specifies the public URL where the system will send notifications via HTTP POST. This URL must be accessible and configured to receive data from the selected topics.</li><li>Notifications have UTC time zone.</li></ul></details></td>
+  <td><span class="muted">Mercado Libre Global Selling 通知回调、资源状态同步与时间处理团队</span></td>
+  <td>在应用管理器核对 Callback URL 可从公网接收 HTTP POST，复查已订阅主题是否覆盖所需资源，并对 UTC 通知时间的解析、存储和幂等处理执行回归验证。</td>
+  <td data-owner-cell><strong>通知规则快照生成中</strong><br><span class="muted">仅展示同事姓名</span></td>
+  <td data-notice-cell><span class="badge notice-pending">待确认</span><br><span class="muted">等待真实送达结果</span></td>
 </tr>
 
 
