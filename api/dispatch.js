@@ -83,6 +83,12 @@ export function buildDeferredDeliveryUpdates(recipient, status, notifiedAt) {
   }));
 }
 
+export function dispatchReason(currentEventCount, dueDeferredCount) {
+  return Number(currentEventCount || 0) === 0 && Number(dueDeferredCount || 0) === 0
+    ? "no_notifiable_events"
+    : "";
+}
+
 async function queueMissingRevisionEvents(sql, payload, recipient, dispatchId) {
   const deliveredRows = await sql`
     SELECT event_id, content_hash
@@ -297,6 +303,7 @@ export default async function handler(req, res) {
       accepted: true,
       run_id: payload.run_id,
       report_date: payload.report_date,
+      reason: dispatchReason(payload.events.length, dueRows.length) || undefined,
       matched_recipients: routed.length,
       results,
       public_snapshot: publicSnapshot,

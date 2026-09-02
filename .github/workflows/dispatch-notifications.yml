@@ -65,10 +65,13 @@ jobs:
           from pathlib import Path
 
           result = json.loads(Path("dispatch-result.json").read_text(encoding="utf-8"))
+          payload = json.loads(Path("reports/notification-dispatch-latest.json").read_text(encoding="utf-8"))
           assert result.get("accepted") is True, "dispatch API did not accept the validated payload"
           rows = result.get("results") or []
           matched = int(result.get("matched_recipients") or 0)
           assert rows or matched == 0, "matched recipients were omitted from the dispatch result"
+          if not payload.get("events") and matched == 0:
+              assert result.get("reason") == "no_notifiable_events", "empty current and deferred work was not classified explicitly"
           statuses = Counter(str(row.get("status") or "missing") for row in rows)
           allowed = {"delivered", "already_dispatched"}
           assert set(statuses).issubset(allowed), f"delivery not verified: {dict(statuses)}"

@@ -46,4 +46,5 @@ test("cloud relay always calls dispatch so a zero-event report can drain deferre
   assert.doesNotMatch(workflow, /Confirm no notification is required/);
   assert.doesNotMatch(workflow, /if: steps\.payload\.outputs\.event_count != '0'/);
   assert.match(workflow, /Merge immutable public owner and delivery snapshots/);
+  assert.match(workflow, /no_notifiable_events/);
 });

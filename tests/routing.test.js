@@ -10,6 +10,7 @@ import {
 } from "../lib/routing.js";
 import {
   buildDeferredDeliveryUpdates,
+  dispatchReason,
   mergeDeferredRecipients,
   missingEventsForDeferredQueue,
 } from "../api/dispatch.js";
@@ -165,4 +166,10 @@ test("due deferred events are merged even when the new report has no current mat
     notified_at: "2026-09-03T01:05:00+08:00",
   }]);
   assert.doesNotMatch(JSON.stringify(updates), /private-r1|private-user-id|recipient_id|dingtalk_user_id/);
+});
+
+test("only an empty current payload and empty deferred queue is no-notification work", () => {
+  assert.equal(dispatchReason(0, 0), "no_notifiable_events");
+  assert.equal(dispatchReason(0, 1), "");
+  assert.equal(dispatchReason(1, 0), "");
 });
