@@ -8,6 +8,11 @@ import {
   ruleMatches,
   validateDispatchPayload,
 } from "../lib/routing.js";
+import {
+  buildDeferredDeliveryUpdates,
+  mergeDeferredRecipients,
+  missingEventsForDeferredQueue,
+} from "../api/dispatch.js";
 
 const catalog = {
   taxonomy_version: "v1",
@@ -127,4 +132,37 @@ test("public report snapshot exposes display names and exact delivery facts only
   assert.equal(snapshot.events[1].owners[0].notification_status, "deferred");
   const serialized = JSON.stringify(snapshot);
   assert.doesNotMatch(serialized, /private-r1|private-user-id|recipient_id|dingtalk_user_id/);
+});
+
+test("same-day report revision queues only events absent from the delivered dispatch", () => {
+  const first = event("temu", "api_technical", 1);
+  const delayed = event("temu", "api_technical", 2);
+  assert.deepEqual(
+    missingEventsForDeferredQueue([first, delayed], [{ event_id: first.event_id, content_hash: first.content_hash }]),
+    [delayed],
+  );
+});
+
+test("due deferred events are merged even when the new report has no current matches", () => {
+  const delayed = event("temu", "api_technical", 2);
+  const merged = mergeDeferredRecipients([], [{
+    recipient_id: "private-r1",
+    display_name: "测试同事",
+    dingtalk_user_id: "private-user-id",
+    source_report_date: "2026-09-01",
+    event_json: delayed,
+  }]);
+  assert.equal(merged.length, 1);
+  assert.deepEqual(merged[0].events, [delayed]);
+  assert.equal(merged[0].deferred_items.length, 1);
+  const updates = buildDeferredDeliveryUpdates(merged[0], "delivered", "2026-09-03T01:05:00+08:00");
+  assert.deepEqual(updates, [{
+    report_date: "2026-09-01",
+    event_id: delayed.event_id,
+    content_hash: delayed.content_hash,
+    display_name: "测试同事",
+    notification_status: "delivered",
+    notified_at: "2026-09-03T01:05:00+08:00",
+  }]);
+  assert.doesNotMatch(JSON.stringify(updates), /private-r1|private-user-id|recipient_id|dingtalk_user_id/);
 });

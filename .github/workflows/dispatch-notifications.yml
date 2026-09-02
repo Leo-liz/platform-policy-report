@@ -48,12 +48,7 @@ jobs:
           print(json.dumps({"ok": True, "run_id": payload["run_id"], "event_count": len(events)}))
           PY
 
-      - name: Confirm no notification is required
-        if: steps.payload.outputs.event_count == '0'
-        run: echo '{"ok":true,"reason":"no_notifiable_events"}'
-
       - name: Dispatch through Vercel routing API
-        if: steps.payload.outputs.event_count != '0'
         run: |
           test -n "$NOTIFICATION_DISPATCH_TOKEN"
           curl --fail --silent --show-error --location --max-time 60 \
@@ -63,7 +58,6 @@ jobs:
             "$DISPATCH_URL" -o dispatch-result.json
 
       - name: Verify aggregate delivery result
-        if: steps.payload.outputs.event_count != '0'
         run: |
           python - <<'PY'
           import json
@@ -81,7 +75,7 @@ jobs:
           print(json.dumps({"ok": True, "recipient_count": len(rows), "statuses": dict(statuses)}))
           PY
 
-      - name: Save immutable public owner and delivery snapshot
+      - name: Merge immutable public owner and delivery snapshots
         run: |
           python - <<'PY'
           import json
@@ -89,35 +83,74 @@ jobs:
           from pathlib import Path
 
           payload = json.loads(Path("reports/notification-dispatch-latest.json").read_text(encoding="utf-8"))
-          if payload.get("events"):
-              result = json.loads(Path("dispatch-result.json").read_text(encoding="utf-8"))
-              snapshot = result.get("public_snapshot")
-              assert isinstance(snapshot, dict), "dispatch API omitted public_snapshot"
-          else:
-              snapshot = {
-                  "schema_version": 1,
-                  "run_id": payload["run_id"],
-                  "report_date": payload["report_date"],
-                  "generated_at": payload.get("generated_at", ""),
-                  "source": "verified_dingtalk_dispatch_snapshot",
-                  "events": [],
-              }
+          result = json.loads(Path("dispatch-result.json").read_text(encoding="utf-8"))
+          snapshot = result.get("public_snapshot")
+          assert isinstance(snapshot, dict), "dispatch API omitted public_snapshot"
           assert snapshot.get("run_id") == payload.get("run_id"), "snapshot run_id mismatch"
           assert snapshot.get("report_date") == payload.get("report_date"), "snapshot report_date mismatch"
           assert isinstance(snapshot.get("events"), list), "snapshot events must be an array"
-          serialized = json.dumps(snapshot, ensure_ascii=False).lower()
-          for forbidden in ("userid", "user_id", "recipient_id", "dingtalk_user_id", "task_id", "appsecret"):
-              assert forbidden not in serialized, f"private identity leaked into snapshot: {forbidden}"
-          target = Path(f"reports/notification-snapshot-{payload['report_date']}.json")
-          if target.exists():
-              print(json.dumps({"preserved": str(target), "reason": "immutable_snapshot_exists"}))
-              with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
-                  output.write("changed=false\n")
-          else:
-              target.write_text(json.dumps(snapshot, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-              print(json.dumps({"created": str(target), "event_count": len(snapshot["events"])}, ensure_ascii=False))
-              with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
-                  output.write("changed=true\n")
+
+          def event_key(event):
+              return (str(event.get("event_id") or ""), str(event.get("content_hash") or ""))
+
+          def merge_owners(existing, incoming):
+              owners = {str(item.get("display_name") or ""): item for item in existing or []}
+              for owner in incoming or []:
+                  name = str(owner.get("display_name") or "")
+                  prior = owners.get(name)
+                  if prior and prior.get("notification_status") == "delivered":
+                      continue
+                  owners[name] = owner
+              return [owners[name] for name in sorted(owners)]
+
+          def merge_snapshot(target, incoming):
+              if target.exists():
+                  merged = json.loads(target.read_text(encoding="utf-8"))
+                  assert merged.get("report_date") == incoming.get("report_date"), "existing snapshot report_date mismatch"
+              else:
+                  merged = {**incoming, "events": []}
+              events = {event_key(item): item for item in merged.get("events") or []}
+              for item in incoming.get("events") or []:
+                  key = event_key(item)
+                  if key in events:
+                      events[key]["owners"] = merge_owners(events[key].get("owners"), item.get("owners"))
+                  else:
+                      events[key] = item
+              merged["events"] = list(events.values())
+              return merged
+
+          changed_targets = set()
+          current_target = Path(f"reports/notification-snapshot-{payload['report_date']}.json")
+          current_before = current_target.read_text(encoding="utf-8") if current_target.exists() else ""
+          current = merge_snapshot(current_target, snapshot)
+          current_after = json.dumps(current, ensure_ascii=False, indent=2) + "\n"
+          if current_after != current_before:
+              current_target.write_text(current_after, encoding="utf-8")
+              changed_targets.add(current_target)
+
+          for update in result.get("deferred_delivery_updates") or []:
+              target = Path(f"reports/notification-snapshot-{update['report_date']}.json")
+              assert target.exists(), f"deferred source snapshot is missing: {target}"
+              stored = json.loads(target.read_text(encoding="utf-8"))
+              events = {event_key(item): item for item in stored.get("events") or []}
+              key = (str(update.get("event_id") or ""), str(update.get("content_hash") or ""))
+              item = events.setdefault(key, {"event_id": key[0], "content_hash": key[1], "owners": []})
+              item["owners"] = merge_owners(item.get("owners"), [{
+                  "display_name": update.get("display_name", ""),
+                  "notification_status": update.get("notification_status", "delivered"),
+                  "notified_at": update.get("notified_at", ""),
+              }])
+              stored["events"] = list(events.values())
+              target.write_text(json.dumps(stored, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+              changed_targets.add(target)
+
+          for target in changed_targets:
+              serialized = target.read_text(encoding="utf-8").lower()
+              for forbidden in ("userid", "user_id", "recipient_id", "dingtalk_user_id", "task_id", "appsecret"):
+                  assert forbidden not in serialized, f"private identity leaked into snapshot: {forbidden}"
+          print(json.dumps({"changed": [str(path) for path in sorted(changed_targets)]}, ensure_ascii=False))
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
+              output.write(f"changed={'true' if changed_targets else 'false'}\n")
         id: public_snapshot
 
       - name: Publish owner and delivery snapshot

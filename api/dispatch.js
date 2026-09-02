@@ -21,6 +21,104 @@ function sanitizedFailure(error) {
   return { type, message };
 }
 
+function eventKey(event) {
+  return `${String(event?.event_id || "")}:${String(event?.content_hash || "")}`;
+}
+
+function parsedEventJson(value) {
+  const event = typeof value === "string" ? JSON.parse(value) : value;
+  if (!event || typeof event !== "object" || Array.isArray(event) || !event.event_id || !event.content_hash) {
+    throw new Error("deferred notification event is invalid");
+  }
+  return event;
+}
+
+export function missingEventsForDeferredQueue(events, deliveredRows) {
+  const delivered = new Set((deliveredRows || []).map(eventKey));
+  return (events || []).filter((event) => !delivered.has(eventKey(event)));
+}
+
+export function mergeDeferredRecipients(routedRecipients, dueRows) {
+  const recipients = new Map();
+  for (const recipient of routedRecipients || []) {
+    recipients.set(recipient.recipient_id, {
+      ...recipient,
+      events: new Map((recipient.events || []).map((event) => [eventKey(event), event])),
+      deferred_items: [...(recipient.deferred_items || [])],
+    });
+  }
+  for (const row of dueRows || []) {
+    const event = parsedEventJson(row.event_json);
+    if (!recipients.has(row.recipient_id)) {
+      recipients.set(row.recipient_id, {
+        recipient_id: row.recipient_id,
+        display_name: row.display_name,
+        dingtalk_user_id: row.dingtalk_user_id,
+        events: new Map(),
+        deferred_items: [],
+      });
+    }
+    const recipient = recipients.get(row.recipient_id);
+    recipient.events.set(eventKey(event), event);
+    recipient.deferred_items.push({
+      source_report_date: String(row.source_report_date || ""),
+      event_id: event.event_id,
+      content_hash: event.content_hash,
+    });
+  }
+  return [...recipients.values()]
+    .map((recipient) => ({ ...recipient, events: [...recipient.events.values()] }))
+    .filter((recipient) => recipient.events.length > 0);
+}
+
+export function buildDeferredDeliveryUpdates(recipient, status, notifiedAt) {
+  if (status !== "delivered") return [];
+  return (recipient.deferred_items || []).map((item) => ({
+    report_date: item.source_report_date,
+    event_id: item.event_id,
+    content_hash: item.content_hash,
+    display_name: String(recipient.display_name || "").trim(),
+    notification_status: "delivered",
+    notified_at: notifiedAt,
+  }));
+}
+
+async function queueMissingRevisionEvents(sql, payload, recipient, dispatchId) {
+  const deliveredRows = await sql`
+    SELECT event_id, content_hash
+    FROM notification_delivery_items
+    WHERE dispatch_id = ${dispatchId}
+  `;
+  const missing = missingEventsForDeferredQueue(recipient.events, deliveredRows);
+  let queued = 0;
+  for (const event of missing) {
+    const inserted = await sql`
+      INSERT INTO notification_deferred_items
+        (recipient_id, event_id, content_hash, source_report_date, available_report_date, event_json)
+      VALUES
+        (${recipient.recipient_id}, ${event.event_id}, ${event.content_hash}, ${payload.report_date},
+         ${payload.report_date}::date + INTERVAL '1 day', ${JSON.stringify(event)}::jsonb)
+      ON CONFLICT (recipient_id, event_id, content_hash) DO NOTHING
+      RETURNING event_id
+    `;
+    queued += inserted.length;
+  }
+  return queued;
+}
+
+async function markDeferredDelivered(sql, recipient, dispatchId) {
+  for (const item of recipient.deferred_items || []) {
+    await sql`
+      UPDATE notification_deferred_items
+      SET delivered_dispatch_id = ${dispatchId}, updated_at = now()
+      WHERE recipient_id = ${recipient.recipient_id}
+        AND event_id = ${item.event_id}
+        AND content_hash = ${item.content_hash}
+        AND delivered_dispatch_id IS NULL
+    `;
+  }
+}
+
 async function insertDispatch(sql, payload, recipient) {
   const id = crypto.randomUUID();
   const hash = payloadHash({
@@ -99,14 +197,35 @@ export default async function handler(req, res) {
       JOIN notification_recipients AS recipient ON recipient.id = rule.recipient_id
       WHERE rule.enabled = true AND recipient.enabled = true
     `;
-    const routed = routeEvents(payload.events, rows);
+    const currentlyRouted = routeEvents(payload.events, rows);
+    const dueRows = await sql`
+      SELECT deferred.recipient_id,
+             deferred.source_report_date::text AS source_report_date,
+             deferred.event_json,
+             recipient.display_name,
+             recipient.dingtalk_user_id
+      FROM notification_deferred_items AS deferred
+      JOIN notification_recipients AS recipient ON recipient.id = deferred.recipient_id
+      WHERE deferred.delivered_dispatch_id IS NULL
+        AND deferred.available_report_date <= ${payload.report_date}
+        AND recipient.enabled = true
+      ORDER BY deferred.created_at, deferred.event_id
+    `;
+    const routed = mergeDeferredRecipients(currentlyRouted, dueRows);
     const results = [];
+    const deferredDeliveryUpdates = [];
     for (const recipient of routed) {
       const claim = await insertDispatch(sql, payload, recipient);
       if (!claim.claimed) {
         const existing = claim.existing || {};
         if (existing.status === "delivered") {
-          results.push({ recipient_id: recipient.recipient_id, status: "already_dispatched", task_id: existing.task_id || "" });
+          const deferredEventCount = await queueMissingRevisionEvents(sql, payload, recipient, existing.id);
+          results.push({
+            recipient_id: recipient.recipient_id,
+            status: "already_dispatched",
+            task_id: existing.task_id || "",
+            deferred_event_count: deferredEventCount,
+          });
           continue;
         }
         if (["accepted", "pending"].includes(existing.status) && existing.task_id) {
@@ -117,6 +236,12 @@ export default async function handler(req, res) {
                 response_json = ${JSON.stringify(delivery.poll || {})}::jsonb, updated_at = now()
             WHERE id = ${existing.id}
           `;
+          if (delivery.status === "delivered") {
+            const notifiedAt = new Date().toISOString();
+            await markDeferredDelivered(sql, recipient, existing.id);
+            deferredDeliveryUpdates.push(...buildDeferredDeliveryUpdates(recipient, delivery.status, notifiedAt));
+            await queueMissingRevisionEvents(sql, payload, recipient, existing.id);
+          }
           results.push({
             recipient_id: recipient.recipient_id,
             status: delivery.status,
@@ -144,6 +269,11 @@ export default async function handler(req, res) {
               response_json = ${JSON.stringify(delivery.poll || delivery.response || {})}::jsonb, updated_at = now()
           WHERE id = ${claim.id}
         `;
+        if (status === "delivered") {
+          const notifiedAt = new Date().toISOString();
+          await markDeferredDelivered(sql, recipient, claim.id);
+          deferredDeliveryUpdates.push(...buildDeferredDeliveryUpdates(recipient, status, notifiedAt));
+        }
         results.push({ recipient_id: recipient.recipient_id, status, task_id: delivery.task_id || "", event_count: recipient.events.length });
       } catch (error) {
         const failure = sanitizedFailure(error);
@@ -170,6 +300,7 @@ export default async function handler(req, res) {
       matched_recipients: routed.length,
       results,
       public_snapshot: publicSnapshot,
+      deferred_delivery_updates: deferredDeliveryUpdates,
     });
   } catch (error) {
     const failure = sanitizedFailure(error);
