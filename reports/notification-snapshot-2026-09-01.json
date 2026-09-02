@@ -149,34 +149,34 @@
       "content_hash": "220899ef11e87a3866a68f85f10ee69d95c62b090be8c7d35c11c1682e9c93fe",
       "owners": [
         {
-          "display_name": "曾春文",
-          "notification_status": "deferred",
-          "notified_at": ""
-        },
-        {
-          "display_name": "连雄山",
-          "notification_status": "deferred",
-          "notified_at": ""
-        },
-        {
-          "display_name": "林哲",
-          "notification_status": "deferred",
-          "notified_at": ""
-        },
-        {
           "display_name": "刘攀",
-          "notification_status": "deferred",
-          "notified_at": ""
-        },
-        {
-          "display_name": "肖成富",
-          "notification_status": "deferred",
-          "notified_at": ""
+          "notification_status": "delivered",
+          "notified_at": "2026-09-02T17:17:24.207Z"
         },
         {
           "display_name": "张蕾",
-          "notification_status": "deferred",
-          "notified_at": ""
+          "notification_status": "delivered",
+          "notified_at": "2026-09-02T17:17:15.828Z"
+        },
+        {
+          "display_name": "曾春文",
+          "notification_status": "delivered",
+          "notified_at": "2026-09-02T17:17:29.824Z"
+        },
+        {
+          "display_name": "林哲",
+          "notification_status": "delivered",
+          "notified_at": "2026-09-02T17:17:18.609Z"
+        },
+        {
+          "display_name": "肖成富",
+          "notification_status": "delivered",
+          "notified_at": "2026-09-02T17:17:26.993Z"
+        },
+        {
+          "display_name": "连雄山",
+          "notification_status": "delivered",
+          "notified_at": "2026-09-02T17:17:21.375Z"
         }
       ]
     }
