@@ -4,7 +4,7 @@
   "report_date": "2026-09-01",
   "report_url": "https://leo-liz.github.io/platform-policy-report/reports/latest.html",
   "taxonomy_version": "2026-08-22",
-  "generated_at": "2026-09-02T01:11:23+08:00",
+  "generated_at": "2026-09-02T10:21:27+08:00",
   "ai": {
     "provider": "codex_builtin_postprocess",
     "model": "current_codex_thread",
@@ -24,6 +24,19 @@
       "recommended_action": "在 2026-09-28 前更新 get_order_detail 和 get_package_detail 响应模型，使用新资格、买家偏好和数量字段判断流程；只对 OOS 构建 partial_cancel_item_list，并在执行前调用 get_estimate_cancel_value 核对预估金额。",
       "official_date": "2026-09-01",
       "change_url": "https://open.shopee.com/announcements/1547?category=55&is_top=false"
+    },
+    {
+      "event_id": "mercadolibre_global_selling_docs-d827d6a73960::detail-1",
+      "content_hash": "220899ef11e87a3866a68f85f10ee69d95c62b090be8c7d35c11c1682e9c93fe",
+      "platform_code": "mercadolibre",
+      "platform_label": "Mercado Libre",
+      "primary_tag_code": "api_technical",
+      "primary_tag_label": "API/技术",
+      "status": "actionable_today",
+      "ai_summary_zh": "Mercado Libre 于 2026-08-31 更新 Receive notifications 文档，重申应用应通过通知实时接收商品、问题、订单、付款与发货等 API 资源变化，避免持续轮询。开发者需要在应用管理器配置可公开访问并接收 HTTP POST 的 Callback URL，再选择订阅主题，且通知时间统一使用 UTC。依赖这些资源状态的系统应检查回调可达性、订阅主题覆盖及 UTC 时间解析；正文未写明强制迁移截止日期。",
+      "recommended_action": "在应用管理器核对 Callback URL 可从公网接收 HTTP POST，复查已订阅主题是否覆盖所需资源，并对 UTC 通知时间的解析、存储和幂等处理执行回归验证。",
+      "official_date": "2026-08-31",
+      "change_url": "https://global-selling.mercadolibre.com/devsite/receive-notifications"
     },
     {
       "event_id": "mercadolibre_global_selling_docs-d827d6a73960::detail-2",
