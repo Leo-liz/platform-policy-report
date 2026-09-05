@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "run_id": "20260906-010102",
+  "report_date": "2026-09-05",
+  "generated_at": "2026-09-05T17:10:13.286Z",
+  "source": "verified_dingtalk_dispatch_snapshot",
+  "events": [
+    {
+      "event_id": "tiktok_shop_changelog-0045261b49cb::detail-1",
+      "content_hash": "aec4f5b72acd8145f6b6ad18dad89b9c33730a5ac17b140c92674c2f8f6ac8fc",
+      "owners": [
+        {
+          "display_name": "曾春文",
+          "notification_status": "delivered",
+          "notified_at": "Sat Sep 05 2026 17:10:13 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "连雄山",
+          "notification_status": "delivered",
+          "notified_at": "Sat Sep 05 2026 17:10:02 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "廖庆磊",
+          "notification_status": "delivered",
+          "notified_at": "Sat Sep 05 2026 17:10:10 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "林哲",
+          "notification_status": "delivered",
+          "notified_at": "Sat Sep 05 2026 17:09:59 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "刘攀",
+          "notification_status": "delivered",
+          "notified_at": "Sat Sep 05 2026 17:10:05 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "张蕾",
+          "notification_status": "delivered",
+          "notified_at": "Sat Sep 05 2026 17:09:57 GMT+0000 (Coordinated Universal Time)"
+        }
+      ]
+    },
+    {
+      "event_id": "tiktok_shop_changelog-0045261b49cb::detail-2",
+      "content_hash": "4731abd7c3498740d668ef289250a7e5adf5a8670814dc2564f2d9f3c63f9e0b",
+      "owners": [
+        {
+          "display_name": "曾春文",
+          "notification_status": "delivered",
+          "notified_at": "Sat Sep 05 2026 17:10:13 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "连雄山",
+          "notification_status": "delivered",
+          "notified_at": "Sat Sep 05 2026 17:10:02 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "廖庆磊",
+          "notification_status": "delivered",
+          "notified_at": "Sat Sep 05 2026 17:10:10 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "林哲",
+          "notification_status": "delivered",
+          "notified_at": "Sat Sep 05 2026 17:09:59 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "刘攀",
+          "notification_status": "delivered",
+          "notified_at": "Sat Sep 05 2026 17:10:05 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "张蕾",
+          "notification_status": "delivered",
+          "notified_at": "Sat Sep 05 2026 17:09:57 GMT+0000 (Coordinated Universal Time)"
+        }
+      ]
+    },
+    {
+      "event_id": "walmart_marketplace_whats_new-288bb315820e::detail-1",
+      "content_hash": "7ac0546e11c734b16a023cb6717b06ed6f7f393e28e3f775eda895f664c770d0",
+      "owners": [
+        {
+          "display_name": "曾春文",
+          "notification_status": "delivered",
+          "notified_at": "Sat Sep 05 2026 17:10:13 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "连雄山",
+          "notification_status": "delivered",
+          "notified_at": "Sat Sep 05 2026 17:10:02 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "林哲",
+          "notification_status": "delivered",
+          "notified_at": "Sat Sep 05 2026 17:09:59 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "刘攀",
+          "notification_status": "delivered",
+          "notified_at": "Sat Sep 05 2026 17:10:05 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "肖成富",
+          "notification_status": "delivered",
+          "notified_at": "Sat Sep 05 2026 17:10:07 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "张蕾",
+          "notification_status": "delivered",
+          "notified_at": "Sat Sep 05 2026 17:09:57 GMT+0000 (Coordinated Universal Time)"
+        }
+      ]
+    }
+  ]
+}
