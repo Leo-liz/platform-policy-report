@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "run_id": "20260913-010056",
-  "report_date": "2026-09-12",
+  "run_id": "20260914-010117",
+  "report_date": "2026-09-13",
   "report_url": "https://leo-liz.github.io/platform-policy-report/reports/latest.html",
   "taxonomy_version": "2026-08-22",
-  "generated_at": "2026-09-13T01:11:30+08:00",
+  "generated_at": "2026-09-14T01:10:31+08:00",
   "ai": {
     "provider": "codex_builtin_postprocess",
     "model": "current_codex_thread",
@@ -24,19 +24,6 @@
       "recommended_action": "按应用类别核对现有接口权限，缺能力时新建对应类别应用而不是申请加权限；不再向开放平台申请聊天接口，卖家侧走客户经理；按文档自行配置 IP 白名单后再访问敏感数据。",
       "official_date": "2026-09-13",
       "change_url": "https://open.shopee.com/announcements/1558?category=55&is_top=false"
-    },
-    {
-      "event_id": "walmart_marketplace_whats_new-3f987c7ac86d::detail-1",
-      "content_hash": "801289e4278e362affd7eae223cd07ef180167b5cbcdd339f956285a90a2e1d0",
-      "platform_code": "walmart",
-      "platform_label": "Walmart",
-      "primary_tag_code": "api_technical",
-      "primary_tag_label": "API/技术",
-      "status": "actionable_late_discovery",
-      "ai_summary_zh": "Walmart 变更日志再次被抓取为晚发现更新，最新一版仍标注为 2026-09-10 发布。价格管理 PUT /v3/price 与促销 GET /v3/promo/sku/{sku} 增加可选请求头 WM_SANDBOX。同页仍保留 9 月 3 日发布的价格接口破坏性响应变更。沙箱头为增量字段，现有生产调用可继续不传。",
-      "recommended_action": "若调用沙箱环境，为 PUT /v3/price 和 GET /v3/promo/sku/{sku} 增加可选头 WM_SANDBOX；生产调用可保持不变。",
-      "official_date": "2026-09-10",
-      "change_url": "https://developer.walmart.com/us-marketplace/changelog"
     }
   ]
 }
