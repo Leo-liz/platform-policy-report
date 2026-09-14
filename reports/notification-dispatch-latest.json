@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "run_id": "20260914-010117",
-  "report_date": "2026-09-13",
+  "run_id": "20260915-010214",
+  "report_date": "2026-09-14",
   "report_url": "https://leo-liz.github.io/platform-policy-report/reports/latest.html",
   "taxonomy_version": "2026-08-22",
-  "generated_at": "2026-09-14T01:10:31+08:00",
+  "generated_at": "2026-09-15T01:12:28+08:00",
   "ai": {
     "provider": "codex_builtin_postprocess",
     "model": "current_codex_thread",
@@ -13,17 +13,82 @@
   },
   "events": [
     {
-      "event_id": "shopee_open_platform_announcements-7be72d73ff90::detail-1",
-      "content_hash": "be810a59a9fc8348f16d2024d73ae49de1c03ca747d8125cd55b5ea27c1ed40e",
+      "event_id": "shopee_open_platform_announcements-f339fc7f51c8::detail-1",
+      "content_hash": "29e0851be070007e723be4713d6e66f5073854009084fe9c0f13e8727887195f",
       "platform_code": "shopee",
       "platform_label": "Shopee",
-      "primary_tag_code": "account_permission",
-      "primary_tag_label": "账号/权限",
+      "primary_tag_code": "compliance_policy",
+      "primary_tag_label": "合规/政策",
       "status": "actionable_today",
-      "ai_summary_zh": "Shopee 巴西站于 2026-09-13 发布新开发者指南，强调资料审核通过后必须完整遵循官方文档，应用创建时选择的类别决定全部权限与可调用接口。平台不会为已有应用单独开放接口或追加权限，需要不同能力时只能新建另一类别的应用。客服聊天接口自 2024-11-18 起不再接受独立第三方和新第三方合作伙伴申请；敏感数据需开发者自行配置 IP 白名单，买家信息在部分订单状态下会脱敏且不会人工放开。",
-      "recommended_action": "按应用类别核对现有接口权限，缺能力时新建对应类别应用而不是申请加权限；不再向开放平台申请聊天接口，卖家侧走客户经理；按文档自行配置 IP 白名单后再访问敏感数据。",
+      "ai_summary_zh": "Shopee 于 2026-09-14 公告，从 2026-09-21 起将受影响类目的“ANVISA 注册、流程或通知代码”设为必填属性。卖家必须填写对应代码，否则向 Shopee 提交商品刊登时会报错。开放平台集成方需通过 get_attribute_tree 查询指定类目的属性值和 ID，并按公告所列类目范围更新映射与校验。",
+      "recommended_action": "在 2026-09-21 前按公告类目清单映射 ANVISA 必填属性，调用 get_attribute_tree 获取可用值与 ID，并在发品前校验卖家已填写对应代码。",
+      "official_date": "2026-09-14",
+      "change_url": "https://open.shopee.com/announcements/1560?category=55&is_top=false"
+    },
+    {
+      "event_id": "temu_partner_docs-19e084174a65::detail-1",
+      "content_hash": "8ca2926c47370e7dd171412b4d8a428082a95d34538c9bca0ada2667891d748f",
+      "platform_code": "temu",
+      "platform_label": "Temu",
+      "primary_tag_code": "logistics_fulfillment",
+      "primary_tag_label": "物流/履约",
+      "status": "actionable_late_discovery",
+      "ai_summary_zh": "Temu 的 bg.logistics.shipment.create 文档最后更新于 2026-09-13，本次作为延迟发现详情纳入。该接口用于创建在线物流订单并获取包裹号，sendType 区分整单单包、整单拆包和多订单合包；shipLater 可仅创建包裹与追踪号并延后标记发货。带 Y2_advance_sale 标签的订单购买面单时必须设置 shipLater=true，延后时限也按订单标签采用不同可选范围。",
+      "recommended_action": "按订单拆合场景设置 sendType；对 Y2_advance_sale 订单强制传 shipLater=true，并分别校验普通订单与预售订单允许的 shipLaterLimitTime。",
       "official_date": "2026-09-13",
-      "change_url": "https://open.shopee.com/announcements/1558?category=55&is_top=false"
+      "change_url": "https://partner-us.temu.com/documentation?menu_code=fb16b05f7a904765aac4af3a24b87d4a&sub_menu_code=1eadab72ed8041318604b163dd75cdac"
+    },
+    {
+      "event_id": "temu_partner_docs-19e084174a65::detail-2",
+      "content_hash": "de89387c26b100ce0aecc868637729e0a959622a1d9e0677dbaf6bb0f26a8ecc",
+      "platform_code": "temu",
+      "platform_label": "Temu",
+      "primary_tag_code": "logistics_fulfillment",
+      "primary_tag_label": "物流/履约",
+      "status": "actionable_late_discovery",
+      "ai_summary_zh": "Temu 的 bg.logistics.shipment.update 文档最后更新于 2026-09-13，本次作为延迟发现详情纳入。该接口用于稍后创建物流订单，或在在线下单失败后重新下单。shipLaterLimitTime 只能修改由 shipment.create 以 shipLater=true 创建的订单，普通订单允许 24 至 120 小时，Y2_advance_sale 订单允许 144 至 360 小时的指定档位。",
+      "recommended_action": "只对最初以 shipLater=true 创建的订单更新 shipLaterLimitTime，并按是否带 Y2_advance_sale 标签限制可选时限；同时处理重新下单失败的错误返回。",
+      "official_date": "2026-09-13",
+      "change_url": "https://partner-us.temu.com/documentation?menu_code=fb16b05f7a904765aac4af3a24b87d4a&sub_menu_code=43a8da366d5847b9a7faf13915ce57d6"
+    },
+    {
+      "event_id": "temu_partner_docs-19e084174a65::detail-3",
+      "content_hash": "876f5345fc5f62832670eac5b09856ee83a6143cc9804ff4070fe684aa3a87b2",
+      "platform_code": "temu",
+      "platform_label": "Temu",
+      "primary_tag_code": "logistics_fulfillment",
+      "primary_tag_label": "物流/履约",
+      "status": "actionable_late_discovery",
+      "ai_summary_zh": "Temu 的 bg.logistics.shippingservices.get 文档最后更新于 2026-09-13，本次作为延迟发现详情纳入。该接口根据仓库、订单、包裹尺寸和重量返回可用承运商，warehouseId、重量、重量单位及长宽高为关键入参。美国本地包裹重量以 lb 与 oz 拆分、尺寸用 in，其他国家重量用 kg、尺寸用 cm，单位处理不一致会影响渠道可用性判断。",
+      "recommended_action": "调用前校验 warehouseId、重量及完整长宽高；美国本地订单按 lb、oz 和 in 传值，其他国家按 kg 和 cm 传值，并回归不可用渠道返回。",
+      "official_date": "2026-09-13",
+      "change_url": "https://partner-us.temu.com/documentation?menu_code=fb16b05f7a904765aac4af3a24b87d4a&sub_menu_code=18c1c2de89184d4e93a0f958da7bfc88"
+    },
+    {
+      "event_id": "temu_partner_docs-19e084174a65::detail-4",
+      "content_hash": "03484aa6074939ecb61b0c7473d5199109ad945d3133dfd187f5a2d5016699e5",
+      "platform_code": "temu",
+      "platform_label": "Temu",
+      "primary_tag_code": "logistics_fulfillment",
+      "primary_tag_label": "物流/履约",
+      "status": "actionable_late_discovery",
+      "ai_summary_zh": "Temu 的 bg.logistics.shipped.package.confirm 文档当前标注最后更新于 2026-02-08，本次因显式 newly_discovered 标记作为延迟发现详情纳入。该接口把已通过 Temu 集成渠道履约成功但尚未转为 shipped 的包裹批量确认发货；若未手工转换，平台会在 48 小时内自动转换。请求必须提供 packageSendInfoList，合作仓订单等受限场景会被拒绝。",
+      "recommended_action": "仅对已由 Temu 集成渠道履约成功但尚未标记 shipped 的包裹提交 packageSendInfoList，并处理合作仓禁止手工确认、包裹取消及追踪号不匹配等错误。",
+      "official_date": "2026-02-08",
+      "change_url": "https://partner-us.temu.com/documentation?menu_code=fb16b05f7a904765aac4af3a24b87d4a&sub_menu_code=aa4f29c85bfe460a8666bb92025a1743"
+    },
+    {
+      "event_id": "ozon_seller_api_news-fd2859617cd6::detail-1",
+      "content_hash": "18689c0fbe28187c03a5d91ba08f92c58bfca0c551a294db3615c55f69451ca7",
+      "platform_code": "ozon",
+      "platform_label": "Ozon",
+      "primary_tag_code": "listing_product",
+      "primary_tag_label": "刊登/商品",
+      "status": "actionable_today",
+      "ai_summary_zh": "Ozon 公告自 2026-09-14 起，在类目 43433892“建筑磁铁”中，属性 9165“吸附力”改为必填。Seller API 发布或更新该类目商品时若缺少该属性，将不再满足类目字段要求。该变化影响商品模型、属性映射与刊登校验。",
+      "recommended_action": "立即在类目 43433892 的商品模型和发品校验中加入必填属性 9165，并补齐存量建筑磁铁商品的吸附力数据后再提交更新。",
+      "official_date": "2026-09-14",
+      "change_url": "https://t.me/OzonSellerAPI/695"
     }
   ]
 }
