@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "run_id": "20260920-010056",
-  "report_date": "2026-09-19",
+  "run_id": "20260921-010058",
+  "report_date": "2026-09-20",
   "report_url": "https://leo-liz.github.io/platform-policy-report/reports/latest.html",
   "taxonomy_version": "2026-08-22",
-  "generated_at": "2026-09-20T01:08:47+08:00",
+  "generated_at": "2026-09-21T01:08:41+08:00",
   "ai": {
     "provider": "codex_builtin_postprocess",
     "model": "current_codex_thread",
@@ -13,30 +13,43 @@
   },
   "events": [
     {
-      "event_id": "shopee_open_platform_announcements-54e433bb4d8b::detail-1",
-      "content_hash": "c5deefeb376fd030710450aee308aa6288bc0fd37cbad5a4ec351a612c394a08",
-      "platform_code": "shopee",
-      "platform_label": "Shopee",
-      "primary_tag_code": "account_permission",
-      "primary_tag_label": "账号/权限",
+      "event_id": "aliexpress_open_announcements-851bf829ce77::detail-1",
+      "content_hash": "ff18b2e806086a5cc932464d05ea4c7f36c726f03138dc878fe6cbfd34bb2b60",
+      "platform_code": "aliexpress",
+      "platform_label": "AliExpress",
+      "primary_tag_code": "compliance_policy",
+      "primary_tag_label": "合规/政策",
       "status": "actionable_today",
-      "ai_summary_zh": "虾皮巴西站于 2026-09-19 再次发布新开发者指南，资料审核通过后必须完整遵循官方文档，应用创建时选择的类别决定全部权限与可调用接口。平台不会为已有应用单独开放接口或追加权限，需要不同能力时只能新建另一类别的应用。客服聊天接口自 2024-11-18 起不再接受独立第三方和新第三方合作伙伴申请；敏感数据需开发者自行配置地址白名单，买家信息在部分订单状态下会脱敏且不会人工放开。",
-      "recommended_action": "按应用类别核对现有接口权限，缺能力时新建对应类别应用而不是申请加权限；不再向开放平台申请聊天接口，卖家侧走客户经理；按文档自行配置地址白名单后再访问敏感数据。",
-      "official_date": "2026-09-19",
-      "change_url": "https://open.shopee.com/announcements/1563?category=55&is_top=false"
+      "ai_summary_zh": "速卖通开放平台于 2026-09-20 再次发布消费者订单敏感信息保护 4.0 技术手册，覆盖跨境 POP。交易接口先上线“下四发四”订单标识，随后加密规则生效；不按解密规则处理就直接发货，会用加密数据创物流单并被拦截。本次正文把下四发四标识取值写成数字 1；下四发四、仓发、已完结和未付款订单仍不支持解密。",
+      "recommended_action": "按手册核对交易详情中的下四发四标识，兼容标识值为 1 的判断；加密规则生效前完成解密与创单分流，下四发四订单改用平台地址标识创单。",
+      "official_date": "2026-09-20",
+      "change_url": "https://open.aliexpress.com/announcement/index.htm#/announcement/detail?id=10193&entitle=%E4%BE%9D%E6%B3%95%E5%8A%A0%E5%BC%BA%E6%B6%88%E8%B4%B9%E8%80%85%E8%AE%A2%E5%8D%95%E4%B8%AD%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF%E4%BF%9D%E6%8A%A44.0-ISV%E6%8A%80%E6%9C%AF%E6%89%8B%E5%86%8C&queryid=129&cntitle=%E4%BE%9D%E6%B3%95%E5%8A%A0%E5%BC%BA%E6%B6%88%E8%B4%B9%E8%80%85%E8%AE%A2%E5%8D%95%E4%B8%AD%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF%E4%BF%9D%E6%8A%A44.0-ISV%E6%8A%80%E6%9C%AF%E6%89%8B%E5%86%8C"
     },
     {
-      "event_id": "walmart_marketplace_whats_new-d5803f6c04ce::detail-1",
-      "content_hash": "e987c428893d340b4836470847cbc5f29a494f7a53fa68a615fa9c210b74501b",
-      "platform_code": "walmart",
-      "platform_label": "Walmart",
-      "primary_tag_code": "api_technical",
-      "primary_tag_label": "API/技术",
-      "status": "actionable_late_discovery",
-      "ai_summary_zh": "沃尔玛开发者变更日志被作为延迟发现再次抓取，最新条目仍是 2026-09-17 发布。按需报表接口从报表类型参数中移除了两个车型匹配相关枚举，属于破坏性变更，条目日期写的是 2026-09-15。页面相对时间文案从上次的约 19 小时前变成 2 天前，这会改变页面哈希，不代表又出了新的接口。",
-      "recommended_action": "检查报表申请和调度请求是否仍传已移除的车型匹配枚举；若有，立刻改成仍支持的报表类型并回归拉取。",
-      "official_date": "2026-09-17",
-      "change_url": "https://developer.walmart.com/us-marketplace/changelog"
+      "event_id": "aliexpress_open_announcements-851bf829ce77::detail-6",
+      "content_hash": "204029fe8afe616dc2df4e4af66e09502b83c725b716c946ce3ff89691775e54",
+      "platform_code": "aliexpress",
+      "platform_label": "AliExpress",
+      "primary_tag_code": "listing_product",
+      "primary_tag_label": "刊登/商品",
+      "status": "actionable_today",
+      "ai_summary_zh": "速卖通独立批发店技术手册页面日期仍为 2026-08-19，本次因列表哈希变化再次入选。升级为批发店后只能发布批发商品，且必须设置批发阶梯价才能上架；不完成阶梯价适配就无法发品。账号查询接口新增是否批发店字段，多个发品与查询接口新增阶梯价字段。",
+      "recommended_action": "发品前先查是否批发店；若是批发店，发品和改品必须带批发阶梯价，并回归未设阶梯价时是否被拦截。",
+      "official_date": "2026-08-19",
+      "change_url": "https://open.aliexpress.com/announcement/index.htm#/announcement/detail?id=9209&entitle=%E5%B0%8FB%E4%B8%9A%E5%8A%A1%E9%A1%B9%E7%9B%AE-ISV%E6%8A%80%E6%9C%AF%E6%89%8B%E5%86%8C&queryid=129&cntitle=%E5%B0%8FB%E4%B8%9A%E5%8A%A1%E9%A1%B9%E7%9B%AE-ISV%E6%8A%80%E6%9C%AF%E6%89%8B%E5%86%8C"
+    },
+    {
+      "event_id": "aliexpress_open_announcements-851bf829ce77::detail-10",
+      "content_hash": "72f6d4e09bcea020f6261814e82d86cd609fabef235f77060d1def9f76914a33",
+      "platform_code": "aliexpress",
+      "platform_label": "AliExpress",
+      "primary_tag_code": "logistics_fulfillment",
+      "primary_tag_label": "物流/履约",
+      "status": "actionable_today",
+      "ai_summary_zh": "速卖通智能运费升级手册页面日期仍为 2026-07-31，本次因列表哈希变化再次入选，范围是 POP。推荐从按单个销售属性改为按分组推荐，分组因子包括尺寸、重量、物流属性和货值。不改造会导致商家后台运费模板与发品不一致；文档同时写明可继续使用老模板或智能运费模板。",
+      "recommended_action": "核对推荐接口出参是否按销售属性分组展示，采纳时回填分组信息；发品链路同时兼容老运费模板，避免后台模板和接口结果不一致。",
+      "official_date": "2026-07-31",
+      "change_url": "https://open.aliexpress.com/announcement/index.htm#/announcement/detail?id=7385&entitle=AI%E8%BF%90%E8%B4%B9%E9%A1%B9%E7%9B%AE%E5%8D%87%E7%BA%A7-ISV%E6%8A%80%E6%9C%AF%E6%89%8B%E5%86%8C&queryid=129&cntitle=AI%E8%BF%90%E8%B4%B9%E9%A1%B9%E7%9B%AE%E5%8D%87%E7%BA%A7-ISV%E6%8A%80%E6%9C%AF%E6%89%8B%E5%86%8C"
     }
   ]
 }
