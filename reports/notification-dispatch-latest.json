@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "run_id": "20260921-010058",
-  "report_date": "2026-09-20",
+  "run_id": "20260922-010112",
+  "report_date": "2026-09-21",
   "report_url": "https://leo-liz.github.io/platform-policy-report/reports/latest.html",
   "taxonomy_version": "2026-08-22",
-  "generated_at": "2026-09-21T01:08:41+08:00",
+  "generated_at": "2026-09-22T01:10:08+08:00",
   "ai": {
     "provider": "codex_builtin_postprocess",
     "model": "current_codex_thread",
@@ -13,21 +13,34 @@
   },
   "events": [
     {
-      "event_id": "aliexpress_open_announcements-851bf829ce77::detail-1",
-      "content_hash": "ff18b2e806086a5cc932464d05ea4c7f36c726f03138dc878fe6cbfd34bb2b60",
+      "event_id": "aliexpress_open_announcements-dd3edaf1b454::detail-1",
+      "content_hash": "178840eb2a72ce456950a5d6ea6da844d47a949fb9ea41a5f665121f4ea96aaf",
       "platform_code": "aliexpress",
       "platform_label": "AliExpress",
-      "primary_tag_code": "compliance_policy",
-      "primary_tag_label": "合规/政策",
+      "primary_tag_code": "listing_product",
+      "primary_tag_label": "刊登/商品",
       "status": "actionable_today",
-      "ai_summary_zh": "速卖通开放平台于 2026-09-20 再次发布消费者订单敏感信息保护 4.0 技术手册，覆盖跨境 POP。交易接口先上线“下四发四”订单标识，随后加密规则生效；不按解密规则处理就直接发货，会用加密数据创物流单并被拦截。本次正文把下四发四标识取值写成数字 1；下四发四、仓发、已完结和未付款订单仍不支持解密。",
-      "recommended_action": "按手册核对交易详情中的下四发四标识，兼容标识值为 1 的判断；加密规则生效前完成解密与创单分流，下四发四订单改用平台地址标识创单。",
-      "official_date": "2026-09-20",
-      "change_url": "https://open.aliexpress.com/announcement/index.htm#/announcement/detail?id=10193&entitle=%E4%BE%9D%E6%B3%95%E5%8A%A0%E5%BC%BA%E6%B6%88%E8%B4%B9%E8%80%85%E8%AE%A2%E5%8D%95%E4%B8%AD%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF%E4%BF%9D%E6%8A%A44.0-ISV%E6%8A%80%E6%9C%AF%E6%89%8B%E5%86%8C&queryid=129&cntitle=%E4%BE%9D%E6%B3%95%E5%8A%A0%E5%BC%BA%E6%B6%88%E8%B4%B9%E8%80%85%E8%AE%A2%E5%8D%95%E4%B8%AD%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF%E4%BF%9D%E6%8A%A44.0-ISV%E6%8A%80%E6%9C%AF%E6%89%8B%E5%86%8C"
+      "ai_summary_zh": "速卖通于 2026-09-21 发布海外托管发品上限手册，额度改为按商家质量和成交表现分国家发放，并提供查询上限的新接口。接口计划 9 月 23 日可正式调用；不改造则无法拿到最新上限，超限提交会被拦截。旧的海托上限查询接口将在 2026-11-30 下线，非海托商家仍可继续用原逻辑。",
+      "recommended_action": "在 9 月 23 日前对接全方向和按发货国两套上限查询；发品前按额度单元展示已发、剩余数量，并在 2026-11-30 前停用旧的海托上限查询。",
+      "official_date": "2026-09-21",
+      "change_url": "https://open.aliexpress.com/announcement/index.htm#/announcement/detail?id=10645&entitle=%E6%B5%B7%E5%A4%96%E6%89%98%E7%AE%A1%E5%8F%91%E5%93%81%E4%B8%8A%E9%99%90%E9%A1%B9%E7%9B%AE-ISV%E6%8A%80%E6%9C%AF%E6%89%8B%E5%86%8C&queryid=129&cntitle=%E6%B5%B7%E5%A4%96%E6%89%98%E7%AE%A1%E5%8F%91%E5%93%81%E4%B8%8A%E9%99%90%E9%A1%B9%E7%9B%AE-ISV%E6%8A%80%E6%9C%AF%E6%89%8B%E5%86%8C"
     },
     {
-      "event_id": "aliexpress_open_announcements-851bf829ce77::detail-6",
-      "content_hash": "204029fe8afe616dc2df4e4af66e09502b83c725b716c946ce3ff89691775e54",
+      "event_id": "aliexpress_open_announcements-dd3edaf1b454::detail-2",
+      "content_hash": "564f38e2876a746c3543e83245fbf9303e0702a72fe26ca64677fd420a20d9b1",
+      "platform_code": "aliexpress",
+      "platform_label": "AliExpress",
+      "primary_tag_code": "logistics_fulfillment",
+      "primary_tag_label": "物流/履约",
+      "status": "actionable_today",
+      "ai_summary_zh": "速卖通于 2026-09-21 发布物流创单报错治理手册，覆盖跨境开放平台商家。从当天起，重复商品行、地址超长、中文品名超长和英文品名夹杂中文等创单报错会由系统自动修正后下发。已税订单在 2026-10-13 后不再采用接口传入的件数，改为取订单子单件数；超发导致关税多缴由对接方自行承担。",
+      "recommended_action": "创单后核对系统自动截断和去重规则是否与本地展示一致；已税订单在 2026-10-13 前改为按订单件数发货，不要再依赖自行传入的件数。",
+      "official_date": "2026-09-21",
+      "change_url": "https://open.aliexpress.com/announcement/index.htm#/announcement/detail?id=10646&entitle=%E7%89%A9%E6%B5%81%E5%9F%9F%E6%8A%A5%E9%94%99%E6%B2%BB%E7%90%86%E9%A1%B9%E7%9B%AE-ISV%E6%8A%80%E6%9C%AF%E6%89%8B%E5%86%8C&queryid=129&cntitle=%E7%89%A9%E6%B5%81%E5%9F%9F%E6%8A%A5%E9%94%99%E6%B2%BB%E7%90%86%E9%A1%B9%E7%9B%AE-ISV%E6%8A%80%E6%9C%AF%E6%89%8B%E5%86%8C"
+    },
+    {
+      "event_id": "aliexpress_open_announcements-dd3edaf1b454::detail-8",
+      "content_hash": "60037111c9ab3c20d658eb0d305ef388abfe7d9bfcb5f7b635ce1d217bbad640",
       "platform_code": "aliexpress",
       "platform_label": "AliExpress",
       "primary_tag_code": "listing_product",
@@ -39,17 +52,30 @@
       "change_url": "https://open.aliexpress.com/announcement/index.htm#/announcement/detail?id=9209&entitle=%E5%B0%8FB%E4%B8%9A%E5%8A%A1%E9%A1%B9%E7%9B%AE-ISV%E6%8A%80%E6%9C%AF%E6%89%8B%E5%86%8C&queryid=129&cntitle=%E5%B0%8FB%E4%B8%9A%E5%8A%A1%E9%A1%B9%E7%9B%AE-ISV%E6%8A%80%E6%9C%AF%E6%89%8B%E5%86%8C"
     },
     {
-      "event_id": "aliexpress_open_announcements-851bf829ce77::detail-10",
-      "content_hash": "72f6d4e09bcea020f6261814e82d86cd609fabef235f77060d1def9f76914a33",
-      "platform_code": "aliexpress",
-      "platform_label": "AliExpress",
-      "primary_tag_code": "logistics_fulfillment",
-      "primary_tag_label": "物流/履约",
+      "event_id": "shopify_developer_changelog-1d26233a2135::detail-1",
+      "content_hash": "46f0f526873402e93316336bd88e2c88d1e60690cb610c278e1d752c378fcae0",
+      "platform_code": "shopify",
+      "platform_label": "Shopify",
+      "primary_tag_code": "api_technical",
+      "primary_tag_label": "API/技术",
       "status": "actionable_today",
-      "ai_summary_zh": "速卖通智能运费升级手册页面日期仍为 2026-07-31，本次因列表哈希变化再次入选，范围是 POP。推荐从按单个销售属性改为按分组推荐，分组因子包括尺寸、重量、物流属性和货值。不改造会导致商家后台运费模板与发品不一致；文档同时写明可继续使用老模板或智能运费模板。",
-      "recommended_action": "核对推荐接口出参是否按销售属性分组展示，采纳时回填分组信息；发品链路同时兼容老运费模板，避免后台模板和接口结果不一致。",
-      "official_date": "2026-07-31",
-      "change_url": "https://open.aliexpress.com/announcement/index.htm#/announcement/detail?id=7385&entitle=AI%E8%BF%90%E8%B4%B9%E9%A1%B9%E7%9B%AE%E5%8D%87%E7%BA%A7-ISV%E6%8A%80%E6%9C%AF%E6%89%8B%E5%86%8C&queryid=129&cntitle=AI%E8%BF%90%E8%B4%B9%E9%A1%B9%E7%9B%AE%E5%8D%87%E7%BA%A7-ISV%E6%8A%80%E6%9C%AF%E6%89%8B%E5%86%8C"
+      "ai_summary_zh": "Shopify 管理接口 2026-10 版本为元字段对象新增是否可翻译的布尔字段，发布日期为 2026-09-21。升级后可直接在元字段上判断值能否翻译，不必再走已弃用的可翻译资源枚举。如果应用并不按店铺查询可翻译元字段，则不必改动。",
+      "recommended_action": "若会查询可翻译元字段，升级到 2026-10 后改读元字段上的可翻译标记；其他应用可保持不变。",
+      "official_date": "2026-09-21",
+      "change_url": "https://shopify.dev/changelog/is-translatable-metafield-field"
+    },
+    {
+      "event_id": "shopify_developer_changelog-1d26233a2135::detail-2",
+      "content_hash": "f467abbbf396a0b5fe23b11e5fbd49807e24142449739c6031f0a181aecb6900",
+      "platform_code": "shopify",
+      "platform_label": "Shopify",
+      "primary_tag_code": "marketing_promotion",
+      "primary_tag_label": "营销/促销",
+      "status": "actionable_today",
+      "ai_summary_zh": "Shopify 将在管理接口 2027-01 版本删除已弃用的自动折扣查询，变更日志日期为 2026-09-18。升级前必须改为用折扣节点查询并加上自动方式过滤；2026-10 及更早版本在受支持期内可继续使用旧查询。文档同时提醒不要先迁到另一套即将弃用的自动折扣节点查询。",
+      "recommended_action": "升级到 2027-01 前，把自动折扣读取改为折扣节点查询并带自动方式过滤；2026-10 及更早版本可暂不改。",
+      "official_date": "2026-09-18",
+      "change_url": "https://shopify.dev/changelog/automaticdiscounts-query-is-removed-in-api-version-2027-01"
     }
   ]
 }
