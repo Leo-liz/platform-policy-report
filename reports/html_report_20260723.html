@@ -423,9 +423,9 @@
 <div class="metric"><span>变更</span><strong>0</strong></div>
 <div class="metric"><span>失败</span><strong>3</strong></div>
 <div class="metric"><span>待决策</span><strong>0</strong></div>
-<div class="metric"><span>高影响</span><strong>5</strong></div>
-<div class="metric"><span>AI 降级</span><strong>6</strong></div>
-<div class="metric"><span>负责人待确认</span><strong>12</strong></div></div>
+<div class="metric"><span>高影响</span><strong>6</strong></div>
+<div class="metric"><span>AI 降级</span><strong>3</strong></div>
+<div class="metric"><span>负责人待确认</span><strong>10</strong></div></div>
   <div class="scope-line"><strong>平台范围:</strong> eBay / Amazon SP-API / AliExpress / Shopee / Lazada / Mercado Libre / Temu / Ozon（Telegram 官方频道） / Wildberries（Telegram 官方频道） / TikTok Shop / Shopify / Walmart</div>
 </section>
 
@@ -652,6 +652,21 @@
       <tbody>
 <tr>
   <td><span class="badge impact-unknown">高</span></td>
+  <td><span class="badge status-actionable-today">需要处理</span></td>
+  <td>2026-07-23</td>
+  <td><div class="source-jump"><strong>AliExpress</strong><span>AliExpress Open Platform Announcements</span><span class="muted">包裹属性不支持修改项目-ISV技术手册</span><div class="link-row"><a href="https://open.aliexpress.com/announcement/index.htm#/announcement/detail?id=8220&amp;entitle=%E5%8C%85%E8%A3%B9%E5%B1%9E%E6%80%A7%E4%B8%8D%E6%94%AF%E6%8C%81%E4%BF%AE%E6%94%B9%E9%A1%B9%E7%9B%AE-ISV%E6%8A%80%E6%9C%AF%E6%89%8B%E5%86%8C&amp;queryid=129&amp;cntitle=%E5%8C%85%E8%A3%B9%E5%B1%9E%E6%80%A7%E4%B8%8D%E6%94%AF%E6%8C%81%E4%BF%AE%E6%94%B9%E9%A1%B9%E7%9B%AE-ISV%E6%8A%80%E6%9C%AF%E6%89%8B%E5%86%8C" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">物流/履约</span><div class="tag-list"><span class="tag-secondary">API 接口变更</span> <span class="tag-secondary">字段/参数变更</span> <span class="tag-secondary">商品/库存规则</span> <span class="tag-secondary">订单/履约/物流</span></div></td>
+  <td>2026-07-27</td>
+  <td><span class="ai-text">AliExpress 将逐步禁止跨境 POP 商家手动修改 APL 订单的包裹物流属性，系统改为读取包裹内商品属性并按优先级自动聚合和锁定包裹属性。询盘和创建物流单接口将不再以商家传入的物流属性决定包裹属性；第一阶段仍需传递原有申报字段，后续阶段会由商品维护属性覆写。卖家工作台于 2026-07-27 上线，API 于 2026-08-04 开启，8 月中版本的明确时间尚待平台通知。</span><details class="ai-evidence"><summary>摘要依据</summary><ul><li>2.2、AE卖家工作台上线时间：2026-07-27</li><li>2.4、API上线时间（ISV可以正式调用的时间）：2026-08-04开启</li><li>TO-BE：系统直接获取入参对应所有交易子单的属性，就高聚合出对应包裹的属性，不再使用前列枚举字段进行聚合包裹APL属性； 逻辑同上。</li></ul></details></td>
+  <td><span class="muted">AliExpress 跨境 POP 商品物流属性、运费模板、询盘和物流单创建</span></td>
+  <td>核查 SKU 物流属性与运费模板线路是否一致，按普货、带电、特货、纯电和敏货优先级验证询盘及创单结果；2026-08-04 前完成接口回归，并在平台另行通知前继续传递现有申报字段。</td>
+  <td data-owner-cell><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: logistics_fulfillment</span></td>
+  <td data-notice-cell><span class="badge notice-unsent">未通知</span></td>
+</tr>
+
+
+<tr>
+  <td><span class="badge impact-unknown">高</span></td>
   <td><span class="badge status-actionable-today">需要处理</span><br><span class="muted">本日早前抓取已发现该条需要处理的变更；本次复抓内容未变，继续保留在今日需要处理区</span></td>
   <td>2026-07-23</td>
   <td><div class="source-jump"><strong>Ozon</strong><span>Ozon Seller API News（Telegram 官方频道）</span><span class="muted">22 июля 2026 /v3/posting/fbs/list: Добавили параметр filter.integration_type_flow в запрос метода. Добавили параметры re</span><div class="link-row"><a href="https://t.me/OzonSellerAPI/671" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
@@ -736,51 +751,6 @@
   <td><span class="muted">Ozon 财务计提响应说明、商品库存查询和归档商品错误处理</span></td>
   <td>复核 delivery.services 字段的最新说明，并在 /v2/products/stocks 调用中识别 PRODUCT_IS_ARCHIVED，按归档商品场景处理；不要在平台未声明结构变化时擅自迁移字段。</td>
   <td data-owner-cell><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: api_technical</span></td>
-  <td data-notice-cell><span class="badge notice-unsent">未通知</span></td>
-</tr>
-
-
-<tr>
-  <td><span class="badge impact-unknown">待确认</span></td>
-  <td><span class="badge status-actionable-today">需要处理</span></td>
-  <td>2026-07-02</td>
-  <td><div class="source-jump"><strong>AliExpress</strong><span>AliExpress Open Platform Announcements</span><span class="muted">欧盟合规资质商品域优化-技术手册</span><div class="link-row"><a href="https://open.aliexpress.com/announcement/index.htm#/announcement/detail?id=6849&amp;entitle=%E6%AC%A7%E7%9B%9F%E5%90%88%E8%A7%84%E8%B5%84%E8%B4%A8%E5%95%86%E5%93%81%E5%9F%9F%E4%BC%98%E5%8C%96-%E6%8A%80%E6%9C%AF%E6%89%8B%E5%86%8C&amp;queryid=129&amp;cntitle=%E6%AC%A7%E7%9B%9F%E5%90%88%E8%A7%84%E8%B5%84%E8%B4%A8%E5%95%86%E5%93%81%E5%9F%9F%E4%BC%98%E5%8C%96-%E6%8A%80%E6%9C%AF%E6%89%8B%E5%86%8C" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
-  <td class="tag-cell"><span class="tag-primary">其他/待确认</span><div class="tag-list"><span class="tag-secondary">其他/待确认</span></div></td>
-  <td>未写明</td>
-  <td><span class="badge ai-degraded">AI 未配置</span><br><span class="ai-text">AI 未配置，未生成中文摘要；已抓取官方详情正文，请负责人查看详情来源和快照确认影响。</span><br><span class="muted">待确认</span></td>
-  <td><span class="muted">待确认</span></td>
-  <td>待 AI 配置/需人工确认</td>
-  <td data-owner-cell><strong>待确认负责人</strong><br><span class="muted">待正文摘要与标签确认</span></td>
-  <td data-notice-cell><span class="badge notice-unsent">未通知</span></td>
-</tr>
-
-
-<tr>
-  <td><span class="badge impact-unknown">待确认</span></td>
-  <td><span class="badge status-actionable-today">需要处理</span></td>
-  <td>2026-06-29</td>
-  <td><div class="source-jump"><strong>AliExpress</strong><span>AliExpress Open Platform Announcements</span><span class="muted">AI运费项目升级-ISV技术手册</span><div class="link-row"><a href="https://open.aliexpress.com/announcement/index.htm#/announcement/detail?id=7385&amp;entitle=AI%E8%BF%90%E8%B4%B9%E9%A1%B9%E7%9B%AE%E5%8D%87%E7%BA%A7-ISV%E6%8A%80%E6%9C%AF%E6%89%8B%E5%86%8C&amp;queryid=129&amp;cntitle=AI%E8%BF%90%E8%B4%B9%E9%A1%B9%E7%9B%AE%E5%8D%87%E7%BA%A7-ISV%E6%8A%80%E6%9C%AF%E6%89%8B%E5%86%8C" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
-  <td class="tag-cell"><span class="tag-primary">其他/待确认</span><div class="tag-list"><span class="tag-secondary">其他/待确认</span></div></td>
-  <td>未写明</td>
-  <td><span class="badge ai-degraded">AI 未配置</span><br><span class="ai-text">AI 未配置，未生成中文摘要；已抓取官方详情正文，请负责人查看详情来源和快照确认影响。</span><br><span class="muted">待确认</span></td>
-  <td><span class="muted">待确认</span></td>
-  <td>待 AI 配置/需人工确认</td>
-  <td data-owner-cell><strong>待确认负责人</strong><br><span class="muted">待正文摘要与标签确认</span></td>
-  <td data-notice-cell><span class="badge notice-unsent">未通知</span></td>
-</tr>
-
-
-<tr>
-  <td><span class="badge impact-unknown">待确认</span></td>
-  <td><span class="badge status-actionable-today">需要处理</span></td>
-  <td>2026-06-18</td>
-  <td><div class="source-jump"><strong>AliExpress</strong><span>AliExpress Open Platform Announcements</span><span class="muted">海外托管-商品发品功能升级ISV技术手册</span><div class="link-row"><a href="https://open.aliexpress.com/announcement/index.htm#/announcement/detail?id=6988&amp;entitle=%E6%B5%B7%E5%A4%96%E6%89%98%E7%AE%A1-%E5%95%86%E5%93%81%E5%8F%91%E5%93%81%E5%8A%9F%E8%83%BD%E5%8D%87%E7%BA%A7ISV%E6%8A%80%E6%9C%AF%E6%89%8B%E5%86%8C&amp;queryid=129&amp;cntitle=%E6%B5%B7%E5%A4%96%E6%89%98%E7%AE%A1-%E5%95%86%E5%93%81%E5%8F%91%E5%93%81%E5%8A%9F%E8%83%BD%E5%8D%87%E7%BA%A7ISV%E6%8A%80%E6%9C%AF%E6%89%8B%E5%86%8C" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
-  <td class="tag-cell"><span class="tag-primary">其他/待确认</span><div class="tag-list"><span class="tag-secondary">其他/待确认</span></div></td>
-  <td>未写明</td>
-  <td><span class="badge ai-degraded">AI 未配置</span><br><span class="ai-text">AI 未配置，未生成中文摘要；已抓取官方详情正文，请负责人查看详情来源和快照确认影响。</span><br><span class="muted">待确认</span></td>
-  <td><span class="muted">待确认</span></td>
-  <td>待 AI 配置/需人工确认</td>
-  <td data-owner-cell><strong>待确认负责人</strong><br><span class="muted">待正文摘要与标签确认</span></td>
   <td data-notice-cell><span class="badge notice-unsent">未通知</span></td>
 </tr>
 

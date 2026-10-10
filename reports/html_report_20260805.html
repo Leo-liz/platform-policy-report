@@ -424,8 +424,8 @@
 <div class="metric"><span>失败</span><strong>0</strong></div>
 <div class="metric"><span>待决策</span><strong>0</strong></div>
 <div class="metric"><span>高影响</span><strong>4</strong></div>
-<div class="metric"><span>AI 降级</span><strong>3</strong></div>
-<div class="metric"><span>负责人待确认</span><strong>14</strong></div></div>
+<div class="metric"><span>AI 降级</span><strong>0</strong></div>
+<div class="metric"><span>负责人待确认</span><strong>12</strong></div></div>
   <div class="scope-line"><strong>平台范围:</strong> eBay / Amazon SP-API / AliExpress / Shopee / Lazada / Mercado Libre / Temu / Ozon（Telegram 官方频道） / Wildberries（Telegram 官方频道） / TikTok Shop / Shopify / Walmart</div>
 </section>
 
@@ -774,6 +774,21 @@
   <td><span class="badge impact-unknown">中</span></td>
   <td><span class="badge status-actionable-today">需要处理</span></td>
   <td>2026-08-05</td>
+  <td><div class="source-jump"><strong>Shopee</strong><span>Shopee Open Platform Announcements</span><span class="muted">[BR] Welcome! Guia para Novos Desenvolvedores: Principais fluxos e dúvidas.</span><div class="link-row"><a href="https://open.shopee.com/announcements/1517?category=55&amp;is_top=false" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">账号/权限</span><div class="tag-list"><span class="tag-secondary">认证/权限变更</span> <span class="tag-secondary">合规/政策要求</span> <span class="tag-secondary">文档/SDK/示例更新</span></div></td>
+  <td>未写明</td>
+  <td><span class="ai-text">Shopee 于 2026-08-05 更新巴西站新开发者综合指南，重申应用类别决定可用能力和接口权限，平台不会为既有应用单独增加权限。指南还说明，独立开发者及第三方合作伙伴的客服类应用新申请已于 2024-11 停止，敏感数据访问依赖 IP 白名单，沙箱与生产环境存在差异。这是接入规则和排障说明的汇总，正文未写明新的执行截止日期，需人工确认。</span><details class="ai-evidence"><summary>摘要依据</summary><ul><li>A categoria selecionada durante a criação do aplicativo é o fator que determina todas as capacidades e limitações da integração.</li><li>Para Third-party Partners e desenvolvedores independentes, novas solicitações foram encerradas em novembro de 2024.</li><li>O acesso a dados sensíveis está diretamente relacionado às configurações de segurança da aplicação, incluindo IP Whitelist.</li></ul></details></td>
+  <td><span class="muted">面向 Shopee 巴西站创建应用、申请权限及处理敏感数据的开发团队</span></td>
+  <td>按指南核对应用类别与所需接口是否匹配，确认客服接口申请资格和 IP 白名单配置，并对沙箱与生产环境差异补做验证；不要仅因指南更新而改动接口。</td>
+  <td data-owner-cell><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: account_permission</span></td>
+  <td data-notice-cell><span class="badge notice-unsent">未通知</span></td>
+</tr>
+
+
+<tr>
+  <td><span class="badge impact-unknown">中</span></td>
+  <td><span class="badge status-actionable-today">需要处理</span></td>
+  <td>2026-08-05</td>
   <td><div class="source-jump"><strong>Shopify</strong><span>Shopify Developer Changelog</span><span class="muted">详情源待修正/非具体变更条目</span><div class="link-row"><a href="https://shopify.dev/changelog/webmcp-liquid-hydrogen" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
   <td class="tag-cell"><span class="tag-primary">API/技术</span><div class="tag-list"><span class="tag-secondary">API 接口变更</span> <span class="tag-secondary">文档/SDK/示例更新</span></div></td>
   <td>未写明</td>
@@ -813,51 +828,6 @@ All markets, since July 30, 2026</li><li>data.orders[].line_items[].product_list
   <td><span class="muted">TikTok Shop 全市场订单解析和临时商品履约系统</span></td>
   <td>在订单行解析中兼容 product_listing_type，识别 TEMPORARY_LISTING 后进入对应发货流程，并回归字段缺失、未知值和临时商品三种情况。</td>
   <td data-owner-cell><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: order</span></td>
-  <td data-notice-cell><span class="badge notice-unsent">未通知</span></td>
-</tr>
-
-
-<tr>
-  <td><span class="badge impact-unknown">待确认</span></td>
-  <td><span class="badge status-actionable-today">需要处理</span></td>
-  <td>2026-07-31</td>
-  <td><div class="source-jump"><strong>AliExpress</strong><span>AliExpress Open Platform Announcements</span><span class="muted">AI运费项目升级-ISV技术手册</span><div class="link-row"><a href="https://open.aliexpress.com/announcement/index.htm#/announcement/detail?id=7385&amp;entitle=AI%E8%BF%90%E8%B4%B9%E9%A1%B9%E7%9B%AE%E5%8D%87%E7%BA%A7-ISV%E6%8A%80%E6%9C%AF%E6%89%8B%E5%86%8C&amp;queryid=129&amp;cntitle=AI%E8%BF%90%E8%B4%B9%E9%A1%B9%E7%9B%AE%E5%8D%87%E7%BA%A7-ISV%E6%8A%80%E6%9C%AF%E6%89%8B%E5%86%8C" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
-  <td class="tag-cell"><span class="tag-primary">其他/待确认</span><div class="tag-list"><span class="tag-secondary">其他/待确认</span></div></td>
-  <td>未写明</td>
-  <td><span class="badge ai-degraded">AI 未配置</span><br><span class="ai-text">AI 未配置，未生成中文摘要；已抓取官方详情正文，请负责人查看详情来源和快照确认影响。</span><br><span class="muted">待确认</span></td>
-  <td><span class="muted">待确认</span></td>
-  <td>待 AI 配置/需人工确认</td>
-  <td data-owner-cell><strong>待确认负责人</strong><br><span class="muted">待正文摘要与标签确认</span></td>
-  <td data-notice-cell><span class="badge notice-unsent">未通知</span></td>
-</tr>
-
-
-<tr>
-  <td><span class="badge impact-unknown">待确认</span></td>
-  <td><span class="badge status-actionable-today">需要处理</span></td>
-  <td>2026-07-31</td>
-  <td><div class="source-jump"><strong>Shopee</strong><span>Shopee Open Platform Announcements</span><span class="muted">Significant OpenAPI Updates of Product, Return, Payment, and Order</span><div class="link-row"><a href="https://open.shopee.com/announcements/1511?category=55&amp;is_top=false" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
-  <td class="tag-cell"><span class="tag-primary">其他/待确认</span><div class="tag-list"><span class="tag-secondary">其他/待确认</span></div></td>
-  <td>未写明</td>
-  <td><span class="badge ai-degraded">AI 未配置</span><br><span class="ai-text">AI 未配置，未生成中文摘要；已抓取官方详情正文，请负责人查看详情来源和快照确认影响。</span><br><span class="muted">待确认</span></td>
-  <td><span class="muted">待确认</span></td>
-  <td>待 AI 配置/需人工确认</td>
-  <td data-owner-cell><strong>待确认负责人</strong><br><span class="muted">待正文摘要与标签确认</span></td>
-  <td data-notice-cell><span class="badge notice-unsent">未通知</span></td>
-</tr>
-
-
-<tr>
-  <td><span class="badge impact-unknown">待确认</span></td>
-  <td><span class="badge status-actionable-today">需要处理</span></td>
-  <td>2026-07-30</td>
-  <td><div class="source-jump"><strong>AliExpress</strong><span>AliExpress Open Platform Announcements</span><span class="muted">【平台物流项目】AI运费模板-ISV技术手册</span><div class="link-row"><a href="https://open.aliexpress.com/announcement/index.htm#/announcement/detail?id=2865&amp;entitle=%E3%80%90%E5%B9%B3%E5%8F%B0%E7%89%A9%E6%B5%81%E9%A1%B9%E7%9B%AE%E3%80%91AI%E8%BF%90%E8%B4%B9%E6%A8%A1%E6%9D%BF-ISV%E6%8A%80%E6%9C%AF%E6%89%8B%E5%86%8C&amp;queryid=129&amp;cntitle=%E3%80%90%E5%B9%B3%E5%8F%B0%E7%89%A9%E6%B5%81%E9%A1%B9%E7%9B%AE%E3%80%91AI%E8%BF%90%E8%B4%B9%E6%A8%A1%E6%9D%BF-ISV%E6%8A%80%E6%9C%AF%E6%89%8B%E5%86%8C" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
-  <td class="tag-cell"><span class="tag-primary">其他/待确认</span><div class="tag-list"><span class="tag-secondary">其他/待确认</span></div></td>
-  <td>未写明</td>
-  <td><span class="badge ai-degraded">AI 未配置</span><br><span class="ai-text">AI 未配置，未生成中文摘要；已抓取官方详情正文，请负责人查看详情来源和快照确认影响。</span><br><span class="muted">待确认</span></td>
-  <td><span class="muted">待确认</span></td>
-  <td>待 AI 配置/需人工确认</td>
-  <td data-owner-cell><strong>待确认负责人</strong><br><span class="muted">待正文摘要与标签确认</span></td>
   <td data-notice-cell><span class="badge notice-unsent">未通知</span></td>
 </tr>
 </tbody>

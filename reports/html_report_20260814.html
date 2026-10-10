@@ -425,7 +425,7 @@
 <div class="metric"><span>待决策</span><strong>0</strong></div>
 <div class="metric"><span>高影响</span><strong>13</strong></div>
 <div class="metric"><span>AI 降级</span><strong>11</strong></div>
-<div class="metric"><span>负责人待确认</span><strong>14</strong></div></div>
+<div class="metric"><span>负责人待确认</span><strong>15</strong></div></div>
   <div class="scope-line"><strong>平台范围:</strong> eBay / Amazon SP-API / AliExpress / Shopee / Lazada / Mercado Libre / Temu / Ozon（Telegram 官方频道） / Wildberries（Telegram 官方频道） / TikTok Shop / Shopify / Walmart</div>
 </section>
 
@@ -842,6 +842,21 @@ September 4, 2026</li><li>Existing values are not automatically carried over int
   <td><span class="muted">待确认</span></td>
   <td>待 AI 配置/需人工确认</td>
   <td data-owner-cell><strong>待确认负责人</strong><br><span class="muted">待正文摘要与标签确认</span></td>
+  <td data-notice-cell><span class="badge notice-unsent">未通知</span></td>
+</tr>
+
+
+<tr>
+  <td><span class="badge impact-unknown">中</span></td>
+  <td><span class="badge status-actionable-today">需要处理</span></td>
+  <td>2026-08-14</td>
+  <td><div class="source-jump"><strong>Shopee</strong><span>Shopee Open Platform Announcements</span><span class="muted">[BR] Welcome! Guia para Novos Desenvolvedores: Principais fluxos e dúvidas.</span><div class="link-row"><a href="https://open.shopee.com/announcements/1525?category=55&amp;is_top=false" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">账号/权限</span><div class="tag-list"><span class="tag-secondary">认证/权限变更</span> <span class="tag-secondary">文档/SDK/示例更新</span></div></td>
+  <td>未写明</td>
+  <td><span class="ai-text">Shopee 于2026-08-14更新巴西新开发者指南，集中说明应用类别决定 API 权限，既有应用不能手工追加权限，敏感数据访问依赖 IP 白名单。指南同时重申，独立开发者和第三方合作伙伴的客服聊天类应用新申请已于2024-11-18停止。该页面属于接入与排障指引更新，正文未说明新的接口结构或另行生效日期。</span><details class="ai-evidence"><summary>摘要依据</summary><ul><li>Last Updated: 14 Aug 2026</li><li>A categoria selecionada durante a criação do aplicativo é o fator que determina todas as capacidades e limitações da integração.</li><li>O acesso a dados sensíveis está diretamente relacionado às configurações de segurança da aplicação, incluindo IP Whitelist.</li></ul></details></td>
+  <td><span class="muted">Shopee 巴西站新接入开发者及现有应用权限维护人员</span></td>
+  <td>按目标接口重新核对应用类别和权限范围，检查敏感数据场景的 IP 白名单；若既有应用类别不具备所需能力，按指南评估创建新的适用类别应用。</td>
+  <td data-owner-cell><strong>待确认负责人</strong><br><span class="muted">待负责人映射确认</span><br><span class="muted">映射键: account_permission</span></td>
   <td data-notice-cell><span class="badge notice-unsent">未通知</span></td>
 </tr>
 
