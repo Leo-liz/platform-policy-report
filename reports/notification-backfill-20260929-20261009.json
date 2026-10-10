@@ -1,0 +1,1804 @@
+{
+  "schema_version": 1,
+  "run_id": "20261010-102211",
+  "report_date": "2026-10-09",
+  "report_url": "https://leo-liz.github.io/platform-policy-report/reports/latest.html",
+  "taxonomy_version": "2026-08-22",
+  "generated_at": "2026-10-10T10:22:11+08:00",
+  "ai": {
+    "provider": "codex_builtin_postprocess",
+    "model": "current_codex_thread",
+    "summary_schema_version": 11,
+    "evidence_validated": true
+  },
+  "events": [
+    {
+      "event_id": "aliexpress_open_announcements-3e3c1c235466::detail-1",
+      "content_hash": "2f095f82b5a97864169951eb8b30548820615c34e7490a26a6286cf1528011e3",
+      "platform_code": "aliexpress",
+      "platform_label": "AliExpress",
+      "primary_tag_code": "finance_settlement",
+      "primary_tag_label": "财务/结算",
+      "status": "actionable_today",
+      "ai_summary_zh": "速卖通于 2026-09-29 发布巴西支点仓发票上传手册。跨境 POP 备货到巴西海外仓时，需识别新增解决方案并上传发票，否则仓内货无法出库。联调写 10 月 15 号、ERP 改造写 10 月 22 号，正文没有写成完整年月日。发票上传和查询仍用现有接口。",
+      "recommended_action": "按三种新增解决方案识别待发货单并调用现有发票上传接口；向官方核对 10 月 15 日联调与 22 日改造节点的年份。",
+      "official_date": "2026-09-29",
+      "change_url": "https://open.aliexpress.com/announcement/index.htm#/announcement/detail?id=11190&entitle=%E5%B7%B4%E8%A5%BF%E6%94%AF%E7%82%B9%E4%BB%93%E5%8F%91%E7%A5%A8%E4%B8%8A%E4%BC%A0-ISV%E6%8A%80%E6%9C%AF%E6%89%8B%E5%86%8C&queryid=129&cntitle=%E5%B7%B4%E8%A5%BF%E6%94%AF%E7%82%B9%E4%BB%93%E5%8F%91%E7%A5%A8%E4%B8%8A%E4%BC%A0-ISV%E6%8A%80%E6%9C%AF%E6%89%8B%E5%86%8C"
+    },
+    {
+      "event_id": "aliexpress_open_announcements-3e3c1c235466::detail-5",
+      "content_hash": "7fd9b982b06a1d4be5bfe7976abdf032549d8a2a0e249577d6db586543d13987",
+      "platform_code": "aliexpress",
+      "platform_label": "AliExpress",
+      "primary_tag_code": "listing_product",
+      "primary_tag_label": "刊登/商品",
+      "status": "actionable_today",
+      "ai_summary_zh": "海外托管发品上限手册再次因列表变化入选，发布日仍是 2026-09-21。额度改为按商家质量和成交、分国家查询。不改造会在超限时报错，旧查询接口 2026-11-30 对海托商家下线。文档链接仍写 TBD。",
+      "recommended_action": "改接新额度查询接口，并在 2026-11-30 前停用旧海托上限查询。",
+      "official_date": "2026-09-21",
+      "change_url": "https://open.aliexpress.com/announcement/index.htm#/announcement/detail?id=10645&entitle=%E6%B5%B7%E5%A4%96%E6%89%98%E7%AE%A1%E5%8F%91%E5%93%81%E4%B8%8A%E9%99%90%E9%A1%B9%E7%9B%AE-ISV%E6%8A%80%E6%9C%AF%E6%89%8B%E5%86%8C&queryid=129&cntitle=%E6%B5%B7%E5%A4%96%E6%89%98%E7%AE%A1%E5%8F%91%E5%93%81%E4%B8%8A%E9%99%90%E9%A1%B9%E7%9B%AE-ISV%E6%8A%80%E6%9C%AF%E6%89%8B%E5%86%8C"
+    },
+    {
+      "event_id": "temu_partner_docs-7dc9648a2cbe::detail-1",
+      "content_hash": "edfa7d52ca608eac160d9e0b8df5080270491ca63bb699010a4b0e31f189654b",
+      "platform_code": "temu",
+      "platform_label": "Temu",
+      "primary_tag_code": "logistics_fulfillment",
+      "primary_tag_label": "物流/履约",
+      "status": "actionable_today",
+      "ai_summary_zh": "Temu 在线下单发货接口文档的最后更新时间写到 2026-09-29 20:48:39。已抓正文主要是创建物流订单的参数说明，更新表里仍是 2026-03-31 和 2026-07-10 的旧条目。这次列表变化没有单独写出新增或删除了哪个字段。",
+      "recommended_action": "对照现网请求体，不要把这次入选当成已证实的字段变更。",
+      "official_date": "2026-09-29",
+      "change_url": "https://partner-us.temu.com/documentation?menu_code=fb16b05f7a904765aac4af3a24b87d4a&sub_menu_code=1eadab72ed8041318604b163dd75cdac"
+    },
+    {
+      "event_id": "temu_partner_docs-7dc9648a2cbe::detail-2",
+      "content_hash": "699fb766f0039697dcf417148adc154a097b9cb82223e76f8b37ca4e4ef8c7d0",
+      "platform_code": "temu",
+      "platform_label": "Temu",
+      "primary_tag_code": "logistics_fulfillment",
+      "primary_tag_label": "物流/履约",
+      "status": "actionable_today",
+      "ai_summary_zh": "Temu 发货更新接口文档的最后更新时间写到 2026-09-29 16:31:26。正文说明可补下单和失败重下，并限制只有先前以稍后发货创建的订单才能改稍后时限。更新表仍只有 2026-07-10 一条，没有另写本次字段清单。",
+      "recommended_action": "仅在原单以稍后发货创建时更新时限，并打开原文核对是否还有未摘到的改动。",
+      "official_date": "2026-09-29",
+      "change_url": "https://partner-us.temu.com/documentation?menu_code=fb16b05f7a904765aac4af3a24b87d4a&sub_menu_code=43a8da366d5847b9a7faf13915ce57d6"
+    },
+    {
+      "event_id": "temu_partner_docs-7dc9648a2cbe::detail-3",
+      "content_hash": "4f1bedf80564193e096b3d21d3441878f9afe4d8dfa0917d125496d03aa14c04",
+      "platform_code": "temu",
+      "platform_label": "Temu",
+      "primary_tag_code": "logistics_fulfillment",
+      "primary_tag_label": "物流/履约",
+      "status": "actionable_today",
+      "ai_summary_zh": "Temu 查询可用承运商接口文档的最后更新时间写到 2026-09-29 20:48:39。已抓正文是按包裹尺寸重量取承运商的参数说明，更新表仍指向 2026-07-10。不能从这次入选推断新接口。",
+      "recommended_action": "继续按现网尺寸重量参数查询承运商，有差异再对照原文。",
+      "official_date": "2026-09-29",
+      "change_url": "https://partner-us.temu.com/documentation?menu_code=fb16b05f7a904765aac4af3a24b87d4a&sub_menu_code=18c1c2de89184d4e93a0f958da7bfc88"
+    },
+    {
+      "event_id": "shopify_developer_changelog-7d358dbb545b::detail-1",
+      "content_hash": "f5125892dc0212bad6650dc4cc5600e6013e8b4eb0f9bbd103e1efe3b71af2a2",
+      "platform_code": "shopify",
+      "platform_label": "Shopify",
+      "primary_tag_code": "api_technical",
+      "primary_tag_label": "API/技术",
+      "status": "actionable_today",
+      "ai_summary_zh": "Shopify 2026-07 版本说明再次入选，页面写它已是最新稳定版。生产可用至少写到 2027-07-01 15:00 UTC，版本表又写可访问到 2027-07-16 15:00 UTC，两处不一致。库存变更安全、客户、元对象、商品和集合需改代码，正文后半截断。",
+      "recommended_action": "升级前按原文核对库存和客户相关改造；支持截止日以原文两处冲突为准，需人工确认。",
+      "official_date": "2026-09-30",
+      "change_url": "https://shopify.dev/changelog/release-notes/2026-07"
+    },
+    {
+      "event_id": "shopify_developer_changelog-7d358dbb545b::detail-2",
+      "content_hash": "4870a3847b4110fbb0ebb299775b0a5eb35b10efbfce07cca27663904cff503a",
+      "platform_code": "shopify",
+      "platform_label": "Shopify",
+      "primary_tag_code": "api_technical",
+      "primary_tag_label": "API/技术",
+      "status": "actionable_today",
+      "ai_summary_zh": "Shopify 2026-10 当时仍是候选版，正文写 2026-10-01 起变稳定。订单税、草稿折扣、元字段筛选和客户账户结账需改代码。三个库存数量变更接口会去掉 ITEM_NOT_STOCKED_AT_LOCATION。正文后半截断。",
+      "recommended_action": "在 2026-10-01 前按原文改造订单税和库存错误处理，不要只看截断后的目录。",
+      "official_date": "2026-09-30",
+      "change_url": "https://shopify.dev/changelog/release-notes/2026-10"
+    },
+    {
+      "event_id": "shopify_developer_changelog-7d358dbb545b::detail-3",
+      "content_hash": "41e58ca3075d897ec60cc5e00d7b062699ede8797ccd63df43ab366a433d2e91",
+      "platform_code": "shopify",
+      "platform_label": "Shopify",
+      "primary_tag_code": "account_permission",
+      "primary_tag_label": "账号/权限",
+      "status": "actionable_today",
+      "ai_summary_zh": "Shopify 于 2026-09-29 说明，无用户会话迁移离线令牌时，七天内用原令牌重试可拿回同一对访问令牌和刷新令牌。现有流程不改也能继续工作。迁移后原不过期令牌仍不能用来调管理接口。",
+      "recommended_action": "丢失迁移响应时在七天内用原令牌重试并成对保存；不要再用原不过期令牌调 GraphQL。",
+      "official_date": "2026-09-29",
+      "change_url": "https://shopify.dev/changelog/posts/more-resilient-token-exchanges-when-migrating-tokens-without-a-user-session"
+    },
+    {
+      "event_id": "shopify_developer_changelog-7d358dbb545b::detail-4",
+      "content_hash": "73ca5c26c9b956b74ae3f6890b0c2dfe1388ed8ff2073bdd989f66c52bf1fdc9",
+      "platform_code": "shopify",
+      "platform_label": "Shopify",
+      "primary_tag_code": "logistics_fulfillment",
+      "primary_tag_label": "物流/履约",
+      "status": "actionable_today",
+      "ai_summary_zh": "Shopify 于 2026-09-29 宣布从 2027-01 管理接口起，可读写库存项的打包尺寸。多件订单在每件都有打包尺寸时，可用于自动选最小包裹并算运费。缺尺寸或没有合适包裹时沿用原选包逻辑。",
+      "recommended_action": "需要自动选包时再写入 packedDimensions；现有未传尺寸的流程先保持。",
+      "official_date": "2026-09-29",
+      "change_url": "https://shopify.dev/changelog/posts/manage-packed-product-dimensions-with-the-admin-graphql-api"
+    },
+    {
+      "event_id": "amazon_sp_api_release_notes-b9aea038a216::detail-1",
+      "content_hash": "a59ec4e0ed0dbd532e7202bb10571664c18a5bfbeaa341763be37736c3672653",
+      "platform_code": "amazon",
+      "platform_label": "Amazon SP-API",
+      "primary_tag_code": "api_technical",
+      "primary_tag_label": "API/技术",
+      "status": "actionable_today",
+      "ai_summary_zh": "亚马逊 2026-09-30 发布汇总新增供应商汇款与支持工单接口，并扩展高级 A+ 内容、卖家分析数据集和多项订单财务字段。供应商可通过接口读取付款、扣款、关联发票等数据，不再依赖手工导出；相关集成还需核对通知与商品问题分类等新增能力。正文未给这些更新统一迁移截止日。",
+      "recommended_action": "按所用业务核对本次发布说明，评估汇款数据、工单和分析接口及字段的接入。",
+      "official_date": "2026-09-30",
+      "change_url": "https://developer-docs.amazon/sp-api/docs/sp-api-release-notes#inline-1"
+    },
+    {
+      "event_id": "amazon_sp_api_release_notes-b9aea038a216::detail-2",
+      "content_hash": "9fc6dd01e7611f710c032ca61fa0b12b25fde884398876eab7dacf3db9b480ac",
+      "platform_code": "amazon",
+      "platform_label": "Amazon SP-API",
+      "primary_tag_code": "marketing_promotion",
+      "primary_tag_label": "营销/促销",
+      "status": "actionable_today",
+      "ai_summary_zh": "正文记载的官方日期是 2026-08-26，本条属于本次新发现的较早发布，不是 9 月 30 日新上线。亚马逊新增促销管理 API，支持优惠券、折扣等类型，并在绩效报告中增加 promotionsApiMappingId。促销系统可据此关联管理对象和效果报表。",
+      "recommended_action": "评估促销 API，并在优惠券和促销绩效报告中解析关联标识。",
+      "official_date": "2026-08-26",
+      "change_url": "https://developer-docs.amazon/sp-api/docs/sp-api-release-notes#inline-2"
+    },
+    {
+      "event_id": "amazon_sp_api_release_notes-b9aea038a216::detail-3",
+      "content_hash": "eb9b053e82d0e1330160eda3df08eb4d591bc5bde85234f759e0177633aae807",
+      "platform_code": "amazon",
+      "platform_label": "Amazon SP-API",
+      "primary_tag_code": "compliance_policy",
+      "primary_tag_label": "合规/政策",
+      "status": "actionable_today",
+      "ai_summary_zh": "亚马逊 2026-08-26 文档变更新增卖家授权 FAQ，并按 DPP、AUP 和服务商协议修订安全合规最佳实践。服务商需要按修订后的要求核对自身接入和数据保护措施；正文没有列出具体资源的下线日期。本条是较早文档的晚发现记录。",
+      "recommended_action": "阅读修订后的安全合规指南和授权 FAQ，逐项核对适用要求。",
+      "official_date": "2026-08-26",
+      "change_url": "https://developer-docs.amazon/sp-api/docs/sp-api-release-notes#inline-3"
+    },
+    {
+      "event_id": "amazon_sp_api_release_notes-b9aea038a216::detail-4",
+      "content_hash": "986689ec4f67a20a1cf7bec0f8b3fe7d4b34d621015cba91ffba49b61c0bab68",
+      "platform_code": "amazon",
+      "platform_label": "Amazon SP-API",
+      "primary_tag_code": "logistics_fulfillment",
+      "primary_tag_label": "物流/履约",
+      "status": "actionable_today",
+      "ai_summary_zh": "亚马逊 2026-08-05 发布美国站 Tracking API，可查询货件在供应链中的运输进度。同步新增 SHIPMENT_TRACKING_MILESTONE_CHANGED 通知及订阅过滤支持，卖家和供应商可获取实时里程碑更新。本条为晚发现历史更新，不代表 9 月 30 日再次发布。",
+      "recommended_action": "按美国站业务需要评估 getShipmentTracking，并核对追踪通知的订阅和过滤配置。",
+      "official_date": "2026-08-05",
+      "change_url": "https://developer-docs.amazon/sp-api/docs/sp-api-release-notes#inline-4"
+    },
+    {
+      "event_id": "amazon_sp_api_release_notes-b9aea038a216::detail-5",
+      "content_hash": "49c4f2bd509e518cfce365e37508282df2f23c56dc6085104c7a12199ef5dc76",
+      "platform_code": "amazon",
+      "platform_label": "Amazon SP-API",
+      "primary_tag_code": "logistics_fulfillment",
+      "primary_tag_label": "物流/履约",
+      "status": "actionable_today",
+      "ai_summary_zh": "亚马逊 2026-08-05 新增多包裹、单包裹及部分履约的配送追踪指南。MCF 集成可以据此区分多货件、缺货部分履约和配送结果处理，避免只追踪首个包裹。本条为晚发现文档，正文未给强制改造截止日。",
+      "recommended_action": "按 MCF 订单的多货件和部分履约场景核对相应追踪流程。",
+      "official_date": "2026-08-05",
+      "change_url": "https://developer-docs.amazon/sp-api/docs/sp-api-release-notes#inline-5"
+    },
+    {
+      "event_id": "amazon_sp_api_release_notes-b9aea038a216::detail-6",
+      "content_hash": "3f53b66da4baa04d2e14ea1cdaf2a5abac53219d721030b848339751c39ad340",
+      "platform_code": "amazon",
+      "platform_label": "Amazon SP-API",
+      "primary_tag_code": "finance_settlement",
+      "primary_tag_label": "财务/结算",
+      "status": "actionable_today",
+      "ai_summary_zh": "亚马逊 2026-07-29 发布发票接口和新版出库履约接口，并新增财务汇总、余额及结算筛选能力。发票系统可按日期搜索、跟踪付款并核对行项目；订单和定价集成还需核对取消执行信息、打单时间窗及促销数组。本条为较早发布的晚发现记录，不能视为当日新增版本。",
+      "recommended_action": "按业务评估发票和财务新能力，升级履约版本前阅读迁移指南并核对订单响应字段。",
+      "official_date": "2026-07-29",
+      "change_url": "https://developer-docs.amazon/sp-api/docs/sp-api-release-notes#inline-6"
+    },
+    {
+      "event_id": "amazon_sp_api_release_notes-b9aea038a216::detail-7",
+      "content_hash": "6ede4c4ac40db90ee521a9ca3c3acd5a96e3da9b019b6bf2a900bbef4e41f9eb",
+      "platform_code": "amazon",
+      "platform_label": "Amazon SP-API",
+      "primary_tag_code": "api_technical",
+      "primary_tag_label": "API/技术",
+      "status": "actionable_today",
+      "ai_summary_zh": "亚马逊 2026-05-27 更新通知订阅，新增基于 CEL 的 filterExpression，以便在投递前筛选事件。同期扩展订单小费、受监管商品验证、商品类型定义及补货分析参数，相关集成可读取更细业务状态。本条为晚发现旧公告，正文未给统一改造期限。",
+      "recommended_action": "按需要更新订阅过滤表达式，并核对实际使用的订单、商品类型和分析字段。",
+      "official_date": "2026-05-27",
+      "change_url": "https://developer-docs.amazon/sp-api/docs/sp-api-release-notes#inline-7"
+    },
+    {
+      "event_id": "amazon_sp_api_release_notes-b9aea038a216::detail-8",
+      "content_hash": "4f09439dbcaa19c94e72fe4239b8d4d8f3826bc566e6aeac575e078397762ded",
+      "platform_code": "amazon",
+      "platform_label": "Amazon SP-API",
+      "primary_tag_code": "api_technical",
+      "primary_tag_label": "API/技术",
+      "status": "actionable_today",
+      "ai_summary_zh": "亚马逊 2026-05-27 文档新增行业垂直定价受众值和带过滤表达式的通知订阅指南。美国站符合条件的第三方卖家可在 purchasable_offer.audience 使用 IVP，通知集成可据 CEL 表达式减少无关事件。本条属于晚发现文档，并未提供具体停用日期。",
+      "recommended_action": "确认美国站 IVP 资格后参考字段指南，按通知需要阅读订阅过滤配置说明。",
+      "official_date": "2026-05-27",
+      "change_url": "https://developer-docs.amazon/sp-api/docs/sp-api-release-notes#inline-8"
+    },
+    {
+      "event_id": "amazon_sp_api_release_notes-b9aea038a216::detail-9",
+      "content_hash": "e3a774a79a84135c42356d92ebd1100ab89269db4fb1689443778d34304d1c60",
+      "platform_code": "amazon",
+      "platform_label": "Amazon SP-API",
+      "primary_tag_code": "logistics_fulfillment",
+      "primary_tag_label": "物流/履约",
+      "status": "actionable_today",
+      "ai_summary_zh": "亚马逊 2026-04-29 为外部履约发货接口增加美国境内 Easy Ship、投递点信息和美制单位支持。出库追踪增加包裹柜投递及取件事件码，Orders 新版补充税务与支付属性，影响物流状态映射和订单信息解析。本条是较早公告的晚发现记录。",
+      "recommended_action": "核对美国 Easy Ship 及柜机配送事件映射，并按 Orders 新版属性更新解析。",
+      "official_date": "2026-04-29",
+      "change_url": "https://developer-docs.amazon/sp-api/docs/sp-api-release-notes#inline-9"
+    },
+    {
+      "event_id": "amazon_sp_api_release_notes-b9aea038a216::detail-10",
+      "content_hash": "1aa86e190f0399de6539361bbdd16128c49d0b3dbf006b4b23dd12e59614b26d",
+      "platform_code": "amazon",
+      "platform_label": "Amazon SP-API",
+      "primary_tag_code": "api_technical",
+      "primary_tag_label": "API/技术",
+      "status": "actionable_today",
+      "ai_summary_zh": "亚马逊 2026-04-29 文档增加定价校验说明、Orders 迁移及 PII 指南属性更新，并新增税务信息指南。开发者可在提交前发现定价问题，订单集成需对照迁移后的属性口径。本条是晚发现旧文档，不能解释为当日价格规则生效。",
+      "recommended_action": "阅读定价校验和订单税务、PII 指南，核对实际使用的迁移属性。",
+      "official_date": "2026-04-29",
+      "change_url": "https://developer-docs.amazon/sp-api/docs/sp-api-release-notes#inline-10"
+    },
+    {
+      "event_id": "aliexpress_open_announcements-75bc5bd667fc::detail-1",
+      "content_hash": "b86bbd34911c730e9d8bb534ec2f92054b723f2cc757526ad3e6660423013360",
+      "platform_code": "aliexpress",
+      "platform_label": "AliExpress",
+      "primary_tag_code": "compliance_policy",
+      "primary_tag_label": "合规/政策",
+      "status": "actionable_today",
+      "ai_summary_zh": "速卖通 2026-09-30 发布欧盟税改二期 PID 改造说明，要求 SKU 编码必填，并按品类新增 ISBN、UDI-DI、GTIN、UPC 等字段。正文写明 10 月 15 日新增编码接口上线、10 月 20 日和 30 日分别执行 SKU、ISBN 发品拦截，法规生效时间为 11 月 1 日，但这些节点未逐项写全年份。不改造可能导致发品受阻、欧盟不可售或订单关单。",
+      "recommended_action": "按类目标识完成编码采集、商品新发和编辑及存量商品补齐；上线和拦截节点的年份需结合官方确认。",
+      "official_date": "2026-09-30",
+      "change_url": "https://open.aliexpress.com/announcement/index.htm#/announcement/detail?id=10821&entitle=%E6%AC%A7%E7%9B%9F%E7%A8%8E%E6%94%B9%E4%BA%8C%E6%9C%9FPID%E9%A1%B9%E7%9B%AE-ISV%E6%8A%80%E6%9C%AF%E6%89%8B%E5%86%8C&queryid=129&cntitle=%E6%AC%A7%E7%9B%9F%E7%A8%8E%E6%94%B9%E4%BA%8C%E6%9C%9FPID%E9%A1%B9%E7%9B%AE-ISV%E6%8A%80%E6%9C%AF%E6%89%8B%E5%86%8C"
+    },
+    {
+      "event_id": "aliexpress_open_announcements-75bc5bd667fc::detail-5",
+      "content_hash": "4d2f8af1ac82872b7ae039ff03c0800054ac7263f5f291cf794b560647e6bbca",
+      "platform_code": "aliexpress",
+      "platform_label": "AliExpress",
+      "primary_tag_code": "listing_product",
+      "primary_tag_label": "刊登/商品",
+      "status": "actionable_today",
+      "ai_summary_zh": "海外托管发品上限手册再次因列表变化入选，发布日仍是 2026-09-21。额度改为按商家质量和成交、分国家查询。不改造会在超限时报错，旧查询接口 2026-11-30 对海托商家下线。文档链接仍写 TBD。",
+      "recommended_action": "改接新额度查询接口，并在 2026-11-30 前停用旧海托上限查询。",
+      "official_date": "2026-09-21",
+      "change_url": "https://open.aliexpress.com/announcement/index.htm#/announcement/detail?id=10645&entitle=%E6%B5%B7%E5%A4%96%E6%89%98%E7%AE%A1%E5%8F%91%E5%93%81%E4%B8%8A%E9%99%90%E9%A1%B9%E7%9B%AE-ISV%E6%8A%80%E6%9C%AF%E6%89%8B%E5%86%8C&queryid=129&cntitle=%E6%B5%B7%E5%A4%96%E6%89%98%E7%AE%A1%E5%8F%91%E5%93%81%E4%B8%8A%E9%99%90%E9%A1%B9%E7%9B%AE-ISV%E6%8A%80%E6%9C%AF%E6%89%8B%E5%86%8C"
+    },
+    {
+      "event_id": "shopee_open_platform_announcements-02f25f098ad6::detail-1",
+      "content_hash": "8706363626d96cc5bd73ca3772941838e14d28fcdee71eb286fb1005d8c2b6d3",
+      "platform_code": "shopee",
+      "platform_label": "Shopee",
+      "primary_tag_code": "account_permission",
+      "primary_tag_label": "账号/权限",
+      "status": "actionable_today",
+      "ai_summary_zh": "Shopee 巴西开发者指南标注最后更新 2026-10-01，重申应用类别决定接口权限，平台不手工单独放开权限或范围。正文也说明敏感数据依赖开发者自行配置 IP 白名单，Chat 类应用新申请自 2024-11-18 起对指定第三方关闭。集成遇到拒绝或掩码数据时应先核对类别、白名单和订单场景，而非假定接口故障。",
+      "recommended_action": "对照应用类别、API 文档和 IP 白名单配置排查权限或数据掩码；卖家 Chat 申请按 RM 流程处理。",
+      "official_date": "2026-10-01",
+      "change_url": "https://open.shopee.com/announcements/1574?category=55&is_top=false"
+    },
+    {
+      "event_id": "shopee_open_platform_announcements-02f25f098ad6::detail-2",
+      "content_hash": "fccbd249026e61f10320971a5fb423626d7e2d9849d4a38a6356102b975ea4c0",
+      "platform_code": "shopee",
+      "platform_label": "Shopee",
+      "primary_tag_code": "logistics_fulfillment",
+      "primary_tag_label": "物流/履约",
+      "status": "actionable_today",
+      "ai_summary_zh": "Shopee 2026-09-30 公告要求 Turbo 渠道在订单 READY_TO_SHIP 后自动调用 ship_order，并在接单 15 分钟内组织发货。90011、90012 还需提醒卖家在建单后一小时内完成标签生成打印，订单需四小时内送达；缺少发货尝试会自动取消并影响卖家表现。正文改造期限写作 09/10，未单独注明年份。",
+      "recommended_action": "为 90011、90012、90026 自动触发发货；按适用渠道完成标签全流程和提醒，核对 09/10 的官方期限。",
+      "official_date": "2026-09-30",
+      "change_url": "https://open.shopee.com/announcements/1573?category=55&is_top=false"
+    },
+    {
+      "event_id": "shopee_open_platform_announcements-02f25f098ad6::detail-3",
+      "content_hash": "427347db8900350b528a84ca18a4e86b6a313be8a7fc5e5d3eee7ed6ad4b6da5",
+      "platform_code": "shopee",
+      "platform_label": "Shopee",
+      "primary_tag_code": "finance_settlement",
+      "primary_tag_label": "财务/结算",
+      "status": "actionable_today",
+      "ai_summary_zh": "Shopee 2026-09-30 公告说明 Payment 明细和批量明细新增 pay_per_sale，生效日为 2026-09-29，适用包含巴西在内的八个市场。广告归因成交费用按销售额及 Target ROI 计算并从托管款扣除，退款或取消后可能更新，零值也会返回。收入计算与财务对账不能再把 escrow_amount 当成未扣该费用的金额。",
+      "recommended_action": "更新 pay_per_sale 解析和收入对账，覆盖零费用及退款取消后的字段更新。",
+      "official_date": "2026-09-30",
+      "change_url": "https://open.shopee.com/announcements/1569?category=55&is_top=false"
+    },
+    {
+      "event_id": "temu_partner_docs-b1034abbd63e::detail-1",
+      "content_hash": "c0c3788f22c07842608fe65f85d4951e5a216662ab54c5c3b1e4ae827193ab31",
+      "platform_code": "temu",
+      "platform_label": "Temu",
+      "primary_tag_code": "listing_product",
+      "primary_tag_label": "刊登/商品",
+      "status": "actionable_late_discovery",
+      "ai_summary_zh": "Temu 商品局部编辑文档标注更新时间 2026-09-29 22:04:53，说明接口用于修改描述、品牌、图片和属性等部分信息。正文展示 goodsId 必填、modifyId 可用于后续查询审核结果，影响商品编辑参数和审核关联；现有正文没有给出本次更新时间对应的字段差分或新截止日。",
+      "recommended_action": "核对局部编辑的 goodsId、选填对象和修改标识处理，不把文档更新时间直接当成新增字段日期。",
+      "official_date": "2026-09-29",
+      "change_url": "https://partner-us.temu.com/documentation?menu_code=fb16b05f7a904765aac4af3a24b87d4a&sub_menu_code=6de74ed5afe74f89966b3ff23dfd7498"
+    },
+    {
+      "event_id": "temu_partner_docs-b1034abbd63e::detail-2",
+      "content_hash": "9c765bb644a22014687f0d0f4604c4b9b9ade038d5d2f77ec42718e519fec6e8",
+      "platform_code": "temu",
+      "platform_label": "Temu",
+      "primary_tag_code": "listing_product",
+      "primary_tag_label": "刊登/商品",
+      "status": "actionable_late_discovery",
+      "ai_summary_zh": "Temu 全量商品编辑文档标注更新时间 2026-09-29 22:04:52，接口用于修改商品全部属性。商品系统需区分全量编辑与局部编辑，并核对 goodsId、SKU 和来源信息等请求结构；正文没有说明这次文档更新具体新增了哪些参数。",
+      "recommended_action": "对照全量编辑参数及返回结构验证现有调用，避免把全量接口当作局部补丁接口。",
+      "official_date": "2026-09-29",
+      "change_url": "https://partner-us.temu.com/documentation?menu_code=fb16b05f7a904765aac4af3a24b87d4a&sub_menu_code=b05f4b7598fb4dc7ac47c864aa5d5fc4"
+    },
+    {
+      "event_id": "temu_partner_docs-b1034abbd63e::detail-3",
+      "content_hash": "1023bd46f5b5d4b86adff39b0d6d218104c7870456d643b911cee5405240bedf",
+      "platform_code": "temu",
+      "platform_label": "Temu",
+      "primary_tag_code": "logistics_fulfillment",
+      "primary_tag_label": "物流/履约",
+      "status": "actionable_late_discovery",
+      "ai_summary_zh": "Temu 揽收预约取消接口文档的最后更新时间是 2025-07-02，本条为新发现的较早文档。接口通过必填 reservationSn 取消预约，并说明只有成功预约且渠道允许时才可取消。履约系统应处理预约状态和渠道拒绝，不应把本次发现日期视为接口上线日期。",
+      "recommended_action": "调用前校验预约标识，并按状态和渠道限制处理取消失败。",
+      "official_date": "2025-07-02",
+      "change_url": "https://partner-us.temu.com/documentation?menu_code=fb16b05f7a904765aac4af3a24b87d4a&sub_menu_code=eed978adf76e473e8d7239b0bbc19c9e"
+    },
+    {
+      "event_id": "temu_partner_docs-b1034abbd63e::detail-4",
+      "content_hash": "87bcafb3a6f3174ce91ee2eed236a40b2977845b67b4f6b8782596bb81ec6973",
+      "platform_code": "temu",
+      "platform_label": "Temu",
+      "primary_tag_code": "listing_product",
+      "primary_tag_label": "刊登/商品",
+      "status": "actionable_late_discovery",
+      "ai_summary_zh": "Temu V2 发品文档标注最后更新 2026-09-07，并列出 9 月 2 日支持制造商或责任人姓名和能效标签 EPREL ID 的更新。发品请求要求基本信息、服务信息及至少一个 SKU，影响商品合规信息采集和请求校验。本条为较早文档的晚发现记录，没有新的强制截止日。",
+      "recommended_action": "按品类核对责任人和 EPREL 信息，验证 V2 发品必填对象及至少一个 SKU。",
+      "official_date": "2026-09-07",
+      "change_url": "https://partner-us.temu.com/documentation?menu_code=fb16b05f7a904765aac4af3a24b87d4a&sub_menu_code=91657460a9be4a609df2eef01bc6deef"
+    },
+    {
+      "event_id": "wildberries_release_notes-424d50b82f79::detail-1",
+      "content_hash": "ffd66256a6965b1784a2c08cf058b85a201a6f96706e2caee214c50787767522",
+      "platform_code": "wildberries",
+      "platform_label": "Wildberries",
+      "primary_tag_code": "listing_product",
+      "primary_tag_label": "刊登/商品",
+      "status": "actionable_today",
+      "ai_summary_zh": "Wildberries 官方频道新增获取全部海关 HS 编码、类目 OKPD2 编码及全部 OKPD2 编码的三个接口。商品刊登集成可据此查询编码目录，减少自行维护分类代码的需求。正文没有写明确上线日期或迁移截止日。",
+      "recommended_action": "按商品分类需求评估三个编码目录查询接口。",
+      "official_date": "2026-09-30",
+      "change_url": "https://t.me/wb_api_notifications/475"
+    },
+    {
+      "event_id": "shopify_developer_changelog-214d0c62ba8b::detail-1",
+      "content_hash": "0ae277f4f089410963d3fcc1ad7c65e4912ed3595eb8bbe716e4a812a5381e90",
+      "platform_code": "shopify",
+      "platform_label": "Shopify",
+      "primary_tag_code": "api_technical",
+      "primary_tag_label": "API/技术",
+      "status": "actionable_today",
+      "ai_summary_zh": "Shopify 2026-07 版本说明覆盖商品陈列、退货、扩展、客户、POS 和 Storefront API，并提醒库存等变更需要代码调整。正文表格列出该版本于 2026-07-01 发布、可访问至 2027-07-16 15:00 UTC，但概述仍写至少支持到 7 月 1 日；这是版本文档的当前快照，不代表所有内容在日报当天新增。升级方需按具体变更日期核对，不将页面时间轴日期当作新发布证据。",
+      "recommended_action": "采用该版本前检查库存、客户、商品及 metaobject 变更，并核对官方支持期限。",
+      "official_date": "2026-10-01",
+      "change_url": "https://shopify.dev/changelog/release-notes/2026-07"
+    },
+    {
+      "event_id": "shopify_developer_changelog-214d0c62ba8b::detail-2",
+      "content_hash": "d7bd66d09cceb9e906d7fc53955b4a65ff4ce40eb1a82cd295eebbbcd9dcd627",
+      "platform_code": "shopify",
+      "platform_label": "Shopify",
+      "primary_tag_code": "api_technical",
+      "primary_tag_label": "API/技术",
+      "status": "actionable_today",
+      "ai_summary_zh": "Shopify 2026-10 版本说明写明 2026-10-01 由候选版转稳定版，涉及订单税务、草稿折扣、metafield 过滤和客户结账变更。订单地址修改会重算税额，无效 metafield 过滤从忽略改为报错，采用该版本的集成需调整税差处理和查询。快照仍存在候选版标签，不能把时间轴上的执行日当成额外版本发布。",
+      "recommended_action": "升级前校验订单地址税额重算、草稿折扣新字段及 metafield 过滤条件，并核对版本状态。",
+      "official_date": "2026-10-01",
+      "change_url": "https://shopify.dev/changelog/release-notes/2026-10"
+    },
+    {
+      "event_id": "shopify_developer_changelog-214d0c62ba8b::detail-3",
+      "content_hash": "848de232c95c94cab2bf110d23a8afbe0b39d43d6b39b0a54bd31cf38d4b93fa",
+      "platform_code": "shopify",
+      "platform_label": "Shopify",
+      "primary_tag_code": "marketing_promotion",
+      "primary_tag_label": "营销/促销",
+      "status": "actionable_today",
+      "ai_summary_zh": "Shopify 2026-09-30 允许使用 Functions 创建折扣类型的应用注册 shopify/Discount intents，让 Sidekick 打开创建和编辑流程。现有应用无需迁移；链接型流程目前主要支持网页管理端，内联 render 目标要求 API 2026-04 或更新版本。商家移动端尚不能通过该链接打开折扣编辑流程。",
+      "recommended_action": "若需 Sidekick 推广折扣流程，注册 link 或 render intent；保留移动端使用网页管理端的指引。",
+      "official_date": "2026-09-30",
+      "change_url": "https://shopify.dev/changelog/posts/use-app-intents-for-your-discount-app"
+    },
+    {
+      "event_id": "shopee_open_platform_announcements-3afe821fb592::detail-1",
+      "content_hash": "83a2900664da2c80fc5454f9ae2c74be57fee2e2e4d86467e40a0e148ff6d328",
+      "platform_code": "shopee",
+      "platform_label": "Shopee",
+      "primary_tag_code": "finance_settlement",
+      "primary_tag_label": "财务/结算",
+      "status": "actionable_today",
+      "ai_summary_zh": "Shopee 巴西付款公告于 2026-10-02 更新，说明 pay_per_sale 广告费用已生效，并由托管款扣减。费用在退款或取消后可能变化，零费用字段仍返回，财务集成需调整收入计算和对账。正文没有在此葡语公告中给出完整生效日期，不能把最后更新日直接视为收费起始日。",
+      "recommended_action": "更新付款明细和批量明细的费用解析，覆盖零值、退款和取消后的对账变化。",
+      "official_date": "2026-10-02",
+      "change_url": "https://open.shopee.com/announcements/1575?category=55&is_top=false"
+    },
+    {
+      "event_id": "shopee_open_platform_announcements-3afe821fb592::detail-2",
+      "content_hash": "32474b4b32c322ed485b28ba29f1751b4cc77049708265f7279750758f108b39",
+      "platform_code": "shopee",
+      "platform_label": "Shopee",
+      "primary_tag_code": "compliance_policy",
+      "primary_tag_label": "合规/政策",
+      "status": "actionable_today",
+      "ai_summary_zh": "Shopee 2026-10-02 公告明确自 2026-10-31 起，对使用集成物流的 CPF 卖家掩码处理买家 CPF 数据。v2.order.get_order_detail 的 buyer_cpf_id 将被掩码或不可用，CNPJ 卖家不在此次范围内。依赖完整 CPF 的订单流程必须兼容缺失或脱敏返回。",
+      "recommended_action": "按 CPF 卖家及集成物流范围更新 buyer_cpf_id 解析，测试掩码和缺失值，不依赖完整身份证号。",
+      "official_date": "2026-10-02",
+      "change_url": "https://open.shopee.com/announcements/1565?category=55&is_top=false"
+    },
+    {
+      "event_id": "mercadolibre_global_selling_docs-f3225f040fd9::detail-1",
+      "content_hash": "6ed60dbe4c35175187f2e120656b565d88313ab7f07086f0640e854da107755a",
+      "platform_code": "mercadolibre",
+      "platform_label": "Mercado Libre",
+      "primary_tag_code": "listing_product",
+      "primary_tag_label": "刊登/商品",
+      "status": "actionable_today",
+      "ai_summary_zh": "Mercado Libre 定价自动化文档标注 2026-10-01 更新，说明可查询商品可用自动调价规则。正文强调在自动化外部修改刊登价格会立即停止自动调价，影响 ERP 改价和平台规则并行运行。该正文未提供本次更新时间的逐项差分或强制迁移日期。",
+      "recommended_action": "改价前确认商品是否启用自动化，查询可用规则并避免无意通过外部改价终止自动化。",
+      "official_date": "2026-10-01",
+      "change_url": "https://global-selling.mercadolibre.com/devsite/manage-automations"
+    },
+    {
+      "event_id": "temu_partner_docs-a35473b11191::detail-1",
+      "content_hash": "b284ade2785da38f0c4442e43a88e644450303eb6c047c54bffac3e811634d39",
+      "platform_code": "temu",
+      "platform_label": "Temu",
+      "primary_tag_code": "logistics_fulfillment",
+      "primary_tag_label": "物流/履约",
+      "status": "actionable_late_discovery",
+      "ai_summary_zh": "Temu 物流类型更新接口文档标注 2026-09-29 更新，可修改非集成物流追踪号或把集成物流改为非集成物流。错误说明要求部分场景先取消揽收预约，并限制特殊订单、仓库或承运商的履约方式。此条是较早文档的晚发现，正文没有证明接口在日报当天新增。",
+      "recommended_action": "对照运单更新场景校验包裹、承运商和仓库，并处理需先取消揽收预约的错误。",
+      "official_date": "2026-09-29",
+      "change_url": "https://partner-us.temu.com/documentation?menu_code=fb16b05f7a904765aac4af3a24b87d4a&sub_menu_code=5e15820c84b84b6a9af7b28645c38d23"
+    },
+    {
+      "event_id": "temu_partner_docs-a35473b11191::detail-2",
+      "content_hash": "d6b5ce5989a29ca35d157ded001a4f9714a0d81bfe37b8efbc9181fca3df2fec",
+      "platform_code": "temu",
+      "platform_label": "Temu",
+      "primary_tag_code": "logistics_fulfillment",
+      "primary_tag_label": "物流/履约",
+      "status": "actionable_late_discovery",
+      "ai_summary_zh": "Temu 子包裹补充接口文档标注 2026-09-29 更新，仅适用于最小 SKU 需要拆包发货的场景。调用需带已发主包裹号，错误说明子包裹只能添加一次，影响拆包与重复提交处理。本条为晚发现旧文档，正文没有新的生效期限。",
+      "recommended_action": "仅在适用拆包场景补充子包裹，校验主包裹号并防止重复添加。",
+      "official_date": "2026-09-29",
+      "change_url": "https://partner-us.temu.com/documentation?menu_code=fb16b05f7a904765aac4af3a24b87d4a&sub_menu_code=4f1172f777924859bf3f53663572df6e"
+    },
+    {
+      "event_id": "temu_partner_docs-a35473b11191::detail-3",
+      "content_hash": "ecf09ac49bd8a93c4f90ea6d368b455177be517998547a9d7b1a0862f218da8d",
+      "platform_code": "temu",
+      "platform_label": "Temu",
+      "primary_tag_code": "logistics_fulfillment",
+      "primary_tag_label": "物流/履约",
+      "status": "actionable_late_discovery",
+      "ai_summary_zh": "Temu 发货确认 V2 文档标注 2026-09-29 更新，用于同步履约信息并把订单从待发货转为已发货。sendType 区分单父单整包、拆包及多父单合包，拆包模式要求一次调用提交订单全部商品。履约系统需正确组合包裹和追踪号；本条为晚发现，不代表日报当天新上线。",
+      "recommended_action": "按 sendType 核对整包、拆包和合包请求，并覆盖重复发货及物流限制错误。",
+      "official_date": "2026-09-29",
+      "change_url": "https://partner-us.temu.com/documentation?menu_code=fb16b05f7a904765aac4af3a24b87d4a&sub_menu_code=70cca1a3690044eaae4a28de6de76bb1"
+    },
+    {
+      "event_id": "wildberries_release_notes-493ab442322a::detail-1",
+      "content_hash": "06f6009a88b97d8f44e58674cac034f4aa3a282b3ae372339b19c9c561651747",
+      "platform_code": "wildberries",
+      "platform_label": "Wildberries",
+      "primary_tag_code": "api_technical",
+      "primary_tag_label": "API/技术",
+      "status": "actionable_today",
+      "ai_summary_zh": "Wildberries 公告写明自 10 月 12 日起，搜索词 CSV 报告停用 OpenCardPercentile、AddToCartPercentile、OpenToCartPercentile、OrdersPercentile 和 CartToOrderPercentile 五个字段。下载接口 GET /api/v2/nm-report/downloads/file/{downloadId} 的解析和下游百分位指标将受影响。正文未写该日期年份，需核对公告上下文，不能把缺失字段当作零值。",
+      "recommended_action": "移除对五个百分位字段的必填依赖，兼容字段缺失并核对停用日期。",
+      "official_date": "2026-10-01",
+      "change_url": "https://t.me/wb_api_notifications/476"
+    },
+    {
+      "event_id": "shopify_developer_changelog-aa933b17b05e::detail-1",
+      "content_hash": "9cee895a26c201508316f6013514ace0e2f1997375baf0f13b2a0e7ceca65610",
+      "platform_code": "shopify",
+      "platform_label": "Shopify",
+      "primary_tag_code": "api_technical",
+      "primary_tag_label": "API/技术",
+      "status": "actionable_today",
+      "ai_summary_zh": "Shopify 2026-10 版本说明写明 2026-10-01 由候选版转稳定版，涉及订单税务、草稿折扣、metafield 过滤和客户结账变更。订单地址修改会重算税额，无效 metafield 过滤从忽略改为报错，采用该版本的集成需调整税差处理和查询。快照仍存在候选版标签，不能把时间轴上的执行日当成额外版本发布。",
+      "recommended_action": "升级前校验订单地址税额重算、草稿折扣新字段及 metafield 过滤条件，并核对版本状态。",
+      "official_date": "2026-10-01",
+      "change_url": "https://shopify.dev/changelog/release-notes/2026-10"
+    },
+    {
+      "event_id": "shopify_developer_changelog-aa933b17b05e::detail-2",
+      "content_hash": "484ee266e2da2de375db10f2bc740a86850044310f428e87daf671aab0cc5ffb",
+      "platform_code": "shopify",
+      "platform_label": "Shopify",
+      "primary_tag_code": "api_technical",
+      "primary_tag_label": "API/技术",
+      "status": "actionable_today",
+      "ai_summary_zh": "Shopify 2026-10-01 在 2026-10 API 版本正式推出 Next Gen Events，覆盖 18 个主题。开发者可声明触发条件、GraphQL 查询和结果过滤，在同次投递中获取变更及所需数据，减少传统 webhook 的后续查询。正文没有给经典 webhook 的统一停用日期。",
+      "recommended_action": "按应用关心的变更评估 Events，在 shopify.app.toml 配置触发、查询及过滤并验证载荷。",
+      "official_date": "2026-10-01",
+      "change_url": "https://shopify.dev/changelog/blog/next-generation-events-are-now-generally-available"
+    },
+    {
+      "event_id": "shopify_developer_changelog-aa933b17b05e::detail-3",
+      "content_hash": "52c07e0e83c31b900f709e892e9bb9ccc502e1b61987ad17f20b5130370c1018",
+      "platform_code": "shopify",
+      "platform_label": "Shopify",
+      "primary_tag_code": "api_technical",
+      "primary_tag_label": "API/技术",
+      "status": "actionable_today",
+      "ai_summary_zh": "Shopify 2026-10-01 的 Admin GraphQL API 2026-10 新增 Rollouts 查询及 webhook，可读取计划、实际流量分配和资源变更。应用需请求 read_rollouts，现有安装可能需要商家重新授权，且配置流量不等于实际覆盖范围。折扣、主题或结账集成可据此识别协调发布与实验状态。",
+      "recommended_action": "申请 read_rollouts 并核对底层资源权限，读取实际分配及计划时间，订阅后重新查询受影响 Rollout。",
+      "official_date": "2026-10-01",
+      "change_url": "https://shopify.dev/changelog/posts/read_rollouts"
+    },
+    {
+      "event_id": "shopify_developer_changelog-aa933b17b05e::detail-4",
+      "content_hash": "b491f4a3b6eb1df1bf6a7683c26399b23e517f7a3bac645392f9d30283342556",
+      "platform_code": "shopify",
+      "platform_label": "Shopify",
+      "primary_tag_code": "marketing_promotion",
+      "primary_tag_label": "营销/促销",
+      "status": "actionable_today",
+      "ai_summary_zh": "Shopify 2026-10-01 在折扣类型加入只读 rollouts 连接，折扣原有起止时间不再足以描述其可用性。读取折扣的应用需结合 Rollout 计划、实际流量和处理分组；部分流量只作用于 Online Store，旧 API 版本可能过滤这些折扣。升级集成需申请 read_rollouts，原资源权限仍适用。",
+      "recommended_action": "读取 Discount.rollouts 并结合实际流量和原起止时间判断折扣可用性，核对旧 API 过滤行为。",
+      "official_date": "2026-10-01",
+      "change_url": "https://shopify.dev/changelog/posts/discounts-can-now-be-included-in-rollouts"
+    },
+    {
+      "event_id": "walmart_marketplace_whats_new-ffc4b0a64806::detail-1",
+      "content_hash": "ae1588da8492fb095ec9f43ba15b9097c9357661dde5f1b387b0980f13bdd936",
+      "platform_code": "walmart",
+      "platform_label": "Walmart",
+      "primary_tag_code": "api_technical",
+      "primary_tag_label": "API/技术",
+      "status": "actionable_today",
+      "ai_summary_zh": "Walmart 2026-10-01 发布说明列出报表计划接口的更新，表内变更日期为 2026-09-25。scheduleStartDate 改用日期格式字符串，创建计划要求 frequency，并增加操作标识、可选幂等头及错误响应。报表调度集成需核对日期格式、必填频率和失败处理，不能把页面相对时间当成新的发布日期。",
+      "recommended_action": "验证报表计划日期格式和 frequency 必填校验，按需使用幂等头并覆盖新错误响应。",
+      "official_date": "2026-10-01",
+      "change_url": "https://developer.walmart.com/us-marketplace/changelog"
+    },
+    {
+      "event_id": "mercadolibre_global_selling_docs-52141128594c::detail-1",
+      "content_hash": "aed89166baf66c924856aaa049c5543ffc362dbf02285e6587d1ccc951635f7a",
+      "platform_code": "mercadolibre",
+      "platform_label": "Mercado Libre",
+      "primary_tag_code": "listing_product",
+      "primary_tag_label": "刊登/商品",
+      "status": "actionable_late_discovery",
+      "ai_summary_zh": "Mercado Libre 尺码表校验文档标注 2026-10-01 更新，要求时尚类商品补全技术属性，并按国家查询认可的性别值。适用品类需关联合适的尺码表及行，减少尺寸不符引发的退货和刊登质量问题。正文没有说明本次更新时间对应的完整规则差分。",
+      "recommended_action": "检查目标域的尺码表属性、性别和品牌，并按文档关联尺码表及行标识。",
+      "official_date": "2026-10-01",
+      "change_url": "https://global-selling.mercadolibre.com/devsite/size-chart-validation"
+    },
+    {
+      "event_id": "mercadolibre_global_selling_docs-52141128594c::detail-2",
+      "content_hash": "b78b441f382837dfb625878bb814cc127dace787612c2f693013c2fa15eda613",
+      "platform_code": "mercadolibre",
+      "platform_label": "Mercado Libre",
+      "primary_tag_code": "listing_product",
+      "primary_tag_label": "刊登/商品",
+      "status": "actionable_late_discovery",
+      "ai_summary_zh": "Mercado Libre 2026-10-01 更新的商品关联尺码表文档要求提交 SIZE_GRID_ID 和 SIZE_GRID_ROW_ID。创建商品的用户必须与尺码表创建者一致，商品性别需匹配且不能省略行标识，影响服饰鞋类发品校验。正文没有另外给出迁移截止日期。",
+      "recommended_action": "在发品载荷中校验尺码表及行标识、所有者和性别匹配，并核对站点及商品必填属性。",
+      "official_date": "2026-10-01",
+      "change_url": "https://global-selling.mercadolibre.com/devsite/create-an-item-with-size-chart"
+    },
+    {
+      "event_id": "mercadolibre_global_selling_docs-52141128594c::detail-3",
+      "content_hash": "0c6c3f3ff25a967d9b9a2fd1070d8376ba92b25e7ffde463c2b12dd4eacbdc05",
+      "platform_code": "mercadolibre",
+      "platform_label": "Mercado Libre",
+      "primary_tag_code": "compliance_policy",
+      "primary_tag_label": "合规/政策",
+      "status": "actionable_late_discovery",
+      "ai_summary_zh": "Mercado Libre 网络安全最佳实践正文标注最后更新 2023-04-28，本条为晚发现旧文档。正文建议通过日志、审计和监控保存可定位事件的证据，同时尽量避免记录敏感信息、个人数据及秘密。集成排错需要兼顾可追溯性和数据保护，不能据此认定平台在本日报日期新增安全规则。",
+      "recommended_action": "核对日志、审计及监控覆盖，移除不必要的敏感和个人数据记录。",
+      "official_date": "2023-04-28",
+      "change_url": "https://global-selling.mercadolibre.com/devsite/cybersecurity-best-practices"
+    },
+    {
+      "event_id": "mercadolibre_global_selling_docs-52141128594c::detail-4",
+      "content_hash": "3e52a731653c477f5686d2552cd4dcf8aeb9ac9bec5c22971c2115a655241e96",
+      "platform_code": "mercadolibre",
+      "platform_label": "Mercado Libre",
+      "primary_tag_code": "account_permission",
+      "primary_tag_label": "账号/权限",
+      "status": "actionable_late_discovery",
+      "ai_summary_zh": "Mercado Libre 认证授权文档标注 2026-04-01 更新，要求访问私有资源前取得用户授权，并在每次 API 调用的请求头传递访问令牌。该流程区分身份认证与资源操作授权，影响私有资源接入和令牌传输。此条为晚发现文档，正文没有新的授权截止日。",
+      "recommended_action": "核对 OAuth 授权范围及请求头传递方式，避免在其他位置暴露访问令牌。",
+      "official_date": "2026-04-01",
+      "change_url": "https://global-selling.mercadolibre.com/devsite/authentication-and-authorization-global-selling"
+    },
+    {
+      "event_id": "mercadolibre_global_selling_docs-52141128594c::detail-5",
+      "content_hash": "2c7d2008b6896445b7469bf30a74dc8cecf5664806321e927350ea0780d80926",
+      "platform_code": "mercadolibre",
+      "platform_label": "Mercado Libre",
+      "primary_tag_code": "account_permission",
+      "primary_tag_label": "账号/权限",
+      "status": "actionable_late_discovery",
+      "ai_summary_zh": "Mercado Libre 授权与令牌最佳实践标注 2025-12-15 更新，要求向 /oauth/token 换取令牌时把参数放在请求体，而非查询字符串。正文还建议生成安全随机 state，降低授权流程漏洞风险。本条属于晚发现旧文档，不是日报当天新增认证协议。",
+      "recommended_action": "检查令牌交换参数位于请求体，并按建议配置安全随机 state。",
+      "official_date": "2025-12-15",
+      "change_url": "https://global-selling.mercadolibre.com/devsite/authorization-and-token-best-practices"
+    },
+    {
+      "event_id": "mercadolibre_global_selling_docs-52141128594c::detail-6",
+      "content_hash": "e894dcafd566deffe009d076d622121e6dba90483b6894c9c60d8eaad7ecb0af",
+      "platform_code": "mercadolibre",
+      "platform_label": "Mercado Libre",
+      "primary_tag_code": "api_technical",
+      "primary_tag_label": "API/技术",
+      "status": "actionable_late_discovery",
+      "ai_summary_zh": "Mercado Libre MCP 文档标注 2026-09-10 更新，介绍通过自然语言访问平台 API 和资源的开发工具。接入需兼容 MCP 客户端及有效账号，采用 OAuth 2.0 授权并由客户端管理凭据，减少手工管理令牌。本条为晚发现文档，没有强制要求现有集成迁移到 MCP。",
+      "recommended_action": "如需使用 MCP 工具，选择兼容客户端并通过官方 OAuth 流程授权，不手工传播令牌。",
+      "official_date": "2026-09-10",
+      "change_url": "https://global-selling.mercadolibre.com/devsite/mcp-server-from-mercado-libre"
+    },
+    {
+      "event_id": "wildberries_release_notes-089b933fd523::detail-1",
+      "content_hash": "b51a8f446fa1408bd7690fed321b739ab6361cbcd1aba02bf4a3a2c5d6b06b1f",
+      "platform_code": "wildberries",
+      "platform_label": "Wildberries",
+      "primary_tag_code": "api_technical",
+      "primary_tag_label": "API/技术",
+      "status": "actionable_today",
+      "ai_summary_zh": "Wildberries 公告安排在 10 月 5 日至 6 日夜间莫斯科时间 02:00–02:45 维护 Marketplace 服务。FBS、DBW、DBS、自提及卖家仓库库存相关方法将不可用，数据延迟可持续至 05:30，影响夜间订单与库存同步。正文未写年份，维护窗口应按官方上下文确认。",
+      "recommended_action": "避开维护窗口调用相关方法，维护后检查 API 状态及延迟数据再恢复同步。",
+      "official_date": "2026-10-02",
+      "change_url": "https://t.me/wb_api_notifications/480"
+    },
+    {
+      "event_id": "wildberries_release_notes-089b933fd523::detail-2",
+      "content_hash": "77fe627a4684c3895e4bb7f3fe3eebb50bb541d1e02e7157da9e8517f6ba54fc",
+      "platform_code": "wildberries",
+      "platform_label": "Wildberries",
+      "primary_tag_code": "listing_product",
+      "primary_tag_label": "刊登/商品",
+      "status": "actionable_today",
+      "ai_summary_zh": "Wildberries 为商品卡上传、更新和追加接口增加 gtin 参数，商品列表响应也返回该字段。额外 GTIN 只有在此前某商品卡 skus 已使用相同值时才可填写，不能在不同商品卡或尺码的 skus 重复使用同一 GTIN。正文未写明确生效日期，刊登系统需核对编码一致性。",
+      "recommended_action": "更新 gtin 请求和响应映射，校验额外 GTIN 的历史 skus 值及跨卡跨尺码唯一性。",
+      "official_date": "2026-10-02",
+      "change_url": "https://t.me/wb_api_notifications/479"
+    },
+    {
+      "event_id": "wildberries_release_notes-089b933fd523::detail-3",
+      "content_hash": "0f42ae04a4a2b6e3772ad3de4ddbe33f7df3096393b8632ef0b2083a9ec4b2e5",
+      "platform_code": "wildberries",
+      "platform_label": "Wildberries",
+      "primary_tag_code": "other_pending",
+      "primary_tag_label": "其他/待确认",
+      "status": "actionable_today",
+      "ai_summary_zh": "Wildberries 官方频道介绍开发者社区的导航改进、跨平台集成讨论和 Bug Report 相关消息。该条仅指向论坛公告，没有声明 API 行为或业务规则变更，也未给生效日期。开发者可按需要阅读社区说明，不应据此启动接口迁移。",
+      "recommended_action": "有社区使用需求时阅读论坛公告；不把社区消息当成接口变更。",
+      "official_date": "2026-10-02",
+      "change_url": "https://t.me/wb_api_notifications/478"
+    },
+    {
+      "event_id": "shopify_developer_changelog-87bb2ada7b70::detail-1",
+      "content_hash": "b723499e316a98bb7e40a2d202d6c56f9fdec99483586b58c55b71ead1fa3c04",
+      "platform_code": "shopify",
+      "platform_label": "Shopify",
+      "primary_tag_code": "api_technical",
+      "primary_tag_label": "API/技术",
+      "status": "actionable_late_discovery",
+      "ai_summary_zh": "Shopify 2026-10 版本说明仍以 2026-10-01 为稳定版节点，正文涵盖订单税额重算、折扣旧字段删除和无效 metafield 过滤报错。当前快照时间轴虽随抓取日变化，但不能证明这些内容在该日报所属日再次上线。升级方仍需按版本说明调整订单、折扣和过滤查询，候选版与稳定版标签矛盾应以官方版本状态核对。",
+      "recommended_action": "升级前校验订单地址税额重算、草稿折扣新字段及 metafield 过滤条件，并核对版本状态。",
+      "official_date": "2026-10-01",
+      "change_url": "https://shopify.dev/changelog/release-notes/2026-10"
+    },
+    {
+      "event_id": "walmart_marketplace_whats_new-ba11795d3ccd::detail-1",
+      "content_hash": "1bd73bd6f658a10047e1fe60f7010d3967f0d5be6aeb0a42f43a0ab93884c905",
+      "platform_code": "walmart",
+      "platform_label": "Walmart",
+      "primary_tag_code": "api_technical",
+      "primary_tag_label": "API/技术",
+      "status": "actionable_late_discovery",
+      "ai_summary_zh": "Walmart 当前快照仍展示 2026-10-01 发布条目，报表计划变更的表内日期为 2026-09-25。页面相对时间发生变化不能证明再次发布；相关实际要求仍包括日期格式、frequency 必填、可选幂等头及错误响应。报表调度集成应核对这些要求，不把抓取日当作新生效日。",
+      "recommended_action": "验证报表计划日期格式和 frequency 必填校验，按需使用幂等头并覆盖新错误响应。",
+      "official_date": "2026-10-01",
+      "change_url": "https://developer.walmart.com/us-marketplace/changelog"
+    },
+    {
+      "event_id": "shopify_developer_changelog-ea42be716e6c::detail-1",
+      "content_hash": "96a22cf9d07fbb69ada32f5d322edb5cfc5bffc5a978594d46669fb2947bce42",
+      "platform_code": "shopify",
+      "platform_label": "Shopify",
+      "primary_tag_code": "api_technical",
+      "primary_tag_label": "API/技术",
+      "status": "actionable_late_discovery",
+      "ai_summary_zh": "Shopify 2026-10 版本说明仍以 2026-10-01 为稳定版节点，正文涵盖订单税额重算、折扣旧字段删除和无效 metafield 过滤报错。当前快照时间轴虽随抓取日变化，但不能证明这些内容在该日报所属日再次上线。升级方仍需按版本说明调整订单、折扣和过滤查询，候选版与稳定版标签矛盾应以官方版本状态核对。",
+      "recommended_action": "升级前校验订单地址税额重算、草稿折扣新字段及 metafield 过滤条件，并核对版本状态。",
+      "official_date": "2026-10-01",
+      "change_url": "https://shopify.dev/changelog/release-notes/2026-10"
+    },
+    {
+      "event_id": "walmart_marketplace_whats_new-90bc20795f50::detail-1",
+      "content_hash": "7a5956c0a89ecd9254f42716d4090dd8cd1b05b93fc3a39cbf94d380e069d09a",
+      "platform_code": "walmart",
+      "platform_label": "Walmart",
+      "primary_tag_code": "api_technical",
+      "primary_tag_label": "API/技术",
+      "status": "actionable_late_discovery",
+      "ai_summary_zh": "Walmart 当前快照仍展示 2026-10-01 发布条目，报表计划变更的表内日期为 2026-09-25。页面相对时间发生变化不能证明再次发布；相关实际要求仍包括日期格式、frequency 必填、可选幂等头及错误响应。报表调度集成应核对这些要求，不把抓取日当作新生效日。",
+      "recommended_action": "验证报表计划日期格式和 frequency 必填校验，按需使用幂等头并覆盖新错误响应。",
+      "official_date": "2026-10-01",
+      "change_url": "https://developer.walmart.com/us-marketplace/changelog"
+    },
+    {
+      "event_id": "shopee_open_platform_announcements-72d362b5c13f::detail-1",
+      "content_hash": "7303bfae70d638ac8ab0fb8d2c6ba564bb63966accbd553f9a3920ba08db1ae4",
+      "platform_code": "shopee",
+      "platform_label": "Shopee",
+      "primary_tag_code": "order",
+      "primary_tag_label": "订单",
+      "status": "actionable_today",
+      "ai_summary_zh": "Shopee 2026-10-05 更新巴西部分取消订单公告，说明功能从 9 月 28 日起开放，仅用于缺货原因的合资格订单，巴西限集成物流 Turbo 渠道。接口增加部分取消资格、买家偏好及数量字段，cancel_order 接收 partial_cancel_item_list，并提供预估取消金额 API。集成需保留可发商品的履约流程，不能把部分取消按全单取消处理；正文起始日未写完整年份。",
+      "recommended_action": "根据资格和买家偏好提交缺货商品或数量的部分取消，核对剩余履约及预估取消金额接口。",
+      "official_date": "2026-10-05",
+      "change_url": "https://open.shopee.com/announcements/1576?category=55&is_top=false"
+    },
+    {
+      "event_id": "wildberries_release_notes-dc7b4a2d638b::detail-1",
+      "content_hash": "57fe0b713e98057830bfe65c4b68f55e60c73b6de14bab9b9d90692e561c8bdf",
+      "platform_code": "wildberries",
+      "platform_label": "Wildberries",
+      "primary_tag_code": "api_technical",
+      "primary_tag_label": "API/技术",
+      "status": "actionable_today",
+      "ai_summary_zh": "Wildberries 公告写明从 11 月 3 日起停用 GET /api/v1/analytics/region-sale 地区销售统计接口。需要地区销售数据的集成应改用 Order Feed 报告，继续调用旧方法将面临接口停用。正文未写该节点年份，需核对官方说明后安排迁移。",
+      "recommended_action": "盘点 region-sale 调用，按官方指南改用 Order Feed 数据并核对停用日期。",
+      "official_date": "2026-10-05",
+      "change_url": "https://t.me/wb_api_notifications/481"
+    },
+    {
+      "event_id": "shopee_open_platform_announcements-78ec6de3d4cc::detail-1",
+      "content_hash": "acdf36bf4ca86be321c3ad18db0d29b091dd8b365f9f69431a0cbfbbc03c96eb",
+      "platform_code": "shopee",
+      "platform_label": "Shopee",
+      "primary_tag_code": "logistics_fulfillment",
+      "primary_tag_label": "物流/履约",
+      "status": "actionable_today",
+      "ai_summary_zh": "Shopee 巴西 2026-10-07 公告确认自 2026-10-05 起，Turbo 渠道 90011、90012 的三边和上限从 120 cm 放宽至 130 cm，最长边从 40 cm 放宽至 50 cm。重量上限仍为 18 kg，超任一限制的商品不能启用 Turbo，其他流程不变。集成只需据此调整尺寸资格校验，不应同步放宽重量。",
+      "recommended_action": "把适用渠道三边和与最长边上限更新为 130 cm 和 50 cm，保持 18 kg 及其他流程不变。",
+      "official_date": "2026-10-07",
+      "change_url": "https://open.shopee.com/announcements/1578?category=55&is_top=false"
+    },
+    {
+      "event_id": "mercadolibre_global_selling_docs-aea8c9484eb5::detail-1",
+      "content_hash": "b75e897d337b55d841a5ba7418c39177103937c5895deb4f7f9d0ad54935d989",
+      "platform_code": "mercadolibre",
+      "platform_label": "Mercado Libre",
+      "primary_tag_code": "inventory",
+      "primary_tag_label": "库存",
+      "status": "actionable_late_discovery",
+      "ai_summary_zh": "Mercado Libre 履约库存文档标注 2026-10-05 更新，适用于有 Fulfillment 的墨西哥和智利。正文说明查询库存及变动前，先通过 /marketplace/items 获取 inventory_id，影响库存查询标识的选择。本条为较早文档的晚发现，正文没有给出本次更新的逐项差分。",
+      "recommended_action": "在适用站点先读取 inventory_id，再按文档查询 Fulfillment 库存及变动。",
+      "official_date": "2026-10-05",
+      "change_url": "https://global-selling.mercadolibre.com/devsite/fulfillment-stock-gs"
+    },
+    {
+      "event_id": "mercadolibre_global_selling_docs-aea8c9484eb5::detail-2",
+      "content_hash": "cdbfebbeea15ecdd5f7c188d4284c08b809a773ca6c605dbaa6c5e62c947c679",
+      "platform_code": "mercadolibre",
+      "platform_label": "Mercado Libre",
+      "primary_tag_code": "account_permission",
+      "primary_tag_label": "账号/权限",
+      "status": "actionable_late_discovery",
+      "ai_summary_zh": "Mercado Libre 用户文档标注 2025-12-26 更新，区分拥有授权的全局用户和按站点及物流类型划分的市场用户。集成可用全局用户访问令牌管理对应市场账户，需正确选择业务账户而非混用用户身份。本条是晚发现旧文档，没有新的账号迁移截止日。",
+      "recommended_action": "核对全局用户与市场用户的映射，并以获授权全局令牌操作对应账户。",
+      "official_date": "2025-12-26",
+      "change_url": "https://global-selling.mercadolibre.com/devsite/manage-users-global-selling"
+    },
+    {
+      "event_id": "mercadolibre_global_selling_docs-aea8c9484eb5::detail-3",
+      "content_hash": "110344372c94659bb1d5e4dc446686f827b981374070c5c06241937f0cba3d50",
+      "platform_code": "mercadolibre",
+      "platform_label": "Mercado Libre",
+      "primary_tag_code": "api_technical",
+      "primary_tag_label": "API/技术",
+      "status": "actionable_late_discovery",
+      "ai_summary_zh": "Mercado Libre 设计注意事项文档标注 2025-12-26 更新，说明 JSON、错误格式、裁剪字段及分页等基础约定。JSONP 外层总是 HTTP 200，真实状态位于返回数组中，因此仅检查传输状态可能误判失败为成功。本条是晚发现旧文档，不能解释为当日协议变更。",
+      "recommended_action": "解析 JSONP 数组中的真实状态和错误对象，并按需使用 attributes 降低返回量。",
+      "official_date": "2025-12-26",
+      "change_url": "https://global-selling.mercadolibre.com/devsite/design-considerations-global-selling"
+    },
+    {
+      "event_id": "mercadolibre_global_selling_docs-aea8c9484eb5::detail-4",
+      "content_hash": "b0ecb386ba677d36a030fa4f7624131a9fa4d4fc26e28726829ce3822d640970",
+      "platform_code": "mercadolibre",
+      "platform_label": "Mercado Libre",
+      "primary_tag_code": "api_technical",
+      "primary_tag_label": "API/技术",
+      "status": "actionable_late_discovery",
+      "ai_summary_zh": "Mercado Libre 测试用户文档标注 2026-06-16 更新，说明没有独立沙箱，应通过测试用户在生产环境模拟业务。创建 CBT 全局测试用户要求 country_id，缺失将返回 400；站点和国家代码必须大写，创建后需立即安全保存凭据。此条为晚发现文档，不能据此授权使用真实个人账户测试。",
+      "recommended_action": "仅使用测试用户执行测试，补齐大写 country_id 等参数，并在创建时安全保存测试凭据。",
+      "official_date": "2026-06-16",
+      "change_url": "https://global-selling.mercadolibre.com/devsite/start-testing-global-selling"
+    },
+    {
+      "event_id": "mercadolibre_global_selling_docs-aea8c9484eb5::detail-5",
+      "content_hash": "0f2db5cb7e8f14382dcc96a80aef7b3823d1ff3a96a7fc945dd6277fc3d253fe",
+      "platform_code": "mercadolibre",
+      "platform_label": "Mercado Libre",
+      "primary_tag_code": "api_technical",
+      "primary_tag_label": "API/技术",
+      "status": "actionable_late_discovery",
+      "ai_summary_zh": "Mercado Libre 地理位置文档标注 2025-12-15 更新，展示通过 /countries 获取国家、区域语言和货币信息。地点基础数据集成可用其返回维护国家配置，但正文没有列出新增国家或日报当天的规则差分。本条为晚发现旧文档，不应被解读成当日开放新市场。",
+      "recommended_action": "需要国家基础数据时按文档查询 /countries 并处理返回国家、语言及货币字段。",
+      "official_date": "2025-12-15",
+      "change_url": "https://global-selling.mercadolibre.com/devsite/location-global-selling"
+    },
+    {
+      "event_id": "mercadolibre_global_selling_docs-aea8c9484eb5::detail-6",
+      "content_hash": "90afcae66d27768d4dc26901f4505f031df66ae0f86f7133aebe193568d91e03",
+      "platform_code": "mercadolibre",
+      "platform_label": "Mercado Libre",
+      "primary_tag_code": "logistics_fulfillment",
+      "primary_tag_label": "物流/履约",
+      "status": "actionable_late_discovery",
+      "ai_summary_zh": "Mercado Libre Shipping 文档标注 2025-12-15 更新，展示按货件标识获取配送数据的资源。接口示例包含状态、追踪和收件地址等字段，可供物流集成核对响应结构，但不是日报当天新增字段的证据。本条为晚发现旧文档，正文未写新的上线或迁移时间。",
+      "recommended_action": "对照货件资源核对配送状态和追踪解析，不将示例字段当作本次新增。",
+      "official_date": "2025-12-15",
+      "change_url": "https://global-selling.mercadolibre.com/devsite/shipping-global-selling"
+    },
+    {
+      "event_id": "wildberries_release_notes-c974a1ada91e::detail-1",
+      "content_hash": "1e2e7fca61661914495075707ac2d661e956521ab6abf111a3b746b952597fa9",
+      "platform_code": "wildberries",
+      "platform_label": "Wildberries",
+      "primary_tag_code": "order",
+      "primary_tag_label": "订单",
+      "status": "actionable_today",
+      "ai_summary_zh": "Wildberries 为 POST /api/v3/dbs/orders/client 增加 additionalPhones 和 replacementAdditionalPhones，分别返回买家额外联系电话和额外替代号码。DBS 联系买家的集成可读取新增字段，避免仅处理原有单一号码。正文没有明确生效日期或改造截止日。",
+      "recommended_action": "更新 DBS 客户信息解析，按字段语义区分额外联系号码与替代号码。",
+      "official_date": "2026-10-06",
+      "change_url": "https://t.me/wb_api_notifications/482"
+    },
+    {
+      "event_id": "wildberries_release_notes-8d3607c7ee53::detail-1",
+      "content_hash": "3cdf3223bfa6eb8413e2b7b673dc0ee952a69966be1834bf56fda327df3fa24b",
+      "platform_code": "wildberries",
+      "platform_label": "Wildberries",
+      "primary_tag_code": "order",
+      "primary_tag_label": "订单",
+      "status": "actionable_today",
+      "ai_summary_zh": "Wildberries 为 POST /api/v3/dbs/orders/client 增加 additionalPhones 和 replacementAdditionalPhones，分别返回买家额外联系电话和额外替代号码。DBS 联系买家的集成可读取新增字段，避免仅处理原有单一号码。正文没有明确生效日期或改造截止日。",
+      "recommended_action": "更新 DBS 客户信息解析，按字段语义区分额外联系号码与替代号码。",
+      "official_date": "2026-10-06",
+      "change_url": "https://t.me/wb_api_notifications/482"
+    },
+    {
+      "event_id": "wildberries_release_notes-8d3607c7ee53::detail-2",
+      "content_hash": "72b8eac3d63752a38435b0d2e9667ef0d5ff892bf03e3ba86a6cfb853c8b6e9f",
+      "platform_code": "wildberries",
+      "platform_label": "Wildberries",
+      "primary_tag_code": "api_technical",
+      "primary_tag_label": "API/技术",
+      "status": "actionable_today",
+      "ai_summary_zh": "Wildberries 公告写明从 10 月 12 日起，商品搜索查询相关页面和三类 CSV 报告的数据更新频率改为每两小时一次。SEARCH_QUERIES_PREMIUM_REPORT_GROUP、PRODUCT 和 TEXT 及相关分析页面受影响，短周期抓取不能据此保证新增数据。正文未注明年份，需按官方上下文核对生效节点。",
+      "recommended_action": "将搜索分析的新鲜度预期和轮询安排调整为两小时数据周期，并核对适用报告及日期。",
+      "official_date": "2026-10-07",
+      "change_url": "https://t.me/wb_api_notifications/483"
+    },
+    {
+      "event_id": "shopify_developer_changelog-02640b9e14e7::detail-1",
+      "content_hash": "88a0830fa46f95ea68cc69963152442169e7091fa76cf318837aa68374215144",
+      "platform_code": "shopify",
+      "platform_label": "Shopify",
+      "primary_tag_code": "api_technical",
+      "primary_tag_label": "API/技术",
+      "status": "actionable_today",
+      "ai_summary_zh": "Shopify 2026-10-07 公告说明 POS UI 扩展 API 2026-10 的购物车写入在 POS 未确认生效时会拒绝 Promise，2026-07 及更早版本不受此版本变更影响。未处理拒绝会中止后续处理并留下加载状态；结果未知时可能部分写入，重试前需先读取购物车。升级前必须逐调用点处理失败，不能把调用完成当成写入成功。",
+      "recommended_action": "升级到 2026-10 前为每个购物车变更增加拒绝处理，区分未变更与结果未知，后者先读取购物车再重试。",
+      "official_date": "2026-10-07",
+      "change_url": "https://shopify.dev/changelog/posts/cart-mutations-reject-unconfirmed-writes-in-pos-ui-extensions-2026-10"
+    },
+    {
+      "event_id": "shopify_developer_changelog-02640b9e14e7::detail-2",
+      "content_hash": "d1e580367c25aa9144fa8856b93dafbdb77a141652b7933ab301c01507230ae5",
+      "platform_code": "shopify",
+      "platform_label": "Shopify",
+      "primary_tag_code": "marketing_promotion",
+      "primary_tag_label": "营销/促销",
+      "status": "actionable_today",
+      "ai_summary_zh": "Shopify 2026-10-07 公告说明 POS 11.15 把 Percentage 折扣的 Discount.amount 修正为百分数，而非扣减金额。此修正影响所有 POS UI 扩展 API 版本，保留旧 api_version 不能维持旧行为，FixedAmount 和 Code 折扣不变。把该值当货币使用的展示、积分和批量购物车流程必须按类型解释并兼容旧设备。",
+      "recommended_action": "先检查 Discount.type，再处理百分比和货币；在 POS 11.15 及受支持旧设备上验证购物车与行级折扣。",
+      "official_date": "2026-10-07",
+      "change_url": "https://shopify.dev/changelog/posts/pos-ui-extensions-now-return-percentage-values-for-percentage-discounts"
+    },
+    {
+      "event_id": "shopify_developer_changelog-02640b9e14e7::detail-3",
+      "content_hash": "392466d07d1538e5eb3063de80b8397d3d8f05c6decf5e2ac4b3a064d52b877e",
+      "platform_code": "shopify",
+      "platform_label": "Shopify",
+      "primary_tag_code": "api_technical",
+      "primary_tag_label": "API/技术",
+      "status": "actionable_today",
+      "ai_summary_zh": "Shopify 2026-10-07 对 Customer Account API 增加每商店每顾客每分钟 3000 次请求上限，额度由所有应用共享且叠加原有成本限流。超过限制返回 HTTP 429、THROTTLED 和 Retry-After，正常买家流量通常不需调整。使用该 API 的应用应按响应等待后重试，避免立即重复请求。",
+      "recommended_action": "核对重试逻辑能识别 HTTP 429 并按 Retry-After 指定时长等待。",
+      "official_date": "2026-10-07",
+      "change_url": "https://shopify.dev/changelog/posts/per-customer-request-limit-for-the-customer-account-api"
+    },
+    {
+      "event_id": "shopify_developer_changelog-02640b9e14e7::detail-4",
+      "content_hash": "d650438e1750b6fb7fe06ce7b87ab278828121fb4d133ec7529cdefa7a24d815",
+      "platform_code": "shopify",
+      "platform_label": "Shopify",
+      "primary_tag_code": "api_technical",
+      "primary_tag_label": "API/技术",
+      "status": "actionable_today",
+      "ai_summary_zh": "Shopify 2026-10 版本说明仍以 2026-10-01 为稳定版节点，正文涵盖订单税额重算、折扣旧字段删除和无效 metafield 过滤报错。当前快照时间轴虽随抓取日变化，但不能证明这些内容在该日报所属日再次上线。升级方仍需按版本说明调整订单、折扣和过滤查询，候选版与稳定版标签矛盾应以官方版本状态核对。",
+      "recommended_action": "升级前校验订单地址税额重算、草稿折扣新字段及 metafield 过滤条件，并核对版本状态。",
+      "official_date": "2026-10-01",
+      "change_url": "https://shopify.dev/changelog/release-notes/2026-10"
+    },
+    {
+      "event_id": "mercadolibre_global_selling_docs-4c3735cc3cdb::detail-1",
+      "content_hash": "f78cceb2e614743f9cfedecbcc9a40dfedafe568668ddaff6712fd6f409c8570",
+      "platform_code": "mercadolibre",
+      "platform_label": "Mercado Libre",
+      "primary_tag_code": "listing_product",
+      "primary_tag_label": "刊登/商品",
+      "status": "actionable_today",
+      "ai_summary_zh": "刊登文档标注于 2026-10-08 更新，并明确旧刊登模型不适用于已启用 user_product_seller 标签的卖家，这些卖家必须使用 User Products 模型。正文列出的迁移截止日为 2026-07-31，此后旧模型逐步停用；这是文档中的既有期限，不是本次新增的未来期限。接入方需先核对卖家标签和当前刊登模型，避免继续使用不适用的旧流程。",
+      "recommended_action": "查询卖家是否启用 user_product_seller 标签；已启用的卖家应使用 User Products 刊登模型，并核对旧模型迁移是否完成。",
+      "official_date": "2026-10-08",
+      "change_url": "https://global-selling.mercadolibre.com/devsite/global-listing"
+    },
+    {
+      "event_id": "wildberries_release_notes-dc537af1c49b::detail-1",
+      "content_hash": "8f2401dcc58333ae6c6e67c1a9ac4e2a03de6df2b7371f80ab7cc7ba1471789b",
+      "platform_code": "wildberries",
+      "platform_label": "Wildberries",
+      "primary_tag_code": "order",
+      "primary_tag_label": "订单",
+      "status": "actionable_today",
+      "ai_summary_zh": "Wildberries 为沙箱 POST /api/v3/test/dbs/orders/make 请求新增 deliveryType 配送类型参数。测试接入方可据此创建 DBS 到自提点和 EDBS 模式的测试组单任务，用于覆盖相应订单流程。正文未写明独立生效日或迁移截止日，需人工确认，不应将沙箱功能视为生产订单接口强制迁移。",
+      "recommended_action": "在沙箱测试请求中核对 deliveryType 参数，补充 DBS 到自提点与 EDBS 两类测试订单场景。",
+      "official_date": "2026-10-08",
+      "change_url": "https://t.me/wb_api_notifications/484"
+    },
+    {
+      "event_id": "tiktok_shop_changelog-af8dab43547c::detail-1",
+      "content_hash": "41c461b2cf0bbb3cd8c542d0e4aac507f552e059c80d1f2f7028a9dea4f33a98",
+      "platform_code": "tiktok_shop",
+      "platform_label": "TikTok Shop",
+      "primary_tag_code": "logistics_fulfillment",
+      "primary_tag_label": "物流/履约",
+      "status": "actionable_today",
+      "ai_summary_zh": "TikTok Shop 于 2026-10-08 发布公告，将从 2026-10-14 起移除西班牙、意大利、法国、德国部分自发货承运商，仅影响本地到本地卖家的境内订单。维护承运商选项的应用需动态调用 Get Shipping Providers，以兼容仍获白名单授权的卖家；卖家应在截止前改用获准承运商或平台履约方案，避免订单取消。2026-10-14 前已更新的运单号继续正常追踪，无需调整。",
+      "recommended_action": "动态调用 Get Shipping Providers 获取可用承运商；通知受影响卖家在 2026-10-14 前切换获准承运商或平台履约方案，保留已更新运单号。",
+      "official_date": "2026-10-08",
+      "change_url": "https://partner.tiktokshop.com/docv2/page/7oobdgft"
+    },
+    {
+      "event_id": "shopify_developer_changelog-73699e023f71::detail-1",
+      "content_hash": "928e110c3c403a86b55ca698a9b9676ac776334db1815ff2aed58c0efda149a7",
+      "platform_code": "shopify",
+      "platform_label": "Shopify",
+      "primary_tag_code": "api_technical",
+      "primary_tag_label": "API/技术",
+      "status": "actionable_today",
+      "ai_summary_zh": "Shopify 2026-10 稳定版本说明汇总订单税额、草稿订单折扣、元字段过滤和客户账号结账等改动，采用该版本前需调整受影响集成。正文明确修改未履约订单配送地址会按新目的地重新计算税额，应用应重新读取税行、税额和总额以处理补款或退款差额。正文说明版本至少支持至 2027-10-01，但各条目的日期分散在此前月份，不能将页面显示的 2026-10-09 当成所有改动的新增发布日期。",
+      "recommended_action": "采用 2026-10 前逐项评估兼容性；修改未履约订单地址后重新查询 taxLines、totalTaxSet 和总额，核对支付或退款差额。",
+      "official_date": "2026-10-09",
+      "change_url": "https://shopify.dev/changelog/release-notes/2026-10"
+    },
+    {
+      "event_id": "shopify_developer_changelog-73699e023f71::detail-2",
+      "content_hash": "fa9ccf601bcc6a889df0362ab994b39326626697f1c6c3ac86ba9b1a24396ea5",
+      "platform_code": "shopify",
+      "platform_label": "Shopify",
+      "primary_tag_code": "api_technical",
+      "primary_tag_label": "API/技术",
+      "status": "actionable_today",
+      "ai_summary_zh": "Shopify 2027-01 仍是开发测试用候选版本，将于 2027-01-01 转为稳定版。正文列出自动折扣查询、市场币种和集合元字段条件等不兼容改动，税务应用的请求与回调也需处理全局 ID。相关条目日期为此前月份而非页面动态显示的 2026-10-09，接入方应按候选版本做兼容性测试，不应视为当前生产版立即切换要求。",
+      "recommended_action": "在候选版本环境检查 discountNodes 替代查询、marketCreate/marketUpdate、metafieldInt 条件和税务载荷 GID 解析，评估 2027-01-01 稳定版切换兼容性。",
+      "official_date": "2026-10-09",
+      "change_url": "https://shopify.dev/changelog/release-notes/2027-01"
+    },
+    {
+      "event_id": "shopify_developer_changelog-73699e023f71::detail-5",
+      "content_hash": "29710a3efb504145385de456cae61cac6e73b8a83f4bf6483bb451dece813a89",
+      "platform_code": "shopify",
+      "platform_label": "Shopify",
+      "primary_tag_code": "api_technical",
+      "primary_tag_label": "API/技术",
+      "status": "actionable_today",
+      "ai_summary_zh": "Shopify 版本说明索引列出 2026-10 稳定版本与 2027-01 候选版本，并把 2026-10 版本条目标为 2026-10-01。该索引仅概述订单税额重算、元字段过滤错误和结账字段移除，不提供这些改动的完整实施细节。接入方应进入对应版本正文评估影响，不能仅凭索引把上述规则判定为 2026-10-08 新发布。",
+      "recommended_action": "沿版本索引读取 2026-10 与 2027-01 独立说明，再核对订单税额、元字段和结账字段兼容性；不根据索引摘要推定强制迁移细节。",
+      "official_date": "2026-10-01",
+      "change_url": "https://shopify.dev/changelog/release-notes"
+    },
+    {
+      "event_id": "ebay_updates-fa4ca5674671::detail-1",
+      "content_hash": "d149b049d86c15f6aaba1edffa29f80ef679dfe5a48b5c2d5e74700ddb1d69b1",
+      "platform_code": "ebay",
+      "platform_label": "eBay",
+      "primary_tag_code": "api_technical",
+      "primary_tag_label": "API/技术",
+      "status": "actionable_today",
+      "ai_summary_zh": "eBay 于 2026-10-09 提醒 UploadSiteHostedPictures 已在 2026-09-30 进入下线流程，正文主段称 2026-10-26 完全停止服务，过渡期不保证稳定性和可用性。仍调用该接口的图片上传集成应迁移到 Media API，并在沙盒验证兼容性。正文时间安排又写 9 月 30 日所有调用失败，与主段口径不一致，实际可用状态和最终截止时间需向官方核实，不能把 10 月 26 日视为可安全等待的期限。",
+      "recommended_action": "尽快核查 UploadSiteHostedPictures 调用并迁移到 Media API，在 Sandbox 验证；向官方确认正文中 9 月 30 日与 10 月 26 日的停服口径差异。",
+      "official_date": "2026-10-09",
+      "change_url": "https://www.ebay.cn/newcms/d_updates/118"
+    },
+    {
+      "event_id": "ebay_updates-fa4ca5674671::detail-2",
+      "content_hash": "84376434903f1081fb6c26f5daf986627a4c4abe004d461296983f3a0c326874",
+      "platform_code": "ebay",
+      "platform_label": "eBay",
+      "primary_tag_code": "listing_product",
+      "primary_tag_label": "刊登/商品",
+      "status": "actionable_today",
+      "ai_summary_zh": "eBay 于 2026-10-09 公布英国汽车零配件 Fitment Plus Auto 适配数据访问变更，正文规定自 2026-10-01 起 GetItem 仅向刊登卖家及其授权方返回卖家自己提供的适配信息。FPA 自动添加的数据不会经该接口返回，其他用户即使请求兼容列表也会被忽略。使用这些数据进行存储、同步或再发布的集成需调整权限和缺失数据处理，并提醒卖家准确填写品牌和制造商零件编号。",
+      "recommended_action": "核对 GetItem 的卖家授权及适配数据存储、同步、再发布逻辑；不依赖 FPA 自动补充数据返回，提醒卖家检查 Brand 与 MPN 信息。",
+      "official_date": "2026-10-09",
+      "change_url": "https://www.ebay.cn/newcms/d_updates/117"
+    },
+    {
+      "event_id": "ebay_updates-fa4ca5674671::detail-3",
+      "content_hash": "a33aaf4458a8e72ff7146e5043bdb716f6e23ced0656b974225f3393bb254c53",
+      "platform_code": "ebay",
+      "platform_label": "eBay",
+      "primary_tag_code": "logistics_fulfillment",
+      "primary_tag_label": "物流/履约",
+      "status": "actionable_today",
+      "ai_summary_zh": "eBay 于 2026-10-09 通知 GetShippingDiscountProfiles 与 SetShippingDiscountProfiles 已弃用，将于 2027-01-19 正式停止服务。依赖这两个接口读取或管理合并运费规则的应用在停服后将失去原调用能力。接入方应在该日期前迁移到 Account API 的 combined_shipping_rules，并更新或移除旧接口调用。",
+      "recommended_action": "盘点两个 ShippingDiscountProfiles 接口调用，参考迁移指南改用 Account API combined_shipping_rules，并在 2027-01-19 前完成更新或移除。",
+      "official_date": "2026-10-09",
+      "change_url": "https://www.ebay.cn/newcms/d_updates/116"
+    },
+    {
+      "event_id": "ebay_updates-fa4ca5674671::detail-4",
+      "content_hash": "9edf7e113a6b45f393cb35f259808aa26f226e117eafbac5840bbd0cd9cfac27",
+      "platform_code": "ebay",
+      "platform_label": "eBay",
+      "primary_tag_code": "api_technical",
+      "primary_tag_label": "API/技术",
+      "status": "actionable_today",
+      "ai_summary_zh": "eBay 于 2026-10-09 通知 Trading API 的 GeteBayDetails 已弃用，将于 2027-03-15 正式停止服务。正文说明该接口支持的全部功能已经可由 Sell Metadata API 实现，继续依赖旧接口的应用需要迁移。研发应按专门迁移指南核对功能对应关系，在停服前替换调用。",
+      "recommended_action": "盘点 GeteBayDetails 依赖，按 GeteBayDetails Migration Guide 映射到 Sell Metadata API，在 2027-03-15 前完成迁移。",
+      "official_date": "2026-10-09",
+      "change_url": "https://www.ebay.cn/newcms/d_updates/115"
+    },
+    {
+      "event_id": "aliexpress_open_announcements-b74acaddba6e::detail-1",
+      "content_hash": "c09ba7688f626aa5ec396c658bb5a0e4fc12acba4b5e94ebde9cbb159802c8b6",
+      "platform_code": "aliexpress",
+      "platform_label": "AliExpress",
+      "primary_tag_code": "listing_product",
+      "primary_tag_label": "刊登/商品",
+      "status": "actionable_today",
+      "ai_summary_zh": "AliExpress 于 2026-10-09 发布 PID 项目手册，覆盖全托管、半托管和 POP，要求 SKU 编码必填、图书 ISBN 必填，并新增医疗 UDI 及 UPC、GTIN 等字段。正文列出 10 月 15 日 API 新字段上线、10 月 20 日未提交 SKU 编码拦截发品、10 月 30 日未提交 ISBN 拦截发品，未改造可能影响发品、欧盟销售和订单。接入方需按类目标记调整发布、编辑、查询与存量商品编码，并核对手册中 isbn 与 isvn 的字段拼写差异；正文只写月日的节点应结合官方实施通知确认。",
+      "recommended_action": "核对 PID_ISBN_UDIDI 类目标记及 SKU 编码必填校验，改造发布、编辑和查询接口并补齐存量商品；在正文列出的 10 月 20 日、10 月 30 日拦截节点前完成对应字段处理，向官方核实年份及 isbn/isvn 拼写。",
+      "official_date": "2026-10-09",
+      "change_url": "https://open.aliexpress.com/announcement/index.htm#/announcement/detail?id=10821&entitle=%E6%AC%A7%E7%9B%9F%E7%A8%8E%E6%94%B9%E4%BA%8C%E6%9C%9FPID%E9%A1%B9%E7%9B%AE-ISV%E6%8A%80%E6%9C%AF%E6%89%8B%E5%86%8C&queryid=129&cntitle=%E6%AC%A7%E7%9B%9F%E7%A8%8E%E6%94%B9%E4%BA%8C%E6%9C%9FPID%E9%A1%B9%E7%9B%AE-ISV%E6%8A%80%E6%9C%AF%E6%89%8B%E5%86%8C"
+    },
+    {
+      "event_id": "aliexpress_open_announcements-b74acaddba6e::detail-5",
+      "content_hash": "7167defb0d3e7f5639bfac5cbbec302d32082ca67e3db64afb11c70ba848291e",
+      "platform_code": "aliexpress",
+      "platform_label": "AliExpress",
+      "primary_tag_code": "listing_product",
+      "primary_tag_label": "刊登/商品",
+      "status": "actionable_today",
+      "ai_summary_zh": "本次新发现的 AliExpress 海外托管手册发布于 2026-09-21，说明发品额度由固定值改为按商家质量、成交表现及国家方向分配，并提供全方向和按发货国两类查询接口。正文规定旧接口查询海外托管上限的能力于 2026-11-30 下线，非海外托管商家仍可沿用原逻辑，新接口也不返回已发数量和剩余额度。ISV 应使用接口返回的总额度及国家额度单元做发品预检，不写死欧盟共享池映射，并自行统计已发数量或引导商家查看工作台。",
+      "recommended_action": "接入全方向或按发货国的 publish.limit 查询接口，动态采用 countryQuotaList 和 quotaUnit；对 data=null 的非海托商家保留原逻辑，在 2026-11-30 前替换旧海托额度查询。",
+      "official_date": "2026-09-21",
+      "change_url": "https://open.aliexpress.com/announcement/index.htm#/announcement/detail?id=10645&entitle=%E6%B5%B7%E5%A4%96%E6%89%98%E7%AE%A1%E5%8F%91%E5%93%81%E4%B8%8A%E9%99%90%E9%A1%B9%E7%9B%AE-ISV%E6%8A%80%E6%9C%AF%E6%89%8B%E5%86%8C&queryid=129&cntitle=%E6%B5%B7%E5%A4%96%E6%89%98%E7%AE%A1%E5%8F%91%E5%93%81%E4%B8%8A%E9%99%90%E9%A1%B9%E7%9B%AE-ISV%E6%8A%80%E6%9C%AF%E6%89%8B%E5%86%8C"
+    },
+    {
+      "event_id": "mercadolibre_global_selling_docs-06f864746617::detail-1",
+      "content_hash": "be6e6d98a8acf9be6406782fc899e5cb10087c8fb5424377f35b5dc452dfb56f",
+      "platform_code": "mercadolibre",
+      "platform_label": "Mercado Libre",
+      "primary_tag_code": "account_permission",
+      "primary_tag_label": "账号/权限",
+      "status": "actionable_late_discovery",
+      "ai_summary_zh": "本次新发现的 Mercado Libre 开发者合作伙伴计划页面标注最后更新为 2026-10-08，正文列出认证应用的交易额与活跃用户要求，并非 10 月 9 日新发布的接口强制变更。活跃用户要求为至少两位用户在最近三个月通过应用交互，活跃用户定义还涉及每月至少一百次成功请求；认证等级对应不同交易额门槛和支持权益。申请认证的集成商应按官方统计口径核对资格，正文没有新增迁移截止日期。",
+      "recommended_action": "申请合作伙伴认证前核对开发者条款、交易额等级和活跃用户统计；按正文的三个月及每月成功请求口径核查资格，不将认证要求当作所有卖家的强制接口迁移。",
+      "official_date": "2026-10-08",
+      "change_url": "https://global-selling.mercadolibre.com/devsite/developer-partner-program-global-selling"
+    },
+    {
+      "event_id": "tiktok_shop_changelog-d0785acbf400::detail-1",
+      "content_hash": "ec1f46ca6bc4d9989ef3dd024065ad967fe275d79c867293f22ae2b314c8a0e1",
+      "platform_code": "tiktok_shop",
+      "platform_label": "TikTok Shop",
+      "primary_tag_code": "marketing_promotion",
+      "primary_tag_label": "营销/促销",
+      "status": "actionable_today",
+      "ai_summary_zh": "TikTok Shop 于 2026-10-09 发布创作者邀约额度调整，计划 2026-10-15 在美国开始逐步上线，实际生效以灰度为准，后续扩大覆盖。原单一周额度改为按创作者等级分桶并增加奖励额度，应用需读取 quota_detail、保存 creator_level、批量校验邀约资格；某等级额度用尽会返回 16024049，不应盲目重试。现有请求结构和权限范围不变，无需重新授权，但同一版本需兼容旧汇总额度和新分级额度，避免一个等级失败阻塞其他邀约。",
+      "recommended_action": "在 2026-10-15 灰度前接入 quota_detail、creator_level 和邀约资格批量校验，按等级及剩余额度分桶并计入奖励额度；对 16024049 停止该等级重试，兼容未灰度店铺的空 quota_detail。",
+      "official_date": "2026-10-09",
+      "change_url": "https://partner.tiktokshop.com/docv2/page/vzfn7sdc"
+    },
+    {
+      "event_id": "shopify_developer_changelog-a22d45352eae::detail-3",
+      "content_hash": "ad85d3059fea03073122258a005d5f5b60e0806356d595be945a93a0c0863d1e",
+      "platform_code": "shopify",
+      "platform_label": "Shopify",
+      "primary_tag_code": "api_technical",
+      "primary_tag_label": "API/技术",
+      "status": "actionable_today",
+      "ai_summary_zh": "本次新发现的 Shopify 公告发布于 2026-10-08：结账和客户账号 UI 扩展自 API 2026-10 起可为元字段声明指定 owner_type，自 2027-01 版本起每条声明必须具备该字段。升级到 2027-01 及以后版本时，任何元字段声明缺少 owner_type 都会阻止部署，未声明元字段的扩展不受影响。研发应在升级前为每项声明补充资源类型，同一命名空间和键跨资源使用时分别声明，并重新部署验证；正文给的是版本门槛，未单独写明日历截止日。",
+      "recommended_action": "升级 API 2027-01 前为 shopify.extension.toml 的每条元字段声明填写 owner_type；同 namespace/key 涉及多资源时分别声明，重新部署确认无验证错误。",
+      "official_date": "2026-10-08",
+      "change_url": "https://shopify.dev/changelog/posts/metafield-owner-types-required-for-checkout-and-customer-account-ui-extensions"
+    }
+  ],
+  "backfill": {
+    "start_date": "2026-09-29",
+    "end_date": "2026-10-09",
+    "mode": "preview",
+    "occurrences": [
+      {
+        "event_id": "aliexpress_open_announcements-3e3c1c235466::detail-1",
+        "canonical_event_id": "aliexpress_open_announcements-3e3c1c235466::detail-1",
+        "content_hash": "2f095f82b5a97864169951eb8b30548820615c34e7490a26a6286cf1528011e3",
+        "report_date": "2026-09-29",
+        "run_id": "20260930-100002"
+      },
+      {
+        "event_id": "aliexpress_open_announcements-3e3c1c235466::detail-5",
+        "canonical_event_id": "aliexpress_open_announcements-3e3c1c235466::detail-5",
+        "content_hash": "7fd9b982b06a1d4be5bfe7976abdf032549d8a2a0e249577d6db586543d13987",
+        "report_date": "2026-09-29",
+        "run_id": "20260930-100002"
+      },
+      {
+        "event_id": "temu_partner_docs-7dc9648a2cbe::detail-1",
+        "canonical_event_id": "temu_partner_docs-7dc9648a2cbe::detail-1",
+        "content_hash": "edfa7d52ca608eac160d9e0b8df5080270491ca63bb699010a4b0e31f189654b",
+        "report_date": "2026-09-29",
+        "run_id": "20260930-100002"
+      },
+      {
+        "event_id": "temu_partner_docs-7dc9648a2cbe::detail-2",
+        "canonical_event_id": "temu_partner_docs-7dc9648a2cbe::detail-2",
+        "content_hash": "699fb766f0039697dcf417148adc154a097b9cb82223e76f8b37ca4e4ef8c7d0",
+        "report_date": "2026-09-29",
+        "run_id": "20260930-100002"
+      },
+      {
+        "event_id": "temu_partner_docs-7dc9648a2cbe::detail-3",
+        "canonical_event_id": "temu_partner_docs-7dc9648a2cbe::detail-3",
+        "content_hash": "4f1bedf80564193e096b3d21d3441878f9afe4d8dfa0917d125496d03aa14c04",
+        "report_date": "2026-09-29",
+        "run_id": "20260930-100002"
+      },
+      {
+        "event_id": "shopify_developer_changelog-7d358dbb545b::detail-1",
+        "canonical_event_id": "shopify_developer_changelog-7d358dbb545b::detail-1",
+        "content_hash": "f5125892dc0212bad6650dc4cc5600e6013e8b4eb0f9bbd103e1efe3b71af2a2",
+        "report_date": "2026-09-29",
+        "run_id": "20260930-100002"
+      },
+      {
+        "event_id": "shopify_developer_changelog-7d358dbb545b::detail-2",
+        "canonical_event_id": "shopify_developer_changelog-7d358dbb545b::detail-2",
+        "content_hash": "4870a3847b4110fbb0ebb299775b0a5eb35b10efbfce07cca27663904cff503a",
+        "report_date": "2026-09-29",
+        "run_id": "20260930-100002"
+      },
+      {
+        "event_id": "shopify_developer_changelog-7d358dbb545b::detail-3",
+        "canonical_event_id": "shopify_developer_changelog-7d358dbb545b::detail-3",
+        "content_hash": "41e58ca3075d897ec60cc5e00d7b062699ede8797ccd63df43ab366a433d2e91",
+        "report_date": "2026-09-29",
+        "run_id": "20260930-100002"
+      },
+      {
+        "event_id": "shopify_developer_changelog-7d358dbb545b::detail-4",
+        "canonical_event_id": "shopify_developer_changelog-7d358dbb545b::detail-4",
+        "content_hash": "73ca5c26c9b956b74ae3f6890b0c2dfe1388ed8ff2073bdd989f66c52bf1fdc9",
+        "report_date": "2026-09-29",
+        "run_id": "20260930-100002"
+      },
+      {
+        "event_id": "amazon_sp_api_release_notes-b9aea038a216::detail-1",
+        "canonical_event_id": "amazon_sp_api_release_notes-b9aea038a216::detail-1",
+        "content_hash": "a59ec4e0ed0dbd532e7202bb10571664c18a5bfbeaa341763be37736c3672653",
+        "report_date": "2026-09-30",
+        "run_id": "20261001-100002"
+      },
+      {
+        "event_id": "amazon_sp_api_release_notes-b9aea038a216::detail-2",
+        "canonical_event_id": "amazon_sp_api_release_notes-b9aea038a216::detail-2",
+        "content_hash": "9fc6dd01e7611f710c032ca61fa0b12b25fde884398876eab7dacf3db9b480ac",
+        "report_date": "2026-09-30",
+        "run_id": "20261001-100002"
+      },
+      {
+        "event_id": "amazon_sp_api_release_notes-b9aea038a216::detail-3",
+        "canonical_event_id": "amazon_sp_api_release_notes-b9aea038a216::detail-3",
+        "content_hash": "eb9b053e82d0e1330160eda3df08eb4d591bc5bde85234f759e0177633aae807",
+        "report_date": "2026-09-30",
+        "run_id": "20261001-100002"
+      },
+      {
+        "event_id": "amazon_sp_api_release_notes-b9aea038a216::detail-4",
+        "canonical_event_id": "amazon_sp_api_release_notes-b9aea038a216::detail-4",
+        "content_hash": "986689ec4f67a20a1cf7bec0f8b3fe7d4b34d621015cba91ffba49b61c0bab68",
+        "report_date": "2026-09-30",
+        "run_id": "20261001-100002"
+      },
+      {
+        "event_id": "amazon_sp_api_release_notes-b9aea038a216::detail-5",
+        "canonical_event_id": "amazon_sp_api_release_notes-b9aea038a216::detail-5",
+        "content_hash": "49c4f2bd509e518cfce365e37508282df2f23c56dc6085104c7a12199ef5dc76",
+        "report_date": "2026-09-30",
+        "run_id": "20261001-100002"
+      },
+      {
+        "event_id": "amazon_sp_api_release_notes-b9aea038a216::detail-6",
+        "canonical_event_id": "amazon_sp_api_release_notes-b9aea038a216::detail-6",
+        "content_hash": "3f53b66da4baa04d2e14ea1cdaf2a5abac53219d721030b848339751c39ad340",
+        "report_date": "2026-09-30",
+        "run_id": "20261001-100002"
+      },
+      {
+        "event_id": "amazon_sp_api_release_notes-b9aea038a216::detail-7",
+        "canonical_event_id": "amazon_sp_api_release_notes-b9aea038a216::detail-7",
+        "content_hash": "6ede4c4ac40db90ee521a9ca3c3acd5a96e3da9b019b6bf2a900bbef4e41f9eb",
+        "report_date": "2026-09-30",
+        "run_id": "20261001-100002"
+      },
+      {
+        "event_id": "amazon_sp_api_release_notes-b9aea038a216::detail-8",
+        "canonical_event_id": "amazon_sp_api_release_notes-b9aea038a216::detail-8",
+        "content_hash": "4f09439dbcaa19c94e72fe4239b8d4d8f3826bc566e6aeac575e078397762ded",
+        "report_date": "2026-09-30",
+        "run_id": "20261001-100002"
+      },
+      {
+        "event_id": "amazon_sp_api_release_notes-b9aea038a216::detail-9",
+        "canonical_event_id": "amazon_sp_api_release_notes-b9aea038a216::detail-9",
+        "content_hash": "e3a774a79a84135c42356d92ebd1100ab89269db4fb1689443778d34304d1c60",
+        "report_date": "2026-09-30",
+        "run_id": "20261001-100002"
+      },
+      {
+        "event_id": "amazon_sp_api_release_notes-b9aea038a216::detail-10",
+        "canonical_event_id": "amazon_sp_api_release_notes-b9aea038a216::detail-10",
+        "content_hash": "1aa86e190f0399de6539361bbdd16128c49d0b3dbf006b4b23dd12e59614b26d",
+        "report_date": "2026-09-30",
+        "run_id": "20261001-100002"
+      },
+      {
+        "event_id": "aliexpress_open_announcements-75bc5bd667fc::detail-1",
+        "canonical_event_id": "aliexpress_open_announcements-75bc5bd667fc::detail-1",
+        "content_hash": "b86bbd34911c730e9d8bb534ec2f92054b723f2cc757526ad3e6660423013360",
+        "report_date": "2026-09-30",
+        "run_id": "20261001-100002"
+      },
+      {
+        "event_id": "aliexpress_open_announcements-75bc5bd667fc::detail-5",
+        "canonical_event_id": "aliexpress_open_announcements-75bc5bd667fc::detail-5",
+        "content_hash": "4d2f8af1ac82872b7ae039ff03c0800054ac7263f5f291cf794b560647e6bbca",
+        "report_date": "2026-09-30",
+        "run_id": "20261001-100002"
+      },
+      {
+        "event_id": "shopee_open_platform_announcements-02f25f098ad6::detail-1",
+        "canonical_event_id": "shopee_open_platform_announcements-02f25f098ad6::detail-1",
+        "content_hash": "8706363626d96cc5bd73ca3772941838e14d28fcdee71eb286fb1005d8c2b6d3",
+        "report_date": "2026-09-30",
+        "run_id": "20261001-100002"
+      },
+      {
+        "event_id": "shopee_open_platform_announcements-02f25f098ad6::detail-2",
+        "canonical_event_id": "shopee_open_platform_announcements-02f25f098ad6::detail-2",
+        "content_hash": "fccbd249026e61f10320971a5fb423626d7e2d9849d4a38a6356102b975ea4c0",
+        "report_date": "2026-09-30",
+        "run_id": "20261001-100002"
+      },
+      {
+        "event_id": "shopee_open_platform_announcements-02f25f098ad6::detail-3",
+        "canonical_event_id": "shopee_open_platform_announcements-02f25f098ad6::detail-3",
+        "content_hash": "427347db8900350b528a84ca18a4e86b6a313be8a7fc5e5d3eee7ed6ad4b6da5",
+        "report_date": "2026-09-30",
+        "run_id": "20261001-100002"
+      },
+      {
+        "event_id": "temu_partner_docs-b1034abbd63e::detail-1",
+        "canonical_event_id": "temu_partner_docs-b1034abbd63e::detail-1",
+        "content_hash": "c0c3788f22c07842608fe65f85d4951e5a216662ab54c5c3b1e4ae827193ab31",
+        "report_date": "2026-09-30",
+        "run_id": "20261001-100002"
+      },
+      {
+        "event_id": "temu_partner_docs-b1034abbd63e::detail-2",
+        "canonical_event_id": "temu_partner_docs-b1034abbd63e::detail-2",
+        "content_hash": "9c765bb644a22014687f0d0f4604c4b9b9ade038d5d2f77ec42718e519fec6e8",
+        "report_date": "2026-09-30",
+        "run_id": "20261001-100002"
+      },
+      {
+        "event_id": "temu_partner_docs-b1034abbd63e::detail-3",
+        "canonical_event_id": "temu_partner_docs-b1034abbd63e::detail-3",
+        "content_hash": "1023bd46f5b5d4b86adff39b0d6d218104c7870456d643b911cee5405240bedf",
+        "report_date": "2026-09-30",
+        "run_id": "20261001-100002"
+      },
+      {
+        "event_id": "temu_partner_docs-b1034abbd63e::detail-4",
+        "canonical_event_id": "temu_partner_docs-b1034abbd63e::detail-4",
+        "content_hash": "87bcafb3a6f3174ce91ee2eed236a40b2977845b67b4f6b8782596bb81ec6973",
+        "report_date": "2026-09-30",
+        "run_id": "20261001-100002"
+      },
+      {
+        "event_id": "wildberries_release_notes-424d50b82f79::detail-1",
+        "canonical_event_id": "wildberries_release_notes-424d50b82f79::detail-1",
+        "content_hash": "ffd66256a6965b1784a2c08cf058b85a201a6f96706e2caee214c50787767522",
+        "report_date": "2026-09-30",
+        "run_id": "20261001-100002"
+      },
+      {
+        "event_id": "shopify_developer_changelog-214d0c62ba8b::detail-1",
+        "canonical_event_id": "shopify_developer_changelog-214d0c62ba8b::detail-1",
+        "content_hash": "0ae277f4f089410963d3fcc1ad7c65e4912ed3595eb8bbe716e4a812a5381e90",
+        "report_date": "2026-09-30",
+        "run_id": "20261001-100002"
+      },
+      {
+        "event_id": "shopify_developer_changelog-214d0c62ba8b::detail-2",
+        "canonical_event_id": "shopify_developer_changelog-214d0c62ba8b::detail-2",
+        "content_hash": "d7bd66d09cceb9e906d7fc53955b4a65ff4ce40eb1a82cd295eebbbcd9dcd627",
+        "report_date": "2026-09-30",
+        "run_id": "20261001-100002"
+      },
+      {
+        "event_id": "shopify_developer_changelog-214d0c62ba8b::detail-3",
+        "canonical_event_id": "shopify_developer_changelog-214d0c62ba8b::detail-3",
+        "content_hash": "848de232c95c94cab2bf110d23a8afbe0b39d43d6b39b0a54bd31cf38d4b93fa",
+        "report_date": "2026-09-30",
+        "run_id": "20261001-100002"
+      },
+      {
+        "event_id": "shopee_open_platform_announcements-3afe821fb592::detail-1",
+        "canonical_event_id": "shopee_open_platform_announcements-3afe821fb592::detail-1",
+        "content_hash": "83a2900664da2c80fc5454f9ae2c74be57fee2e2e4d86467e40a0e148ff6d328",
+        "report_date": "2026-10-01",
+        "run_id": "20261002-100002"
+      },
+      {
+        "event_id": "shopee_open_platform_announcements-3afe821fb592::detail-2",
+        "canonical_event_id": "shopee_open_platform_announcements-3afe821fb592::detail-2",
+        "content_hash": "32474b4b32c322ed485b28ba29f1751b4cc77049708265f7279750758f108b39",
+        "report_date": "2026-10-01",
+        "run_id": "20261002-100002"
+      },
+      {
+        "event_id": "mercadolibre_global_selling_docs-f3225f040fd9::detail-1",
+        "canonical_event_id": "mercadolibre_global_selling_docs-f3225f040fd9::detail-1",
+        "content_hash": "6ed60dbe4c35175187f2e120656b565d88313ab7f07086f0640e854da107755a",
+        "report_date": "2026-10-01",
+        "run_id": "20261002-100002"
+      },
+      {
+        "event_id": "temu_partner_docs-a35473b11191::detail-1",
+        "canonical_event_id": "temu_partner_docs-a35473b11191::detail-1",
+        "content_hash": "b284ade2785da38f0c4442e43a88e644450303eb6c047c54bffac3e811634d39",
+        "report_date": "2026-10-01",
+        "run_id": "20261002-100002"
+      },
+      {
+        "event_id": "temu_partner_docs-a35473b11191::detail-2",
+        "canonical_event_id": "temu_partner_docs-a35473b11191::detail-2",
+        "content_hash": "d6b5ce5989a29ca35d157ded001a4f9714a0d81bfe37b8efbc9181fca3df2fec",
+        "report_date": "2026-10-01",
+        "run_id": "20261002-100002"
+      },
+      {
+        "event_id": "temu_partner_docs-a35473b11191::detail-3",
+        "canonical_event_id": "temu_partner_docs-a35473b11191::detail-3",
+        "content_hash": "ecf09ac49bd8a93c4f90ea6d368b455177be517998547a9d7b1a0862f218da8d",
+        "report_date": "2026-10-01",
+        "run_id": "20261002-100002"
+      },
+      {
+        "event_id": "wildberries_release_notes-493ab442322a::detail-1",
+        "canonical_event_id": "wildberries_release_notes-493ab442322a::detail-1",
+        "content_hash": "06f6009a88b97d8f44e58674cac034f4aa3a282b3ae372339b19c9c561651747",
+        "report_date": "2026-10-01",
+        "run_id": "20261002-100002"
+      },
+      {
+        "event_id": "shopify_developer_changelog-aa933b17b05e::detail-1",
+        "canonical_event_id": "shopify_developer_changelog-aa933b17b05e::detail-1",
+        "content_hash": "9cee895a26c201508316f6013514ace0e2f1997375baf0f13b2a0e7ceca65610",
+        "report_date": "2026-10-01",
+        "run_id": "20261002-100002"
+      },
+      {
+        "event_id": "shopify_developer_changelog-aa933b17b05e::detail-2",
+        "canonical_event_id": "shopify_developer_changelog-aa933b17b05e::detail-2",
+        "content_hash": "484ee266e2da2de375db10f2bc740a86850044310f428e87daf671aab0cc5ffb",
+        "report_date": "2026-10-01",
+        "run_id": "20261002-100002"
+      },
+      {
+        "event_id": "shopify_developer_changelog-aa933b17b05e::detail-3",
+        "canonical_event_id": "shopify_developer_changelog-aa933b17b05e::detail-3",
+        "content_hash": "52c07e0e83c31b900f709e892e9bb9ccc502e1b61987ad17f20b5130370c1018",
+        "report_date": "2026-10-01",
+        "run_id": "20261002-100002"
+      },
+      {
+        "event_id": "shopify_developer_changelog-aa933b17b05e::detail-4",
+        "canonical_event_id": "shopify_developer_changelog-aa933b17b05e::detail-4",
+        "content_hash": "b491f4a3b6eb1df1bf6a7683c26399b23e517f7a3bac645392f9d30283342556",
+        "report_date": "2026-10-01",
+        "run_id": "20261002-100002"
+      },
+      {
+        "event_id": "walmart_marketplace_whats_new-ffc4b0a64806::detail-1",
+        "canonical_event_id": "walmart_marketplace_whats_new-ffc4b0a64806::detail-1",
+        "content_hash": "ae1588da8492fb095ec9f43ba15b9097c9357661dde5f1b387b0980f13bdd936",
+        "report_date": "2026-10-01",
+        "run_id": "20261002-100002"
+      },
+      {
+        "event_id": "shopee_open_platform_announcements-3afe821fb592::detail-1",
+        "canonical_event_id": "shopee_open_platform_announcements-3afe821fb592::detail-1",
+        "content_hash": "83a2900664da2c80fc5454f9ae2c74be57fee2e2e4d86467e40a0e148ff6d328",
+        "report_date": "2026-10-02",
+        "run_id": "20261003-100002"
+      },
+      {
+        "event_id": "shopee_open_platform_announcements-3afe821fb592::detail-2",
+        "canonical_event_id": "shopee_open_platform_announcements-3afe821fb592::detail-2",
+        "content_hash": "32474b4b32c322ed485b28ba29f1751b4cc77049708265f7279750758f108b39",
+        "report_date": "2026-10-02",
+        "run_id": "20261003-100002"
+      },
+      {
+        "event_id": "mercadolibre_global_selling_docs-52141128594c::detail-1",
+        "canonical_event_id": "mercadolibre_global_selling_docs-52141128594c::detail-1",
+        "content_hash": "aed89166baf66c924856aaa049c5543ffc362dbf02285e6587d1ccc951635f7a",
+        "report_date": "2026-10-02",
+        "run_id": "20261003-100002"
+      },
+      {
+        "event_id": "mercadolibre_global_selling_docs-52141128594c::detail-2",
+        "canonical_event_id": "mercadolibre_global_selling_docs-52141128594c::detail-2",
+        "content_hash": "b78b441f382837dfb625878bb814cc127dace787612c2f693013c2fa15eda613",
+        "report_date": "2026-10-02",
+        "run_id": "20261003-100002"
+      },
+      {
+        "event_id": "mercadolibre_global_selling_docs-52141128594c::detail-3",
+        "canonical_event_id": "mercadolibre_global_selling_docs-52141128594c::detail-3",
+        "content_hash": "0c6c3f3ff25a967d9b9a2fd1070d8376ba92b25e7ffde463c2b12dd4eacbdc05",
+        "report_date": "2026-10-02",
+        "run_id": "20261003-100002"
+      },
+      {
+        "event_id": "mercadolibre_global_selling_docs-52141128594c::detail-4",
+        "canonical_event_id": "mercadolibre_global_selling_docs-52141128594c::detail-4",
+        "content_hash": "3e52a731653c477f5686d2552cd4dcf8aeb9ac9bec5c22971c2115a655241e96",
+        "report_date": "2026-10-02",
+        "run_id": "20261003-100002"
+      },
+      {
+        "event_id": "mercadolibre_global_selling_docs-52141128594c::detail-5",
+        "canonical_event_id": "mercadolibre_global_selling_docs-52141128594c::detail-5",
+        "content_hash": "2c7d2008b6896445b7469bf30a74dc8cecf5664806321e927350ea0780d80926",
+        "report_date": "2026-10-02",
+        "run_id": "20261003-100002"
+      },
+      {
+        "event_id": "mercadolibre_global_selling_docs-52141128594c::detail-6",
+        "canonical_event_id": "mercadolibre_global_selling_docs-52141128594c::detail-6",
+        "content_hash": "e894dcafd566deffe009d076d622121e6dba90483b6894c9c60d8eaad7ecb0af",
+        "report_date": "2026-10-02",
+        "run_id": "20261003-100002"
+      },
+      {
+        "event_id": "wildberries_release_notes-089b933fd523::detail-1",
+        "canonical_event_id": "wildberries_release_notes-089b933fd523::detail-1",
+        "content_hash": "b51a8f446fa1408bd7690fed321b739ab6361cbcd1aba02bf4a3a2c5d6b06b1f",
+        "report_date": "2026-10-02",
+        "run_id": "20261003-100002"
+      },
+      {
+        "event_id": "wildberries_release_notes-089b933fd523::detail-2",
+        "canonical_event_id": "wildberries_release_notes-089b933fd523::detail-2",
+        "content_hash": "77fe627a4684c3895e4bb7f3fe3eebb50bb541d1e02e7157da9e8517f6ba54fc",
+        "report_date": "2026-10-02",
+        "run_id": "20261003-100002"
+      },
+      {
+        "event_id": "wildberries_release_notes-089b933fd523::detail-3",
+        "canonical_event_id": "wildberries_release_notes-089b933fd523::detail-3",
+        "content_hash": "0f42ae04a4a2b6e3772ad3de4ddbe33f7df3096393b8632ef0b2083a9ec4b2e5",
+        "report_date": "2026-10-02",
+        "run_id": "20261003-100002"
+      },
+      {
+        "event_id": "shopify_developer_changelog-87bb2ada7b70::detail-1",
+        "canonical_event_id": "shopify_developer_changelog-87bb2ada7b70::detail-1",
+        "content_hash": "b723499e316a98bb7e40a2d202d6c56f9fdec99483586b58c55b71ead1fa3c04",
+        "report_date": "2026-10-02",
+        "run_id": "20261003-100002"
+      },
+      {
+        "event_id": "walmart_marketplace_whats_new-ba11795d3ccd::detail-1",
+        "canonical_event_id": "walmart_marketplace_whats_new-ba11795d3ccd::detail-1",
+        "content_hash": "1bd73bd6f658a10047e1fe60f7010d3967f0d5be6aeb0a42f43a0ab93884c905",
+        "report_date": "2026-10-02",
+        "run_id": "20261003-100002"
+      },
+      {
+        "event_id": "shopify_developer_changelog-ea42be716e6c::detail-1",
+        "canonical_event_id": "shopify_developer_changelog-ea42be716e6c::detail-1",
+        "content_hash": "96a22cf9d07fbb69ada32f5d322edb5cfc5bffc5a978594d46669fb2947bce42",
+        "report_date": "2026-10-03",
+        "run_id": "20261004-100002"
+      },
+      {
+        "event_id": "walmart_marketplace_whats_new-90bc20795f50::detail-1",
+        "canonical_event_id": "walmart_marketplace_whats_new-90bc20795f50::detail-1",
+        "content_hash": "7a5956c0a89ecd9254f42716d4090dd8cd1b05b93fc3a39cbf94d380e069d09a",
+        "report_date": "2026-10-03",
+        "run_id": "20261004-100002"
+      },
+      {
+        "event_id": "shopee_open_platform_announcements-72d362b5c13f::detail-1",
+        "canonical_event_id": "shopee_open_platform_announcements-72d362b5c13f::detail-1",
+        "content_hash": "7303bfae70d638ac8ab0fb8d2c6ba564bb63966accbd553f9a3920ba08db1ae4",
+        "report_date": "2026-10-05",
+        "run_id": "20261006-100002"
+      },
+      {
+        "event_id": "wildberries_release_notes-dc7b4a2d638b::detail-1",
+        "canonical_event_id": "wildberries_release_notes-dc7b4a2d638b::detail-1",
+        "content_hash": "57fe0b713e98057830bfe65c4b68f55e60c73b6de14bab9b9d90692e561c8bdf",
+        "report_date": "2026-10-05",
+        "run_id": "20261006-100002"
+      },
+      {
+        "event_id": "shopee_open_platform_announcements-78ec6de3d4cc::detail-1",
+        "canonical_event_id": "shopee_open_platform_announcements-78ec6de3d4cc::detail-1",
+        "content_hash": "acdf36bf4ca86be321c3ad18db0d29b091dd8b365f9f69431a0cbfbbc03c96eb",
+        "report_date": "2026-10-06",
+        "run_id": "20261007-100002"
+      },
+      {
+        "event_id": "mercadolibre_global_selling_docs-aea8c9484eb5::detail-1",
+        "canonical_event_id": "mercadolibre_global_selling_docs-aea8c9484eb5::detail-1",
+        "content_hash": "b75e897d337b55d841a5ba7418c39177103937c5895deb4f7f9d0ad54935d989",
+        "report_date": "2026-10-06",
+        "run_id": "20261007-100002"
+      },
+      {
+        "event_id": "mercadolibre_global_selling_docs-aea8c9484eb5::detail-2",
+        "canonical_event_id": "mercadolibre_global_selling_docs-aea8c9484eb5::detail-2",
+        "content_hash": "cdbfebbeea15ecdd5f7c188d4284c08b809a773ca6c605dbaa6c5e62c947c679",
+        "report_date": "2026-10-06",
+        "run_id": "20261007-100002"
+      },
+      {
+        "event_id": "mercadolibre_global_selling_docs-aea8c9484eb5::detail-3",
+        "canonical_event_id": "mercadolibre_global_selling_docs-aea8c9484eb5::detail-3",
+        "content_hash": "110344372c94659bb1d5e4dc446686f827b981374070c5c06241937f0cba3d50",
+        "report_date": "2026-10-06",
+        "run_id": "20261007-100002"
+      },
+      {
+        "event_id": "mercadolibre_global_selling_docs-aea8c9484eb5::detail-4",
+        "canonical_event_id": "mercadolibre_global_selling_docs-aea8c9484eb5::detail-4",
+        "content_hash": "b0ecb386ba677d36a030fa4f7624131a9fa4d4fc26e28726829ce3822d640970",
+        "report_date": "2026-10-06",
+        "run_id": "20261007-100002"
+      },
+      {
+        "event_id": "mercadolibre_global_selling_docs-aea8c9484eb5::detail-5",
+        "canonical_event_id": "mercadolibre_global_selling_docs-aea8c9484eb5::detail-5",
+        "content_hash": "0f2db5cb7e8f14382dcc96a80aef7b3823d1ff3a96a7fc945dd6277fc3d253fe",
+        "report_date": "2026-10-06",
+        "run_id": "20261007-100002"
+      },
+      {
+        "event_id": "mercadolibre_global_selling_docs-aea8c9484eb5::detail-6",
+        "canonical_event_id": "mercadolibre_global_selling_docs-aea8c9484eb5::detail-6",
+        "content_hash": "90afcae66d27768d4dc26901f4505f031df66ae0f86f7133aebe193568d91e03",
+        "report_date": "2026-10-06",
+        "run_id": "20261007-100002"
+      },
+      {
+        "event_id": "wildberries_release_notes-c974a1ada91e::detail-1",
+        "canonical_event_id": "wildberries_release_notes-c974a1ada91e::detail-1",
+        "content_hash": "1e2e7fca61661914495075707ac2d661e956521ab6abf111a3b746b952597fa9",
+        "report_date": "2026-10-06",
+        "run_id": "20261007-100002"
+      },
+      {
+        "event_id": "shopee_open_platform_announcements-78ec6de3d4cc::detail-1",
+        "canonical_event_id": "shopee_open_platform_announcements-78ec6de3d4cc::detail-1",
+        "content_hash": "acdf36bf4ca86be321c3ad18db0d29b091dd8b365f9f69431a0cbfbbc03c96eb",
+        "report_date": "2026-10-07",
+        "run_id": "20261008-100002"
+      },
+      {
+        "event_id": "wildberries_release_notes-8d3607c7ee53::detail-1",
+        "canonical_event_id": "wildberries_release_notes-8d3607c7ee53::detail-1",
+        "content_hash": "3cdf3223bfa6eb8413e2b7b673dc0ee952a69966be1834bf56fda327df3fa24b",
+        "report_date": "2026-10-07",
+        "run_id": "20261008-100002"
+      },
+      {
+        "event_id": "wildberries_release_notes-8d3607c7ee53::detail-2",
+        "canonical_event_id": "wildberries_release_notes-8d3607c7ee53::detail-2",
+        "content_hash": "72b8eac3d63752a38435b0d2e9667ef0d5ff892bf03e3ba86a6cfb853c8b6e9f",
+        "report_date": "2026-10-07",
+        "run_id": "20261008-100002"
+      },
+      {
+        "event_id": "shopify_developer_changelog-02640b9e14e7::detail-1",
+        "canonical_event_id": "shopify_developer_changelog-02640b9e14e7::detail-1",
+        "content_hash": "88a0830fa46f95ea68cc69963152442169e7091fa76cf318837aa68374215144",
+        "report_date": "2026-10-07",
+        "run_id": "20261008-100002"
+      },
+      {
+        "event_id": "shopify_developer_changelog-02640b9e14e7::detail-2",
+        "canonical_event_id": "shopify_developer_changelog-02640b9e14e7::detail-2",
+        "content_hash": "d1e580367c25aa9144fa8856b93dafbdb77a141652b7933ab301c01507230ae5",
+        "report_date": "2026-10-07",
+        "run_id": "20261008-100002"
+      },
+      {
+        "event_id": "shopify_developer_changelog-02640b9e14e7::detail-3",
+        "canonical_event_id": "shopify_developer_changelog-02640b9e14e7::detail-3",
+        "content_hash": "392466d07d1538e5eb3063de80b8397d3d8f05c6decf5e2ac4b3a064d52b877e",
+        "report_date": "2026-10-07",
+        "run_id": "20261008-100002"
+      },
+      {
+        "event_id": "shopify_developer_changelog-02640b9e14e7::detail-4",
+        "canonical_event_id": "shopify_developer_changelog-02640b9e14e7::detail-4",
+        "content_hash": "d650438e1750b6fb7fe06ce7b87ab278828121fb4d133ec7529cdefa7a24d815",
+        "report_date": "2026-10-07",
+        "run_id": "20261008-100002"
+      },
+      {
+        "event_id": "mercadolibre_global_selling_docs-4c3735cc3cdb::detail-1",
+        "canonical_event_id": "mercadolibre_global_selling_docs-4c3735cc3cdb::detail-1",
+        "content_hash": "f78cceb2e614743f9cfedecbcc9a40dfedafe568668ddaff6712fd6f409c8570",
+        "report_date": "2026-10-08",
+        "run_id": "20261009-100002"
+      },
+      {
+        "event_id": "wildberries_release_notes-dc537af1c49b::detail-1",
+        "canonical_event_id": "wildberries_release_notes-dc537af1c49b::detail-1",
+        "content_hash": "8f2401dcc58333ae6c6e67c1a9ac4e2a03de6df2b7371f80ab7cc7ba1471789b",
+        "report_date": "2026-10-08",
+        "run_id": "20261009-100002"
+      },
+      {
+        "event_id": "tiktok_shop_changelog-af8dab43547c::detail-1",
+        "canonical_event_id": "tiktok_shop_changelog-af8dab43547c::detail-1",
+        "content_hash": "41c461b2cf0bbb3cd8c542d0e4aac507f552e059c80d1f2f7028a9dea4f33a98",
+        "report_date": "2026-10-08",
+        "run_id": "20261009-100002"
+      },
+      {
+        "event_id": "shopify_developer_changelog-73699e023f71::detail-1",
+        "canonical_event_id": "shopify_developer_changelog-73699e023f71::detail-1",
+        "content_hash": "928e110c3c403a86b55ca698a9b9676ac776334db1815ff2aed58c0efda149a7",
+        "report_date": "2026-10-08",
+        "run_id": "20261009-100002"
+      },
+      {
+        "event_id": "shopify_developer_changelog-73699e023f71::detail-2",
+        "canonical_event_id": "shopify_developer_changelog-73699e023f71::detail-2",
+        "content_hash": "fa9ccf601bcc6a889df0362ab994b39326626697f1c6c3ac86ba9b1a24396ea5",
+        "report_date": "2026-10-08",
+        "run_id": "20261009-100002"
+      },
+      {
+        "event_id": "shopify_developer_changelog-73699e023f71::detail-5",
+        "canonical_event_id": "shopify_developer_changelog-73699e023f71::detail-5",
+        "content_hash": "29710a3efb504145385de456cae61cac6e73b8a83f4bf6483bb451dece813a89",
+        "report_date": "2026-10-08",
+        "run_id": "20261009-100002"
+      },
+      {
+        "event_id": "ebay_updates-fa4ca5674671::detail-1",
+        "canonical_event_id": "ebay_updates-fa4ca5674671::detail-1",
+        "content_hash": "d149b049d86c15f6aaba1edffa29f80ef679dfe5a48b5c2d5e74700ddb1d69b1",
+        "report_date": "2026-10-09",
+        "run_id": "20261010-010238"
+      },
+      {
+        "event_id": "ebay_updates-fa4ca5674671::detail-2",
+        "canonical_event_id": "ebay_updates-fa4ca5674671::detail-2",
+        "content_hash": "84376434903f1081fb6c26f5daf986627a4c4abe004d461296983f3a0c326874",
+        "report_date": "2026-10-09",
+        "run_id": "20261010-010238"
+      },
+      {
+        "event_id": "ebay_updates-fa4ca5674671::detail-3",
+        "canonical_event_id": "ebay_updates-fa4ca5674671::detail-3",
+        "content_hash": "a33aaf4458a8e72ff7146e5043bdb716f6e23ced0656b974225f3393bb254c53",
+        "report_date": "2026-10-09",
+        "run_id": "20261010-010238"
+      },
+      {
+        "event_id": "ebay_updates-fa4ca5674671::detail-4",
+        "canonical_event_id": "ebay_updates-fa4ca5674671::detail-4",
+        "content_hash": "9edf7e113a6b45f393cb35f259808aa26f226e117eafbac5840bbd0cd9cfac27",
+        "report_date": "2026-10-09",
+        "run_id": "20261010-010238"
+      },
+      {
+        "event_id": "aliexpress_open_announcements-b74acaddba6e::detail-1",
+        "canonical_event_id": "aliexpress_open_announcements-b74acaddba6e::detail-1",
+        "content_hash": "c09ba7688f626aa5ec396c658bb5a0e4fc12acba4b5e94ebde9cbb159802c8b6",
+        "report_date": "2026-10-09",
+        "run_id": "20261010-010238"
+      },
+      {
+        "event_id": "aliexpress_open_announcements-b74acaddba6e::detail-5",
+        "canonical_event_id": "aliexpress_open_announcements-b74acaddba6e::detail-5",
+        "content_hash": "7167defb0d3e7f5639bfac5cbbec302d32082ca67e3db64afb11c70ba848291e",
+        "report_date": "2026-10-09",
+        "run_id": "20261010-010238"
+      },
+      {
+        "event_id": "mercadolibre_global_selling_docs-06f864746617::detail-1",
+        "canonical_event_id": "mercadolibre_global_selling_docs-06f864746617::detail-1",
+        "content_hash": "be6e6d98a8acf9be6406782fc899e5cb10087c8fb5424377f35b5dc452dfb56f",
+        "report_date": "2026-10-09",
+        "run_id": "20261010-010238"
+      },
+      {
+        "event_id": "tiktok_shop_changelog-d0785acbf400::detail-1",
+        "canonical_event_id": "tiktok_shop_changelog-d0785acbf400::detail-1",
+        "content_hash": "ec1f46ca6bc4d9989ef3dd024065ad967fe275d79c867293f22ae2b314c8a0e1",
+        "report_date": "2026-10-09",
+        "run_id": "20261010-010238"
+      },
+      {
+        "event_id": "shopify_developer_changelog-a22d45352eae::detail-3",
+        "canonical_event_id": "shopify_developer_changelog-a22d45352eae::detail-3",
+        "content_hash": "ad85d3059fea03073122258a005d5f5b60e0806356d595be945a93a0c0863d1e",
+        "report_date": "2026-10-09",
+        "run_id": "20261010-010238"
+      }
+    ]
+  }
+}

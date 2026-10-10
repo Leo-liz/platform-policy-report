@@ -1,0 +1,101 @@
+name: Recover authorized historical notifications
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        type: choice
+        options: [preview, send]
+        default: preview
+        required: true
+permissions:
+  contents: write
+concurrency:
+  group: policy-notification-dispatch
+  cancel-in-progress: false
+jobs:
+  recover:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - name: Build scoped request
+        env:
+          RECOVERY_MODE: ${{ inputs.mode }}
+        run: |
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          p=json.loads(Path('reports/notification-backfill-20260929-20261009.json').read_text())
+          assert p['backfill']['start_date']=='2026-09-29' and p['backfill']['end_date']=='2026-10-09'
+          assert os.environ['RECOVERY_MODE'] in ('preview','send')
+          p['backfill']['mode']=os.environ['RECOVERY_MODE']
+          text=json.dumps(p,ensure_ascii=False)
+          for word in ('userid','user_id','recipient','appsecret','app_secret','"token":','"secret":'):
+              assert word not in text.lower(),word
+          Path('recovery-request.json').write_text(text)
+          PY
+      - name: Read delivery plan or send once via existing private route
+        env:
+          NOTIFICATION_DISPATCH_TOKEN: ${{ secrets.NOTIFICATION_DISPATCH_TOKEN }}
+        run: |
+          test -n "$NOTIFICATION_DISPATCH_TOKEN"
+          curl --fail --silent --show-error --max-time 120 \
+            --header "Authorization: Bearer $NOTIFICATION_DISPATCH_TOKEN" \
+            --header 'Content-Type: application/json' \
+            --data-binary @recovery-request.json \
+            'https://site-rosy-ten-pmj8xynasf.vercel.app/api/dispatch' -o recovery-result.json
+      - name: Verify result and merge delivery facts
+        env:
+          RECOVERY_MODE: ${{ inputs.mode }}
+        run: |
+          python - <<'PY'
+          import json,os
+          from collections import Counter
+          from pathlib import Path
+          r=json.loads(Path('recovery-result.json').read_text())
+          p=json.loads(Path('recovery-request.json').read_text())
+          assert r.get('accepted') is True and r.get('run_id')==p['run_id']
+          summary={k:r[k] for k in ('people_to_notify','event_assignments','already_delivered_assignments','uncertain_assignments','unmatched_event_ids')}
+          if os.environ['RECOVERY_MODE']=='preview':
+              assert r.get('preview') is True
+          else:
+              assert not r.get('preview') and r.get('uncertain_assignments')==0
+              statuses=Counter(row.get('status') for row in r.get('results',[]))
+              summary['statuses']=dict(statuses)
+              assert sum(statuses.values())==r['people_to_notify']
+              assert set(statuses)<= {'delivered','already_dispatched'},statuses
+              for snapshot in r['historical_snapshots']:
+                  day=snapshot['report_date']
+                  assert '2026-09-29'<=day<='2026-10-09'
+                  target=Path(f'reports/notification-snapshot-{day}.json')
+                  stored=json.loads(target.read_text()) if target.exists() else {**snapshot,'events':[]}
+                  by_key={(e['event_id'],e['content_hash']):e for e in stored['events']}
+                  for event in snapshot['events']:
+                      key=(event['event_id'],event['content_hash'])
+                      owners={o['display_name']:o for o in by_key.get(key,{}).get('owners',[])}
+                      for owner in event.get('owners',[]):
+                          if owners.get(owner['display_name'],{}).get('notification_status')!='delivered': owners[owner['display_name']]=owner
+                      by_key[key]={**event,'owners':list(owners.values())}
+                  stored['events']=list(by_key.values())
+                  text=json.dumps(stored,ensure_ascii=False,indent=2)+'\n'
+                  for word in ('userid','user_id','recipient_id','task_id','secret','token'):
+                      assert word not in text.lower(),word
+                  target.write_text(text)
+          Path('recovery-summary.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2))
+          print(json.dumps(summary,ensure_ascii=False))
+          PY
+      - name: Publish immutable historical delivery snapshots
+        if: inputs.mode == 'send'
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add 'reports/notification-snapshot-*.json'
+          if ! git diff --cached --quiet; then
+            git commit -m 'Record authorized Sep 29 to Oct 9 aggregate notification delivery'
+            git push
+          fi
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: historical-notification-verification
+          path: recovery-summary.json

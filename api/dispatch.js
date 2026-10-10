@@ -11,6 +11,7 @@ import {
   validateDispatchPayload,
 } from "../lib/routing.js";
 import { requireServiceToken } from "../lib/security.js";
+import { backfillPlan, buildBackfillMessage, historicalSnapshots, validateBackfill } from "../lib/backfill.js";
 
 function sanitizedFailure(error) {
   const type = String(error?.failureType || error?.name || "notification_error").slice(0, 80);
@@ -184,6 +185,7 @@ export default async function handler(req, res) {
     requireServiceToken(req);
     const catalog = loadCatalog();
     const payload = validateDispatchPayload(await bodyObject(req), catalog);
+    validateBackfill(payload);
     if (process.env.DINGTALK_PRODUCTION_SEND_ENABLED !== "true") {
       return json(res, 409, { error: "production_send_disabled", accepted: false });
     }
@@ -204,6 +206,24 @@ export default async function handler(req, res) {
       WHERE rule.enabled = true AND recipient.enabled = true
     `;
     const currentlyRouted = routeEvents(payload.events, rows);
+    let historicalPlan;
+    let historicalDeliveryRows = [];
+    if (payload.backfill) {
+      historicalDeliveryRows = await sql`
+        SELECT d.recipient_id, d.status, d.updated_at, i.event_id, i.content_hash
+        FROM notification_dispatches d
+        JOIN notification_delivery_items i ON i.dispatch_id = d.id
+      `;
+      historicalPlan = backfillPlan(currentlyRouted, historicalDeliveryRows, payload.events);
+      // Validate every message before any recipient can be sent.
+      for (const recipient of historicalPlan.recipients) buildBackfillMessage(recipient, payload);
+      if (payload.backfill.mode === 'preview') return json(res, 200, {
+        accepted: true, preview: true, run_id: payload.run_id,
+        report_date: payload.report_date, production_send_enabled: true,
+        ...historicalPlan.summary,
+      });
+      if (historicalPlan.summary.uncertain_assignments) throw new Error('historical delivery is unresolved; do not resend');
+    }
     const dueRows = await sql`
       SELECT deferred.recipient_id,
              deferred.source_report_date::text AS source_report_date,
@@ -217,7 +237,8 @@ export default async function handler(req, res) {
         AND recipient.enabled = true
       ORDER BY deferred.created_at, deferred.event_id
     `;
-    const routed = mergeDeferredRecipients(currentlyRouted, dueRows);
+    // One-time recovery is strictly scoped; unrelated deferred work stays untouched.
+    const routed = payload.backfill ? historicalPlan.recipients : mergeDeferredRecipients(currentlyRouted, dueRows);
     const results = [];
     const deferredDeliveryUpdates = [];
     for (const recipient of routed) {
@@ -265,7 +286,7 @@ export default async function handler(req, res) {
         continue;
       }
       try {
-        const message = buildMarkdownNotification(recipient, payload);
+        const message = payload.backfill ? buildBackfillMessage(recipient, payload) : buildMarkdownNotification(recipient, payload);
         const delivery = await sendAndPoll(recipient.dingtalk_user_id, message);
         const status = delivery.status === "failed" ? "failed" : delivery.status;
         const failureType = delivery.failure_type || null;
@@ -299,6 +320,16 @@ export default async function handler(req, res) {
       WHERE d.report_date = ${payload.report_date}
     `;
     const publicSnapshot = buildPublicReportSnapshot(payload, routed, deliveryRows);
+    if (payload.backfill) {
+      const allRows = [...historicalDeliveryRows, ...deliveryRows];
+      return json(res, 200, {
+        accepted: true, run_id: payload.run_id, report_date: payload.report_date,
+        matched_recipients: routed.length,
+        ...historicalPlan.summary,
+        results: results.map(({status,event_count,deferred_event_count}) => ({status,event_count,deferred_event_count})),
+        historical_snapshots: historicalSnapshots(payload, currentlyRouted, allRows),
+      });
+    }
     return json(res, 200, {
       accepted: true,
       run_id: payload.run_id,
