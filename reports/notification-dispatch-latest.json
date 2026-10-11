@@ -1,29 +1,15 @@
 {
   "schema_version": 1,
-  "run_id": "20261011-010130",
-  "report_date": "2026-10-10",
+  "run_id": "20261012-010031",
+  "report_date": "2026-10-11",
   "report_url": "https://leo-liz.github.io/platform-policy-report/reports/latest.html",
   "taxonomy_version": "2026-08-22",
-  "generated_at": "2026-10-11T01:14:34+08:00",
+  "generated_at": "2026-10-12T01:10:02+08:00",
   "ai": {
     "provider": "codex_builtin_postprocess",
     "model": "current_codex_thread",
     "summary_schema_version": 11,
     "evidence_validated": true
   },
-  "events": [
-    {
-      "event_id": "aliexpress_open_announcements-d978ffec50a0::detail-1",
-      "content_hash": "942bb43db4ca35f590376d5dfa7958b2a5a27f75c83db4f90e737cacadb68ad5",
-      "platform_code": "aliexpress",
-      "platform_label": "AliExpress",
-      "primary_tag_code": "listing_product",
-      "primary_tag_label": "刊登/商品",
-      "status": "actionable_today",
-      "ai_summary_zh": "速卖通于2026年10月10日公布欧盟PID二期对接要求，覆盖全托管、半托管和POP，SKU编码改为必填，书籍类目须提交ISBN，另增医疗类目UDI-DI及UPC、GTIN等选填字段。正文列明新增字段及全托管ean_code于10月15日上线，10月20日缺SKU编码、10月30日缺ISBN的发品将被拦截，并将11月1日列为法规生效时间。未适配可能导致无法发品、欧盟不可售卖或欧盟订单关单，存量商品也需补充编码，查询和编辑链路应同步改造。",
-      "recommended_action": "按类目PID_ISBN_UDIDI标记处理编码必填规则，适配发布、编辑和查询字段；在正文所列10月20日、10月30日拦截节点前补齐SKU及书籍ISBN，并检查存量商品修改任务。",
-      "official_date": "2026-10-10",
-      "change_url": "https://open.aliexpress.com/announcement/index.htm#/announcement/detail?id=10821&entitle=%E6%AC%A7%E7%9B%9F%E7%A8%8E%E6%94%B9%E4%BA%8C%E6%9C%9FPID%E9%A1%B9%E7%9B%AE-ISV%E6%8A%80%E6%9C%AF%E6%89%8B%E5%86%8C&queryid=129&cntitle=%E6%AC%A7%E7%9B%9F%E7%A8%8E%E6%94%B9%E4%BA%8C%E6%9C%9FPID%E9%A1%B9%E7%9B%AE-ISV%E6%8A%80%E6%9C%AF%E6%89%8B%E5%86%8C"
-    }
-  ]
+  "events": []
 }
