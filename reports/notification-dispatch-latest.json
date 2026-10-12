@@ -1,15 +1,68 @@
 {
   "schema_version": 1,
-  "run_id": "20261012-010031",
-  "report_date": "2026-10-11",
+  "run_id": "20261013-010423",
+  "report_date": "2026-10-12",
   "report_url": "https://leo-liz.github.io/platform-policy-report/reports/latest.html",
   "taxonomy_version": "2026-08-22",
-  "generated_at": "2026-10-12T01:10:02+08:00",
+  "generated_at": "2026-10-13T01:15:39+08:00",
   "ai": {
     "provider": "codex_builtin_postprocess",
     "model": "current_codex_thread",
     "summary_schema_version": 11,
     "evidence_validated": true
   },
-  "events": []
+  "events": [
+    {
+      "event_id": "ozon_seller_api_news-63fb7ee547d4::detail-1",
+      "content_hash": "bed841848de01802d07add0d6bdf579857d7b673f8513ebcf8554cce3f42fafb",
+      "platform_code": "ozon",
+      "platform_label": "Ozon",
+      "primary_tag_code": "api_technical",
+      "primary_tag_label": "API/技术",
+      "status": "actionable_late_discovery",
+      "ai_summary_zh": "本轮延迟发现的Ozon官方频道正文日期为2026年10月9日，并非10月12日新发布，内容新增获取发运计划执行情况的测试版接口/v1/supply-order/shipment-plan-compliance/get，并将三个商品证书接口从测试区移至正式区。证书接口新增option.variants、params.variants及params.number_mask响应参数，更新文件、有效期和证书国家参数描述，同时从params.accordance_type中删除三个旧取值。使用这些证书接口的系统应核对请求枚举和响应映射，避免继续依赖被删除取值；正文没有给出迁移截止日期。",
+      "recommended_action": "检查证书请求中的params.accordance_type，移除TECHNICAL_REGULATIONS_RF、TECHNICAL_REGULATIONS_CU和GOST依赖；核对新增响应参数及更新的文件、有效期、证书国家说明，按需评估发运计划执行情况测试版接口。",
+      "official_date": "2026-10-09",
+      "change_url": "https://t.me/OzonSellerAPI/707"
+    },
+    {
+      "event_id": "ozon_seller_api_news-63fb7ee547d4::detail-2",
+      "content_hash": "d72e6f8b27d61866948c9079af54190c211a21f182fd8aa15131c1db14f0f925",
+      "platform_code": "ozon",
+      "platform_label": "Ozon",
+      "primary_tag_code": "listing_product",
+      "primary_tag_label": "刊登/商品",
+      "status": "actionable_late_discovery",
+      "ai_summary_zh": "本轮延迟发现的Ozon官方频道正文标注2026年10月6日，新增/v1/barcode/delete接口，用于解除条码与商品的绑定，并非10月12日新发布。需要通过API处理商品条码解绑的系统可评估接入；该条正文未提供参数、操作限制或迁移截止日期，实施前需核对官方接口文档。",
+      "recommended_action": "核对商品条码解绑需求，按需评估/v1/barcode/delete；先查阅官方接口文档确认参数与限制，不把本条简短公告视作完整调用规范。",
+      "official_date": "2026-10-06",
+      "change_url": "https://t.me/OzonSellerAPI/706"
+    },
+    {
+      "event_id": "shopify_developer_changelog-f90ccf52a6bd::detail-3",
+      "content_hash": "f6ec61de68bdf775b3181cb95878763f5bae94c5af8d0e2e9fb21f858021bf87",
+      "platform_code": "shopify",
+      "platform_label": "Shopify",
+      "primary_tag_code": "api_technical",
+      "primary_tag_label": "API/技术",
+      "status": "actionable_today",
+      "ai_summary_zh": "Shopify于2026年10月12日为API版本2026-10的POS UI扩展新增navigatesuccess事件，在目标屏幕完成原生切换后触发，并向回调传递标准Event。此前currententrychange可能在屏幕完全显示前触发，navigate()返回的Promise也不等待原生切换完成，因此不能用它们判断屏幕已显示。现有扩展无需迁移；如需在切换完成后执行逻辑，可监听该事件，返回导航时应在将重新显示的屏幕注册监听，同时注意旧POS构建不会发出该事件。",
+      "recommended_action": "有屏幕切换完成回调需求时使用navigatesuccess，并确认目标API版本为2026-10且POS构建支持；返回导航在将重新出现的屏幕注册监听，不把navigate()的Promise完成当作原生切换结束。",
+      "official_date": "2026-10-12",
+      "change_url": "https://shopify.dev/changelog/posts/detect-when-a-pos-extension-screen-finishes-navigating"
+    },
+    {
+      "event_id": "shopify_developer_changelog-f90ccf52a6bd::detail-4",
+      "content_hash": "fe2f70be00b11354eb304dac013d9c186846c2c9dd9af38aa240162f58ff035d",
+      "platform_code": "shopify",
+      "platform_label": "Shopify",
+      "primary_tag_code": "api_technical",
+      "primary_tag_label": "API/技术",
+      "status": "actionable_today",
+      "ai_summary_zh": "Shopify于2026年10月12日为API版本2026-10的POS UI扩展提供shopify.extension.version，用于识别设备正在运行的已发布扩展版本，值与Dev Dashboard版本页及部署时使用的名称一致。该值是不透明名称而非可排序的版本号，只应做相等性比较，本地开发服务器运行时为undefined。由于POS可能缓存扩展并离线运行，此字段有助于排查商家设备实际使用哪个构建；现有扩展无需修改，使用该字段时需面向2026-10版本并兼容本地开发缺值。",
+      "recommended_action": "需要诊断设备运行构建时，在2026-10版POS扩展读取shopify.extension.version，按名称相等性比较，不按版本大小排序；本地开发测试处理undefined情况，现有扩展无需强制迁移。",
+      "official_date": "2026-10-12",
+      "change_url": "https://shopify.dev/changelog/posts/identify-the-published-version-running-in-a-pos-extension"
+    }
+  ]
 }
