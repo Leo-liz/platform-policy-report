@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "run_id": "20261013-010423",
-  "report_date": "2026-10-12",
+  "run_id": "20261014-010052",
+  "report_date": "2026-10-13",
   "report_url": "https://leo-liz.github.io/platform-policy-report/reports/latest.html",
   "taxonomy_version": "2026-08-22",
-  "generated_at": "2026-10-13T01:15:39+08:00",
+  "generated_at": "2026-10-14T01:18:15+08:00",
   "ai": {
     "provider": "codex_builtin_postprocess",
     "model": "current_codex_thread",
@@ -13,56 +13,43 @@
   },
   "events": [
     {
-      "event_id": "ozon_seller_api_news-63fb7ee547d4::detail-1",
-      "content_hash": "bed841848de01802d07add0d6bdf579857d7b673f8513ebcf8554cce3f42fafb",
-      "platform_code": "ozon",
-      "platform_label": "Ozon",
-      "primary_tag_code": "api_technical",
-      "primary_tag_label": "API/技术",
-      "status": "actionable_late_discovery",
-      "ai_summary_zh": "本轮延迟发现的Ozon官方频道正文日期为2026年10月9日，并非10月12日新发布，内容新增获取发运计划执行情况的测试版接口/v1/supply-order/shipment-plan-compliance/get，并将三个商品证书接口从测试区移至正式区。证书接口新增option.variants、params.variants及params.number_mask响应参数，更新文件、有效期和证书国家参数描述，同时从params.accordance_type中删除三个旧取值。使用这些证书接口的系统应核对请求枚举和响应映射，避免继续依赖被删除取值；正文没有给出迁移截止日期。",
-      "recommended_action": "检查证书请求中的params.accordance_type，移除TECHNICAL_REGULATIONS_RF、TECHNICAL_REGULATIONS_CU和GOST依赖；核对新增响应参数及更新的文件、有效期、证书国家说明，按需评估发运计划执行情况测试版接口。",
-      "official_date": "2026-10-09",
-      "change_url": "https://t.me/OzonSellerAPI/707"
-    },
-    {
-      "event_id": "ozon_seller_api_news-63fb7ee547d4::detail-2",
-      "content_hash": "d72e6f8b27d61866948c9079af54190c211a21f182fd8aa15131c1db14f0f925",
-      "platform_code": "ozon",
-      "platform_label": "Ozon",
+      "event_id": "aliexpress_open_announcements-50e59cc3613c::detail-1",
+      "content_hash": "36962a0832e4448321bf1b003ebdd972fd4e3a27ad2aa1214dac8e5b55b93df0",
+      "platform_code": "aliexpress",
+      "platform_label": "AliExpress",
       "primary_tag_code": "listing_product",
       "primary_tag_label": "刊登/商品",
-      "status": "actionable_late_discovery",
-      "ai_summary_zh": "本轮延迟发现的Ozon官方频道正文标注2026年10月6日，新增/v1/barcode/delete接口，用于解除条码与商品的绑定，并非10月12日新发布。需要通过API处理商品条码解绑的系统可评估接入；该条正文未提供参数、操作限制或迁移截止日期，实施前需核对官方接口文档。",
-      "recommended_action": "核对商品条码解绑需求，按需评估/v1/barcode/delete；先查阅官方接口文档确认参数与限制，不把本条简短公告视作完整调用规范。",
-      "official_date": "2026-10-06",
-      "change_url": "https://t.me/OzonSellerAPI/706"
+      "status": "actionable_today",
+      "ai_summary_zh": "速卖通于2026年10月13日更新欧盟PID二期手册，新增ISBN、UDI-DI、UPC和GTIN等字段及全托管ean_code的上线节点现列为10月13日，覆盖全托管、半托管和POP。发品规则新增明确格式限制：ISBN为10位或13位纯数字，13位时须以978或979开头，UDI为12位纯数字，GTIN为不超过20位的纯数字，并补充对应格式错误码和测试类目。SKU编码仍为必填，10月20日缺SKU、10月30日缺ISBN的发品将被拦截，存量商品也需补齐；不适配可能导致无法发品、欧盟不可售卖或订单关单。",
+      "recommended_action": "按10月13日最新发品规则更新ISBN、UDI、GTIN及SKU校验和错误码处理，使用正文测试类目联调；在10月20日与10月30日拦截节点前补齐适用商品编码及存量修改任务。",
+      "official_date": "2026-10-13",
+      "change_url": "https://open.aliexpress.com/announcement/index.htm#/announcement/detail?id=10821&entitle=%E6%AC%A7%E7%9B%9F%E7%A8%8E%E6%94%B9%E4%BA%8C%E6%9C%9FPID%E9%A1%B9%E7%9B%AE-ISV%E6%8A%80%E6%9C%AF%E6%89%8B%E5%86%8C&queryid=129&cntitle=%E6%AC%A7%E7%9B%9F%E7%A8%8E%E6%94%B9%E4%BA%8C%E6%9C%9FPID%E9%A1%B9%E7%9B%AE-ISV%E6%8A%80%E6%9C%AF%E6%89%8B%E5%86%8C"
     },
     {
-      "event_id": "shopify_developer_changelog-f90ccf52a6bd::detail-3",
-      "content_hash": "f6ec61de68bdf775b3181cb95878763f5bae94c5af8d0e2e9fb21f858021bf87",
-      "platform_code": "shopify",
-      "platform_label": "Shopify",
+      "event_id": "shopee_open_platform_announcements-09cce17bffbf::detail-1",
+      "content_hash": "0b55e228a8c964f9f2f5556cf928605d1e3e876ed1b72fc2337c33dc015216bd",
+      "platform_code": "shopee",
+      "platform_label": "Shopee",
+      "primary_tag_code": "compliance_policy",
+      "primary_tag_label": "合规/政策",
+      "status": "actionable_today",
+      "ai_summary_zh": "Shopee于2026年10月13日更新公告，为含蓝牙、Wi-Fi或射频技术的商品类目新增条件属性，用于识别产品是否具备这些连接能力。选择“是”时，子属性Anatel许可编号将成为必填项，选择“否”时不要求该认证；自2026年10月20日起，具备上述连接能力的商品须填写Anatel登记号。商品刊登对接应按类目查询并映射属性，确保卖家在截止节点前补齐编号，以避免提交商品时出错。",
+      "recommended_action": "核对公告所列受影响类目，通过get_attribute_tree查询各类目的属性值和ID，映射连接能力父属性及Anatel许可编号子属性；在2026年10月20日前补齐适用商品编号并测试刊登提交。",
+      "official_date": "2026-10-13",
+      "change_url": "https://open.shopee.com/announcements/1586?category=55&is_top=false"
+    },
+    {
+      "event_id": "ozon_seller_api_news-e6a14bf92ca0::detail-1",
+      "content_hash": "50b56cd4239382d6a03b89cd865bd4aadb8611f257f72bf3d66ae12273481d4d",
+      "platform_code": "ozon",
+      "platform_label": "Ozon",
       "primary_tag_code": "api_technical",
       "primary_tag_label": "API/技术",
       "status": "actionable_today",
-      "ai_summary_zh": "Shopify于2026年10月12日为API版本2026-10的POS UI扩展新增navigatesuccess事件，在目标屏幕完成原生切换后触发，并向回调传递标准Event。此前currententrychange可能在屏幕完全显示前触发，navigate()返回的Promise也不等待原生切换完成，因此不能用它们判断屏幕已显示。现有扩展无需迁移；如需在切换完成后执行逻辑，可监听该事件，返回导航时应在将重新显示的屏幕注册监听，同时注意旧POS构建不会发出该事件。",
-      "recommended_action": "有屏幕切换完成回调需求时使用navigatesuccess，并确认目标API版本为2026-10且POS构建支持；返回导航在将重新出现的屏幕注册监听，不把navigate()的Promise完成当作原生切换结束。",
-      "official_date": "2026-10-12",
-      "change_url": "https://shopify.dev/changelog/posts/detect-when-a-pos-extension-screen-finishes-navigating"
-    },
-    {
-      "event_id": "shopify_developer_changelog-f90ccf52a6bd::detail-4",
-      "content_hash": "fe2f70be00b11354eb304dac013d9c186846c2c9dd9af38aa240162f58ff035d",
-      "platform_code": "shopify",
-      "platform_label": "Shopify",
-      "primary_tag_code": "api_technical",
-      "primary_tag_label": "API/技术",
-      "status": "actionable_today",
-      "ai_summary_zh": "Shopify于2026年10月12日为API版本2026-10的POS UI扩展提供shopify.extension.version，用于识别设备正在运行的已发布扩展版本，值与Dev Dashboard版本页及部署时使用的名称一致。该值是不透明名称而非可排序的版本号，只应做相等性比较，本地开发服务器运行时为undefined。由于POS可能缓存扩展并离线运行，此字段有助于排查商家设备实际使用哪个构建；现有扩展无需修改，使用该字段时需面向2026-10版本并兼容本地开发缺值。",
-      "recommended_action": "需要诊断设备运行构建时，在2026-10版POS扩展读取shopify.extension.version，按名称相等性比较，不按版本大小排序；本地开发测试处理undefined情况，现有扩展无需强制迁移。",
-      "official_date": "2026-10-12",
-      "change_url": "https://shopify.dev/changelog/posts/identify-the-published-version-running-in-a-pos-extension"
+      "ai_summary_zh": "Ozon官方频道于2026年10月13日说明，/v2/posting/fbs/act/get-postings接口响应新增result.is_blr_traceable和result.scanit两个参数。调用该FBS接口的系统可核对响应解析和映射；正文没有解释字段语义、取值范围或迁移截止日期，不宜仅凭字段名推断业务规则。",
+      "recommended_action": "检查接口响应解析对两个新增字段的兼容性；如需使用字段，先查阅官方接口文档确认语义、类型和取值，不据名称直接新增业务判断。",
+      "official_date": "2026-10-13",
+      "change_url": "https://t.me/OzonSellerAPI/708"
     }
   ]
 }
