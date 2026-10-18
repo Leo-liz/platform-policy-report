@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "run_id": "20261018-010021",
-  "report_date": "2026-10-17",
+  "run_id": "20261019-010357",
+  "report_date": "2026-10-18",
   "report_url": "https://leo-liz.github.io/platform-policy-report/reports/latest.html",
   "taxonomy_version": "2026-08-22",
-  "generated_at": "2026-10-18T01:15:30+08:00",
+  "generated_at": "2026-10-19T01:15:51+08:00",
   "ai": {
     "provider": "codex_builtin_postprocess",
     "model": "current_codex_thread",
@@ -13,17 +13,43 @@
   },
   "events": [
     {
-      "event_id": "mercadolibre_global_selling_docs-67c054de3b1d::detail-1",
-      "content_hash": "371268b58cc0445c169b2f9706e9d49bd2ca96dc6eea703897def86de963cce2",
-      "platform_code": "mercadolibre",
-      "platform_label": "Mercado Libre",
-      "primary_tag_code": "marketing_promotion",
-      "primary_tag_label": "营销/促销",
-      "status": "actionable_late_discovery",
-      "ai_summary_zh": "本轮迟发现Mercado Libre的Product Ads文档，更新时间为2026年10月16日；相较既有正文，新增多处limit与offset之和不得超过10,000的分页约束。该限制涉及带指标的活动查询、广告组指标及相关列表分页，超过边界的批量提取需调整请求范围，不能无限增大offset。目录和用户商品统一变体、ROAS及2026年5月27日旧端点停用说明此前已存在，不是本次新增政策，也不能把已过停用日误作未来期限。",
-      "recommended_action": "检查Product Ads查询分页，确保limit与offset之和不超过10,000；按正文允许的筛选及日期范围组织提取，不以提高offset绕过上限，保留既有广告组和ROAS集成。",
-      "official_date": "2026-10-16",
-      "change_url": "https://global-selling.mercadolibre.com/devsite/new-product-ads"
+      "event_id": "temu_partner_docs-595d0406990b::detail-1",
+      "content_hash": "699fa15a99b749862ec2262b1470fa06d65f3b7b67d650e775974725d94b71ef",
+      "platform_code": "temu",
+      "platform_label": "Temu",
+      "primary_tag_code": "order",
+      "primary_tag_label": "订单",
+      "status": "actionable_today",
+      "ai_summary_zh": "Temu于2026年10月18日更新bg.order.detail.v2.get文档，在fulfillmentTypeList中新增第三方退货仓履约枚举fulfillBy3rdPartyReturnWarehouse，并明确不传该参数时默认fulfillBySeller。原fulfillByCooperativeWarehouse编码保留，仅描述改为Partner Warehouse，不能把描述变化当成新编码。订单详情查询若需覆盖仓履约类型，应显式选择对应枚举并同步参数校验；正文仅给文档更新时间，未另行说明业务生效或旧值停用日期。",
+      "recommended_action": "在订单详情查询参数校验中支持fulfillBy3rdPartyReturnWarehouse；需要查询仓履约订单时显式传对应fulfillmentTypeList，保留fulfillByCooperativeWarehouse编码，并测试未传参数时的卖家履约默认分支。",
+      "official_date": "2026-10-18",
+      "change_url": "https://partner-us.temu.com/documentation?menu_code=fb16b05f7a904765aac4af3a24b87d4a&sub_menu_code=9bf33a25319e4d7bbaf5ece4b823b9c3"
+    },
+    {
+      "event_id": "temu_partner_docs-595d0406990b::detail-2",
+      "content_hash": "53ce5370c75864da12a1f705c22dbc683139f0e302d72571a443b087fafab56a",
+      "platform_code": "temu",
+      "platform_label": "Temu",
+      "primary_tag_code": "order",
+      "primary_tag_label": "订单",
+      "status": "actionable_today",
+      "ai_summary_zh": "Temu的bg.order.list.v2.get文档于2026年10月18日新增fulfillBy3rdPartyReturnWarehouse履约类型，并补充fulfillmentTypeList省略时默认只按fulfillBySeller查询的说明。批量拉单对接需检查是否显式覆盖第三方退货仓及合作仓履约，否则不能假定省略筛选就涵盖所有履约类型。fulfillByCooperativeWarehouse编码仍在，仅展示描述改为Partner Warehouse；正文未另给业务生效日或旧参数停用期限。",
+      "recommended_action": "扩展批量拉单参数枚举并按业务需要显式传履约类型列表，验证卖家履约、合作仓和第三方退货仓分支；保留原合作仓编码，不从示例或描述改名推定新权限或新订单状态。",
+      "official_date": "2026-10-18",
+      "change_url": "https://partner-us.temu.com/documentation?menu_code=fb16b05f7a904765aac4af3a24b87d4a&sub_menu_code=554fd46b45ee49269cbdd6d4008a5dc1"
+    },
+    {
+      "event_id": "tiktok_shop_changelog-15103431f860::detail-1",
+      "content_hash": "d145b08b2360ba6aaa2ba19e10900455870f6ba347c39691228021da755c4421",
+      "platform_code": "tiktok_shop",
+      "platform_label": "TikTok Shop",
+      "primary_tag_code": "api_technical",
+      "primary_tag_label": "API/技术",
+      "status": "actionable_today",
+      "ai_summary_zh": "TikTok Shop于2026年10月18日发布9月API更新汇总：10月31日取消订单接口将拒绝两种买家责任原因、旧Shipping Template组件退役，单视频指标接口最迟12月28日停用。对接需移除废弃取消原因并处理拒绝错误、将旧组件入口改为Seller Center，并迁移批量视频指标接口及核对新统计口径。汇总还要求欧盟跨境PID存量商品在10月底前修正、11月1日海关执行，美国假发属性与条件证书规则于11月21日开始API强制校验。Webhook出口白名单、英欧危险品和其他市场类目必填项也需按正文各自范围复核，不能把汇总发布日期当成全部规则统一上线日。",
+      "recommended_action": "10月31日前移除两种废弃取消原因并将旧面板改为Seller Center跳转；12月28日前迁移批量视频详情并按指标定义映射。核查欧盟存量PID、美国假发条件证书和相关类目必填项，及时复核Webhook白名单及签名校验；不要对拒绝原因重试同一载荷或将不同归因GMV直接相加。",
+      "official_date": "2026-10-18",
+      "change_url": "https://partner.tiktokshop.com/docv2/page/5daswqdc"
     }
   ]
 }
