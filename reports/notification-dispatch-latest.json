@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "run_id": "20261024-010024",
-  "report_date": "2026-10-23",
+  "run_id": "20261025-010020",
+  "report_date": "2026-10-24",
   "report_url": "https://leo-liz.github.io/platform-policy-report/reports/latest.html",
   "taxonomy_version": "2026-08-22",
-  "generated_at": "2026-10-24T01:19:24+08:00",
+  "generated_at": "2026-10-25T01:18:53+08:00",
   "ai": {
     "provider": "codex_builtin_postprocess",
     "model": "current_codex_thread",
@@ -13,69 +13,17 @@
   },
   "events": [
     {
-      "event_id": "aliexpress_open_announcements-f9764e9232f8::detail-1",
-      "content_hash": "8749320501f7c67e32eeda2e01cae75e612b0b9027204e6c0f337951d0388801",
-      "platform_code": "aliexpress",
-      "platform_label": "AliExpress",
-      "primary_tag_code": "listing_product",
-      "primary_tag_label": "刊登/商品",
-      "status": "actionable_today",
-      "ai_summary_zh": "速卖通10月23日更新海外托管发品手册：主图上限由6张增至8张、源发语种标题由128增至255字符，新增SKU多图、自定义销售属性及销售描述属性。工作台和API已上线，ISV可自行选择接入，不改造只是不具备这些新能力，正文未给强制截止日。发布、编辑和查询应兼容image_url_list及描述属性，类目返回AE_FEATURE_sale-desc-prop用于识别sku_desc_property_list；销售属性别名不能与自定义属性或SKU多图同时使用。",
-      "recommended_action": "按需扩展图片和标题校验及查询解析，按类目标识区分SKU描述属性；自定义值使用负数属性值ID并适配EUR_SALE_PROP_CHECK1/3冲突校验，先灰测后启用，不把可选升级写成强制迁移。",
-      "official_date": "2026-10-23",
-      "change_url": "https://open.aliexpress.com/announcement/index.htm#/announcement/detail?id=6988&entitle=%E6%B5%B7%E5%A4%96%E6%89%98%E7%AE%A1-%E5%95%86%E5%93%81%E5%8F%91%E5%93%81%E5%8A%9F%E8%83%BD%E5%8D%87%E7%BA%A7ISV%E6%8A%80%E6%9C%AF%E6%89%8B%E5%86%8C&queryid=129&cntitle=%E6%B5%B7%E5%A4%96%E6%89%98%E7%AE%A1-%E5%95%86%E5%93%81%E5%8F%91%E5%93%81%E5%8A%9F%E8%83%BD%E5%8D%87%E7%BA%A7ISV%E6%8A%80%E6%9C%AF%E6%89%8B%E5%86%8C"
-    },
-    {
-      "event_id": "aliexpress_open_announcements-f9764e9232f8::detail-2",
-      "content_hash": "7906f7c872200ec0983a0a6b14c78d0a0297b3e1690fab4eafef90b6e6eb6689",
-      "platform_code": "aliexpress",
-      "platform_label": "AliExpress",
+      "event_id": "temu_partner_docs-e5a79ada6a23::detail-1",
+      "content_hash": "4e71e93f8a8ca739cd60dc4b9a9cceaf00f4bea19f1d8747e40de10b78355a87",
+      "platform_code": "temu",
+      "platform_label": "Temu",
       "primary_tag_code": "logistics_fulfillment",
       "primary_tag_label": "物流/履约",
-      "status": "actionable_today",
-      "ai_summary_zh": "速卖通10月23日补充WB引流订单独立发货手册，履约应发信息查询最外层明确返回wildberriesOrder，并给出重复运单错误码ASF_CB_AER_WB_TRACKING_NUMBER_USED。规则仍限定俄向跨境POP的WB引流订单，须以交易主单独立打包和使用独立运单；原10月22日查询能力上线、10月26日工作台上线、11月30日开启拦截的安排未改变。对接方需补齐订单识别与声明发货、修改发货两条链路的错误处理，避免实物已发出但系统发货被阻断，不把新增示例误作提前启用拦截。",
-      "recommended_action": "11月30日前适配wildberriesOrder、主单extend_map的aer_partners/Wildberries标识与独立运单分配；对声明发货和修改发货统一处理ASF_CB_AER_WB_TRACKING_NUMBER_USED，不在已发实物后才发现运单冲突。",
-      "official_date": "2026-10-23",
-      "change_url": "https://open.aliexpress.com/announcement/index.htm#/announcement/detail?id=12771&entitle=AER-WB%E8%AE%A2%E5%8D%95%E4%B8%8D%E5%90%88%E5%8D%95%E5%8F%91%E8%B4%A7%E9%A1%B9%E7%9B%AE-ISV%E6%8A%80%E6%9C%AF%E6%89%8B%E5%86%8C&queryid=129&cntitle=AER-WB%E8%AE%A2%E5%8D%95%E4%B8%8D%E5%90%88%E5%8D%95%E5%8F%91%E8%B4%A7%E9%A1%B9%E7%9B%AE-ISV%E6%8A%80%E6%9C%AF%E6%89%8B%E5%86%8C"
-    },
-    {
-      "event_id": "mercadolibre_global_selling_docs-6d10f6dec5d9::detail-1",
-      "content_hash": "4e20bee2dc63cbe51e8d1a91dfcec9d462b7cfc57129ff0ea458ecee39a92e9c",
-      "platform_code": "mercadolibre",
-      "platform_label": "Mercado Libre",
-      "primary_tag_code": "customer_service_after_sales",
-      "primary_tag_label": "客服/售后",
       "status": "actionable_late_discovery",
-      "ai_summary_zh": "美客多Blocked messages正文最后更新于10月22日，本轮迟发现；与前次完整正文相比，新增blocked_by_cbt_closed子状态，表示消息关闭，只有买家再次发消息才会开放。客服系统应区分该状态与超时、付款、退款等已有原因，避免向卖家提供立即重试或自行解封的误导操作。Model 6访问限制和其他拦截原因原已存在，不是这次新增，正文也未给该子状态单独生效或强制迁移截止日。",
-      "recommended_action": "兼容blocked_by_cbt_closed并提示需等买家发起新消息；保留其他substatus处理，不把该状态当成可用重试解决的临时网络错误，也不据此修改原有权限或Model 6策略。",
-      "official_date": "2026-10-22",
-      "change_url": "https://global-selling.mercadolibre.com/devsite/blocked-messages-gs"
-    },
-    {
-      "event_id": "tiktok_shop_changelog-6fc229c3abce::detail-1",
-      "content_hash": "d8b02d7141feecb05bc0780edb406eef658944c9b316ca6a2778c299dc606b66",
-      "platform_code": "tiktok_shop",
-      "platform_label": "TikTok Shop",
-      "primary_tag_code": "finance_settlement",
-      "primary_tag_label": "财务/结算",
-      "status": "actionable_today",
-      "ai_summary_zh": "TikTok Shop于10月23日扩展财务和联盟订单数据：美国交易增加4项危险品/非标包裹费用，印尼增加article_22_income_tax_withheld，联盟订单各SKU增加sku_name、seller_sku，各市场交易增加seller_funded_user_spoint_service_fee。SEA另提供202609版Trade-In账户流水和余额接口，要求Finance Information授权，身份从授权上下文解析，不传seller_id或supplier_id且仅返回Trade-In业务流水。现有集成继续兼容，字段新增不代表新增强制参数或所有市场均有值；S-Points服务费以实际支付额计收、订单退货时冲回。对账工具可按市场、接口版本接入，处理金额字符串、空值、流水分页和退货冲回，正文未给强制改造截止日。",
-      "recommended_action": "按使用的交易版本分别映射费用/税款位置，保留非US/非ID市场空值兼容并处理S-Points退货冲回；服务SEA Trade-In供应商时核实Finance Information授权，分页至has_more=false并关联REVERSE原流水，联盟订单按seller_sku对账。",
+      "ai_summary_zh": "Temu物流修改接口bg.logistics.shipment.shippingtype.update正文最后更新于10月23日，本轮迟发现：错误表新增120011031，表示服务商存在未签署协议，需到平台首页签署。对接方在修改物流方式或更新运单时若收到该码，应提示处理协议后再核验，不能把它当成普通网络错误持续重试。与前次完整正文相比，请求参数和其他说明未改变，本次仅能确认新增错误说明；正文未给所有商家统一重签要求或强制截止日。",
+      "recommended_action": "识别120011031并提示操作者在Temu首页检查、签署待签协议，再按实际状态复核；与网络错误重试分支区分，不根据错误表补充擅自增加请求参数或宣称全部商家须立即重签。",
       "official_date": "2026-10-23",
-      "change_url": "https://partner.tiktokshop.com/docv2/page/62g4f932"
-    },
-    {
-      "event_id": "shopify_developer_changelog-3d347bce5cdc::detail-3",
-      "content_hash": "b17197a00b7f0e2df17c72db01940c907fae2f6e48a086532fd9a1fb1ccf8ab8",
-      "platform_code": "shopify",
-      "platform_label": "Shopify",
-      "primary_tag_code": "account_permission",
-      "primary_tag_label": "账号/权限",
-      "status": "actionable_today",
-      "ai_summary_zh": "Shopify于10月23日宣布GraphQL Admin API 2027-01提供identityProviderSubjectDelete，可解除客户与第三方身份提供方subject的绑定。调用需传customerId与subject的id，后者可从Customer.identityProviderSubjects取得，并要求write_customers权限。解绑会退出该客户的所有现有会话，但客户下次经同一身份提供方登录时会重新关联，因此不能把它当作永久禁止登录或删除客户；正文未给强制迁移截止日。",
-      "recommended_action": "仅在需要解绑身份且具备write_customers权限时采用2027-01 mutation，查询并核对customerId/subject id；在操作前提示全会话退出和下次登录重新关联的影响，不把解绑用于永久封禁或删除客户。",
-      "official_date": "2026-10-23",
-      "change_url": "https://shopify.dev/changelog/posts/unlink-a-customers-identity-provider-subject-with-the-admin-graphql-api"
+      "change_url": "https://partner-us.temu.com/documentation?menu_code=fb16b05f7a904765aac4af3a24b87d4a&sub_menu_code=5e15820c84b84b6a9af7b28645c38d23"
     }
   ]
 }
