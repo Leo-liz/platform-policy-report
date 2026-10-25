@@ -1,29 +1,15 @@
 {
   "schema_version": 1,
-  "run_id": "20261025-010020",
-  "report_date": "2026-10-24",
+  "run_id": "20261026-010232",
+  "report_date": "2026-10-25",
   "report_url": "https://leo-liz.github.io/platform-policy-report/reports/latest.html",
   "taxonomy_version": "2026-08-22",
-  "generated_at": "2026-10-25T01:18:53+08:00",
+  "generated_at": "2026-10-26T01:15:24+08:00",
   "ai": {
     "provider": "codex_builtin_postprocess",
     "model": "current_codex_thread",
     "summary_schema_version": 11,
     "evidence_validated": true
   },
-  "events": [
-    {
-      "event_id": "temu_partner_docs-e5a79ada6a23::detail-1",
-      "content_hash": "4e71e93f8a8ca739cd60dc4b9a9cceaf00f4bea19f1d8747e40de10b78355a87",
-      "platform_code": "temu",
-      "platform_label": "Temu",
-      "primary_tag_code": "logistics_fulfillment",
-      "primary_tag_label": "物流/履约",
-      "status": "actionable_late_discovery",
-      "ai_summary_zh": "Temu物流修改接口bg.logistics.shipment.shippingtype.update正文最后更新于10月23日，本轮迟发现：错误表新增120011031，表示服务商存在未签署协议，需到平台首页签署。对接方在修改物流方式或更新运单时若收到该码，应提示处理协议后再核验，不能把它当成普通网络错误持续重试。与前次完整正文相比，请求参数和其他说明未改变，本次仅能确认新增错误说明；正文未给所有商家统一重签要求或强制截止日。",
-      "recommended_action": "识别120011031并提示操作者在Temu首页检查、签署待签协议，再按实际状态复核；与网络错误重试分支区分，不根据错误表补充擅自增加请求参数或宣称全部商家须立即重签。",
-      "official_date": "2026-10-23",
-      "change_url": "https://partner-us.temu.com/documentation?menu_code=fb16b05f7a904765aac4af3a24b87d4a&sub_menu_code=5e15820c84b84b6a9af7b28645c38d23"
-    }
-  ]
+  "events": []
 }
