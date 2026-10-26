@@ -1,15 +1,55 @@
 {
   "schema_version": 1,
-  "run_id": "20261026-010232",
-  "report_date": "2026-10-25",
+  "run_id": "20261027-010423",
+  "report_date": "2026-10-26",
   "report_url": "https://leo-liz.github.io/platform-policy-report/reports/latest.html",
   "taxonomy_version": "2026-08-22",
-  "generated_at": "2026-10-26T01:15:24+08:00",
+  "generated_at": "2026-10-27T01:21:30+08:00",
   "ai": {
     "provider": "codex_builtin_postprocess",
     "model": "current_codex_thread",
     "summary_schema_version": 11,
     "evidence_validated": true
   },
-  "events": []
+  "events": [
+    {
+      "event_id": "aliexpress_open_announcements-fe79179e0910::detail-1",
+      "content_hash": "1786e6210d6919d019e97bd5900d3438d2808e9ba32b977413b175f51d2c3639",
+      "platform_code": "aliexpress",
+      "platform_label": "AliExpress",
+      "primary_tag_code": "logistics_fulfillment",
+      "primary_tag_label": "物流/履约",
+      "status": "actionable_today",
+      "ai_summary_zh": "AliExpress于10月26日发布并启动国别化赠品拦截：对公告列出的34个目的国/地区code，创建物流单时不允许添加赠品，product_id或child_order_id任一为空或为0即按赠品判定。规则按提交时间生效，不按订单创建时间，含赠品时会阻断提交并要求删除后重提。公告还说明11月26日之后，ISV长期未做前置过滤且错误率不达标会影响应用考核并可能受处罚，相关创建物流单流程需补齐校验。",
+      "recommended_action": "在aliexpress.logistics.order.createorder提交前按公告34个目的国/地区code过滤赠品；检查product_id与child_order_id，任一为空或为0时提示删除赠品再提交。按实际提交时间应用规则，并核查前置过滤和错误率，防范公告所述11月26日之后的应用考核风险。",
+      "official_date": "2026-10-26",
+      "change_url": "https://open.aliexpress.com/announcement/index.htm#/announcement/detail?id=13022&entitle=%E5%9B%BD%E5%88%AB%E5%8C%96%E8%B5%A0%E5%93%81%E6%8B%A6%E6%88%AA&queryid=129&cntitle=%E5%9B%BD%E5%88%AB%E5%8C%96%E8%B5%A0%E5%93%81%E6%8B%A6%E6%88%AA"
+    },
+    {
+      "event_id": "shopee_open_platform_announcements-8d8d7fbf67fc::detail-1",
+      "content_hash": "cb652456c71c9c94cbc8a180143d1b745643ab99426c71160584fdbc62af61de",
+      "platform_code": "shopee",
+      "platform_label": "Shopee",
+      "primary_tag_code": "logistics_fulfillment",
+      "primary_tag_label": "物流/履约",
+      "status": "actionable_today",
+      "ai_summary_zh": "Shopee于10月26日更新公告：同一Mart账号下、使用自有物流Turbo渠道90026的outlet现可登记相互重叠的服务区域。通过v2.logistics.upload_serviceable_polygon上传时，这些outlet之间的覆盖区域重叠不再阻止提交，仍可用v2.logistics.check_polygon_update_status查看处理进度。功能已向符合条件的卖家启用，若需对店铺关闭，应通过Open Platform提交工单；正文未给另行强制改造截止日。",
+      "recommended_action": "对符合条件的同一Mart账号Turbo 90026门店，核查内部覆盖区域校验是否仍错误阻止重叠区域上传，并继续查询check_polygon_update_status确认处理结果；如需关闭店铺该功能，通过Open Platform工单申请，不扩大到其他物流渠道。",
+      "official_date": "2026-10-26",
+      "change_url": "https://open.shopee.com/announcements/1605?category=55&is_top=false"
+    },
+    {
+      "event_id": "tiktok_shop_changelog-cf8f1737c652::detail-1",
+      "content_hash": "bc0c60ccd6a436797ecc8e66a3214dc63ec69d8d2f6bd77efcbc6094789244fc",
+      "platform_code": "tiktok_shop",
+      "platform_label": "TikTok Shop",
+      "primary_tag_code": "listing_product",
+      "primary_tag_label": "刊登/商品",
+      "status": "actionable_today",
+      "ai_summary_zh": "TikTok Shop于10月26日公告，印尼L2L市场将从10月29日起实行双平台刊登：原仅在TikTok Shop的商品会按平台规则自动在Tokopedia上架，仅Tokopedia商品不受影响。商品编辑或上传将只保留“双平台”与“仅Tokopedia”选项，API不再支持“仅TikTok Shop”渠道选择。新逻辑允许仅一个渠道通过校验时发布到该渠道并返回成功，对接方需同步移除旧选项、调整参数处理，并正确识别这种部分渠道通过的成功结果。",
+      "recommended_action": "在10月29日生效前核查印尼L2L刊登工具：移除“仅TikTok Shop”选项，调整被弃用渠道参数的后端处理，并测试双平台/仅Tokopedia选项及单渠道校验通过仍返回成功的场景。不要把该变化扩大到其他市场。",
+      "official_date": "2026-10-26",
+      "change_url": "https://partner.tiktokshop.com/docv2/page/7fcazxi4"
+    }
+  ]
 }
