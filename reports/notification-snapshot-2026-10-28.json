@@ -1,0 +1,122 @@
+{
+  "schema_version": 1,
+  "run_id": "20261029-010029",
+  "report_date": "2026-10-28",
+  "generated_at": "2026-10-28T17:20:47.614Z",
+  "source": "verified_dingtalk_dispatch_snapshot",
+  "events": [
+    {
+      "event_id": "ozon_seller_api_news-10577b67688d::detail-1",
+      "content_hash": "b2c37ebcdbfc568ab54ef37b54f257a126c8a8f2ba523ee30b432d9e1ec5a00e",
+      "owners": [
+        {
+          "display_name": "曾春文",
+          "notification_status": "delivered",
+          "notified_at": "Wed Oct 28 2026 17:20:44 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "连雄山",
+          "notification_status": "delivered",
+          "notified_at": "Wed Oct 28 2026 17:20:36 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "林哲",
+          "notification_status": "delivered",
+          "notified_at": "Wed Oct 28 2026 17:20:34 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "刘攀",
+          "notification_status": "delivered",
+          "notified_at": "Wed Oct 28 2026 17:20:39 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "肖成富",
+          "notification_status": "delivered",
+          "notified_at": "Wed Oct 28 2026 17:20:42 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "徐竹凤",
+          "notification_status": "delivered",
+          "notified_at": "Wed Oct 28 2026 17:20:47 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "张蕾",
+          "notification_status": "delivered",
+          "notified_at": "Wed Oct 28 2026 17:20:31 GMT+0000 (Coordinated Universal Time)"
+        }
+      ]
+    },
+    {
+      "event_id": "shopify_developer_changelog-58456cdfd7b6::detail-3",
+      "content_hash": "423e238e03fed2522a7eaa9de35a3592819494907927fbce170ac3cf023ca268",
+      "owners": [
+        {
+          "display_name": "曾春文",
+          "notification_status": "delivered",
+          "notified_at": "Wed Oct 28 2026 17:20:44 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "连雄山",
+          "notification_status": "delivered",
+          "notified_at": "Wed Oct 28 2026 17:20:36 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "林哲",
+          "notification_status": "delivered",
+          "notified_at": "Wed Oct 28 2026 17:20:34 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "刘攀",
+          "notification_status": "delivered",
+          "notified_at": "Wed Oct 28 2026 17:20:39 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "徐竹凤",
+          "notification_status": "delivered",
+          "notified_at": "Wed Oct 28 2026 17:20:47 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "张蕾",
+          "notification_status": "delivered",
+          "notified_at": "Wed Oct 28 2026 17:20:31 GMT+0000 (Coordinated Universal Time)"
+        }
+      ]
+    },
+    {
+      "event_id": "shopify_developer_changelog-58456cdfd7b6::detail-4",
+      "content_hash": "c358c8ae9c5c6689f3d4d28f56a74be5d434d89b5f0c83d464f0916d406d9c5a",
+      "owners": [
+        {
+          "display_name": "曾春文",
+          "notification_status": "delivered",
+          "notified_at": "Wed Oct 28 2026 17:20:44 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "连雄山",
+          "notification_status": "delivered",
+          "notified_at": "Wed Oct 28 2026 17:20:36 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "林哲",
+          "notification_status": "delivered",
+          "notified_at": "Wed Oct 28 2026 17:20:34 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "刘攀",
+          "notification_status": "delivered",
+          "notified_at": "Wed Oct 28 2026 17:20:39 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "徐竹凤",
+          "notification_status": "delivered",
+          "notified_at": "Wed Oct 28 2026 17:20:47 GMT+0000 (Coordinated Universal Time)"
+        },
+        {
+          "display_name": "张蕾",
+          "notification_status": "delivered",
+          "notified_at": "Wed Oct 28 2026 17:20:31 GMT+0000 (Coordinated Universal Time)"
+        }
+      ]
+    }
+  ]
+}
