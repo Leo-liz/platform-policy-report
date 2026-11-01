@@ -1,29 +1,15 @@
 {
   "schema_version": 1,
-  "run_id": "20261101-010017",
-  "report_date": "2026-10-31",
+  "run_id": "20261102-010103",
+  "report_date": "2026-11-01",
   "report_url": "https://leo-liz.github.io/platform-policy-report/reports/latest.html",
   "taxonomy_version": "2026-08-22",
-  "generated_at": "2026-11-01T01:14:11+08:00",
+  "generated_at": "2026-11-02T01:13:52+08:00",
   "ai": {
     "provider": "codex_builtin_postprocess",
     "model": "current_codex_thread",
     "summary_schema_version": 11,
     "evidence_validated": true
   },
-  "events": [
-    {
-      "event_id": "shopify_developer_changelog-486a482b3ae0::detail-3",
-      "content_hash": "20391b7a52dd0653af576ebe8370124ad9f7bf96a298271a5437a5580b7c9e98",
-      "platform_code": "shopify",
-      "platform_label": "Shopify",
-      "primary_tag_code": "api_technical",
-      "primary_tag_label": "API/技术",
-      "status": "actionable_late_discovery",
-      "ai_summary_zh": "Shopify于10月30日取消UI扩展语言文件合计256 KB的部署限制，所有含语言文件的UI扩展及API版本均适用。单个语言文件仍须遵守30 KB限制，文件格式、命名和回退行为不变，已有扩展版本继续运行，无需强制改造。此前为合计大小限制删掉语言或缩短翻译的应用可按需恢复，再部署新应用版本并在开发店铺切换语言验证译文。",
-      "recommended_action": "无需改动已正常运行的扩展；若此前为合计256 KB限制删减语言，可按需恢复locales文件，保持单文件小于30 KB，部署新应用版本后在开发店铺切换店铺或顾客语言验证显示。",
-      "official_date": "2026-10-30",
-      "change_url": "https://shopify.dev/changelog/posts/ui-extensions-now-support-a-larger-number-of-locales"
-    }
-  ]
+  "events": []
 }
