@@ -1,15 +1,55 @@
 {
   "schema_version": 1,
-  "run_id": "20261102-010103",
-  "report_date": "2026-11-01",
+  "run_id": "20261103-011730",
+  "report_date": "2026-11-02",
   "report_url": "https://leo-liz.github.io/platform-policy-report/reports/latest.html",
   "taxonomy_version": "2026-08-22",
-  "generated_at": "2026-11-02T01:13:52+08:00",
+  "generated_at": "2026-11-03T01:29:36+08:00",
   "ai": {
     "provider": "codex_builtin_postprocess",
     "model": "current_codex_thread",
     "summary_schema_version": 11,
     "evidence_validated": true
   },
-  "events": []
+  "events": [
+    {
+      "event_id": "ozon_seller_api_news-f1ee13d4ca4b::detail-1",
+      "content_hash": "6240bc3d47bdb1bdc3f6c62b8cf46d892882a6155b7a850522e3159c1d4db57a",
+      "platform_code": "ozon",
+      "platform_label": "Ozon",
+      "primary_tag_code": "api_technical",
+      "primary_tag_label": "API/技术",
+      "status": "actionable_today",
+      "ai_summary_zh": "Ozon于2026年11月2日公告，Seller API将支持scanit新标签，并涉及端点调整和旧方法迁移。使用相关标签接口的系统需核对官方链接中的迁移安排，评估适配范围。当前通知未列出具体端点、切换方式或停用日期，不能据此确定上线或下线时间。",
+      "recommended_action": "打开该条公告所附详细说明，核对受影响端点及旧方法停用日期，再制定标签接口适配与迁移计划。",
+      "official_date": "2026-11-02",
+      "change_url": "https://t.me/OzonSellerAPI/716"
+    },
+    {
+      "event_id": "wildberries_release_notes-8ed8ee5d6f52::detail-1",
+      "content_hash": "b74d270245667261a55b6c103789489ae71551a66156e04a41c89104de94bead",
+      "platform_code": "wildberries",
+      "platform_label": "Wildberries",
+      "primary_tag_code": "api_technical",
+      "primary_tag_label": "API/技术",
+      "status": "actionable_today",
+      "ai_summary_zh": "Wildberries公告将于2026年11月3日莫斯科时间09:30至10:30维护报表服务，对应北京时间14:30至15:30。维护期间，强制标识商品报表、品牌销售占比、收货验收费用和地区销售四类方法不可用，依赖这些数据的报表任务需要避开该时段。官方建议等待维护完成后再调用，并通过API状态页确认服务状态。",
+      "recommended_action": "将上述四类报表调用安排到维护结束后，并在API状态页确认服务恢复。",
+      "official_date": "2026-11-02",
+      "change_url": "https://t.me/wb_api_notifications/492"
+    },
+    {
+      "event_id": "tiktok_shop_changelog-3d318fe489ee::detail-1",
+      "content_hash": "4b95f15f3a1d7e2bd0951800cd530e07cc93bcc5f8b53555e0b40d4abc06cc13",
+      "platform_code": "tiktok_shop",
+      "platform_label": "TikTok Shop",
+      "primary_tag_code": "api_technical",
+      "primary_tag_label": "API/技术",
+      "status": "actionable_today",
+      "ai_summary_zh": "2026年11月2日发布的更新新增11个Analytics API，包括4个站外表现接口和7个ACC受众转化分类接口，可将Data Compass数据接入自有看板和BI工具。站外接口用于对比店铺与归因站外销售、内容和商品表现，ACC接口用于分析人群增长、转化和商品内容偏好。站外报表要求商家自有DTC网站先安装Pixel，新安装的Pixel可能要等报表数据可用后才会出现。权限、统计窗口和数据可用性需按各接口文档核对，公告未写明统一生效日期。",
+      "recommended_action": "计划接入站外报表时先检查DTC网站的Pixel及可用Pixel ID；按各接口文档核对权限、请求响应、统计窗口与数据可用性，再选择接入站外及ACC指标。",
+      "official_date": "2026-11-02",
+      "change_url": "https://partner.tiktokshop.com/docv2/page/fb9qtudp"
+    }
+  ]
 }
