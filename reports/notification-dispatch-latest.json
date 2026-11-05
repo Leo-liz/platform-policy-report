@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "run_id": "20261105-090041",
-  "report_date": "2026-11-04",
+  "run_id": "20261106-010408",
+  "report_date": "2026-11-05",
   "report_url": "https://leo-liz.github.io/platform-policy-report/reports/latest.html",
   "taxonomy_version": "2026-08-22",
-  "generated_at": "2026-11-05T09:26:49+08:00",
+  "generated_at": "2026-11-06T01:19:57+08:00",
   "ai": {
     "provider": "codex_builtin_postprocess",
     "model": "current_codex_thread",
@@ -13,56 +13,56 @@
   },
   "events": [
     {
-      "event_id": "amazon_sp_api_release_notes-e632230fa454::detail-1",
-      "content_hash": "17c252e8ec96e91a2a55023a8406a60ad9564bbd9faa654b064b13d1695a0a64",
-      "platform_code": "amazon",
-      "platform_label": "Amazon SP-API",
-      "primary_tag_code": "listing_product",
-      "primary_tag_label": "刊登/商品",
-      "status": "actionable_today",
-      "ai_summary_zh": "Amazon在2026年11月4日的SP-API发布说明中新增What is Shop Direct指南，介绍商家商品通过Amazon搜索和详情页被发现，再跳转商家网站完成购买的流程。Shop Direct商家继续自行管理库存、定价、订单履约和客服，相关团队可据此评估站外交易承接方式。此次条目标记为文档变更，未给出强制接入或迁移期限。",
-      "recommended_action": "计划评估Shop Direct的商家阅读新增指南，核对Amazon展示到自有网站成交的流程，以及库存、定价、履约和客服的自主管理职责。",
-      "official_date": "2026-11-04",
-      "change_url": "https://developer-docs.amazon/sp-api/docs/sp-api-release-notes#november-4-2026"
-    },
-    {
-      "event_id": "mercadolibre_global_selling_docs-ce27293755ff::detail-1",
-      "content_hash": "6a29920d8a0f4d82c4a699f4f5d9d1da6037564155c7cc8eef1668bc4086a206",
-      "platform_code": "mercadolibre",
-      "platform_label": "Mercado Libre",
-      "primary_tag_code": "listing_product",
-      "primary_tag_label": "刊登/商品",
-      "status": "actionable_today",
-      "ai_summary_zh": "Mercado Libre自动定价文档标注2026年11月4日更新，删除已有自动定价规则的请求与示例均使用DELETE，端点为/marketplace/items/{itemId}/prices/automate。与前次完整正文相比，这两处HTTP方法由GET更正为DELETE，其他正文除更新时间外一致；删除成功返回200 OK且响应为空。照旧示例实现删除逻辑的集成需要核对请求方法和空响应处理，文档未给出独立迁移截止日。",
-      "recommended_action": "核对删除自动定价规则的现有逻辑使用DELETE，并能处理200 OK空响应；若曾依据旧GET示例实现，先在测试环境验证修正。",
-      "official_date": "2026-11-04",
-      "change_url": "https://global-selling.mercadolibre.com/devsite/manage-automations"
-    },
-    {
-      "event_id": "ozon_seller_api_news-f1ee13d4ca4b::detail-1",
-      "content_hash": "d3214dd6222fb21a8506414186cb742dcb739b1022f1a64940d53fdce192c6ef",
+      "event_id": "ozon_seller_api_news-1ef202698c1a::detail-1",
+      "content_hash": "662da4f26c8f6d569a5836a977056093aacb77cde63ee87d30271c826b781518",
       "platform_code": "ozon",
       "platform_label": "Ozon",
       "primary_tag_code": "logistics_fulfillment",
       "primary_tag_label": "物流/履约",
-      "status": "actionable_late_discovery",
-      "ai_summary_zh": "本轮重新核验Ozon的实际消息正文，发现11月2日通知明确列出4个旧FBS包裹标签方法于2026年11月2日完全停用。涉及/v1/posting/fbs/package-label/get、/v2/posting/fbs/package-label/create、/v2/posting/fbs/package-label和/v1/posting/fbs/package-label/create，简短通知未列出替代接口。这是11月2日通知的晚发现补充，仍依赖上述方法的标签流程需要核对迁移安排与实际调用状态。",
-      "recommended_action": "检查是否仍调用上述4个旧FBS标签方法，按官方通知附链接核对迁移与替代流程；通知正文没有替代API明细，需人工确认。",
-      "official_date": "2026-11-02",
-      "change_url": "https://t.me/OzonSellerAPI/716"
+      "status": "actionable_today",
+      "ai_summary_zh": "Ozon于2026年11月5日新增/v1/return/box/get-by-barcode测试版方法，可按标签条形码查询退货箱信息。维护退货箱识别或售后对接的团队可据此评估条码查询能力；简短正文未列出请求、响应字段、适用范围或替代接口。公告没有强制接入或迁移期限，接入前需核对完整接口说明。",
+      "recommended_action": "评估退货箱条码查询需求，阅读该测试版方法的官方接口说明，确认参数、返回字段和适用范围后再测试接入。",
+      "official_date": "2026-11-05",
+      "change_url": "https://t.me/OzonSellerAPI/717"
     },
     {
-      "event_id": "shopify_developer_changelog-c0b72774095d::detail-3",
-      "content_hash": "d9307026a10d3c9ebe5ccb90765960b020464cbceeb35e0411800eeee09d6f83",
+      "event_id": "shopify_developer_changelog-e77fa424c666::detail-1",
+      "content_hash": "2a1676cde604acb4a2544dd0bbe218c921245132a1bfa754321cb80d9d31777c",
       "platform_code": "shopify",
       "platform_label": "Shopify",
-      "primary_tag_code": "api_technical",
-      "primary_tag_label": "API/技术",
+      "primary_tag_code": "compliance_policy",
+      "primary_tag_label": "合规/政策",
       "status": "actionable_today",
-      "ai_summary_zh": "Shopify于2026年11月4日推出开发店的network_access_testing功能预览，可测试应用的network_access网络配置，发现遗漏的主机和服务器。未列入allowed_navigation_hosts的导航链接会显示离站警告，店铺页面加载或请求未列入allowed_sources的服务器时，浏览器控制台会警告；该预览只警告，不阻断请求。存在店铺前台外部链接或服务器请求的应用可以借此检查配置，公告未列出强制切换日期。",
-      "recommended_action": "创建启用network_access_testing预览的开发店，测试可信和未配置主机的导航提示，并通过浏览器控制台检查allowed_sources遗漏的服务器。",
-      "official_date": "2026-11-04",
-      "change_url": "https://shopify.dev/changelog/posts/test-app-network-access-configuration-on-dev-stores"
+      "ai_summary_zh": "Shopify于2026年11月5日将公共应用IP白名单由建议改为必需：行动章节要求批量操作应用在11月12日、其他调用Admin API的公共应用在11月20日美东时间23:59前启用，动态出口可使用ASN。未配置白名单的批量操作将被阻止，11月20日起相关应用会被下架并停止新安装；现有安装的Admin API请求最终于2027年4月1日失败，商家后台警告从2027年1月15日开始。博文导语写批量操作截止为11月11日，与行动章节、表格的11月12日冲突，需人工向官方确认，不能忽略较早日期风险。文中另预告批量查询和变更将各需独立权限范围，具体名称尚待后续公告，不能据此立即添加未公布权限。",
+      "recommended_action": "盘点公共应用的Admin API和批量操作调用，立即配置静态IP/CIDR或ASN白名单并核验正常流量；向官方确认11月11日与12日的日期冲突，按较早时间安排准备，避免批量操作阻断及下架。",
+      "official_date": "2026-11-05",
+      "change_url": "https://shopify.dev/changelog/blog/app-security-updates-ip-allowlist-is-now-required"
+    },
+    {
+      "event_id": "shopify_developer_changelog-e77fa424c666::detail-4",
+      "content_hash": "f6c1907d2ea03b75107edf65ff47c5255592426f1696b4a0352a4e4e8038d8e2",
+      "platform_code": "shopify",
+      "platform_label": "Shopify",
+      "primary_tag_code": "compliance_policy",
+      "primary_tag_label": "合规/政策",
+      "status": "actionable_today",
+      "ai_summary_zh": "Shopify于2026年11月5日要求所有公共应用配置IP白名单，使用批量操作的截止时间为2026年11月12日美东时间23:59，其他公共应用为11月20日同一时间。逾期未配置的公共应用，其批量操作会执行失败，11月20日起还会被Shopify App Store下架并阻止新安装；自定义应用和商家在Dev Dashboard或后台创建的应用不受此项强制要求影响。静态出口可配置IP或CIDR，动态出口应配置托管商ASN及运行国家；从商家基础设施调用Admin API的应用可申请延期。",
+      "recommended_action": "确认应用是否属于公共应用及是否使用批量操作，按对应截止时间在Dev Dashboard配置并验证白名单；动态出口使用托管商ASN与国家限制，从商家设施发起调用的场景尽快核对架构并评估官方延期申请。",
+      "official_date": "2026-11-05",
+      "change_url": "https://shopify.dev/changelog/posts/ip-allowlists-are-now-required-for-public-apps"
+    },
+    {
+      "event_id": "shopify_developer_changelog-e77fa424c666::detail-5",
+      "content_hash": "76f56ec029622d368de8cef74d29e4bb84d35e9cbd7d4392e65532394c90c019",
+      "platform_code": "shopify",
+      "platform_label": "Shopify",
+      "primary_tag_code": "account_permission",
+      "primary_tag_label": "账号/权限",
+      "status": "actionable_today",
+      "ai_summary_zh": "Shopify于2026年11月5日让无静态IP的应用也能配置IP白名单，Dev Dashboard新增按托管商自治系统号ASN和国家允许网络的方式。每个配置最多填写10个ASN并限制到最多10个国家，可先用近期流量测试，再启用强制校验；来自允许网络之外的请求会返回403。使用无服务器托管或动态出口的应用可据此准备公共应用白名单要求，本文没有给出独立的强制启用截止时间。",
+      "recommended_action": "向托管商确认应用实际出口ASN和运行国家，在Dev Dashboard选择Networks (ASN)，用近期正常流量测试后启用校验并检查403；静态出口继续使用现有IP配置。",
+      "official_date": "2026-11-05",
+      "change_url": "https://shopify.dev/changelog/posts/app-ip-allowlists-now-support-apps-with-serverless-hosting"
     }
   ]
 }
