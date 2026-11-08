@@ -1,68 +1,15 @@
 {
   "schema_version": 1,
-  "run_id": "20261108-010124",
-  "report_date": "2026-11-07",
+  "run_id": "20261109-010517",
+  "report_date": "2026-11-08",
   "report_url": "https://leo-liz.github.io/platform-policy-report/reports/latest.html",
   "taxonomy_version": "2026-08-22",
-  "generated_at": "2026-11-08T01:14:14+08:00",
+  "generated_at": "2026-11-09T01:16:30+08:00",
   "ai": {
     "provider": "codex_builtin_postprocess",
     "model": "current_codex_thread",
     "summary_schema_version": 11,
     "evidence_validated": true
   },
-  "events": [
-    {
-      "event_id": "shopee_open_platform_announcements-1422ed59955d::detail-1",
-      "content_hash": "51ff11ba25a6f47dc6cd9522343e31a6c8b0f0a9576262d9108f6be9d61dee34",
-      "platform_code": "shopee",
-      "platform_label": "Shopee",
-      "primary_tag_code": "finance_settlement",
-      "primary_tag_label": "财务/结算",
-      "status": "actionable_today",
-      "ai_summary_zh": "Shopee于2026年11月7日明确，巴西FBS税务文件接口新规则将于11月30日起生效，generate_fbs_invoices请求必须提供关联卖家已登记分支的单个格式化CNPJ，相关集成需在生效前准备适配。作废发票必须显式传document_status=3才能查询，默认仍只返回已授权和已取消文件，document_type新增8至13对应的税务类型。get_fbs_invoices_result的文件名改为{CNPJ}FULLInvoiceXML{index_file}.zip，税务文件推送的document_type也将调整。正文把查询支持类型写为13类、推送支持同样12类，计数存在冲突，需向官方核对实际字典，不能自行将两个接口都判定为相同数量。",
-      "recommended_action": "在11月30日前适配单分支CNPJ必传、作废状态3、document_type新增值及文件名解析，并核对税务文件推送；就正文13类与12类的差异查阅更新接口字典或向官方确认，避免按矛盾计数硬编码。",
-      "official_date": "2026-11-07",
-      "change_url": "https://open.shopee.com/announcements/1625?category=55&is_top=false"
-    },
-    {
-      "event_id": "mercadolibre_global_selling_docs-ae6f7a1cbf91::detail-1",
-      "content_hash": "c66b3a0250b90142f78a0ac51c601d2ca9fec697805ff2b2436c0ff8e691a143",
-      "platform_code": "mercadolibre",
-      "platform_label": "Mercado Libre",
-      "primary_tag_code": "customer_service_after_sales",
-      "primary_tag_label": "客服/售后",
-      "status": "actionable_late_discovery",
-      "ai_summary_zh": "Mercado Libre的Returns页面标注2026年11月6日更新，本轮作为晚发现核验，与此前完整正文相比删除了Return Review整段流程说明，包括统一审核端点调用、失败原因查询和证据附件示例。当前页面仍保留seller_review状态字段、审核错误示例及退货运费查询说明，因此只能确认文档删减，不能由此推断退货审核接口已停用。依赖旧审核示例的售后集成需要向官方核对现行审核文档与接口安排，正文未给出替代接口或迁移截止日，11月6日仅为页面更新时间。",
-      "recommended_action": "核对现有退货审核流程引用的文档是否来自已删减章节，通过当前官方售后文档或支持渠道确认审核、失败原因和附件流程的现行说明，再决定是否调整集成。",
-      "official_date": "2026-11-06",
-      "change_url": "https://global-selling.mercadolibre.com/devsite/manage-returns"
-    },
-    {
-      "event_id": "shopify_developer_changelog-ecb774c1452e::detail-3",
-      "content_hash": "a55d6e868706bbb6fc02042f50a44142b25a2c47532c49647fabc32b47714add",
-      "platform_code": "shopify",
-      "platform_label": "Shopify",
-      "primary_tag_code": "account_permission",
-      "primary_tag_label": "账号/权限",
-      "status": "actionable_late_discovery",
-      "ai_summary_zh": "Shopify的11月6日公告要求伙伴应用先在Partner Dashboard获得批量操作访问权限，批量查询与批量变更分别启用，缺少对应权限会返回access denied，适用于所有GraphQL Admin API版本。该要求覆盖运行批量操作的伙伴公共应用和伙伴自定义应用，商家在后台或Dev Dashboard创建的应用当前不受影响。已经使用批量操作的应用已自动获准，但某一类操作连续31天未运行会失去该类访问权限，需要重新启用。开发者可在Apps的API access requests中启用Allow bulk queries或Allow bulk mutations，无需修改应用配置、发布新版本或要求商家重装。",
-      "recommended_action": "在Partner Dashboard逐应用检查API access requests下的Run bulk operations，按实际调用启用Allow bulk queries和/或Allow bulk mutations；检查超过31天未使用的操作类型是否失去访问权限，并验证对应批量请求。",
-      "official_date": "2026-11-06",
-      "change_url": "https://shopify.dev/changelog/posts/partner-apps-must-enable-bulk-operations-before-use"
-    },
-    {
-      "event_id": "shopify_developer_changelog-ecb774c1452e::detail-4",
-      "content_hash": "519d3d6ac11a2b3479edd00350959a1a0ad04ddd66446a468a3cc93db6ecf0cb",
-      "platform_code": "shopify",
-      "platform_label": "Shopify",
-      "primary_tag_code": "account_permission",
-      "primary_tag_label": "账号/权限",
-      "status": "actionable_late_discovery",
-      "ai_summary_zh": "Shopify另一篇11月6日官方条目同样说明，运行GraphQL Admin API批量查询或批量变更前，伙伴公共应用及伙伴自定义应用需要分别获得对应操作的访问权限，缺少权限会被拒绝，所有API版本都适用。它明确商家自行在后台或Dev Dashboard创建的应用当前不受影响，已有批量操作应用已获准，但某类操作31天未运行会失去该类权限。启用入口为Partner Dashboard的Apps → API access requests → Run bulk operations，可选择Allow bulk queries、Allow bulk mutations或两者，开启后适用于该应用的所有已安装店铺。该条目与另一篇伙伴应用公告属于同一要求的两个官方详情，逐条保留正文证据，不将其描述为新增的另一种权限机制。",
-      "recommended_action": "按本条目核对伙伴应用的批量查询和批量变更开关及31天未使用的撤权情况；在Partner Dashboard重新启用所需操作类型，并验证已安装店铺的批量流程。",
-      "official_date": "2026-11-06",
-      "change_url": "https://shopify.dev/changelog/posts/apps-must-enable-bulk-operations-before-use"
-    }
-  ]
+  "events": []
 }
