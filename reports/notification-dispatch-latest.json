@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "run_id": "20261111-010506",
-  "report_date": "2026-11-10",
+  "run_id": "20261112-100003",
+  "report_date": "2026-11-11",
   "report_url": "https://leo-liz.github.io/platform-policy-report/reports/latest.html",
   "taxonomy_version": "2026-08-22",
-  "generated_at": "2026-11-11T01:21:12+08:00",
+  "generated_at": "2026-11-13T09:32:13+08:00",
   "ai": {
     "provider": "codex_builtin_postprocess",
     "model": "current_codex_thread",
@@ -13,56 +13,43 @@
   },
   "events": [
     {
-      "event_id": "shopee_open_platform_announcements-9f6ba88ffdb8::detail-1",
-      "content_hash": "96be705990de0277af0055800b0541361e1923b4a0c46c1083d350b77ee541dc",
-      "platform_code": "shopee",
-      "platform_label": "Shopee",
-      "primary_tag_code": "finance_settlement",
-      "primary_tag_label": "财务/结算",
+      "event_id": "shopify_developer_changelog-4c9031f42814::detail-1",
+      "content_hash": "f2c9a664c4bd8c2c73e74054f8d7166af370c05e7166e1d8cdca1aa7e75a47f9",
+      "platform_code": "shopify",
+      "platform_label": "Shopify",
+      "primary_tag_code": "account_permission",
+      "primary_tag_label": "账号/权限",
       "status": "actionable_today",
-      "ai_summary_zh": "Shopee在2026年11月10日的这份巴西FBS公告中重申，新税务文件接口规则的生效日由10月30日延至11月30日，规则内容延续此前公告。generate_fbs_invoices将要求填写关联卖家已登记分支的单个CNPJ，查询作废发票要传document_status=3，结果文件名及税务文件推送字段也将调整。正文对查询类型写13种、对推送写12种，实际支持范围需查最新文档确认；另一条官方公告也公布了同一安排。",
-      "recommended_action": "在11月30日前用已登记分支的单个CNPJ测试查询，核对作废状态3、文件名和推送处理，并以最新接口文档核实查询与推送的类型差异。",
-      "official_date": "2026-11-10",
-      "change_url": "https://open.shopee.com/announcements/1630?category=55&is_top=false"
+      "ai_summary_zh": "Shopify于2026年11月11日宣布，安装在应用所属组织以外店铺的自定义应用必须配置IP白名单。新增安装从2026年11月20日美东时间23:59起执行，已有安装从2027年1月1日美东时间23:59起执行。拥有多个应用的伙伴需逐个检查，因为自2027年1月1日起，任一应用缺少白名单都会影响其在组织外安装任何应用的能力。",
+      "recommended_action": "在Dev Dashboard逐个检查组织外安装的自定义应用，在对应期限前配置静态IP或CIDR；动态出口可按托管商ASN及运行国家配置。",
+      "official_date": "2026-11-11",
+      "change_url": "https://shopify.dev/changelog/posts/ip-allowlists-are-now-required-for-custom-apps-installed-outside-your-organization"
     },
     {
-      "event_id": "shopee_open_platform_announcements-9f6ba88ffdb8::detail-2",
-      "content_hash": "70d931d3d3990d74b34c0c9804c46d77f4b8b0c135f6e6d5546120b73fbccad5",
-      "platform_code": "shopee",
-      "platform_label": "Shopee",
-      "primary_tag_code": "finance_settlement",
-      "primary_tag_label": "财务/结算",
+      "event_id": "shopify_developer_changelog-4c9031f42814::detail-2",
+      "content_hash": "9ba9a70bdd3d9b43cfed1f06a527dc05f7eb8105ea02682bd8da5a6510d68882",
+      "platform_code": "shopify",
+      "platform_label": "Shopify",
+      "primary_tag_code": "account_permission",
+      "primary_tag_label": "账号/权限",
       "status": "actionable_today",
-      "ai_summary_zh": "Shopee在2026年11月10日通过此条公告再次确认，巴西FBS税务文件规则维持原方案，实施日期从原定10月30日顺延至11月30日，与同日另一条公告一致。届时查询须提供单个有效分支CNPJ，作废发票需显式传状态3，生成结果采用含CNPJ的新文件名，download_fbs_invoices保持原有用法。查询和推送的document_type分别写为13种和12种，接入时须核对实际枚举。",
-      "recommended_action": "在11月30日前用已登记分支的单个CNPJ测试查询，核对作废状态3、文件名和推送处理，并以最新接口文档核实查询与推送的类型差异。",
-      "official_date": "2026-11-10",
-      "change_url": "https://open.shopee.com/announcements/1629?category=55&is_top=false"
+      "ai_summary_zh": "Shopify于2026年11月11日更新应用IP白名单，允许同一名单同时配置IP地址和ASN，IP地址或网段上限从100提高到250，另可配置最多10个ASN和10个国家。请求匹配任一已配置IP或ASN即可放行，名单外请求返回403，国家限制仅约束ASN。混合静态和动态出口的应用可据此设置白名单，启用强制校验前应先用近期流量测试。",
+      "recommended_action": "按实际出口组合配置IP、CIDR和ASN，动态出口的ASN限制到运行国家，并在强制启用前用近期流量验证名单。",
+      "official_date": "2026-11-11",
+      "change_url": "https://shopify.dev/changelog/posts/app-ip-allowlists-now-support-ip-addresses-and-asns-together"
     },
     {
-      "event_id": "ozon_seller_api_news-4dd90c07cba2::detail-1",
-      "content_hash": "292302edaa1bd6facf8f18d84cf88d0266528166994a1ac41121d6853414a0fa",
-      "platform_code": "ozon",
-      "platform_label": "Ozon",
+      "event_id": "shopify_developer_changelog-4c9031f42814::detail-3",
+      "content_hash": "b7d527027f2c2503e901eb4e48300531c683495bbf28edfbdafdc37f92492282",
+      "platform_code": "shopify",
+      "platform_label": "Shopify",
       "primary_tag_code": "api_technical",
       "primary_tag_label": "API/技术",
       "status": "actionable_today",
-      "ai_summary_zh": "Ozon于2026年11月10日在官方Telegram频道公布，27个Seller API方法由测试区移入正式文档，涉及货件与运输、通知配置、供货单验收、仓库库存及订单结算报表。财务日应计查询/v1/finance/accrual/by-day的响应新增费用明细数量accruals.item_fees.fees.quantity及订单商品数量accruals.posting.products.quantity，接入方可在读取应计结果时处理这两个值。",
-      "recommended_action": "核对已接入的相关方法在正式文档中的说明，并验证财务日应计解析和对账能处理两个新增quantity字段。",
-      "official_date": "2026-11-10",
-      "change_url": "https://t.me/OzonSellerAPI/722"
-    },
-    {
-      "event_id": "shopify_developer_changelog-e02c683399d0::detail-3",
-      "content_hash": "d7016900915f9eaec71e96a72e02da8c65166e0a2d92b830cd77107ff7780c06",
-      "platform_code": "shopify",
-      "platform_label": "Shopify",
-      "primary_tag_code": "compliance_policy",
-      "primary_tag_label": "合规/政策",
-      "status": "actionable_today",
-      "ai_summary_zh": "Shopify自2026年11月10日起调整App Store提交和保留规则，开发者新增应用前，每个现有应用须在全价Shopify店铺获得至少10次安装，新应用提交还须完成身份验证。审核被拒后再次提交需等待冷却期，重复被拒会延长等待。上架满六个月仍为零安装的应用会被自动移除，影响新提交、重提以及现有零安装应用。",
-      "recommended_action": "新增或重提应用前核对每个现有应用的合格安装数、身份验证及冷却期，先解决审核反馈；检查已上架应用的安装数和上架时长。",
-      "official_date": "2026-11-10",
-      "change_url": "https://shopify.dev/changelog/posts/shopify-app-store-submission-requirements-build-grow-then-expand"
+      "ai_summary_zh": "Shopify于2026年11月11日宣布弃用Storefront MCP的search_shop_policies_and_faqs，要求在2027年1月15日前迁移到UCP MCP的ask_business及/api/ucp/mcp端点。新请求需在meta携带ucp-agent.profile，代理声明dev.ucp.common.ask，并以ask.query传入问题。新响应在result.structuredContent.answer.plain返回文字答案，原先解析原始知识库事实或完整政策正文的代码也需调整。",
+      "recommended_action": "在2027年1月15日前迁移工具及端点，补齐代理档案与ask.query，调整答案解析，并用tools/list确认店铺为该代理提供ask_business。",
+      "official_date": "2026-11-11",
+      "change_url": "https://shopify.dev/changelog/posts/storefront-mcp-policies-and-faqs-tool-is-being-deprecated-in-favor-of-ucp-mcp-ask-tool"
     }
   ]
 }
