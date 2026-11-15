@@ -1,42 +1,15 @@
 {
   "schema_version": 1,
-  "run_id": "20261115-010518",
-  "report_date": "2026-11-14",
+  "run_id": "20261116-010039",
+  "report_date": "2026-11-15",
   "report_url": "https://leo-liz.github.io/platform-policy-report/reports/latest.html",
   "taxonomy_version": "2026-08-22",
-  "generated_at": "2026-11-15T01:20:02+08:00",
+  "generated_at": "2026-11-16T01:13:48+08:00",
   "ai": {
     "provider": "codex_builtin_postprocess",
     "model": "current_codex_thread",
     "summary_schema_version": 11,
     "evidence_validated": true
   },
-  "events": [
-    {
-      "event_id": "shopify_developer_changelog-bf6d91facd9c::detail-1",
-      "content_hash": "a9d1f3db2c59bea571fd6fa002ec2fed109f08b467102fd90881e34895ec59ce",
-      "platform_code": "shopify",
-      "platform_label": "Shopify",
-      "primary_tag_code": "account_permission",
-      "primary_tag_label": "账号/权限",
-      "status": "actionable_today",
-      "ai_summary_zh": "Shopify于2026年11月14日要求调用Admin API的公开应用在11月20日美东时间23:59前启用IP白名单，否则将下架并阻止新安装，已有安装继续运行。平台正对未设白名单的公开应用强制限制批量操作，伙伴创建的应用还需在Partner Dashboard启用批量权限，连续31天未发起批量操作后需重新启用。组织外安装的自定义应用从11月20日起对新安装、2027年1月1日起对已有安装要求白名单，届时任一应用缺少名单会影响伙伴在组织外安装其所有应用。所有伙伴账号将从下周开始强制多因素认证，公告建议使用通行密钥，未给出具体开始日。",
-      "recommended_action": "在11月20日美东23:59前启用公开应用IP白名单，按适用期限核对组织外自定义应用；检查批量操作启用状态及31天未使用后的重新启用条件，并提前开启伙伴账号MFA。",
-      "official_date": "2026-11-14",
-      "change_url": "https://shopify.dev/changelog/blog/app-security-updates-thank-you-plus-what-s-required-next"
-    },
-    {
-      "event_id": "walmart_marketplace_whats_new-ff481091edd5::detail-1",
-      "content_hash": "4e2c95bc9792e8a359d300e7d29ce5ffe5b64f6b1a57c2db32704aaff2166e15",
-      "platform_code": "walmart",
-      "platform_label": "Walmart",
-      "primary_tag_code": "listing_product",
-      "primary_tag_label": "刊登/商品",
-      "status": "actionable_late_discovery",
-      "ai_summary_zh": "本轮迟发现的Walmart 2026年11月12日发布说明新增Rich Media Management API组，列出POST /v3/feeds?feedType=OMNI_RICH_MEDIA和GET /v3/items/assets两个端点。该新增组为富媒体管理接入提供独立入口，有相关需求的团队可按官方文档评估对接及请求、响应处理。",
-      "recommended_action": "有富媒体管理需求时查阅Rich Media Management接口文档，按需对接OMNI_RICH_MEDIA Feed提交与商品资源查询，并验证请求和响应。",
-      "official_date": "2026-11-12",
-      "change_url": "https://developer.walmart.com/us-marketplace/changelog/november-12-2026-release"
-    }
-  ]
+  "events": []
 }
