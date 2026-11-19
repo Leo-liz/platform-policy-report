@@ -1,0 +1,951 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>平台 API/开发者变更监控报告</title>
+  <style>
+    :root {
+      --blue-900: #103a74;
+      --blue-800: #174a91;
+      --blue-700: #1d5fbf;
+      --blue-050: #eef6ff;
+      --bg: #f4f7fb;
+      --panel: #ffffff;
+      --text: #1f2937;
+      --muted: #667085;
+      --line: #d7deea;
+      --head: #e8f0fb;
+      --danger: #b42318;
+      --warn: #b54708;
+      --ok: #047857;
+      --info: #0b63ce;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 13px/1.45 "Segoe UI", "Microsoft YaHei", Arial, sans-serif;
+    }
+    a { color: var(--blue-700); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .page { max-width: 1760px; margin: 0 auto; padding: 16px 20px 28px; }
+    .top-strip {
+      background: var(--blue-900);
+      border-bottom: 3px solid var(--blue-700);
+      color: #fff;
+    }
+    .top-strip-inner {
+      max-width: 1760px;
+      margin: 0 auto;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+    }
+    .top-strip strong { font-size: 15px; }
+    .top-strip span { color: #c9dcff; }
+    .report-nav {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 12px 0;
+    }
+    .report-nav a {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-left: 3px solid var(--blue-700);
+      color: var(--blue-900);
+      padding: 6px 10px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+    .top-panel, .table-box {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .table-box { overflow-x: auto; }
+    .title-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 16px;
+      background: linear-gradient(90deg, var(--blue-900), var(--blue-800));
+      color: #fff;
+    }
+    .eyebrow { margin: 0 0 2px; color: #c9dcff; font-weight: 700; }
+    h1, h2, h3 { margin: 0; letter-spacing: 0; }
+    h1 { font-size: 22px; }
+    h2 { font-size: 18px; color: var(--blue-900); }
+    h3 { font-size: 16px; color: var(--blue-900); }
+    .run-time { text-align: right; }
+    .run-time span { display: block; color: #c9dcff; font-size: 12px; }
+    .run-time strong { font-size: 14px; }
+    .summary-line {
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--line);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--blue-900);
+      background: var(--blue-050);
+    }
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(8, minmax(92px, 1fr));
+      border-bottom: 1px solid var(--line);
+    }
+    .metric {
+      padding: 10px 12px;
+      border-right: 1px solid var(--line);
+      min-height: 56px;
+    }
+    .metric:last-child { border-right: 0; }
+    .metric span { display: block; color: var(--muted); }
+    .metric strong { display: block; margin-top: 2px; font-size: 22px; line-height: 1; color: var(--blue-900); }
+    .scope-line { padding: 9px 16px; color: var(--muted); }
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 16px;
+      margin: 18px 0 8px;
+    }
+    .section-head p { margin: 0; color: var(--muted); }
+    .monitor-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+    .monitor-table th {
+      background: var(--head);
+      color: var(--blue-900);
+      border-bottom: 1px solid var(--line);
+      border-right: 1px solid var(--line);
+      padding: 8px 9px;
+      text-align: left;
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .monitor-table td {
+      border-bottom: 1px solid var(--line);
+      border-right: 1px solid var(--line);
+      padding: 8px 9px;
+      vertical-align: top;
+      overflow-wrap: anywhere;
+      background: #fff;
+    }
+    .monitor-table tr:nth-child(even) td { background: #f9fbfe; }
+    .monitor-table th:last-child, .monitor-table td:last-child { border-right: 0; }
+    .priority-table { min-width: 1540px; }
+    .priority-table th:nth-child(1), .priority-table td:nth-child(1) { width: 62px; }
+    .priority-table th:nth-child(2), .priority-table td:nth-child(2) { width: 122px; }
+    .priority-table th:nth-child(3), .priority-table td:nth-child(3) { width: 94px; }
+    .priority-table th:nth-child(4), .priority-table td:nth-child(4) { width: 180px; }
+    .priority-table th:nth-child(5), .priority-table td:nth-child(5) { width: 160px; }
+    .priority-table th:nth-child(6), .priority-table td:nth-child(6) { width: 128px; }
+    .priority-table th:nth-child(7), .priority-table td:nth-child(7) { width: 240px; }
+    .priority-table th:nth-child(10), .priority-table td:nth-child(10) { width: 130px; }
+    .priority-table th:nth-child(11), .priority-table td:nth-child(11) { width: 118px; }
+    .platform-table th:nth-child(1), .platform-table td:nth-child(1) { width: 94px; }
+    .platform-table th:nth-child(2), .platform-table td:nth-child(2) { width: 86px; }
+    .platform-table th:nth-child(3), .platform-table td:nth-child(3) { width: 92px; }
+    .platform-table th:nth-child(6), .platform-table td:nth-child(6) { width: 210px; }
+    .platform-table th:nth-child(8), .platform-table td:nth-child(8) { width: 120px; }
+    .platform-table th:nth-child(9), .platform-table td:nth-child(9) { width: 105px; }
+    .platform-table th:nth-child(10), .platform-table td:nth-child(10) { width: 190px; }
+    .platform-table th:nth-child(11), .platform-table td:nth-child(11) { width: 190px; }
+    .badge {
+      display: inline-block;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.35;
+      white-space: nowrap;
+      margin: 0 3px 3px 0;
+    }
+    .priority-table td:nth-child(2) .badge {
+      max-width: 100%;
+      white-space: normal;
+      overflow-wrap: anywhere;
+    }
+    .impact-high, .status-changed { background: #fee4e2; color: var(--danger); }
+    .impact-medium, .status-new { background: #dbeafe; color: var(--info); }
+    .impact-low, .status-unchanged, .notice-sent, .notice-not-required { background: #dcfce7; color: var(--ok); }
+    .impact-pending, .status-failed, .status-needs-decision, .notice-pending-config, .notice-failed, .notice-pending { background: #fef0c7; color: var(--warn); }
+    .notice-unsent { background: #e0e7ff; color: #3730a3; }
+    .notification-owner-list, .notification-delivery-list { display: grid; gap: 4px; }
+    .notification-owner-list + .muted { display: block; margin-top: 4px; }
+    .notification-delivery-line { display: grid; gap: 2px; align-items: start; }
+    .mode-direct { background: #e8f5ee; color: var(--ok); }
+    .mode-detail, .source-reliability { background: #e8f1ff; color: var(--info); }
+    .ai-degraded { background: #fff7ed; color: var(--warn); }
+    .source-jump strong, .source-jump span { display: block; }
+    .mode-inline { margin-top: 4px; }
+    .tag-cell { min-width: 150px; }
+    .muted { color: var(--muted); }
+    .error-text { color: var(--danger); font-weight: 700; }
+    .solution { color: var(--blue-900); }
+    .link-row { margin-top: 3px; color: var(--muted); }
+    .history-toolbar {
+      display: flex;
+      gap: 12px;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 10px;
+      margin-bottom: 8px;
+    }
+    .history-date-filter {
+      position: relative;
+      display: grid;
+      grid-template-columns: auto minmax(210px, 280px);
+      gap: 8px;
+      align-items: center;
+    }
+    .history-date-filter label {
+      font-weight: 700;
+      color: var(--blue-900);
+      white-space: nowrap;
+    }
+    .history-date-trigger {
+      min-height: 36px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 7px 10px;
+      color: var(--text);
+      background: #fff;
+      font: inherit;
+      text-align: left;
+      cursor: pointer;
+    }
+    .history-date-trigger:hover, .history-date-trigger:focus-visible {
+      border-color: var(--blue-700);
+      outline: 2px solid rgba(29, 95, 191, .14);
+      outline-offset: 1px;
+    }
+    .history-date-trigger:disabled { cursor: not-allowed; color: var(--muted); background: #f8fafc; }
+    .history-calendar {
+      position: absolute;
+      z-index: 20;
+      left: 76px;
+      top: calc(100% + 6px);
+      width: min(330px, calc(100vw - 48px));
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fff;
+      box-shadow: 0 12px 28px rgba(16, 58, 116, .18);
+    }
+    .history-calendar[hidden] { display: none; }
+    .history-calendar-head {
+      display: grid;
+      grid-template-columns: 34px 1fr 34px;
+      align-items: center;
+      margin-bottom: 7px;
+    }
+    .history-calendar-head strong { text-align: center; color: var(--blue-900); font-size: 14px; }
+    .history-calendar-head button {
+      width: 32px;
+      height: 30px;
+      border: 0;
+      border-radius: 4px;
+      background: transparent;
+      color: var(--blue-900);
+      font-size: 22px;
+      line-height: 1;
+      cursor: pointer;
+    }
+    .history-calendar-head button:hover:not(:disabled) { background: var(--blue-050); }
+    .history-calendar-head button:disabled { color: #b8c0cc; cursor: not-allowed; }
+    .history-calendar-week, .history-calendar-days {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 3px;
+    }
+    .history-calendar-week span {
+      padding: 4px 0;
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .history-calendar-day {
+      min-width: 0;
+      height: 32px;
+      border: 0;
+      border-radius: 4px;
+      background: var(--blue-050);
+      color: var(--blue-800);
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .history-calendar-day:hover:not(:disabled) { background: #d7e8ff; }
+    .history-calendar-day.selected { background: var(--blue-700); color: #fff; }
+    .history-calendar-day.outside-month { opacity: .55; }
+    .history-calendar-day:disabled { background: transparent; color: #b8c0cc; cursor: default; font-weight: 400; }
+    .history-calendar-foot { margin: 8px 2px 0; color: var(--muted); font-size: 12px; }
+    .history-range-note { margin: 0; color: var(--muted); }
+    .history-date-row { display: flex; gap: 6px; flex-wrap: wrap; width: 100%; }
+    .history-date-row a {
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 5px 8px;
+      background: #fff;
+    }
+    .history-warning {
+      margin: 0 0 8px;
+      color: var(--warn);
+      font-weight: 700;
+    }
+    .platform-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 16px 0 6px;
+      padding: 8px 10px;
+      background: var(--blue-050);
+      border-left: 4px solid var(--blue-700);
+      border-radius: 4px;
+    }
+    .platform-title span {
+      color: var(--muted);
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 4px;
+      padding: 2px 6px;
+    }
+    .empty { text-align: center; color: var(--muted); padding: 18px; }
+    .trial-banner {
+      margin: 10px 0;
+      padding: 9px 12px;
+      border: 1px solid #f2c94c;
+      border-radius: 4px;
+      background: #fff8db;
+      color: #6b4f00;
+    }
+    .ai-metadata {
+      margin: 10px 0;
+      padding: 7px 10px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: var(--panel);
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .tag-primary {
+      display: inline-block;
+      padding: 3px 7px;
+      border-radius: 4px;
+      background: var(--blue-800);
+      color: #fff;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .tag-list { margin-top: 4px; display: flex; gap: 4px; flex-wrap: wrap; align-items: flex-start; }
+    .tag-secondary {
+      display: inline-block;
+      padding: 2px 5px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: #fff;
+      color: var(--muted);
+      max-width: 100%;
+      white-space: normal;
+      overflow-wrap: anywhere;
+    }
+    .footer { color: var(--muted); margin: 18px 0 0; font-size: 12px; }
+    @media (max-width: 1100px) {
+      .page { padding: 12px; }
+      .metric-grid { grid-template-columns: repeat(4, minmax(90px, 1fr)); }
+      .monitor-table { min-width: 1180px; }
+      .section-head, .title-bar { align-items: flex-start; flex-direction: column; }
+      .run-time { text-align: left; }
+      .history-date-filter { grid-template-columns: 1fr; width: 100%; }
+      .history-calendar { left: 0; }
+    }
+    @media print {
+      body { background: #fff; }
+      .top-strip, .report-nav { display: none; }
+      .page { max-width: none; padding: 0; }
+      .table-box, .top-panel { border-color: #aaa; }
+      .monitor-table th, .monitor-table td { padding: 5px; font-size: 11px; }
+      a { color: #000; text-decoration: underline; }
+    }
+  </style>
+</head>
+<body>
+  <header class="top-strip">
+    <div class="top-strip-inner">
+      <strong>平台政策抓取 · 监控报告</strong>
+      <span>生成时间: 2026-11-20T01:06:47+08:00</span>
+    </div>
+  </header>
+  <main class="page">
+
+    <div class="ai-metadata" data-ai-provider="codex_builtin_postprocess" data-ai-model="current_codex_thread" data-ai-schema="11">摘要模型：codex_builtin_postprocess / current_codex_thread · Schema 11</div>
+    <nav class="report-nav" aria-label="报告导航">
+      <a href="#overview">运行概览</a>
+      <a href="#history">历史报告</a>
+      <a href="#priority">需要处理</a>
+      <a href="#failures">失败与待修复</a>
+      <a href="http://localhost:4317/admin/notifications" target="_blank" rel="noopener noreferrer" title="通知配置">通知配置</a>
+    </nav>
+
+<section class="top-panel" id="overview">
+  <div class="title-bar">
+    <div>
+      <p class="eyebrow">内部监控报告</p>
+      <h1>平台 API/开发者变更监控</h1>
+    </div>
+    <div class="run-time" data-report-date="2026-11-19" data-run-date="2026-11-20">
+      <span>报告日期（北京时间）</span>
+      <strong>2026-11-19</strong>
+      <span>执行日期：2026-11-20 · 抓取窗口：2026-11-20 / 2026-11-19</span>
+    </div>
+  </div>
+  <div class="summary-line">当前官方独立正文逐条核验；Amazon多详情迟发现包含旧日期修订，未变化与纯历史回填不重复摘要，历史未访问记录单独披露。</div>
+  <div class="metric-grid"><div class="metric"><span>监控平台</span><strong>12</strong></div>
+<div class="metric"><span>监控源</span><strong>12</strong></div>
+<div class="metric"><span>变更</span><strong>0</strong></div>
+<div class="metric"><span>失败</span><strong>0</strong></div>
+<div class="metric"><span>待决策</span><strong>0</strong></div>
+<div class="metric"><span>高影响</span><strong>1</strong></div>
+<div class="metric"><span>AI 降级</span><strong>0</strong></div>
+<div class="metric"><span>负责人待确认</span><strong>7</strong></div></div>
+  <div class="scope-line"><strong>平台范围:</strong> eBay / Amazon SP-API / AliExpress / Shopee / Lazada / Mercado Libre / Temu / Ozon（Telegram 官方频道） / Wildberries（Telegram 官方频道） / TikTok Shop / Shopify / Walmart</div>
+</section>
+
+
+<section id="history" class="history-panel">
+  <div class="section-head">
+    <h2>历史报告入口</h2>
+    <p>默认查看最近 30 天；全部历史记录永久保留，可切换月份筛选。</p>
+  </div>
+  <div class="history-toolbar">
+    <div class="history-date-filter" data-history-calendar>
+      <label for="history-date-trigger">报告日期</label>
+      <button
+        id="history-date-trigger"
+        class="history-date-trigger"
+        type="button"
+        aria-haspopup="dialog"
+        aria-expanded="false"
+        aria-controls="history-calendar-panel"
+        data-selected-date="2026-11-19"
+
+      >2026-11-19<span aria-hidden="true">▦</span></button>
+      <div id="history-calendar-panel" class="history-calendar" role="dialog" aria-label="历史报告日期筛选" hidden>
+        <div class="history-calendar-head">
+          <button type="button" data-calendar-prev aria-label="上一个月">‹</button>
+          <strong data-calendar-title></strong>
+          <button type="button" data-calendar-next aria-label="下一个月">›</button>
+        </div>
+        <div class="history-calendar-week" aria-hidden="true"><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span></div>
+        <div class="history-calendar-days" data-calendar-days></div>
+      </div>
+    </div>
+    <p class="history-range-note" data-history-range>默认范围：2026-10-21 至 2026-11-19 · 可筛选 144 个历史日期</p>
+    <noscript><div class="history-date-row" aria-label="最近 30 天"><a href="html_report_20261119.html" data-history-file="html_report_20261119.html">2026-11-19</a>
+<a href="html_report_20261118.html" data-history-file="html_report_20261118.html">2026-11-18</a>
+<a href="html_report_20261117.html" data-history-file="html_report_20261117.html">2026-11-17</a>
+<a href="html_report_20261116.html" data-history-file="html_report_20261116.html">2026-11-16</a>
+<a href="html_report_20261115.html" data-history-file="html_report_20261115.html">2026-11-15</a>
+<a href="html_report_20261114.html" data-history-file="html_report_20261114.html">2026-11-14</a>
+<a href="html_report_20261113.html" data-history-file="html_report_20261113.html">2026-11-13</a>
+<a href="html_report_20261112.html" data-history-file="html_report_20261112.html">2026-11-12</a>
+<a href="html_report_20261111.html" data-history-file="html_report_20261111.html">2026-11-11</a>
+<a href="html_report_20261110.html" data-history-file="html_report_20261110.html">2026-11-10</a>
+<a href="html_report_20261109.html" data-history-file="html_report_20261109.html">2026-11-09</a>
+<a href="html_report_20261108.html" data-history-file="html_report_20261108.html">2026-11-08</a>
+<a href="html_report_20261107.html" data-history-file="html_report_20261107.html">2026-11-07</a>
+<a href="html_report_20261106.html" data-history-file="html_report_20261106.html">2026-11-06</a>
+<a href="html_report_20261105.html" data-history-file="html_report_20261105.html">2026-11-05</a>
+<a href="html_report_20261104.html" data-history-file="html_report_20261104.html">2026-11-04</a>
+<a href="html_report_20261103.html" data-history-file="html_report_20261103.html">2026-11-03</a>
+<a href="html_report_20261102.html" data-history-file="html_report_20261102.html">2026-11-02</a>
+<a href="html_report_20261101.html" data-history-file="html_report_20261101.html">2026-11-01</a>
+<a href="html_report_20261031.html" data-history-file="html_report_20261031.html">2026-10-31</a>
+<a href="html_report_20261030.html" data-history-file="html_report_20261030.html">2026-10-30</a>
+<a href="html_report_20261029.html" data-history-file="html_report_20261029.html">2026-10-29</a>
+<a href="html_report_20261028.html" data-history-file="html_report_20261028.html">2026-10-28</a>
+<a href="html_report_20261027.html" data-history-file="html_report_20261027.html">2026-10-27</a>
+<a href="html_report_20261026.html" data-history-file="html_report_20261026.html">2026-10-26</a>
+<a href="html_report_20261025.html" data-history-file="html_report_20261025.html">2026-10-25</a>
+<a href="html_report_20261024.html" data-history-file="html_report_20261024.html">2026-10-24</a>
+<a href="html_report_20261023.html" data-history-file="html_report_20261023.html">2026-10-23</a>
+<a href="html_report_20261022.html" data-history-file="html_report_20261022.html">2026-10-22</a>
+<a href="html_report_20261021.html" data-history-file="html_report_20261021.html">2026-10-21</a></div></noscript>
+  </div>
+
+  <script type="application/json" id="history-report-data">[{"date":"2026-11-19","href":"html_report_20261119.html","file":"html_report_20261119.html"},{"date":"2026-11-18","href":"html_report_20261118.html","file":"html_report_20261118.html"},{"date":"2026-11-17","href":"html_report_20261117.html","file":"html_report_20261117.html"},{"date":"2026-11-16","href":"html_report_20261116.html","file":"html_report_20261116.html"},{"date":"2026-11-15","href":"html_report_20261115.html","file":"html_report_20261115.html"},{"date":"2026-11-14","href":"html_report_20261114.html","file":"html_report_20261114.html"},{"date":"2026-11-13","href":"html_report_20261113.html","file":"html_report_20261113.html"},{"date":"2026-11-12","href":"html_report_20261112.html","file":"html_report_20261112.html"},{"date":"2026-11-11","href":"html_report_20261111.html","file":"html_report_20261111.html"},{"date":"2026-11-10","href":"html_report_20261110.html","file":"html_report_20261110.html"},{"date":"2026-11-09","href":"html_report_20261109.html","file":"html_report_20261109.html"},{"date":"2026-11-08","href":"html_report_20261108.html","file":"html_report_20261108.html"},{"date":"2026-11-07","href":"html_report_20261107.html","file":"html_report_20261107.html"},{"date":"2026-11-06","href":"html_report_20261106.html","file":"html_report_20261106.html"},{"date":"2026-11-05","href":"html_report_20261105.html","file":"html_report_20261105.html"},{"date":"2026-11-04","href":"html_report_20261104.html","file":"html_report_20261104.html"},{"date":"2026-11-03","href":"html_report_20261103.html","file":"html_report_20261103.html"},{"date":"2026-11-02","href":"html_report_20261102.html","file":"html_report_20261102.html"},{"date":"2026-11-01","href":"html_report_20261101.html","file":"html_report_20261101.html"},{"date":"2026-10-31","href":"html_report_20261031.html","file":"html_report_20261031.html"},{"date":"2026-10-30","href":"html_report_20261030.html","file":"html_report_20261030.html"},{"date":"2026-10-29","href":"html_report_20261029.html","file":"html_report_20261029.html"},{"date":"2026-10-28","href":"html_report_20261028.html","file":"html_report_20261028.html"},{"date":"2026-10-27","href":"html_report_20261027.html","file":"html_report_20261027.html"},{"date":"2026-10-26","href":"html_report_20261026.html","file":"html_report_20261026.html"},{"date":"2026-10-25","href":"html_report_20261025.html","file":"html_report_20261025.html"},{"date":"2026-10-24","href":"html_report_20261024.html","file":"html_report_20261024.html"},{"date":"2026-10-23","href":"html_report_20261023.html","file":"html_report_20261023.html"},{"date":"2026-10-22","href":"html_report_20261022.html","file":"html_report_20261022.html"},{"date":"2026-10-21","href":"html_report_20261021.html","file":"html_report_20261021.html"},{"date":"2026-10-20","href":"html_report_20261020.html","file":"html_report_20261020.html"},{"date":"2026-10-19","href":"html_report_20261019.html","file":"html_report_20261019.html"},{"date":"2026-10-18","href":"html_report_20261018.html","file":"html_report_20261018.html"},{"date":"2026-10-17","href":"html_report_20261017.html","file":"html_report_20261017.html"},{"date":"2026-10-16","href":"html_report_20261016.html","file":"html_report_20261016.html"},{"date":"2026-10-15","href":"html_report_20261015.html","file":"html_report_20261015.html"},{"date":"2026-10-14","href":"html_report_20261014.html","file":"html_report_20261014.html"},{"date":"2026-10-13","href":"html_report_20261013.html","file":"html_report_20261013.html"},{"date":"2026-10-12","href":"html_report_20261012.html","file":"html_report_20261012.html"},{"date":"2026-10-11","href":"html_report_20261011.html","file":"html_report_20261011.html"},{"date":"2026-10-10","href":"html_report_20261010.html","file":"html_report_20261010.html"},{"date":"2026-10-09","href":"html_report_20261009.html","file":"html_report_20261009.html"},{"date":"2026-10-08","href":"html_report_20261008.html","file":"html_report_20261008.html"},{"date":"2026-10-07","href":"html_report_20261007.html","file":"html_report_20261007.html"},{"date":"2026-10-06","href":"html_report_20261006.html","file":"html_report_20261006.html"},{"date":"2026-10-05","href":"html_report_20261005.html","file":"html_report_20261005.html"},{"date":"2026-10-04","href":"html_report_20261004.html","file":"html_report_20261004.html"},{"date":"2026-10-03","href":"html_report_20261003.html","file":"html_report_20261003.html"},{"date":"2026-10-02","href":"html_report_20261002.html","file":"html_report_20261002.html"},{"date":"2026-10-01","href":"html_report_20261001.html","file":"html_report_20261001.html"},{"date":"2026-09-30","href":"html_report_20260930.html","file":"html_report_20260930.html"},{"date":"2026-09-29","href":"html_report_20260929.html","file":"html_report_20260929.html"},{"date":"2026-09-28","href":"html_report_20260928.html","file":"html_report_20260928.html"},{"date":"2026-09-27","href":"html_report_20260927.html","file":"html_report_20260927.html"},{"date":"2026-09-26","href":"html_report_20260926.html","file":"html_report_20260926.html"},{"date":"2026-09-25","href":"html_report_20260925.html","file":"html_report_20260925.html"},{"date":"2026-09-24","href":"html_report_20260924.html","file":"html_report_20260924.html"},{"date":"2026-09-23","href":"html_report_20260923.html","file":"html_report_20260923.html"},{"date":"2026-09-22","href":"html_report_20260922.html","file":"html_report_20260922.html"},{"date":"2026-09-21","href":"html_report_20260921.html","file":"html_report_20260921.html"},{"date":"2026-09-20","href":"html_report_20260920.html","file":"html_report_20260920.html"},{"date":"2026-09-19","href":"html_report_20260919.html","file":"html_report_20260919.html"},{"date":"2026-09-18","href":"html_report_20260918.html","file":"html_report_20260918.html"},{"date":"2026-09-17","href":"html_report_20260917.html","file":"html_report_20260917.html"},{"date":"2026-09-16","href":"html_report_20260916.html","file":"html_report_20260916.html"},{"date":"2026-09-15","href":"html_report_20260915.html","file":"html_report_20260915.html"},{"date":"2026-09-14","href":"html_report_20260914.html","file":"html_report_20260914.html"},{"date":"2026-09-13","href":"html_report_20260913.html","file":"html_report_20260913.html"},{"date":"2026-09-12","href":"html_report_20260912.html","file":"html_report_20260912.html"},{"date":"2026-09-11","href":"html_report_20260911.html","file":"html_report_20260911.html"},{"date":"2026-09-10","href":"html_report_20260910.html","file":"html_report_20260910.html"},{"date":"2026-09-09","href":"html_report_20260909.html","file":"html_report_20260909.html"},{"date":"2026-09-08","href":"html_report_20260908.html","file":"html_report_20260908.html"},{"date":"2026-09-07","href":"html_report_20260907.html","file":"html_report_20260907.html"},{"date":"2026-09-06","href":"html_report_20260906.html","file":"html_report_20260906.html"},{"date":"2026-09-05","href":"html_report_20260905.html","file":"html_report_20260905.html"},{"date":"2026-09-04","href":"html_report_20260904.html","file":"html_report_20260904.html"},{"date":"2026-09-03","href":"html_report_20260903.html","file":"html_report_20260903.html"},{"date":"2026-09-02","href":"html_report_20260902.html","file":"html_report_20260902.html"},{"date":"2026-09-01","href":"html_report_20260901.html","file":"html_report_20260901.html"},{"date":"2026-08-31","href":"html_report_20260831.html","file":"html_report_20260831.html"},{"date":"2026-08-30","href":"html_report_20260830.html","file":"html_report_20260830.html"},{"date":"2026-08-29","href":"html_report_20260829.html","file":"html_report_20260829.html"},{"date":"2026-08-28","href":"html_report_20260828.html","file":"html_report_20260828.html"},{"date":"2026-08-27","href":"html_report_20260827.html","file":"html_report_20260827.html"},{"date":"2026-08-26","href":"html_report_20260826.html","file":"html_report_20260826.html"},{"date":"2026-08-25","href":"html_report_20260825.html","file":"html_report_20260825.html"},{"date":"2026-08-24","href":"html_report_20260824.html","file":"html_report_20260824.html"},{"date":"2026-08-23","href":"html_report_20260823.html","file":"html_report_20260823.html"},{"date":"2026-08-22","href":"html_report_20260822.html","file":"html_report_20260822.html"},{"date":"2026-08-21","href":"html_report_20260821.html","file":"html_report_20260821.html"},{"date":"2026-08-20","href":"html_report_20260820.html","file":"html_report_20260820.html"},{"date":"2026-08-19","href":"html_report_20260819.html","file":"html_report_20260819.html"},{"date":"2026-08-18","href":"html_report_20260818.html","file":"html_report_20260818.html"},{"date":"2026-08-17","href":"html_report_20260817.html","file":"html_report_20260817.html"},{"date":"2026-08-16","href":"html_report_20260816.html","file":"html_report_20260816.html"},{"date":"2026-08-15","href":"html_report_20260815.html","file":"html_report_20260815.html"},{"date":"2026-08-14","href":"html_report_20260814.html","file":"html_report_20260814.html"},{"date":"2026-08-13","href":"html_report_20260813.html","file":"html_report_20260813.html"},{"date":"2026-08-12","href":"html_report_20260812.html","file":"html_report_20260812.html"},{"date":"2026-08-11","href":"html_report_20260811.html","file":"html_report_20260811.html"},{"date":"2026-08-10","href":"html_report_20260810.html","file":"html_report_20260810.html"},{"date":"2026-08-09","href":"html_report_20260809.html","file":"html_report_20260809.html"},{"date":"2026-08-08","href":"html_report_20260808.html","file":"html_report_20260808.html"},{"date":"2026-08-07","href":"html_report_20260807.html","file":"html_report_20260807.html"},{"date":"2026-08-06","href":"html_report_20260806.html","file":"html_report_20260806.html"},{"date":"2026-08-05","href":"html_report_20260805.html","file":"html_report_20260805.html"},{"date":"2026-08-04","href":"html_report_20260804.html","file":"html_report_20260804.html"},{"date":"2026-08-03","href":"html_report_20260803.html","file":"html_report_20260803.html"},{"date":"2026-08-02","href":"html_report_20260802.html","file":"html_report_20260802.html"},{"date":"2026-08-01","href":"html_report_20260801.html","file":"html_report_20260801.html"},{"date":"2026-07-31","href":"html_report_20260731.html","file":"html_report_20260731.html"},{"date":"2026-07-30","href":"html_report_20260730.html","file":"html_report_20260730.html"},{"date":"2026-07-29","href":"html_report_20260729.html","file":"html_report_20260729.html"},{"date":"2026-07-28","href":"html_report_20260728.html","file":"html_report_20260728.html"},{"date":"2026-07-27","href":"html_report_20260727.html","file":"html_report_20260727.html"},{"date":"2026-07-26","href":"html_report_20260726.html","file":"html_report_20260726.html"},{"date":"2026-07-25","href":"html_report_20260725.html","file":"html_report_20260725.html"},{"date":"2026-07-24","href":"html_report_20260724.html","file":"html_report_20260724.html"},{"date":"2026-07-23","href":"html_report_20260723.html","file":"html_report_20260723.html"},{"date":"2026-07-22","href":"html_report_20260722.html","file":"html_report_20260722.html"},{"date":"2026-07-21","href":"html_report_20260721.html","file":"html_report_20260721.html"},{"date":"2026-07-20","href":"html_report_20260720.html","file":"html_report_20260720.html"},{"date":"2026-07-19","href":"html_report_20260719.html","file":"html_report_20260719.html"},{"date":"2026-07-18","href":"html_report_20260718.html","file":"html_report_20260718.html"},{"date":"2026-07-17","href":"html_report_20260717.html","file":"html_report_20260717.html"},{"date":"2026-07-16","href":"html_report_20260716.html","file":"html_report_20260716.html"},{"date":"2026-07-15","href":"html_report_20260715.html","file":"html_report_20260715.html"},{"date":"2026-07-14","href":"html_report_20260714.html","file":"html_report_20260714.html"},{"date":"2026-07-13","href":"html_report_20260713.html","file":"html_report_20260713.html"},{"date":"2026-07-12","href":"html_report_20260712.html","file":"html_report_20260712.html"},{"date":"2026-07-11","href":"html_report_20260711.html","file":"html_report_20260711.html"},{"date":"2026-07-10","href":"html_report_20260710.html","file":"html_report_20260710.html"},{"date":"2026-07-09","href":"html_report_20260709.html","file":"html_report_20260709.html"},{"date":"2026-07-08","href":"html_report_20260708.html","file":"html_report_20260708.html"},{"date":"2026-07-07","href":"html_report_20260707.html","file":"html_report_20260707.html"},{"date":"2026-07-06","href":"html_report_20260706.html","file":"html_report_20260706.html"},{"date":"2026-07-05","href":"html_report_20260705.html","file":"html_report_20260705.html"},{"date":"2026-07-04","href":"html_report_20260704.html","file":"html_report_20260704.html"},{"date":"2026-07-03","href":"html_report_20260703.html","file":"html_report_20260703.html"},{"date":"2026-07-02","href":"html_report_20260702.html","file":"html_report_20260702.html"},{"date":"2026-07-01","href":"html_report_20260701.html","file":"html_report_20260701.html"},{"date":"2026-06-30","href":"html_report_20260630.html","file":"html_report_20260630.html"},{"date":"2026-06-29","href":"html_report_20260629.html","file":"html_report_20260629.html"}]</script>
+  <script>
+  (() => {
+    const root = document.querySelector('[data-history-calendar]');
+    const dataNode = document.getElementById('history-report-data');
+    if (!root || !dataNode) return;
+    let reports = [];
+    try { reports = JSON.parse(dataNode.textContent || '[]'); } catch (_error) { reports = []; }
+    const trigger = document.getElementById('history-date-trigger');
+    const panel = document.getElementById('history-calendar-panel');
+    const title = root.querySelector('[data-calendar-title]');
+    const days = root.querySelector('[data-calendar-days]');
+    const previous = root.querySelector('[data-calendar-prev]');
+    const next = root.querySelector('[data-calendar-next]');
+    const range = root.closest('.history-toolbar')?.querySelector('[data-history-range]');
+    if (!trigger || !panel || !title || !days || !previous || !next) return;
+    const monthKey = (valueYear, valueMonth) => valueYear * 12 + valueMonth;
+    const normalizeReport = (item) => {
+      if (!item || typeof item !== 'object') return null;
+      const date = String(item.report_date || item.target_date || item.date || item.run_date || '');
+      const href = String(item.path || item.href || '');
+      const file = String(item.file || href.split('?')[0].split('/').pop() || '');
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || !href || !file) return null;
+      return { date, href, file };
+    };
+    let byDate = new Map();
+    let minDate = '';
+    let maxDate = '';
+    let minKey = 0;
+    let maxKey = 0;
+    let selected = '';
+    let year = 0;
+    let month = 0;
+    const rebuildCatalog = () => {
+      byDate = new Map();
+      reports.map(normalizeReport).filter(Boolean).forEach((item) => byDate.set(item.date, item));
+      reports = [...byDate.values()].sort((left, right) => left.date.localeCompare(right.date));
+      if (!reports.length) return false;
+      minDate = reports[0].date;
+      maxDate = reports[reports.length - 1].date;
+      const [minYear, minMonth] = minDate.split('-').map(Number);
+      const [maxYear, maxMonth] = maxDate.split('-').map(Number);
+      minKey = monthKey(minYear, minMonth);
+      maxKey = monthKey(maxYear, maxMonth);
+      selected = byDate.has(trigger.dataset.selectedDate || '')
+        ? trigger.dataset.selectedDate
+        : maxDate;
+      if (!year || !month) [year, month] = selected.split('-').map(Number);
+      if (range) {
+        const recent = new Date(`${maxDate}T00:00:00Z`);
+        recent.setUTCDate(recent.getUTCDate() - 29);
+        range.textContent = `默认范围：${recent.toISOString().slice(0, 10)} 至 ${maxDate} · 可筛选 ${reports.length} 个历史日期`;
+      }
+      trigger.disabled = false;
+      return true;
+    };
+    if (!rebuildCatalog()) return;
+    const localHref = (item) => {
+      if (window.location.protocol !== 'file:') return item.href;
+      const currentPath = decodeURIComponent(window.location.pathname).replace(/\\/g, '/');
+      const inReportsDirectory = /\/reports\/[^/]+$/.test(currentPath);
+      return (inReportsDirectory ? './' : './reports/') + item.file;
+    };
+    const shiftMonth = (delta) => {
+      const shifted = new Date(year, month - 1 + delta, 1);
+      year = shifted.getFullYear();
+      month = shifted.getMonth() + 1;
+    };
+    const render = () => {
+      title.textContent = `${year} 年 ${String(month).padStart(2, '0')} 月`;
+      const currentKey = monthKey(year, month);
+      previous.disabled = currentKey <= minKey;
+      next.disabled = currentKey >= maxKey;
+      days.replaceChildren();
+      const first = new Date(year, month - 1, 1);
+      const offset = (first.getDay() + 6) % 7;
+      const start = new Date(year, month - 1, 1 - offset);
+      for (let index = 0; index < 42; index += 1) {
+        const value = new Date(start);
+        value.setDate(start.getDate() + index);
+        const dateValue = `${value.getFullYear()}-${String(value.getMonth() + 1).padStart(2, '0')}-${String(value.getDate()).padStart(2, '0')}`;
+        const item = byDate.get(dateValue);
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.textContent = String(value.getDate());
+        button.className = 'history-calendar-day';
+        if (value.getMonth() + 1 !== month) button.classList.add('outside-month');
+        if (dateValue === selected) button.classList.add('selected');
+        if (!item) {
+          button.disabled = true;
+        } else {
+          button.dataset.reportDate = dateValue;
+          button.title = `${dateValue} 历史报告`;
+          button.addEventListener('click', () => window.location.assign(localHref(item)));
+        }
+        days.appendChild(button);
+      }
+    };
+    trigger.addEventListener('click', () => {
+      const opening = panel.hidden;
+      panel.hidden = !opening;
+      trigger.setAttribute('aria-expanded', String(opening));
+      if (opening) render();
+    });
+    previous.addEventListener('click', () => { shiftMonth(-1); render(); });
+    next.addEventListener('click', () => { shiftMonth(1); render(); });
+    document.addEventListener('click', (event) => {
+      if (!root.contains(event.target)) { panel.hidden = true; trigger.setAttribute('aria-expanded', 'false'); }
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') { panel.hidden = true; trigger.setAttribute('aria-expanded', 'false'); trigger.focus(); }
+    });
+    if (window.location.protocol !== 'file:') {
+      fetch('manifest.json', { cache: 'no-store' })
+        .then((response) => {
+          if (!response.ok) throw new Error(`history manifest HTTP ${response.status}`);
+          return response.json();
+        })
+        .then((manifest) => {
+          const latest = Array.isArray(manifest?.runs) ? manifest.runs : [];
+          if (!latest.length) return;
+          const merged = new Map(reports.map((item) => [item.date, item]));
+          latest.map(normalizeReport).filter(Boolean).forEach((item) => merged.set(item.date, item));
+          reports = [...merged.values()];
+          if (rebuildCatalog() && !panel.hidden) render();
+        })
+        .catch(() => {
+          // The embedded catalog remains a complete offline fallback.  A failed
+          // live refresh must never make existing historical dates unusable.
+        });
+    }
+  })();
+  </script>
+</section>
+
+
+<section id="priority">
+  <div class="section-head">
+    <h2>需要处理的事件</h2>
+    <p>排序: 影响等级高到低 -> 状态 -> 官方日期新到旧 -> 负责人待确认优先。</p>
+  </div>
+  <div class="table-box">
+    <table class="monitor-table priority-table">
+      <thead>
+        <tr>
+          <th>影响</th>
+          <th>状态</th>
+          <th>官方日期</th>
+          <th>平台/来源</th>
+          <th>标签</th>
+          <th>截止日期</th>
+          <th>中文 AI 摘要</th>
+          <th>影响对象</th>
+          <th>建议动作</th>
+          <th>Owner</th>
+          <th>通知</th>
+        </tr>
+      </thead>
+      <tbody>
+<tr data-notification-key="shopify_developer_changelog-4bef81a8a6db::detail-3:893adb1322ad11107700d1226faa9061509896fe70086c67284174d118851bf2">
+  <td><span class="badge impact-unknown">高</span></td>
+  <td><span class="badge status-actionable-today">需要处理</span></td>
+  <td>2026-11-19</td>
+  <td><div class="source-jump"><strong>Shopify</strong><span>Shopify Developer Changelog</span><span class="muted">11.19 Expiring offline access tokens required for new custom apps as of December 1, 2026 Admin REST API</span><div class="link-row"><a href="https://shopify.dev/changelog/posts/expiring-offline-access-tokens-required-for-new-custom-apps-as-of-december-1-2026" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">账号/权限</span><div class="tag-list"><span class="tag-secondary">认证/权限变更</span> <span class="tag-secondary">合规/政策要求</span> <span class="tag-secondary">弃用/下线/迁移</span></div></td>
+  <td>2026-12-01</td>
+  <td><span class="ai-text">Shopify于11月19日公告，自2026年12月1日起新建的伙伴自定义应用和商家自建应用，也必须为GraphQL与REST Admin API请求使用会过期的离线访问令牌；新公开应用自2026年4月1日起已有此要求。使用授权码或令牌交换流程时，应在离线令牌请求中加入expiring=1，并保存、使用返回的刷新令牌。12月1日前已建立的自定义及商家自建应用可继续使用既有离线令牌，client credentials取得的24小时令牌及application-only access已符合要求，无需为本次调整更改。</span></td>
+  <td><span class="muted">Shopify相关接口及业务负责人</span></td>
+  <td>核对12月1日起新建应用的授权流程：授权码或令牌交换请求加入expiring=1，落实刷新令牌存储与续期；检查所用模板或库版本，并按正文区分既有应用和已合规授权方式。</td>
+  <td data-owner-cell><strong>通知规则快照生成中</strong><br><span class="muted">仅展示同事姓名</span></td>
+  <td data-notice-cell><span class="badge notice-pending">待确认</span><br><span class="muted">等待真实送达结果</span></td>
+</tr>
+
+
+<tr data-notification-key="shopify_developer_changelog-4bef81a8a6db::detail-4:263402d30d7055c363381e785004d314e4a24f93cf77fd81c41baa8a104730a7">
+  <td><span class="badge impact-unknown">中</span></td>
+  <td><span class="badge status-actionable-today">需要处理</span></td>
+  <td>2026-11-19</td>
+  <td><div class="source-jump"><strong>Shopify</strong><span>Shopify Developer Changelog</span><span class="muted">详情源待修正/非具体变更条目</span><div class="link-row"><a href="https://shopify.dev/changelog/posts/subscriptions-now-support-store-credit-with-allowstorecredit" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">财务/结算</span><div class="tag-list"><span class="tag-secondary">API 接口变更</span> <span class="tag-secondary">字段/参数变更</span> <span class="tag-secondary">费用/结算/账单</span></div></td>
+  <td>未写明</td>
+  <td><span class="ai-text">Shopify于11月19日宣布，API 2027-01及以上版本新增paymentConfiguration.allowStoreCredit，应用可在GraphQL Admin API管理订阅店铺余额设置，Customer Account API则提供只读展示。顾客在结账时选择为合资格订阅使用余额后，每次续订先扣余额，余款再扣已保存的支付方式；既有计划和合约不变，默认false，属于可选接入。启用true时空合约、任何行的计划关闭余额或固定计划会被拒绝，无销售计划的行允许启用，false始终接受；计算或草稿提交校验失败会返回INVALID，计算后还须核对实际值与请求值一致再提交。</span></td>
+  <td><span class="muted">Shopify相关接口及业务负责人</span></td>
+  <td>按需升级至支持版本并配置销售计划、合约或草稿的allowStoreCredit；覆盖空合约、固定或关闭余额计划等校验场景，回读计算结果，若与请求值不一致则不提交。</td>
+  <td data-owner-cell><strong>通知规则快照生成中</strong><br><span class="muted">仅展示同事姓名</span></td>
+  <td data-notice-cell><span class="badge notice-pending">待确认</span><br><span class="muted">等待真实送达结果</span></td>
+</tr>
+
+
+<tr data-notification-key="shopify_developer_changelog-4bef81a8a6db::detail-5:deda41be493a7886af71e2d2dd4ec0afe6cd68a0214815df09f6d5a8ce077bd0">
+  <td><span class="badge impact-unknown">中</span></td>
+  <td><span class="badge status-actionable-today">需要处理</span></td>
+  <td>2026-11-19</td>
+  <td><div class="source-jump"><strong>Shopify</strong><span>Shopify Developer Changelog</span><span class="muted">11.19 RolloutChange now includes applyResult GraphQL Admin API</span><div class="link-row"><a href="https://shopify.dev/changelog/posts/rolloutchange-now-includes-applyresult" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">API/技术</span><div class="tag-list"><span class="tag-secondary">API 接口变更</span> <span class="tag-secondary">字段/参数变更</span></div></td>
+  <td>未写明</td>
+  <td><span class="ai-text">Shopify于11月19日公告，GraphQL Admin API 2027-01的RolloutChange新增applyResult，可读取每项变更最近一次应用尝试的结果；应用rollout会让treatment的变更对所有买家永久生效。结果包含IN_PROGRESS、SUCCESS或FAILURE状态、completedAt和errorCode，有助于识别未成功应用的变更。首次尝试前结果为null，使用在线令牌但员工无权读取目标资源时也为null，沿用既有read_rollouts权限范围。</span></td>
+  <td><span class="muted">Shopify相关接口及业务负责人</span></td>
+  <td>按需读取applyResult及其状态、完成时间和错误码；区分尚未尝试、权限不足和执行失败，不将null或IN_PROGRESS当作成功。</td>
+  <td data-owner-cell><strong>通知规则快照生成中</strong><br><span class="muted">仅展示同事姓名</span></td>
+  <td data-notice-cell><span class="badge notice-pending">待确认</span><br><span class="muted">等待真实送达结果</span></td>
+</tr>
+
+
+<tr data-notification-key="tiktok_shop_changelog-e042f80c58ee::detail-1:0da14a4d29e7c8b22a926b467992519b2b4ca3dba9c4d1598d30e8dbf3754afb">
+  <td><span class="badge impact-unknown">中</span></td>
+  <td><span class="badge status-actionable-today">需要处理</span></td>
+  <td>2026-11-19</td>
+  <td><div class="source-jump"><strong>TikTok Shop</strong><span>TikTok Shop API Changelog</span><span class="muted">AI Report API Changelog | Custom queries for shop performance data</span><div class="link-row"><a href="https://partner.tiktokshop.com/docv2/page/7ih0jhpw" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">API/技术</span><div class="tag-list"><span class="tag-secondary">API 接口变更</span> <span class="tag-secondary">字段/参数变更</span> <span class="tag-secondary">文档/SDK/示例更新</span></div></td>
+  <td>未写明</td>
+  <td><span class="ai-text">TikTok Shop于2026年11月19日发布Analytics 202611版AI Report API，六个只读端点统一使用/analytics/202611/ai_report前缀，可按日期、商品或内容类型查询GMV和流量等店铺表现数据。接入先从catalog选择指标与维度，按需查询规则、筛选值和活动日期，再验证完整配置；code非零需修正参数，code为零但is_valid为false时需按reason_code调整。只有验证通过才以相同配置查询数据，按列code匹配单元格，并在分页时保持配置及页大小不变，适用于自有看板和周期报表。</span></td>
+  <td><span class="muted">TikTok Shop相关接口及业务负责人</span></td>
+  <td>按catalog及rules构建配置，处理code和is_valid校验结果，验证通过后复用配置调用data/query；按列code解析结果，并用next_page_token保持相同配置和页大小分页。</td>
+  <td data-owner-cell><strong>通知规则快照生成中</strong><br><span class="muted">仅展示同事姓名</span></td>
+  <td data-notice-cell><span class="badge notice-pending">待确认</span><br><span class="muted">等待真实送达结果</span></td>
+</tr>
+
+
+<tr data-notification-key="wildberries_release_notes-3daa7635ab88::detail-1:e189c6ad278484b790e3402d3f1e6221cd2bedb007b1bb97e2821c07a53aaea7">
+  <td><span class="badge impact-unknown">中</span></td>
+  <td><span class="badge status-actionable-today">需要处理</span></td>
+  <td>2026-11-19</td>
+  <td><div class="source-jump"><strong>Wildberries</strong><span>Wildberries Release Notes（Telegram 官方频道）</span><span class="muted">#fbs</span><div class="link-row"><a href="https://t.me/wb_api_notifications/501" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">物流/履约</span><div class="tag-list"><span class="tag-secondary">API 接口变更</span> <span class="tag-secondary">字段/参数变更</span> <span class="tag-secondary">订单/履约/物流</span></div></td>
+  <td>未写明</td>
+  <td><span class="ai-text">Wildberries于11月19日在POST /api/v3/orders/status的跨境订单响应中新增wbStatus值delivering_by_carrier，表示订单已交给承运商、正在运往WB仓库。该状态替代accepted_by_carrier和sent_to_carrier，但11月12日前创建的组装任务仍会返回旧状态。相关履约系统需同时兼容新状态及历史任务旧状态，避免误判运输进度。</span></td>
+  <td><span class="muted">Wildberries相关接口及业务负责人</span></td>
+  <td>为跨境订单的wbStatus增加delivering_by_carrier映射，并保留11月12日前任务的accepted_by_carrier、sent_to_carrier兼容处理，验证在途状态展示。</td>
+  <td data-owner-cell><strong>通知规则快照生成中</strong><br><span class="muted">仅展示同事姓名</span></td>
+  <td data-notice-cell><span class="badge notice-pending">待确认</span><br><span class="muted">等待真实送达结果</span></td>
+</tr>
+
+
+<tr data-notification-key="amazon_sp_api_release_notes-e632230fa454::detail-1:7713eef0f653e97b6f579e8c62fb64db4b5ef38330865f189b09da213412d439">
+  <td><span class="badge impact-unknown">中</span></td>
+  <td><span class="badge status-actionable-late-discovery">延迟发现/需要处理</span></td>
+  <td>2026-11-18</td>
+  <td><div class="source-jump"><strong>Amazon SP-API</strong><span>Amazon SP-API Release Notes</span><span class="muted">November 18, 2026 — SP-API release notes</span><div class="link-row"><a href="https://developer-docs.amazon/sp-api/docs/sp-api-release-notes#november-18-2026" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">API/技术</span><div class="tag-list"><span class="tag-secondary">API 接口变更</span> <span class="tag-secondary">字段/参数变更</span></div></td>
+  <td>未写明</td>
+  <td><span class="ai-text">本轮迟发现的Amazon SP-API 2026年11月18日发布说明，在Finances API的BusinessContext.storeName中新增AMAZON_FBA_FROM_ORIGIN枚举，可据listTransactions响应识别FBA From Origin交易。Listings Items的getListingsItem、searchListingsItems在offers视图新增replenishmentDiscount，用于查看Subscribe and Save折扣；Replenishment的listOffers补充价格、库存数量、缺货风险等级和交付条件，便于减少额外查询。Reports API还为推荐移除、移除订单详情和移除配送详情三种FBA报告增加沙箱支持，可用于无需调用生产数据的集成测试。</span></td>
+  <td><span class="muted">Amazon SP-API相关接口及业务负责人</span></td>
+  <td>按需更新FFO交易枚举、订购省折扣和补货offer字段映射，并使用新增FBA移除报告沙箱验证报告集成。</td>
+  <td data-owner-cell><strong>通知规则快照生成中</strong><br><span class="muted">仅展示同事姓名</span></td>
+  <td data-notice-cell><span class="badge notice-pending">待确认</span><br><span class="muted">等待真实送达结果</span></td>
+</tr>
+
+
+<tr data-notification-key="amazon_sp_api_release_notes-e632230fa454::detail-2:b01d2f045de79f1a85da8a2769dcffab06e69441cbd4f3e49f33bec593090d71">
+  <td><span class="badge impact-unknown">中</span></td>
+  <td><span class="badge status-actionable-late-discovery">延迟发现/需要处理</span></td>
+  <td>2026-11-04</td>
+  <td><div class="source-jump"><strong>Amazon SP-API</strong><span>Amazon SP-API Release Notes</span><span class="muted">November 4, 2026 — SP-API release notes</span><div class="link-row"><a href="https://developer-docs.amazon/sp-api/docs/sp-api-release-notes#november-4-2026" target="_blank" rel="noreferrer">查看变更</a></div></div></td>
+  <td class="tag-cell"><span class="tag-primary">刊登/商品</span><div class="tag-list"><span class="tag-secondary">API 接口变更</span> <span class="tag-secondary">字段/参数变更</span></div></td>
+  <td>未写明</td>
+  <td><span class="ai-text">Amazon当前发布说明中标记2026年11月4日的条目列出Feeds API v2021-06-30新增GOOGLE_PRODUCT_DATA_FEED类型，用于Shop Direct。该能力让商家商品通过Amazon搜索结果和详情页被发现，并引导顾客到商家网站完成购买，库存、定价、履约及客服仍由商家负责。条目保留11月4日日期，本轮取得的修订正文未另行注明此次修订的生效时间。</span></td>
+  <td><span class="muted">Amazon SP-API相关接口及业务负责人</span></td>
+  <td>有Shop Direct需求时查阅Feeds API及Shop Direct指南，评估GOOGLE_PRODUCT_DATA_FEED接入，并保留自有站点的库存、定价、履约和客服流程。</td>
+  <td data-owner-cell><strong>通知规则快照生成中</strong><br><span class="muted">仅展示同事姓名</span></td>
+  <td data-notice-cell><span class="badge notice-pending">待确认</span><br><span class="muted">等待真实送达结果</span></td>
+</tr>
+</tbody>
+    </table>
+  </div>
+</section>
+
+
+<section id="failures">
+  <div class="section-head">
+    <h2>失败与历史待复核</h2>
+    <p>Temu本轮成功核验60页，0页当前访问失败，6条历史失败记录本轮未访问。Mercado Libre本轮成功核验60页，0页当前访问失败，0条历史失败记录本轮未访问。 历史合并正文不计入本轮成功。</p>
+  </div>
+  <div class="table-box">
+    <table class="monitor-table">
+      <thead>
+        <tr>
+          <th>平台</th>
+          <th>具体条目</th>
+          <th>抓取方式</th>
+          <th>失败原因</th>
+          <th>影响</th>
+          <th>解决方案</th>
+          <th>通知</th>
+        </tr>
+      </thead>
+      <tbody>
+<tr>
+  <td>Temu</td>
+  <td><strong>Model Site and Region（历史待复核）</strong><div class="link-row"><a href="https://partner-us.temu.com/documentation?menu_code=38e79b35d2cb463d85619c1c786dd303&amp;sub_menu_code=07938e60f95344a0a9444f524ea61e31" target="_blank" rel="noreferrer">查看变更</a></div><br><span class="muted">Temu Partner Docs</span><br><span class="muted">截止日期: 未写明/需人工确认</span></td>
+  <td><span class="badge mode-direct">历史记录，本轮未访问</span><br><span class="badge source-reliability">本轮60页当前独立正文均取得且与前次一致；另有6条历史失败记录本轮未访问，当前状态未知。历史合并正文不计当前成功。</span></td>
+  <td>此前访问失败，本轮未访问该页，当前正文状态未知。</td>
+  <td>无法判断这一页当前是否发生变更。</td>
+  <td>取得正文后再复核。</td>
+  <td><span class="badge notice-not-required">不通知</span></td>
+</tr>
+
+<tr>
+  <td>Temu</td>
+  <td><strong>bg.cooperativewarehouse.fulfill.query（历史待复核）</strong><div class="link-row"><a href="https://partner-us.temu.com/documentation?menu_code=fb16b05f7a904765aac4af3a24b87d4a&amp;sub_menu_code=343bd5191b0f429580dfaa863906c478" target="_blank" rel="noreferrer">查看变更</a></div><br><span class="muted">Temu Partner Docs</span><br><span class="muted">截止日期: 未写明/需人工确认</span></td>
+  <td><span class="badge mode-direct">历史记录，本轮未访问</span><br><span class="badge source-reliability">本轮60页当前独立正文均取得且与前次一致；另有6条历史失败记录本轮未访问，当前状态未知。历史合并正文不计当前成功。</span></td>
+  <td>此前访问失败，本轮未访问该页，当前正文状态未知。</td>
+  <td>无法判断这一页当前是否发生变更。</td>
+  <td>取得正文后再复核。</td>
+  <td><span class="badge notice-not-required">不通知</span></td>
+</tr>
+
+<tr>
+  <td>Temu</td>
+  <td><strong>temu.cooperativewarehouse.skurelationship.create（历史待复核）</strong><div class="link-row"><a href="https://partner-us.temu.com/documentation?menu_code=fb16b05f7a904765aac4af3a24b87d4a&amp;sub_menu_code=674d57a32d6448a7880bb21bbf51f2a8" target="_blank" rel="noreferrer">查看变更</a></div><br><span class="muted">Temu Partner Docs</span><br><span class="muted">截止日期: 未写明/需人工确认</span></td>
+  <td><span class="badge mode-direct">历史记录，本轮未访问</span><br><span class="badge source-reliability">本轮60页当前独立正文均取得且与前次一致；另有6条历史失败记录本轮未访问，当前状态未知。历史合并正文不计当前成功。</span></td>
+  <td>此前访问失败，本轮未访问该页，当前正文状态未知。</td>
+  <td>无法判断这一页当前是否发生变更。</td>
+  <td>取得正文后再复核。</td>
+  <td><span class="badge notice-not-required">不通知</span></td>
+</tr>
+
+<tr>
+  <td>Temu</td>
+  <td><strong>temu.cooperativewarehouse.skurelationship.get（历史待复核）</strong><div class="link-row"><a href="https://partner-us.temu.com/documentation?menu_code=fb16b05f7a904765aac4af3a24b87d4a&amp;sub_menu_code=4dce61e363624007b3f8c3e638ac32c0" target="_blank" rel="noreferrer">查看变更</a></div><br><span class="muted">Temu Partner Docs</span><br><span class="muted">截止日期: 未写明/需人工确认</span></td>
+  <td><span class="badge mode-direct">历史记录，本轮未访问</span><br><span class="badge source-reliability">本轮60页当前独立正文均取得且与前次一致；另有6条历史失败记录本轮未访问，当前状态未知。历史合并正文不计当前成功。</span></td>
+  <td>此前访问失败，本轮未访问该页，当前正文状态未知。</td>
+  <td>无法判断这一页当前是否发生变更。</td>
+  <td>取得正文后再复核。</td>
+  <td><span class="badge notice-not-required">不通知</span></td>
+</tr>
+
+<tr>
+  <td>Temu</td>
+  <td><strong>详情源待修正/非具体变更条目</strong><div class="link-row"><a href="https://partner-us.temu.com/documentation?menu_code=fb16b05f7a904765aac4af3a24b87d4a&amp;sub_menu_code=e351264f0a1749cba4f112345a86813c" target="_blank" rel="noreferrer">查看变更</a></div><br><span class="muted">Temu Partner Docs</span><br><span class="muted">截止日期: 未写明/需人工确认</span></td>
+  <td><span class="badge mode-direct">历史记录，本轮未访问</span><br><span class="badge source-reliability">本轮60页当前独立正文均取得且与前次一致；另有6条历史失败记录本轮未访问，当前状态未知。历史合并正文不计当前成功。</span></td>
+  <td>此前访问失败，本轮未访问该页，当前正文状态未知。</td>
+  <td>无法判断这一页当前是否发生变更。</td>
+  <td>取得正文后再复核。</td>
+  <td><span class="badge notice-not-required">不通知</span></td>
+</tr>
+
+<tr>
+  <td>Temu</td>
+  <td><strong>Sandbox Test Shops（历史待复核）</strong><div class="link-row"><a href="https://partner-us.temu.com/documentation?menu_code=38e79b35d2cb463d85619c1c786dd303&amp;sub_menu_code=9cf457c922fe4b33b93c23ab1d8b15d0" target="_blank" rel="noreferrer">查看变更</a></div><br><span class="muted">Temu Partner Docs</span><br><span class="muted">截止日期: 未写明/需人工确认</span></td>
+  <td><span class="badge mode-direct">历史记录，本轮未访问</span><br><span class="badge source-reliability">本轮60页当前独立正文均取得且与前次一致；另有6条历史失败记录本轮未访问，当前状态未知。历史合并正文不计当前成功。</span></td>
+  <td>此前访问失败，本轮未访问该页，当前正文状态未知。</td>
+  <td>无法判断这一页当前是否发生变更。</td>
+  <td>取得正文后再复核。</td>
+  <td><span class="badge notice-not-required">不通知</span></td>
+</tr>
+</tbody>
+    </table>
+  </div>
+</section>
+
+    <p class="footer">Generated by scripts/render_html_report.py. HTML 只展示前端数据，不执行抓取、解析、调度或通知发送；敏感字段不会在页面中渲染。</p>
+  </main>
+
+<script>
+(() => {
+  if (window.location.protocol !== "file:") return;
+  const currentPath = decodeURIComponent(window.location.pathname).replace(/\\/g, "/");
+  const inReportsDirectory = /\/reports\/[^/]+$/.test(currentPath);
+  const basePath = inReportsDirectory ? "./" : "./reports/";
+  document.querySelectorAll("a[data-history-file]").forEach((link) => {
+    link.setAttribute("href", basePath + link.dataset.historyFile);
+  });
+})();
+</script>
+
+
+<script data-notification-snapshot="notification-snapshot-2026-11-19.json">
+(() => {
+  const currentScript = document.currentScript;
+  const snapshotName = currentScript && currentScript.dataset.notificationSnapshot;
+  if (!snapshotName) return;
+  const statusMeta = {
+    delivered: ["已通知", "notice-sent"],
+    accepted: ["发送中", "notice-pending"],
+    pending: ["发送中", "notice-pending"],
+    failed: ["通知失败", "notice-failed"],
+    deferred: ["顺延通知", "notice-unsent"],
+    unsent: ["未通知", "notice-unsent"],
+  };
+  const formatBeijing = (value) => {
+    if (!value) return "";
+    const parsed = new Date(value);
+    if (Number.isNaN(parsed.getTime())) return "";
+    return new Intl.DateTimeFormat("zh-CN", {
+      timeZone: "Asia/Shanghai",
+      year: "numeric", month: "2-digit", day: "2-digit",
+      hour: "2-digit", minute: "2-digit", second: "2-digit",
+      hour12: false,
+    }).format(parsed).replaceAll("/", "-");
+  };
+  const muted = (value) => {
+    const node = document.createElement("span");
+    node.className = "muted";
+    node.textContent = value;
+    return node;
+  };
+  fetch(snapshotName, { cache: "no-store", credentials: "omit" })
+    .then((response) => {
+      if (!response.ok) throw new Error(`snapshot HTTP ${response.status}`);
+      return response.json();
+    })
+    .then((snapshot) => {
+      const byKey = new Map((snapshot.events || []).map((item) => [
+        `${item.event_id || ""}:${item.content_hash || ""}`,
+        item,
+      ]));
+      document.querySelectorAll("tr[data-notification-key]").forEach((row) => {
+        const record = byKey.get(row.dataset.notificationKey);
+        const ownerCell = row.querySelector("[data-owner-cell]");
+        const noticeCell = row.querySelector("[data-notice-cell]");
+        if (!record || !ownerCell || !noticeCell) return;
+        const owners = Array.isArray(record.owners) ? record.owners : [];
+        ownerCell.replaceChildren();
+        noticeCell.replaceChildren();
+        if (!owners.length) {
+          const owner = document.createElement("strong");
+          owner.textContent = "未匹配负责人";
+          ownerCell.append(owner, document.createElement("br"), muted("当次通知规则无匹配"));
+          const badge = document.createElement("span");
+          badge.className = "badge notice-unsent";
+          badge.textContent = "未通知";
+          noticeCell.append(badge, document.createElement("br"), muted("未匹配通知人"));
+          return;
+        }
+        const ownerList = document.createElement("div");
+        ownerList.className = "notification-owner-list";
+        owners.forEach((item) => {
+          const line = document.createElement("div");
+          line.textContent = item.display_name || "未命名同事";
+          ownerList.appendChild(line);
+        });
+        ownerCell.append(ownerList, muted("当次通知规则快照"));
+        const deliveryList = document.createElement("div");
+        deliveryList.className = "notification-delivery-list";
+        owners.forEach((item) => {
+          const line = document.createElement("div");
+          line.className = "notification-delivery-line";
+          const meta = statusMeta[item.notification_status] || ["未通知", "notice-unsent"];
+          const badge = document.createElement("span");
+          badge.className = `badge ${meta[1]}`;
+          badge.textContent = meta[0];
+          const time = formatBeijing(item.notified_at);
+          line.append(badge, muted(`${item.display_name || "未命名同事"}${time ? ` · ${time}` : ""}`));
+          deliveryList.appendChild(line);
+        });
+        noticeCell.appendChild(deliveryList);
+      });
+    })
+    .catch(() => {
+      // Keep the explicit "snapshot pending" placeholder.  A missing public
+      // snapshot must never be presented as a successful notification.
+    });
+})();
+</script>
+
+</body>
+</html>
