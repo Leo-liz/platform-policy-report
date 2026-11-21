@@ -1,94 +1,15 @@
 {
   "schema_version": 1,
-  "run_id": "20261121-010041",
-  "report_date": "2026-11-20",
+  "run_id": "20261122-010246",
+  "report_date": "2026-11-21",
   "report_url": "https://leo-liz.github.io/platform-policy-report/reports/latest.html",
   "taxonomy_version": "2026-08-22",
-  "generated_at": "2026-11-21T01:19:30+08:00",
+  "generated_at": "2026-11-22T01:17:43+08:00",
   "ai": {
     "provider": "codex_builtin_postprocess",
     "model": "current_codex_thread",
     "summary_schema_version": 11,
     "evidence_validated": true
   },
-  "events": [
-    {
-      "event_id": "mercadolibre_global_selling_docs-d744e95d2690::detail-1",
-      "content_hash": "3f28ffa5f6179f75f98e7ae269dc5a35d046953f5664826b001f9f79b258dab1",
-      "platform_code": "mercadolibre",
-      "platform_label": "Mercado Libre",
-      "primary_tag_code": "other_pending",
-      "primary_tag_label": "其他/待确认",
-      "status": "changed_date_unresolved",
-      "ai_summary_zh": "本轮取得的Mercado Libre中国认证应用目录与此前采集证据不同，当前列有更多ERP、支付及选品/BI条目，包括miaoshouerp、HICUSTOM ERP和WorldFirst等。Mango、Dianxiaomi、LianLian Global和Eccang当前均标为Platinum，较此前证据中的Gold标识有差异，可用于复核伙伴目录展示。该页未注明修订日期，具体变更发生时间仍待确认。",
-      "recommended_action": "如使用官方认证应用目录核对伙伴，复核当前应用名称和级别，并将修订日期保留为待确认。",
-      "official_date": "",
-      "change_url": "https://global-selling.mercadolibre.com/devsite/certified-applications-global-selling"
-    },
-    {
-      "event_id": "ozon_seller_api_news-d464247820e2::detail-1",
-      "content_hash": "5462ff7939ca552f7c7c3d5900773c9da1a1e1476d4b40d5d1fcb3c3bbab98da",
-      "platform_code": "ozon",
-      "platform_label": "Ozon",
-      "primary_tag_code": "api_technical",
-      "primary_tag_label": "API/技术",
-      "status": "actionable_today",
-      "ai_summary_zh": "Ozon于11月20日发布正文日期为2026年11月19日的更新，修订/v1/carriage/act-discrepancy/pdf、/v1/posting/cutoff/set和/v1/finance/accrual/by-day的方法说明。公告还更新/v1/carriage/get响应中status，以及/v1/finance/accrual/by-day响应中last_id的说明，相关集成可核对发运和财务查询文档。正文未给出具体语义差异、字段结构变更或迁移期限。",
-      "recommended_action": "查阅上述方法的最新官方说明，核对status和last_id响应字段的文档解释及已有处理方式。",
-      "official_date": "2026-11-20",
-      "change_url": "https://t.me/OzonSellerAPI/733"
-    },
-    {
-      "event_id": "tiktok_shop_changelog-ca2cbbcd77cd::detail-1",
-      "content_hash": "e74d1cf03be6a71c187d0d6031bea652f3dc7e7fdc170a14644d2b56bdc6ca72",
-      "platform_code": "tiktok_shop",
-      "platform_label": "TikTok Shop",
-      "primary_tag_code": "finance_settlement",
-      "primary_tag_label": "财务/结算",
-      "status": "actionable_today",
-      "ai_summary_zh": "TikTok Shop于11月20日说明，面向波兰PL的本地和跨境卖家，三个交易及账单查询API响应新增可选smart_shipping_fee_amount字段，表示每笔交易的Smart Shipping费用。该费用对应Smart Promotion费用项428、账单项3089，沿用既有SFP费用项217的规则，按原商品价减卖家折扣后乘费率并受商品费用封顶值约束。此次仅新增响应字段，原请求结构和字段含义不变，不解析新字段的客户端不受影响；需要展示该费用时应调整对账和报表解析。具体API版本、端点、字段层级、金额类型及无该费用时的精确默认行为仍标为TBC，需待官方文档确认。",
-      "recommended_action": "检查三个交易查询接口的严格字段校验，按需接受smart_shipping_fee_amount；待版本、类型和层级等TBC信息明确后，在PL测试店铺对照账单项3089验证金额，并核对无该费用及非PL场景的默认返回。",
-      "official_date": "2026-11-20",
-      "change_url": "https://partner.tiktokshop.com/docv2/page/s45a9vza"
-    },
-    {
-      "event_id": "tiktok_shop_changelog-ca2cbbcd77cd::detail-2",
-      "content_hash": "7102a70196e84fff788f635c38e133517c24acb1a7f802bef5ff0cb4294968fb",
-      "platform_code": "tiktok_shop",
-      "platform_label": "TikTok Shop",
-      "primary_tag_code": "listing_product",
-      "primary_tag_label": "刊登/商品",
-      "status": "actionable_today",
-      "ai_summary_zh": "TikTok Shop于11月20日更新商品接口，Get Category Rules返回尺码体系ID列表，创建或编辑尺码表时应按店铺地区和卖家类型使用API返回的ID，相关字段在不支持时可能省略。size_types说明也要求使用返回的尺码类型ID，尺码表表头则使用size_chart_data.table.headers[].id。Seller SKU是否必填由data.seller_sku.is_required决定，该规则适用于欧盟市场跨境POP店铺；必填时长度为6至70字符，仅允许正文列出的字母、数字、空格和符号。Search Size Charts新增target_regions以展示尺码表记录的目标市场，可能含历史条目；字段缺失不代表全球支持，也不决定商品可刊登的市场。",
-      "recommended_action": "动态读取并使用尺码体系及类型ID，兼容相关字段省略；仅按欧盟跨境POP适用规则校验Seller SKU的必填、长度与字符集，将target_regions用于尺码表市场信息展示。",
-      "official_date": "2026-11-20",
-      "change_url": "https://partner.tiktokshop.com/docv2/page/xa5xbxpy"
-    },
-    {
-      "event_id": "shopify_developer_changelog-cd5e6b150d79::detail-3",
-      "content_hash": "fadd81b1d49aaf8b788b93fed921df0428eab3b0616ce252561db32099e7683d",
-      "platform_code": "shopify",
-      "platform_label": "Shopify",
-      "primary_tag_code": "account_permission",
-      "primary_tag_label": "账号/权限",
-      "status": "actionable_today",
-      "ai_summary_zh": "Shopify自2026年11月20日起，在所有GraphQL Admin API版本对eventBridgeServerPixelUpdate和pubSubServerPixelUpdate增加用户应用访问校验，安全修复不设弃用过渡期。调用需使用离线令牌，或使用对该应用有访问权用户的在线令牌；原write_pixels、read_customer_events和write_server_pixels范围要求不变。校验失败返回访问拒绝且无载荷，服务器像素端点保持不变，错误文案与缺少scope相同，因此在线调用还需检查员工对应用的访问权。",
-      "recommended_action": "检查在线令牌对应员工是否能访问该应用，或按适用场景用离线令牌调用；同时核对原有scope并处理访问拒绝，验证失败时端点不被更改。",
-      "official_date": "2026-11-20",
-      "change_url": "https://shopify.dev/changelog/posts/eventbridgeserverpixelupdate-and-pubsubserverpixelupdate-now-require-user-access-to-the-app"
-    },
-    {
-      "event_id": "shopify_developer_changelog-cd5e6b150d79::detail-5",
-      "content_hash": "94ba554939df347c4a4f08404813fd402a646d31dd6a25bd029bd5d8bfbaa5a6",
-      "platform_code": "shopify",
-      "platform_label": "Shopify",
-      "primary_tag_code": "api_technical",
-      "primary_tag_label": "API/技术",
-      "status": "actionable_today",
-      "ai_summary_zh": "本轮显式新发现的Shopify 11月19日公告，使使用Polaris Web Components、API 2025-10及以上版本的Function settings扩展可在onSubmit中以AggregateError一次报告多个Error，管理后台在折扣和结账规则页展示其消息。最多显示10条错误，每条截到300字符，重复消息合并；onError可收到同一组条目及code用于标记字段。缺失、为空或超过64字符的code会按页面使用UNKNOWN或EXTENSION_ERROR默认值，单个Error和较早API版本仍保留原单条行为。该能力可选，正文未要求强制改造或给出迁移期限。",
-      "recommended_action": "如需一次展示多项校验错误，按适用API版本使用AggregateError并提供有效code，处理onError条目；在开发店铺验证多项错误、去重、长度和默认码行为。",
-      "official_date": "2026-11-19",
-      "change_url": "https://shopify.dev/changelog/posts/function-settings-extensions-can-now-report-several-errors-at-once"
-    }
-  ]
+  "events": []
 }
