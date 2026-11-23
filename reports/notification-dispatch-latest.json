@@ -1,15 +1,94 @@
 {
   "schema_version": 1,
-  "run_id": "20261123-010619",
-  "report_date": "2026-11-22",
+  "run_id": "20261124-010113",
+  "report_date": "2026-11-23",
   "report_url": "https://leo-liz.github.io/platform-policy-report/reports/latest.html",
   "taxonomy_version": "2026-08-22",
-  "generated_at": "2026-11-23T01:17:39+08:00",
+  "generated_at": "2026-11-24T01:13:05+08:00",
   "ai": {
     "provider": "codex_builtin_postprocess",
     "model": "current_codex_thread",
     "summary_schema_version": 11,
     "evidence_validated": true
   },
-  "events": []
+  "events": [
+    {
+      "event_id": "aliexpress_open_announcements-ca63206902cf::detail-1",
+      "content_hash": "c91102216eb92dddcda0a6aca58b35bd0b0fbf49e42e57d990a1c0dc8c676b3f",
+      "platform_code": "aliexpress",
+      "platform_label": "AliExpress",
+      "primary_tag_code": "api_technical",
+      "primary_tag_label": "API/技术",
+      "status": "actionable_today",
+      "ai_summary_zh": "11月23日更新的国别发品/上架合规手册将国家可售详情查询明确为GET aliexpress.product.country.status.detail，入参为channel_seller_id、lang和单个product_id。返回示例以product_country_status.tabs分组，包含在售、资质合规、卖家未申请、CRO合规和平台规则等状态，相关集成需核对查询调用与解析映射。手册仍列“1208”上线、“1229”完成开发及“0126”未完成时报错的安排，未注明这些节点年份，也未为本次查询说明修订另设生效日。",
+      "recommended_action": "在国家可售详情查询场景核对GET aliexpress.product.country.status.detail的单个product_id、lang及渠道卖家参数，适配product_country_status.tabs响应；向官方确认手册1208、1229、0126节点的适用年份与安排。",
+      "official_date": "2026-11-23",
+      "change_url": "https://open.aliexpress.com/announcement/index.htm#/announcement/detail?id=12491&entitle=%E5%9B%BD%E5%88%AB%E5%8F%91%E5%93%81%E3%80%81%E5%9B%BD%E5%88%AB%E4%B8%8A%E6%9E%B6%E5%90%88%E8%A7%84%E5%89%8D%E7%BD%AE%E9%A1%B9%E7%9B%AE-ISV%E6%8A%80%E6%9C%AF%E6%89%8B%E5%86%8C&queryid=129&cntitle=%E5%9B%BD%E5%88%AB%E5%8F%91%E5%93%81%E3%80%81%E5%9B%BD%E5%88%AB%E4%B8%8A%E6%9E%B6%E5%90%88%E8%A7%84%E5%89%8D%E7%BD%AE%E9%A1%B9%E7%9B%AE-ISV%E6%8A%80%E6%9C%AF%E6%89%8B%E5%86%8C"
+    },
+    {
+      "event_id": "temu_partner_docs-5d217589788f::detail-1",
+      "content_hash": "8931ba9abaa868633f49ceb41ba86d033eefc5b27b12583869dac628f0c2b377",
+      "platform_code": "temu",
+      "platform_label": "Temu",
+      "primary_tag_code": "api_technical",
+      "primary_tag_label": "API/技术",
+      "status": "changed_date_unresolved",
+      "ai_summary_zh": "本轮取得的temu.aftersales.returnaddress.get文档在权限包栏显示Aftersales Management，应用类型为private、public；该栏与前次留存的“No data”不同。该接口用于查询特定退货订单的敏感收货地址信息，接入方可据此核对权限配置。页面仍标注最后更新为2025年6月22日，未说明本次权限信息差异的发布日期或生效日。",
+      "recommended_action": "使用该退货地址查询接口的团队核对Aftersales Management权限及private/public应用类型，并通过官方权限详情确认当前授权配置。",
+      "official_date": "2025-06-22",
+      "change_url": "https://partner-us.temu.com/documentation?menu_code=fb16b05f7a904765aac4af3a24b87d4a&sub_menu_code=05d0a325704d4d538d708f3e256168e0"
+    },
+    {
+      "event_id": "ozon_seller_api_news-581cb6d051a6::detail-1",
+      "content_hash": "58eff8fb6f3793180849a10bfc713b135b5c9085f5f3a02d866fb212624f84da",
+      "platform_code": "ozon",
+      "platform_label": "Ozon",
+      "primary_tag_code": "api_technical",
+      "primary_tag_label": "API/技术",
+      "status": "actionable_today",
+      "ai_summary_zh": "Ozon公告称，部分方法响应中的total字段已弃用，应自2026年12月7日起改用total_items。读取这些响应总数的接口集成需要核对字段映射，并按新字段调整处理逻辑；公告正文未列出具体方法名称。",
+      "recommended_action": "排查读取相关响应total字段的调用，按2026年12月7日起使用total_items的要求调整字段映射，并查看公告所链接的具体说明。",
+      "official_date": "2026-11-23",
+      "change_url": "https://t.me/OzonSellerAPI/736"
+    },
+    {
+      "event_id": "ozon_seller_api_news-581cb6d051a6::detail-2",
+      "content_hash": "0b87380e8d1090f60174e5996128212eba3fae21e08a805f1ee4f6b5db1f58a4",
+      "platform_code": "ozon",
+      "platform_label": "Ozon",
+      "primary_tag_code": "api_technical",
+      "primary_tag_label": "API/技术",
+      "status": "actionable_today",
+      "ai_summary_zh": "Ozon发起关于Seller API文档使用体验和AI工具使用情况的问卷，并计划根据反馈改善文档与服务。开发者可反馈文档使用中的不便及AI辅助情况，问卷预计耗时3—5分钟，正文未注明提交截止日期。",
+      "recommended_action": "有意参与的开发者可填写问卷，反馈Seller API文档使用中的不便及AI工具使用情况。",
+      "official_date": "2026-11-23",
+      "change_url": "https://t.me/OzonSellerAPI/735"
+    },
+    {
+      "event_id": "ozon_seller_api_news-581cb6d051a6::detail-3",
+      "content_hash": "4fcdf454ce95ed2ac9e336f5520abf55b2b9984301264f6e7753645053e012ec",
+      "platform_code": "ozon",
+      "platform_label": "Ozon",
+      "primary_tag_code": "api_technical",
+      "primary_tag_label": "API/技术",
+      "status": "actionable_today",
+      "ai_summary_zh": "Ozon将于12月10日莫斯科时间16:00举办线上交流，介绍“企业服务”平台（原应用商店）更新，主题包括授权流程、Ozon聊天集成和服务卡片填写规则。相关服务开发团队可报名了解集成和上架准备事项；该日期是活动时间，正文未宣布这些主题的强制生效时间。",
+      "recommended_action": "有相关服务集成或上架需求的团队可通过公告链接报名，按12月10日16:00（莫斯科时间）安排参会。",
+      "official_date": "2026-11-23",
+      "change_url": "https://t.me/OzonSellerAPI/734"
+    },
+    {
+      "event_id": "shopify_developer_changelog-e7046f9ac559::detail-3",
+      "content_hash": "f501376cbe6c026bcb96a5d1682bd4d5a6eb5f9d31b868bb3fe5a722aac5cac2",
+      "platform_code": "shopify",
+      "platform_label": "Shopify",
+      "primary_tag_code": "api_technical",
+      "primary_tag_label": "API/技术",
+      "status": "actionable_today",
+      "ai_summary_zh": "Shopify于11月23日宣布，CLI 5.1新增可选的shopify app logs命令，可在终端查询应用历史日志、筛选记录并输出JSON，无需修改现有应用代码。日志最多回看7天，单次时间窗最长1天、最多返回1000条；需要使用个人用户账号登录，暂不支持CI/CD自动化令牌。新命令用于历史查询，开发时实时查看Function日志仍使用shopify app dev。",
+      "recommended_action": "需要终端历史日志查询的开发者可升级至Shopify CLI 5.1或更高版本，用个人账号登录后从应用目录运行shopify app logs；实时Function日志继续使用shopify app dev。",
+      "official_date": "2026-11-23",
+      "change_url": "https://shopify.dev/changelog/posts/query-your-app-s-logs-in-shopify-cli-with-shopify-app-logs"
+    }
+  ]
 }
