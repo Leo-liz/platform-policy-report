@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "run_id": "20261125-010053",
-  "report_date": "2026-11-24",
+  "run_id": "20261126-010133",
+  "report_date": "2026-11-25",
   "report_url": "https://leo-liz.github.io/platform-policy-report/reports/latest.html",
   "taxonomy_version": "2026-08-22",
-  "generated_at": "2026-11-25T01:13:21+08:00",
+  "generated_at": "2026-11-26T01:17:42+08:00",
   "ai": {
     "provider": "codex_builtin_postprocess",
     "model": "current_codex_thread",
@@ -13,43 +13,56 @@
   },
   "events": [
     {
-      "event_id": "shopee_open_platform_announcements-1a501c44cc63::detail-1",
-      "content_hash": "7a0415f16ea434a270e95e487254e70ea641c50768a4d717b4da8b6bb4c19648",
+      "event_id": "shopee_open_platform_announcements-40226e638e90::detail-1",
+      "content_hash": "f3e700cf95fd6267d4ccaa6ee3726d6d49f7befada3602171c59cb2a12e8f54b",
       "platform_code": "shopee",
       "platform_label": "Shopee",
-      "primary_tag_code": "api_technical",
-      "primary_tag_label": "API/技术",
+      "primary_tag_code": "finance_settlement",
+      "primary_tag_label": "财务/结算",
       "status": "actionable_today",
-      "ai_summary_zh": "Shopee巴西站11月24日更新开发者接入指南，汇总应用分类权限、Chat API、敏感数据/IP白名单、Sandbox、授权和Partner Key流程，强调权限按创建时的应用类别确定，平台不单独开通接口或追加权限。指南重申，独立开发者及Third-party Partner平台的新Chat应用申请自2024年11月18日起关闭，卖家申请需经RM处理，这不是本轮新增禁令。授权链接签名有效5分钟、授权码10分钟、access_token 4小时、refresh_token 30天；Sandbox并不完整复现生产环境。Partner Key有效180天，过期不会自动重置；重置后新密钥立即生效，旧密钥可设最长72小时过渡，店铺授权无需因此重新申请。",
-      "recommended_action": "接入或排障时先核对应用类别、API权限、敏感数据白名单及授权有效期；Partner Key重置由开发者在Console操作，可按需设置最长72小时的旧密钥过渡，无需仅因重置密钥要求卖家重新授权。",
-      "official_date": "2026-11-24",
-      "change_url": "https://open.shopee.com/announcements/1650?category=55&is_top=false"
+      "ai_summary_zh": "Shopee巴西站因黑五将FBS税务单据API新规则的生效日从2026年11月30日延期至12月14日，说明本次仅调整日期，规则内容保持不变。相关集成仍需为v2.order.generate_fbs_invoices传入与卖家注册分支关联的单个CNPJ，查询作废发票时显式传document_status=3，并适配document_type及结果文件名{CNPJ}FULLInvoiceXML{index_file}.zip。v2.order.get_fbs_invoices_result和fbs_br_invoice_issued_push也受影响，download_fbs_invoices行为不变，应按12月14日实施安排完成兼容核对。正文对API列13种、推送列12种单据类型的表述不一致，具体枚举需对照更新文档确认。",
+      "recommended_action": "按12月14日实施安排，复核CNPJ必填且每次仅关联一个注册分支、document_status=3筛选、document_type及文件名处理；对推送类型数量的矛盾，进一步核对更新的官方API文档。",
+      "official_date": "2026-11-25",
+      "change_url": "https://open.shopee.com/announcements/1653?category=55&is_top=false"
     },
     {
-      "event_id": "ozon_seller_api_news-068f5e84bfbd::detail-1",
-      "content_hash": "922b1c92d010f8280ad6279dbb2de8a039209cd70040273ec655df915f6265f5",
-      "platform_code": "ozon",
-      "platform_label": "Ozon",
-      "primary_tag_code": "api_technical",
-      "primary_tag_label": "API/技术",
-      "status": "actionable_today",
-      "ai_summary_zh": "Ozon本轮公告正文标注2026年11月23日，明确将于12月7日停用/v3/product/list响应中的result.total，以及/v4/product/info/stocks、/v5/product/info/prices响应中的total，分别改读result.total_items和total_items。FBO列表/v3/posting/fbo/list新增postings.is_extra_packed、postings.is_sealed，FBO详情/v2/posting/fbo/get新增result.is_extra_packed、result.is_sealed。相关集成需按接口分别调整总数字段映射，并核对新增响应标志字段。",
-      "recommended_action": "在2026年12月7日前，将3个方法的旧总数字段读取切换至对应的total_items路径；检查FBO列表和详情新增的is_extra_packed、is_sealed字段对现有响应解析的影响。",
+      "event_id": "mercadolibre_global_selling_docs-971e3233785b::detail-1",
+      "content_hash": "20d373c65bc51309f85a8907b474da722f0c5df936f12f264c7cf987bd8a2f35",
+      "platform_code": "mercadolibre",
+      "platform_label": "Mercado Libre",
+      "primary_tag_code": "listing_product",
+      "primary_tag_label": "刊登/商品",
+      "status": "actionable_late_discovery",
+      "ai_summary_zh": "Mercado Libre于11月24日更新价格自动化文档：从2026年12月24日起，启用Price Automation的商品通过/global/items接口修改价格将被阻止。仅含price的请求对传统商品和User Product商品均返回400并整体拒绝；混合更新时，传统商品的其他属性也不更新，而User Product商品仍可更新其他属性。文档新增按卖家分页查询自动化商品的GET接口（每次最多100条），并新增通过/global/user-products端点，按同一Merchant和同一Siteless User Product批量更新既有自动化规则及价格上下限的PUT流程。相关集成应先识别自动化商品，再区分价格、普通属性及自动化配置的更新路径，并按各条目返回结果核对执行情况。",
+      "recommended_action": "在12月24日前核对自动化商品的价格更新请求及传统商品/User Product的混合更新行为；如使用新的UP自动化配置流程，仅合并同一Merchant和同一Siteless User Product的既有刊登，提供规则及必填价格上下限，并逐项核对响应。",
       "official_date": "2026-11-24",
-      "change_url": "https://t.me/OzonSellerAPI/737"
+      "change_url": "https://global-selling.mercadolibre.com/devsite/manage-automations"
     },
     {
-      "event_id": "wildberries_release_notes-f13fc7979b72::detail-1",
-      "content_hash": "10cfdbfe9ebf669262bc5c49f69280b45280f2de8d5912091e26f497679a1c20",
+      "event_id": "temu_partner_docs-d5ad32446770::detail-1",
+      "content_hash": "b7991b40b2e6502389d99b5a6f52fdd092c2701506038fb1744382ca007c99f7",
+      "platform_code": "temu",
+      "platform_label": "Temu",
+      "primary_tag_code": "listing_product",
+      "primary_tag_label": "刊登/商品",
+      "status": "actionable_late_discovery",
+      "ai_summary_zh": "本轮取得的bg.local.goods.add文档标注最后更新为2026年11月24日，错误码表新增150011132，提示该商品存在重复项，原文使用{*}占位符。使用该商品新增接口的系统可据此识别重复项错误并展示返回消息，正文未说明占位符对应哪一个具体字段，也未给出该错误码另行生效时间。",
+      "recommended_action": "使用bg.local.goods.add的集成可在异常映射中识别150011132，并依据实际返回的重复提示定位问题项、核对后处理。",
+      "official_date": "2026-11-24",
+      "change_url": "https://partner-us.temu.com/documentation?menu_code=fb16b05f7a904765aac4af3a24b87d4a&sub_menu_code=645953235e964a23a0320b249ba865af"
+    },
+    {
+      "event_id": "wildberries_release_notes-deb7112cf804::detail-1",
+      "content_hash": "89c1c15333f41667751e7e27f4b23514c02fe2780853e2fbad9a2e5aea0aa04d",
       "platform_code": "wildberries",
       "platform_label": "Wildberries",
-      "primary_tag_code": "order",
-      "primary_tag_label": "订单",
+      "primary_tag_code": "logistics_fulfillment",
+      "primary_tag_label": "物流/履约",
       "status": "actionable_today",
-      "ai_summary_zh": "Wildberries公告，自11月24日起调整Order Feed行中的WB仓库显示方式，相关字段清单见官方Release Notes。使用该订单数据流的报表或集成需要对照字段清单核对仓库信息的展示与解析，公告正文未列出具体字段名称。",
-      "recommended_action": "对照官方Release Notes的字段清单，检查Order Feed相关报表及集成的WB仓库信息展示与解析；如有疑问，可向WB API Community反馈。",
-      "official_date": "2026-11-24",
-      "change_url": "https://t.me/wb_api_notifications/502"
+      "ai_summary_zh": "Wildberries公告，在供货信息API响应中新增correctedQuantity字段，表示《调整凭证》记载的商品数量。GET /api/v1/supplies/{ID}/goods在商品验收发现差异时返回该字段，GET /api/v1/supplies/{ID}在整批供货验收发现差异时返回，相关集成需按验收差异场景核对字段使用。公告正文未给出独立的生效日期。",
+      "recommended_action": "如需使用验收调整数量，在两个方法中按各自的差异场景读取correctedQuantity，并核对字段缺省处理及调整凭证数量口径。",
+      "official_date": "2026-11-25",
+      "change_url": "https://t.me/wb_api_notifications/503"
     }
   ]
 }
