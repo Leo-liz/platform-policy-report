@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "run_id": "20261127-010258",
-  "report_date": "2026-11-26",
+  "run_id": "20261128-010159",
+  "report_date": "2026-11-27",
   "report_url": "https://leo-liz.github.io/platform-policy-report/reports/latest.html",
   "taxonomy_version": "2026-08-22",
-  "generated_at": "2026-11-27T09:21:28+08:00",
+  "generated_at": "2026-11-28T01:11:31+08:00",
   "ai": {
     "provider": "codex_builtin_postprocess",
     "model": "current_codex_thread",
@@ -13,43 +13,43 @@
   },
   "events": [
     {
-      "event_id": "shopee_open_platform_announcements-d560edd52676::detail-1",
-      "content_hash": "d0b66f2646f70198aa99a8d6687abd5a0f923b3b8d591e04c5addcc4c9936734",
+      "event_id": "shopee_open_platform_announcements-d65b711ed3fd::detail-1",
+      "content_hash": "bac18993b12b6dfd8b88bcf0ddd715e7eb359fa9a2f8f7ea1ff69691c22fa07f",
       "platform_code": "shopee",
       "platform_label": "Shopee",
-      "primary_tag_code": "finance_settlement",
-      "primary_tag_label": "财务/结算",
-      "status": "actionable_today",
-      "ai_summary_zh": "Shopee宣布，经此前延期的巴西NF-e发票indPres校验将于2027年1月18日生效，并调整为XML缺失该字段时正常放行。字段已填写时仅接受2（互联网非现场交易）或9（其他非现场交易），其他值会在送往SEFAZ前被OpenAPI拒绝，upload_invoice_doc返回error_param。通过OpenAPI提交NF-e的集成需据此核对开票系统、ERP或税务服务商配置，被拒后应在开票系统修正XML再上传。",
-      "recommended_action": "在2027年1月18日前核对NF-e提交链路：缺失indPres时允许正常提交；字段有值时使用2或9，验证其他值返回error_param，并在开票系统修正后重新上传XML。",
-      "official_date": "2026-11-26",
-      "change_url": "https://open.shopee.com/announcements/1654?category=55&is_top=false"
-    },
-    {
-      "event_id": "mercadolibre_global_selling_docs-a3fd66bfa48d::detail-1",
-      "content_hash": "33b0a548ce2709300fd72edfb40b010e16ca7ba7b7191065445561b13231096d",
-      "platform_code": "mercadolibre",
-      "platform_label": "Mercado Libre",
-      "primary_tag_code": "listing_product",
-      "primary_tag_label": "刊登/商品",
-      "status": "actionable_late_discovery",
-      "ai_summary_zh": "Mercado Libre在2026年11月25日更新类目预测文档，强化了标题与商品主图picture_id一起提供的建议，以提高类目预测效果。参数表仍将picture_id列为非必填；有主图时可与标题一并提交，没有图片时应省略该参数，不能传空值。相关刊登集成可据此核对主图传参方式，正文未列独立生效日。",
-      "recommended_action": "核对类目预测请求：有商品主图时考虑与标题一并传入picture_id；无图时省略picture_id，避免传空值。",
-      "official_date": "2026-11-25",
-      "change_url": "https://global-selling.mercadolibre.com/devsite/category-predictor"
-    },
-    {
-      "event_id": "ozon_seller_api_news-41e95b437d4f::detail-1",
-      "content_hash": "47e0f25c4866e91ecd9ee9b9bc79bd16e2ecff7b3709e3415b53e4bada3f686e",
-      "platform_code": "ozon",
-      "platform_label": "Ozon",
       "primary_tag_code": "api_technical",
       "primary_tag_label": "API/技术",
       "status": "actionable_today",
-      "ai_summary_zh": "Ozon更新/v1/finance/accrual/postings和/v1/finance/accrual/by-day的方法说明，并补充/v1/carriage/container/fill的CARGO_OVH_EXCEEDED、POSTING_IS_ALREADY_IN_ANOTHER_CONTAINER，以及/v1/product/prices/details的no access to this method错误说明。使用这些接口的集成需据此核对财务接口文档及错误诊断口径。正文标注2026年11月25日，消息按北京时间计在11月26日发布，未列独立生效日。",
-      "recommended_action": "核对两个财务接口的更新说明，以及装箱接口和价格详情接口新增列明的错误说明，完善对应错误的排查记录。",
-      "official_date": "2026-11-26",
-      "change_url": "https://t.me/OzonSellerAPI/738"
+      "ai_summary_zh": "Shopee 在 2026 年 11 月 27 日更新公告，说明马来西亚白名单 FBS 店铺自 11 月 20 日起可从订单和包裹详情读取商品 IMEI，越南即时单已支持异常自动重试，并通过包裹详情和推送同步更新后的取件时间。印尼、菲律宾、越南的白名单卖家已可查询和修改商品级 Special SPayLater 设置，必须遵守接口返回的权限及可选期数。新加坡适用商品的 BCRS 退出白名单截至 10 月 31 日，无退出权限时提交 BCRS No 会被拒绝，价格与库存仍可正常更新。阿根廷本地商品新增增值税率字段，单品新增和更新时缺失或无效会报 VAT_RATE_INVALID，批量新建在启用强制校验时也须逐项填报，提交价格应已含税。",
+      "recommended_action": "按站点核对适用店铺，分别测试订单详情的 IMEI 缺省与空数组、越南取件时间推送、商品级分期权限、新加坡 BCRS 选项和阿根廷含税价格及税率字段校验。",
+      "official_date": "2026-11-27",
+      "change_url": "https://open.shopee.com/announcements/1657?category=55&is_top=false"
+    },
+    {
+      "event_id": "lazada_open_platform_announcements-439ff08f82d6::detail-1",
+      "content_hash": "b0133b4d179f284d1c7d88c920530feeab857acaa57952c57a50148e2179436a",
+      "platform_code": "lazada",
+      "platform_label": "Lazada",
+      "primary_tag_code": "listing_product",
+      "primary_tag_label": "刊登/商品",
+      "status": "actionable_today",
+      "ai_summary_zh": "Lazada 公告称，为保证双 12 活动期间稳定性，将按站点在指定时段临时停用面向所有卖家及商品的 ASC 改价、更新可售库存、商品与 SKU 增删改、图片和尺码表等接口，但调整可售库存的 /product/stock/sellable/adjust 仍可用。按 UTC+8，马来西亚另有 12 月 8 日 19:30–20:30 的窗口，SG/MY/PH 的两个窗口为 12 月 11 日 19:30–20:30 和 23:30 至 12 日 00:30，TH/VN/ID 则为 12 月 11 日 20:30–21:30 和 12 日 00:30–01:30。所有站点的全球商品创建接口在 12 月 11 日 19:30 至 12 日 01:30 暂停。六站在 12 月 7 日 00:00 至 12 日 23:59:59 期间批准的品牌，须在限制期结束后才能查询和使用。",
+      "recommended_action": "按站点为批量商品、价格与库存任务避开对应停用时段，核对仍可调用的可售库存调整接口，并把全球商品创建与新获批品牌使用安排到相应限制结束后。",
+      "official_date": "2026-11-27",
+      "change_url": "https://open.lazada.com/apps/announcement/detail?docId=305528"
+    },
+    {
+      "event_id": "shopify_developer_changelog-81e8d5f1c411::detail-3",
+      "content_hash": "8a8dcbd6377d589d375b8f3bbc0e715447807c2c7c9407c65e9a91bd94ad36d9",
+      "platform_code": "shopify",
+      "platform_label": "Shopify",
+      "primary_tag_code": "inventory",
+      "primary_tag_label": "库存",
+      "status": "actionable_today",
+      "ai_summary_zh": "Shopify 在 2026 年 11 月 27 日说明，Storefront API 2027-01 为 ProductVariant.storeAvailability 增加两个可选参数，可查询顾客可到店购买的实体门店，原有查询默认仍只返回支持自提的地点。设置 physicalStorefront: true 可纳入符合条件的实体门店，两个参数按或条件组合，返回结果新增 pickUpEnabled 和 physicalStorefront 字段以区分地点能力。仅支持到店购物的地点在闭店或缺货且不允许无库存销售时不会返回，支持自提的地点缺货时仍可返回并标记不可用。",
+      "recommended_action": "现有自提查询可继续使用，需要展示实体门店时在 2027-01 版本查询中加入 physicalStorefront: true，并根据响应的两个类型字段和 available 展示门店及库存状态。",
+      "official_date": "2026-11-27",
+      "change_url": "https://shopify.dev/changelog/posts/storefront-api-2027-01-ask-storeavailability-for-physical-storefronts-with-physicalstorefront-true"
     }
   ]
 }
