@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "run_id": "20261126-010133",
-  "report_date": "2026-11-25",
+  "run_id": "20261127-010258",
+  "report_date": "2026-11-26",
   "report_url": "https://leo-liz.github.io/platform-policy-report/reports/latest.html",
   "taxonomy_version": "2026-08-22",
-  "generated_at": "2026-11-26T01:17:42+08:00",
+  "generated_at": "2026-11-27T09:21:28+08:00",
   "ai": {
     "provider": "codex_builtin_postprocess",
     "model": "current_codex_thread",
@@ -13,56 +13,43 @@
   },
   "events": [
     {
-      "event_id": "shopee_open_platform_announcements-40226e638e90::detail-1",
-      "content_hash": "f3e700cf95fd6267d4ccaa6ee3726d6d49f7befada3602171c59cb2a12e8f54b",
+      "event_id": "shopee_open_platform_announcements-d560edd52676::detail-1",
+      "content_hash": "d0b66f2646f70198aa99a8d6687abd5a0f923b3b8d591e04c5addcc4c9936734",
       "platform_code": "shopee",
       "platform_label": "Shopee",
       "primary_tag_code": "finance_settlement",
       "primary_tag_label": "财务/结算",
       "status": "actionable_today",
-      "ai_summary_zh": "Shopee巴西站因黑五将FBS税务单据API新规则的生效日从2026年11月30日延期至12月14日，说明本次仅调整日期，规则内容保持不变。相关集成仍需为v2.order.generate_fbs_invoices传入与卖家注册分支关联的单个CNPJ，查询作废发票时显式传document_status=3，并适配document_type及结果文件名{CNPJ}FULLInvoiceXML{index_file}.zip。v2.order.get_fbs_invoices_result和fbs_br_invoice_issued_push也受影响，download_fbs_invoices行为不变，应按12月14日实施安排完成兼容核对。正文对API列13种、推送列12种单据类型的表述不一致，具体枚举需对照更新文档确认。",
-      "recommended_action": "按12月14日实施安排，复核CNPJ必填且每次仅关联一个注册分支、document_status=3筛选、document_type及文件名处理；对推送类型数量的矛盾，进一步核对更新的官方API文档。",
-      "official_date": "2026-11-25",
-      "change_url": "https://open.shopee.com/announcements/1653?category=55&is_top=false"
+      "ai_summary_zh": "Shopee宣布，经此前延期的巴西NF-e发票indPres校验将于2027年1月18日生效，并调整为XML缺失该字段时正常放行。字段已填写时仅接受2（互联网非现场交易）或9（其他非现场交易），其他值会在送往SEFAZ前被OpenAPI拒绝，upload_invoice_doc返回error_param。通过OpenAPI提交NF-e的集成需据此核对开票系统、ERP或税务服务商配置，被拒后应在开票系统修正XML再上传。",
+      "recommended_action": "在2027年1月18日前核对NF-e提交链路：缺失indPres时允许正常提交；字段有值时使用2或9，验证其他值返回error_param，并在开票系统修正后重新上传XML。",
+      "official_date": "2026-11-26",
+      "change_url": "https://open.shopee.com/announcements/1654?category=55&is_top=false"
     },
     {
-      "event_id": "mercadolibre_global_selling_docs-971e3233785b::detail-1",
-      "content_hash": "20d373c65bc51309f85a8907b474da722f0c5df936f12f264c7cf987bd8a2f35",
+      "event_id": "mercadolibre_global_selling_docs-a3fd66bfa48d::detail-1",
+      "content_hash": "33b0a548ce2709300fd72edfb40b010e16ca7ba7b7191065445561b13231096d",
       "platform_code": "mercadolibre",
       "platform_label": "Mercado Libre",
       "primary_tag_code": "listing_product",
       "primary_tag_label": "刊登/商品",
       "status": "actionable_late_discovery",
-      "ai_summary_zh": "Mercado Libre于11月24日更新价格自动化文档：从2026年12月24日起，启用Price Automation的商品通过/global/items接口修改价格将被阻止。仅含price的请求对传统商品和User Product商品均返回400并整体拒绝；混合更新时，传统商品的其他属性也不更新，而User Product商品仍可更新其他属性。文档新增按卖家分页查询自动化商品的GET接口（每次最多100条），并新增通过/global/user-products端点，按同一Merchant和同一Siteless User Product批量更新既有自动化规则及价格上下限的PUT流程。相关集成应先识别自动化商品，再区分价格、普通属性及自动化配置的更新路径，并按各条目返回结果核对执行情况。",
-      "recommended_action": "在12月24日前核对自动化商品的价格更新请求及传统商品/User Product的混合更新行为；如使用新的UP自动化配置流程，仅合并同一Merchant和同一Siteless User Product的既有刊登，提供规则及必填价格上下限，并逐项核对响应。",
-      "official_date": "2026-11-24",
-      "change_url": "https://global-selling.mercadolibre.com/devsite/manage-automations"
-    },
-    {
-      "event_id": "temu_partner_docs-d5ad32446770::detail-1",
-      "content_hash": "b7991b40b2e6502389d99b5a6f52fdd092c2701506038fb1744382ca007c99f7",
-      "platform_code": "temu",
-      "platform_label": "Temu",
-      "primary_tag_code": "listing_product",
-      "primary_tag_label": "刊登/商品",
-      "status": "actionable_late_discovery",
-      "ai_summary_zh": "本轮取得的bg.local.goods.add文档标注最后更新为2026年11月24日，错误码表新增150011132，提示该商品存在重复项，原文使用{*}占位符。使用该商品新增接口的系统可据此识别重复项错误并展示返回消息，正文未说明占位符对应哪一个具体字段，也未给出该错误码另行生效时间。",
-      "recommended_action": "使用bg.local.goods.add的集成可在异常映射中识别150011132，并依据实际返回的重复提示定位问题项、核对后处理。",
-      "official_date": "2026-11-24",
-      "change_url": "https://partner-us.temu.com/documentation?menu_code=fb16b05f7a904765aac4af3a24b87d4a&sub_menu_code=645953235e964a23a0320b249ba865af"
-    },
-    {
-      "event_id": "wildberries_release_notes-deb7112cf804::detail-1",
-      "content_hash": "89c1c15333f41667751e7e27f4b23514c02fe2780853e2fbad9a2e5aea0aa04d",
-      "platform_code": "wildberries",
-      "platform_label": "Wildberries",
-      "primary_tag_code": "logistics_fulfillment",
-      "primary_tag_label": "物流/履约",
-      "status": "actionable_today",
-      "ai_summary_zh": "Wildberries公告，在供货信息API响应中新增correctedQuantity字段，表示《调整凭证》记载的商品数量。GET /api/v1/supplies/{ID}/goods在商品验收发现差异时返回该字段，GET /api/v1/supplies/{ID}在整批供货验收发现差异时返回，相关集成需按验收差异场景核对字段使用。公告正文未给出独立的生效日期。",
-      "recommended_action": "如需使用验收调整数量，在两个方法中按各自的差异场景读取correctedQuantity，并核对字段缺省处理及调整凭证数量口径。",
+      "ai_summary_zh": "Mercado Libre在2026年11月25日更新类目预测文档，强化了标题与商品主图picture_id一起提供的建议，以提高类目预测效果。参数表仍将picture_id列为非必填；有主图时可与标题一并提交，没有图片时应省略该参数，不能传空值。相关刊登集成可据此核对主图传参方式，正文未列独立生效日。",
+      "recommended_action": "核对类目预测请求：有商品主图时考虑与标题一并传入picture_id；无图时省略picture_id，避免传空值。",
       "official_date": "2026-11-25",
-      "change_url": "https://t.me/wb_api_notifications/503"
+      "change_url": "https://global-selling.mercadolibre.com/devsite/category-predictor"
+    },
+    {
+      "event_id": "ozon_seller_api_news-41e95b437d4f::detail-1",
+      "content_hash": "47e0f25c4866e91ecd9ee9b9bc79bd16e2ecff7b3709e3415b53e4bada3f686e",
+      "platform_code": "ozon",
+      "platform_label": "Ozon",
+      "primary_tag_code": "api_technical",
+      "primary_tag_label": "API/技术",
+      "status": "actionable_today",
+      "ai_summary_zh": "Ozon更新/v1/finance/accrual/postings和/v1/finance/accrual/by-day的方法说明，并补充/v1/carriage/container/fill的CARGO_OVH_EXCEEDED、POSTING_IS_ALREADY_IN_ANOTHER_CONTAINER，以及/v1/product/prices/details的no access to this method错误说明。使用这些接口的集成需据此核对财务接口文档及错误诊断口径。正文标注2026年11月25日，消息按北京时间计在11月26日发布，未列独立生效日。",
+      "recommended_action": "核对两个财务接口的更新说明，以及装箱接口和价格详情接口新增列明的错误说明，完善对应错误的排查记录。",
+      "official_date": "2026-11-26",
+      "change_url": "https://t.me/OzonSellerAPI/738"
     }
   ]
 }
